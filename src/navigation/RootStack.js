@@ -6,6 +6,7 @@ import BottomTabNavigation from './BottomTabNavigation';
 import {navigate} from './RootNavigation';
 import {routes} from './routes';
 import {auth} from '../screens/Auth';
+import {product} from '@screens/Product';
 const Stack = createStackNavigator();
 const RootStack = () => {
   return (
@@ -30,6 +31,10 @@ const RootStack = () => {
         <Stack.Screen
           name={routes.BOTTOMTABBAR}
           component={BottomTabNavigation}
+        />
+        <Stack.Screen
+          name={routes.DETAILSCREENS}
+          component={product.DETAILSCREENS}
         />
       </Stack.Navigator>
     </NavigationContainer>
