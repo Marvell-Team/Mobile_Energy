@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     width: getSize.s(22),
     height: getSize.s(22),
     resizeMode: 'contain',
-    tintColor: isFocused ? theme.colors.blue : theme.colors.lightGray,
+    tintColor: isFocused ? theme.colors.primary : theme.colors.gray,
   }),
   container: {
     position: 'relative',
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 27,
-    backgroundColor: theme.colors.blue,
+    backgroundColor: theme.colors.primary,
   },
   buttonCommon: {
     height: 48,

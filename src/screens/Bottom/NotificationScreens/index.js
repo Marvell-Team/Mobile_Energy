@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ToastAndroid, StatusBar} from 'react-native';
+import {ToastAndroid} from 'react-native';
 import {icons} from '@assets';
 import {Block, Header, VerticalList} from '@components';
 import styles from './style';
@@ -95,11 +95,6 @@ const NotificationScreens = () => {
   console.log(data);
   return (
     <Block flex style={styles.container}>
-      <StatusBar
-        translucent
-        barStyle="light-content"
-        backgroundColor={'#46B3F6'}
-      />
       <Header title="THÔNG BÁO" />
       <VerticalList data={data} />
     </Block>

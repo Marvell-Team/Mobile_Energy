@@ -54,8 +54,6 @@ export default StyleSheet.create({
     backgroundColor: theme.colors.white,
     paddingVertical: 20,
     borderRadius: 10,
-    borderWidth: 1,
-    borderColor: theme.colors.primary,
     marginTop: height * 0.02,
   },
   numBer: {

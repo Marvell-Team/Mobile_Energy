@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, ToastAndroid, ScrollView} from 'react-native';
+import {View, ToastAndroid, ScrollView, StatusBar} from 'react-native';
 import styles from './style';
 import {icons} from '@assets';
 import {routes} from '../../../navigation/routes.js';
@@ -16,6 +16,10 @@ const LoginScreens = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const _login = () => {
+    navigation.navigate(routes.BOTTOMTABBAR);
+  };
   return (
     <Block flex paddingHorizontal={12} style={styles.container}>
       <ScrollView indicatorStyle={'white'}>
@@ -46,10 +50,7 @@ const LoginScreens = () => {
         <Button
           shadow
           title="ĐĂNG NHẬP"
-          onPressOut={() => {
-            console.log('Hello'),
-              ToastAndroid.show('Hello', ToastAndroid.SHORT);
-          }}
+          onPress={() => _login()}
           style={styles.button}
           titleStyle={styles.textBtn}
         />

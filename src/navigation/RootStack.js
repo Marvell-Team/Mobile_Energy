@@ -12,8 +12,8 @@ const RootStack = () => {
     <NavigationContainer ref={navigate}>
       <StatusBar
         translucent
-        barStyle="dark-content"
-        backgroundColor={'transparent'}
+        barStyle="light-content"
+        backgroundColor={'#46B3F6'}
       />
       <Stack.Navigator
         presentation="modal"

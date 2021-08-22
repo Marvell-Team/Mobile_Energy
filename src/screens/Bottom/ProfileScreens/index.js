@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ToastAndroid, ScrollView, StatusBar} from 'react-native';
+import {ToastAndroid, ScrollView} from 'react-native';
 import {icons} from '@assets';
 import {Block, Header, Thumbnail, Button, Text} from '@components';
 import styles from './style';
@@ -10,11 +10,6 @@ const ProfileScreens = () => {
   );
   return (
     <Block flex style={styles.container}>
-      <StatusBar
-        translucent
-        barStyle="light-content"
-        backgroundColor={'#46B3F6'}
-      />
       <Header iconLeft={icons.back} iconRight={icons.more} />
       <Block paddingTop={5} paddingHorizontal={8} style={styles.viewInfo}>
         <Block row>
@@ -32,7 +27,7 @@ const ProfileScreens = () => {
             <Button title="Thay đổi" style={styles.changeBtn} />
           </Block>
         </Block>
-        <Block row alignCenter justifyCenter style={styles.viewMiddle}>
+        <Block row shadow alignCenter justifyCenter style={styles.viewMiddle}>
           <Block marginHorizontal={12} alignCenter>
             <Text style={styles.numBer}>1,234</Text>
             <Text style={styles.category}>Bài đăng</Text>
@@ -49,6 +44,7 @@ const ProfileScreens = () => {
           </Block>
         </Block>
       </Block>
+      <Text>Bài đăng</Text>
     </Block>
   );
 };
