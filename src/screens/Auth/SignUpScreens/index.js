@@ -19,7 +19,7 @@ const SignUpScreens = () => {
       <ScrollView indicatorStyle={'white'}>
         <Thumbnail source={icons.logo} style={styles.thumb} />
         <Text style={styles.txtTitle}>Tạo tài khoản</Text>
-        
+
         <TextInput
           iconleft={icons.user}
           placeholder="Nhập họ tên"
@@ -49,7 +49,7 @@ const SignUpScreens = () => {
           style={styles.button}
           titleStyle={styles.textBtn}
         />
-       
+
         <PressText
           title="ĐÃ CÓ TÀI KHOẢN? ĐĂNG NHẬP NGAY!"
           onPressOut={() => {

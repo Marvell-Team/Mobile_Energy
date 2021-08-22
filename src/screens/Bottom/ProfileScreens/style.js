@@ -52,33 +52,40 @@ export default StyleSheet.create({
   },
   viewMiddle: {
     backgroundColor: theme.colors.white,
-    paddingVertical: 16,
+    paddingVertical: 20,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: theme.colors.primary,
+    marginTop: height * 0.02,
   },
-  // numBer: {
-  //   color: theme.colors.black,
-  //   fontWeight: 'bold',
-  //   fontSize: 20,
-  // },
-  // category: {
-  //   color: theme.colors.placeholder,
-  //   fontSize: 18,
-  // },
-  // followBtn: {
-  //   backgroundColor: theme.colors.primary,
-  //   marginHorizontal: 5,
-  // },
-  // linkInfo: {
-  //   color: theme.colors.gray,
-  //   marginVertical: 1,
-  //   marginHorizontal: 16,
-  //   fontSize: 16,
-  // },
-  // txtDesc: {
-  //   marginVertical: 2,
-  //   marginHorizontal: 16,
-  //   fontSize: 16,
-  // },
+  numBer: {
+    color: theme.colors.black,
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  category: {
+    color: theme.colors.lightGray,
+    fontSize: 18,
+  },
+  followBtn: {
+    backgroundColor: theme.colors.primary,
+    marginHorizontal: 5,
+  },
+  linkInfo: {
+    color: theme.colors.gray,
+    marginVertical: 1,
+    marginHorizontal: 16,
+    fontSize: 16,
+  },
+  txtDesc: {
+    marginVertical: 2,
+    marginHorizontal: 16,
+    fontSize: 16,
+  },
+  line: {
+    height: '80%',
+    borderWidth: 1,
+    borderColor: theme.colors.lightGray,
+    marginHorizontal: 5,
+  },
 });

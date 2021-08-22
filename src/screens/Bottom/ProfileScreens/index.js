@@ -35,15 +35,17 @@ const ProfileScreens = () => {
         <Block row alignCenter justifyCenter style={styles.viewMiddle}>
           <Block marginHorizontal={12} alignCenter>
             <Text style={styles.numBer}>1,234</Text>
-            <Text style={styles.category}>Post</Text>
+            <Text style={styles.category}>Bài đăng</Text>
           </Block>
-          <Block marginHorizontal={12} alignCenter>
-            <Text style={styles.numBer}>1</Text>
-            <Text style={styles.category}>Followers</Text>
-          </Block>
+          <Block style={styles.line} />
           <Block marginHorizontal={12} alignCenter>
             <Text style={styles.numBer}>6,789</Text>
-            <Text style={styles.category}>Following</Text>
+            <Text style={styles.category}>Hàng bán ra</Text>
+          </Block>
+          <Block style={styles.line} />
+          <Block marginHorizontal={12} alignCenter>
+            <Text style={styles.numBer}>3.6</Text>
+            <Text style={styles.category}>Đánh giá</Text>
           </Block>
         </Block>
       </Block>

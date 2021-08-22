@@ -23,4 +23,5 @@ export const icons = {
   graymore: require('./icons/graymore.png'),
   email: require('./icons/email.png'),
   dashboard: require('./icons/dashboard.png'),
+  wadd: require('./icons/wadd.png'),
 };
