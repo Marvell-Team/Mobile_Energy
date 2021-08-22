@@ -10,7 +10,7 @@ import {
   Thumbnail,
   PressText,
 } from '@components';
-const RegisterScreens = () => {
+const SignUpScreens = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
@@ -22,7 +22,7 @@ const RegisterScreens = () => {
         
         <TextInput
           iconleft={icons.user}
-          placeholder="Input fucking your name..."
+          placeholder="Nhập họ tên"
           setValue={setUsername}
           style={styles.input}
         />
@@ -49,7 +49,7 @@ const RegisterScreens = () => {
           style={styles.button}
           titleStyle={styles.textBtn}
         />
-        <Text style={styles.txtOR}>OR</Text>
+       
         <PressText
           title="ĐÃ CÓ TÀI KHOẢN? ĐĂNG NHẬP NGAY!"
           onPressOut={() => {
@@ -64,4 +64,4 @@ const RegisterScreens = () => {
   );
 };
 
-export default LoginScreens;
+export default SignUpScreens;

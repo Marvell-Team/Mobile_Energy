@@ -17,7 +17,7 @@ const RootStack = () => {
       />
       <Stack.Navigator
         presentation="modal"
-        initialRouteName={routes.BOTTOMTABBAR}
+        initialRouteName={routes.SIGNUPSCREENS}
         screenOptions={{headerShown: false}}>
         <Stack.Screen
           name={routes.LOGINSCREENS}

@@ -21,6 +21,6 @@ export const icons = {
   share: require('./icons/share.png'),
   avt: require('./icons/avt.jpg'),
   graymore: require('./icons/graymore.png'),
-  emai: require('./icons/email.png'),
+  email: require('./icons/email.png'),
   dashboard: require('./icons/dashboard.png'),
 };
