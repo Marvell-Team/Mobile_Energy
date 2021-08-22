@@ -21,10 +21,10 @@ const BottomTabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name={routes.CATEGORYSCREENS}
-        component={bottom.CATEGORYSCREENS}
+        name={routes.POSTSCREENS}
+        component={bottom.POSTSCREENS}
         options={{
-          tabBarLabel: 'Tin nhắn',
+          tabBarLabel: 'Bài đăng',
         }}
       />
       <Tab.Screen

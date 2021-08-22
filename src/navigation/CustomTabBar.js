@@ -28,9 +28,9 @@ function MyTabBar({state, descriptors, navigation}) {
           index === 0
             ? icons.home
             : index === 1
-            ? icons.bchat
+            ? icons.dashboard
             : index === 2
-            ? icons.comment
+            ? icons.bchat
             : index === 3
             ? icons.notification
             : icons.profile;
