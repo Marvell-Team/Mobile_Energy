@@ -22,7 +22,7 @@ const LoginScreens = () => {
         <Thumbnail source={icons.logo} style={styles.thumb} />
         <Text style={styles.txtTitle}>WELCOME BACK</Text>
         <TextInput
-          iconleft={icons.user}
+          iconleft={icons.email}
           placeholder="Nhập email..."
           setValue={setEmail}
           style={styles.input}

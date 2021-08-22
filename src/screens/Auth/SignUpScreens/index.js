@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {View, ToastAndroid, ScrollView} from 'react-native';
 import styles from './style';
 import {icons} from '@assets';
+import {useNavigation} from '@react-navigation/native';
+import {routes} from '../../../navigation/routes.js';
 import {
   Block,
   Button,
@@ -11,6 +13,7 @@ import {
   PressText,
 } from '@components';
 const SignUpScreens = () => {
+  const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
@@ -18,11 +21,11 @@ const SignUpScreens = () => {
     <Block flex paddingHorizontal={12} style={styles.container}>
       <ScrollView indicatorStyle={'white'}>
         <Thumbnail source={icons.logo} style={styles.thumb} />
-        <Text style={styles.txtTitle}>Tạo tài khoản</Text>
+        <Text style={styles.txtTitle}>TẠO TÀI KHOẢN</Text>
 
         <TextInput
           iconleft={icons.user}
-          placeholder="Nhập họ tên"
+          placeholder="Nhập họ tên..."
           setValue={setUsername}
           style={styles.input}
         />
@@ -51,11 +54,8 @@ const SignUpScreens = () => {
         />
 
         <PressText
-          title="ĐÃ CÓ TÀI KHOẢN? ĐĂNG NHẬP NGAY!"
-          onPressOut={() => {
-            console.log('Sign In'),
-              ToastAndroid.show('Sign In', ToastAndroid.SHORT);
-          }}
+          title="ĐÃ CÓ TÀI KHOẢN? ĐĂNG NHẬP"
+          onPress={() => navigation.navigate(routes.LOGINSCREENS)}
           style={styles.signUp}
           titleStyle={styles.txtSignUp}
         />
