@@ -31,7 +31,7 @@ export default StyleSheet.create({
     color: theme.colors.white,
     fontWeight: 'bold',
     marginVertical: 2,
-    fontSize: 17,
+    fontSize: 16,
   },
   txtEmail: {
     color: theme.colors.white,
@@ -48,22 +48,26 @@ export default StyleSheet.create({
     borderRadius: 45,
     borderWidth: 2,
     borderColor: theme.colors.white,
-    marginHorizontal: 8,
+    marginHorizontal: 5,
+  },
+  txtBtn: {
+    fontSize: 15,
   },
   viewMiddle: {
     backgroundColor: theme.colors.white,
     paddingVertical: 20,
     borderRadius: 10,
-    marginTop: height * 0.02,
+    marginHorizontal: 12,
+    marginTop: -height * 0.06,
   },
   numBer: {
     color: theme.colors.black,
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 17,
   },
   category: {
     color: theme.colors.lightGray,
-    fontSize: 18,
+    fontSize: 16,
   },
   followBtn: {
     backgroundColor: theme.colors.primary,
@@ -84,6 +88,13 @@ export default StyleSheet.create({
     height: '80%',
     borderWidth: 1,
     borderColor: theme.colors.lightGray,
-    marginHorizontal: 5,
+    marginHorizontal: 16,
+  },
+  titlePost: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: theme.colors.gray,
+    marginVertical: 12,
+    marginHorizontal: 12,
   },
 });

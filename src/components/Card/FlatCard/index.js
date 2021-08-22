@@ -15,7 +15,7 @@ const FlatCard = ({item, onPress, style, morePress}) => {
         paddingHorizontal={5}
         paddingVertical={8}
         borderBottomWidth={0.5}
-        borderColor={theme.colors.gray}
+        borderColor={theme.colors.lightGray}
         style={style}>
         <Block width={70} height={70} marginHorizontal={8}>
           <Image

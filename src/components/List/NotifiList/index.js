@@ -3,7 +3,7 @@ import {FlatList, ToastAndroid} from 'react-native';
 import {FlatCard} from '@components';
 import {useNavigation} from '@react-navigation/native';
 
-const VerticalList = ({data}) => {
+const NotifiList = ({data}) => {
   const navigation = useNavigation();
   return (
     <FlatList
@@ -24,4 +24,4 @@ const VerticalList = ({data}) => {
   );
 };
 
-export default VerticalList;
+export default NotifiList;

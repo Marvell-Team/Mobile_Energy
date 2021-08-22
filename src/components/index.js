@@ -5,8 +5,10 @@ import Button from './Button';
 import Thumbnail from './Thumbnail';
 import PressText from './PressText';
 import Header from './Header';
-import VerticalList from './List/VerticalList';
 import FlatCard from './Card/FlatCard';
+import FlatProduct from './Card/FlatProduct';
+import NotifiList from './List/NotifiList';
+import ProductFlatList from './List/ProductFlatList';
 export {
   Block,
   Text,
@@ -15,6 +17,8 @@ export {
   Thumbnail,
   PressText,
   Header,
-  VerticalList,
+  NotifiList,
   FlatCard,
+  FlatProduct,
+  ProductFlatList,
 };

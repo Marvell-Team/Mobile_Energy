@@ -11,6 +11,7 @@ export const theme = {
     gray: '#424242',
     smoke: '#E6E6E6',
     white: '#ffffff',
+    grey: '#F0F4F8',
     black: '#000000',
     placeholder: '#707070',
     blue: '#0d5cb6',
