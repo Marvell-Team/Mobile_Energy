@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {View, ToastAndroid, ScrollView} from 'react-native';
 import styles from './style';
 import {icons} from '@assets';
+import {routes} from '../../../navigation/routes.js';
+import {useNavigation} from '@react-navigation/native';
 import {
   Block,
   Button,
@@ -11,6 +13,7 @@ import {
   PressText,
 } from '@components';
 const LoginScreens = () => {
+  const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   return (
@@ -70,10 +73,7 @@ const LoginScreens = () => {
         </Block>
         <PressText
           title="DON'T HAVE ACCOUNT?"
-          onPressOut={() => {
-            console.log('Sign Up'),
-              ToastAndroid.show('Sign Up', ToastAndroid.SHORT);
-          }}
+          onPress={() => navigation.navigate(routes.SIGNUPSCREENS)}
           style={styles.signUp}
           titleStyle={styles.txtSignUp}
         />

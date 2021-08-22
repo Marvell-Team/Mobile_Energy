@@ -21,4 +21,5 @@ export const icons = {
   share: require('./icons/share.png'),
   avt: require('./icons/avt.jpg'),
   graymore: require('./icons/graymore.png'),
+  dashboard: require('./icons/dashboard.png'),
 };

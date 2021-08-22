@@ -1,12 +1,12 @@
 import HomeScreens from './HomeScreens';
-import CategoryScreens from './CategoryScreens';
+import PostScreens from './PostScreens';
 import NotificationScreens from './NotificationScreens';
 import ProfileScreens from './ProfileScreens';
 import ChatScreens from './ChatScreens';
 
 export const bottom = {
   HOMESCREENS: HomeScreens,
-  CATEGORYSCREENS: CategoryScreens,
+  POSTSCREENS: PostScreens,
   NOTIFICATIONSCREENS: NotificationScreens,
   PROFILESCREENS: ProfileScreens,
   CHATSCREENS: ChatScreens,
