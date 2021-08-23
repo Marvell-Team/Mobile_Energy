@@ -7,8 +7,10 @@ import PressText from './PressText';
 import Header from './Header';
 import FlatCard from './Card/FlatCard';
 import FlatProduct from './Card/FlatProduct';
+import GridProduct from './Card/GridProduct';
 import NotifiList from './List/NotifiList';
 import ProductFlatList from './List/ProductFlatList';
+import ProductGridList from './List/ProductGridList';
 export {
   Block,
   Text,
@@ -17,8 +19,10 @@ export {
   Thumbnail,
   PressText,
   Header,
-  NotifiList,
   FlatCard,
   FlatProduct,
+  GridProduct,
+  NotifiList,
   ProductFlatList,
+  ProductGridList,
 };

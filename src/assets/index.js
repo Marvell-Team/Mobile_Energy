@@ -25,4 +25,5 @@ export const icons = {
   dashboard: require('./icons/dashboard.png'),
   wadd: require('./icons/wadd.png'),
   edit: require('./icons/edit.png'),
+  sort: require('./icons/sort.png'),
 };

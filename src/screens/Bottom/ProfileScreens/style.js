@@ -82,11 +82,19 @@ export default StyleSheet.create({
     borderColor: theme.colors.lightGray,
     marginHorizontal: 16,
   },
+  viewPostTitle: {
+    marginVertical: 12,
+    marginHorizontal: 12,
+  },
   titlePost: {
     fontSize: 18,
     fontWeight: 'bold',
     color: theme.colors.gray,
-    marginVertical: 12,
-    marginHorizontal: 12,
+  },
+  btnSort: {
+    width: 24,
+    height: 24,
+    alignSelf: 'flex-end',
+    marginHorizontal: 8,
   },
 });

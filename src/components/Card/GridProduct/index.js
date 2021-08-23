@@ -1,49 +1,58 @@
 import React from 'react';
-import {Pressable, Image, StyleSheet} from 'react-native';
+import {Pressable, Image, StyleSheet, Dimensions} from 'react-native';
 import {icons} from '@assets';
 import {theme} from '@theme';
 import {Block, Text} from '@components';
 
-const FlatProduct = ({item, onPress, style}) => {
+const GridProduct = ({item, onPress, style}) => {
   const {nameProduct, imgProduct, price, time} = item;
   return (
     <Pressable onPress={onPress}>
-      <Block flex row style={[styles.cardContainer, style]}>
-        <Block
-          alignSelf={'center'}
-          width={'25%'}
-          height={'100%'}
-          marginRight={5}>
+      <Block column shadow flex style={[styles.cardContainer, style]}>
+        <Block flex={0.5} style={styles.viewImg}>
           <Image source={{uri: imgProduct}} style={styles.imgProduct} />
         </Block>
-
-        <Block flex column justifyCenter style={styles.viewInfo}>
+        <Block flex={0.5} justifyCenter style={styles.viewInfo}>
           <Text style={styles.name}>{nameProduct}</Text>
           <Text style={styles.price}>{price} Đ</Text>
+          <Text style={styles.time}>{time}</Text>
         </Block>
-        <Text style={styles.time}>{time}</Text>
       </Block>
     </Pressable>
   );
 };
 
-export default FlatProduct;
+export default GridProduct;
 
+const {width} = Dimensions.get('screen');
+const {height} = Dimensions.get('screen');
 const styles = StyleSheet.create({
   cardContainer: {
-    marginHorizontal: 12,
+    width: width / 2.3,
     backgroundColor: theme.colors.grey,
-    borderRadius: 5,
-    marginVertical: 5,
+    borderRadius: 10,
+    marginVertical: 8,
+    marginHorizontal: 8,
+  },
+  viewImg: {
+    alignSelf: 'center',
+    width: '100%',
+    height: 120,
+    alignItems: 'center',
+    marginBottom: 5,
   },
   imgProduct: {
-    borderRadius: 3,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
     width: '100%',
     height: '100%',
   },
   viewInfo: {
-    paddingHorizontal: 8,
-    paddingVertical: 12,
+    paddingTop: 12,
+    paddingBottom: 5,
+    paddingHorizontal: 5,
   },
   name: {
     fontSize: 17,
@@ -60,7 +69,6 @@ const styles = StyleSheet.create({
   time: {
     fontSize: 13,
     color: theme.colors.lightGray,
-    marginVertical: 12,
-    marginHorizontal: 8,
+    marginVertical: 3,
   },
 });

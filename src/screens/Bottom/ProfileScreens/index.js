@@ -8,6 +8,7 @@ import {
   Button,
   Text,
   ProductFlatList,
+  ProductGridList,
 } from '@components';
 import styles from './style';
 import {theme} from '@theme';
@@ -15,9 +16,9 @@ import {theme} from '@theme';
 const products = [
   {
     id: 1,
-    nameProduct: 'IPorn 12 Pro IPorn 12 Pro IPorn 12 Pro IPorn 12 Pro',
+    nameProduct: 'IPorn 12',
     imgProduct:
-      'https://product.hstatic.net/1000283534/product/xanhduong_2_e0efee9d9cf547f19e74827b04059af0.png',
+      'https://image.thanhnien.vn/1024/uploaded/nthanhluan/2020_10_14/1_foyn.jpg',
     price: '29,999,000',
     time: '26 phút trước',
   },
@@ -25,7 +26,7 @@ const products = [
     id: 2,
     nameProduct: 'IPorn 12 Pro',
     imgProduct:
-      'https://product.hstatic.net/1000283534/product/xanhduong_2_e0efee9d9cf547f19e74827b04059af0.png',
+      'https://image.thanhnien.vn/1024/uploaded/nthanhluan/2020_10_14/1_foyn.jpg',
     price: '29,999,000',
     time: '26 phút trước',
   },
@@ -33,7 +34,7 @@ const products = [
     id: 3,
     nameProduct: 'IPorn 12 Pro',
     imgProduct:
-      'https://product.hstatic.net/1000283534/product/xanhduong_2_e0efee9d9cf547f19e74827b04059af0.png',
+      'https://image.thanhnien.vn/1024/uploaded/nthanhluan/2020_10_14/1_foyn.jpg',
     price: '29,999,000',
     time: '26 phút trước',
   },
@@ -41,7 +42,7 @@ const products = [
     id: 4,
     nameProduct: 'IPorn 12 Pro',
     imgProduct:
-      'https://product.hstatic.net/1000283534/product/xanhduong_2_e0efee9d9cf547f19e74827b04059af0.png',
+      'https://image.thanhnien.vn/1024/uploaded/nthanhluan/2020_10_14/1_foyn.jpg',
     price: '29,999,000',
     time: '26 phút trước',
   },
@@ -49,7 +50,7 @@ const products = [
     id: 5,
     nameProduct: 'IPorn 12 Pro',
     imgProduct:
-      'https://product.hstatic.net/1000283534/product/xanhduong_2_e0efee9d9cf547f19e74827b04059af0.png',
+      'https://image.thanhnien.vn/1024/uploaded/nthanhluan/2020_10_14/1_foyn.jpg',
     price: '29,999,000',
     time: '26 phút trước',
   },
@@ -57,22 +58,31 @@ const products = [
     id: 6,
     nameProduct: 'IPorn 12 Pro',
     imgProduct:
-      'https://product.hstatic.net/1000283534/product/xanhduong_2_e0efee9d9cf547f19e74827b04059af0.png',
+      'https://image.thanhnien.vn/1024/uploaded/nthanhluan/2020_10_14/1_foyn.jpg',
     price: '29,999,000',
     time: '26 phút trước',
   },
 ];
+
 const ProfileScreens = () => {
   const [avt, SetAvt] = useState(
     'https://scontent.fsgn2-1.fna.fbcdn.net/v/t1.6435-9/175359232_743984532948789_2282696370552683691_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=nPu3EZJ2n6gAX_3ZAHq&_nc_ht=scontent.fsgn2-1.fna&oh=383ed6b6ae6ac02e637258ae5a896c49&oe=6145D9DA',
   );
   const [data, setData] = useState(products);
+  const [isFlat, setFlat] = useState(true);
+  // const ListProduct = () => {
+  //   if (isFlat) {
+  //     return <ProductFlatList data={data} />;
+  //   } else {
+  //     return <ProductGridList data={data} />;
+  //   }
+  // };
   console.log(data);
   return (
     <Block flex style={styles.container}>
-      <Header />
+      <Header iconRight={icons.more} />
       <Block paddingHorizontal={8} style={styles.viewInfo}>
-        <Block paddingTop={5} marginHorizontal={12} row>
+        <Block paddingTop={12} marginHorizontal={12} row>
           <Block width={'30%'}>
             <Thumbnail
               source={{uri: avt}}
@@ -114,8 +124,25 @@ const ProfileScreens = () => {
         </Block>
       </Block>
       {/* danh sách các bài đăng */}
-      <Text style={styles.titlePost}>Bài đăng</Text>
-      <ProductFlatList data={data} />
+      <Block row style={styles.viewPostTitle}>
+        <Block width={'50%'}>
+          <Text style={styles.titlePost}>Bài đăng</Text>
+        </Block>
+        <Block width={'50%'}>
+          <Thumbnail
+            onPress={() => setFlat(!isFlat)}
+            source={icons.sort}
+            resizeMode={'contain'}
+            style={styles.btnSort}
+            imageStyle={{tintColor: theme.colors.lightGray}}
+          />
+        </Block>
+      </Block>
+      {isFlat ? (
+        <ProductFlatList data={data} />
+      ) : (
+        <ProductGridList data={data} />
+      )}
     </Block>
   );
 };
