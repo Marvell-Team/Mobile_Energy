@@ -15,7 +15,7 @@ import style from '../HomeScreens/style';
 const products = [
   {
     id: 1,
-    nameProduct: 'IPorn 12 Pro',
+    nameProduct: 'IPorn 12 Pro IPorn 12 Pro IPorn 12 Pro IPorn 12 Pro',
     imgProduct:
       'https://product.hstatic.net/1000283534/product/xanhduong_2_e0efee9d9cf547f19e74827b04059af0.png',
     price: '29,999,000',
@@ -70,11 +70,7 @@ const ProfileScreens = () => {
   console.log(data);
   return (
     <Block flex style={styles.container}>
-      <Header
-        iconLeft={icons.back}
-        title="Trang cá nhân"
-        iconRight={icons.more}
-      />
+      <Header title="Trang cá nhân" />
       <Block paddingHorizontal={8} style={styles.viewInfo}>
         <Block paddingTop={5} row>
           <Thumbnail
@@ -96,6 +92,7 @@ const ProfileScreens = () => {
           </Block>
         </Block>
       </Block>
+      {/* View trắng chứa số lượng bài đăng, đã bán, đánh giá */}
       <Block row shadow alignCenter justifyCenter style={styles.viewMiddle}>
         <Block paddingHorizontal={12} alignCenter>
           <Text style={styles.numBer}>1,234</Text>
@@ -112,6 +109,7 @@ const ProfileScreens = () => {
           <Text style={styles.category}>Đánh giá</Text>
         </Block>
       </Block>
+      {/* danh sách các bài đăng */}
       <Text style={styles.titlePost}>Bài đăng</Text>
       <ProductFlatList data={data} />
     </Block>

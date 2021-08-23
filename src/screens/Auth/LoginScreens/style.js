@@ -17,11 +17,9 @@ export default StyleSheet.create({
     alignSelf: 'center',
   },
   txtTitle: {
-    marginBottom: 16,
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: theme.colors.primary,
-    textAlign: 'center',
+    color: theme.colors.lightGray,
   },
   // image: {
   //   width: 20,
@@ -38,6 +36,7 @@ export default StyleSheet.create({
     textAlign: 'right',
     marginHorizontal: 3,
     marginVertical: 5,
+    color: theme.colors.gray,
   },
   button: {
     backgroundColor: theme.colors.primary,
@@ -59,11 +58,10 @@ export default StyleSheet.create({
     height: 45,
     justifyContent: 'center',
     alignSelf: 'center',
-    marginHorizontal: 32,
+    marginHorizontal: 24,
   },
   signUp: {
-    marginTop: height * 0.03,
-    marginBottom: height * 0.02,
+    marginVertical: height * 0.03,
   },
   txtSignUp: {
     color: theme.colors.primary,

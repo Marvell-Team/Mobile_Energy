@@ -24,7 +24,7 @@ const LoginScreens = () => {
     <Block flex paddingHorizontal={12} style={styles.container}>
       <ScrollView indicatorStyle={'white'}>
         <Thumbnail source={icons.logo} style={styles.thumb} />
-        <Text style={styles.txtTitle}>WELCOME BACK</Text>
+        <Text style={styles.txtTitle}>Đăng nhập để tiếp tục</Text>
         <TextInput
           iconleft={icons.email}
           placeholder="Nhập email..."

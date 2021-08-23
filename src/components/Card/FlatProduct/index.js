@@ -9,13 +9,13 @@ const FlatProduct = ({item, onPress, style}) => {
   return (
     <Pressable onPress={onPress}>
       <Block flex row style={[styles.cardContainer, style]}>
-        <Block width={70} height={70} marginHorizontal={8}>
+        <Block alignSelf={'center'} width={55} height={55} marginHorizontal={8}>
           <Image source={{uri: imgProduct}} style={styles.imgProduct} />
         </Block>
 
         <Block flex column justifyCenter>
           <Text style={styles.name}>{nameProduct}</Text>
-          <Text style={styles.price}>{price}</Text>
+          <Text style={styles.price}>{price} Đ</Text>
         </Block>
         <Text style={styles.time}>{time}</Text>
       </Block>
