@@ -87,6 +87,7 @@ const ProfileScreens = () => {
           </Block>
           <Block width={'20%'}>
             <Thumbnail
+              onPress={() => console.log('Edit')}
               source={icons.edit}
               resizeMode={'contain'}
               style={styles.btnEdit}
