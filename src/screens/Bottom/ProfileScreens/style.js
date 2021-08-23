@@ -19,8 +19,7 @@ export default StyleSheet.create({
     borderWidth: 2,
     borderColor: theme.colors.white,
     padding: 1,
-    marginHorizontal: 5,
-    marginVertical: 8,
+    marginRight: 5,
   },
   avt: {
     width: '100%',
@@ -41,17 +40,10 @@ export default StyleSheet.create({
     color: theme.colors.white,
     marginVertical: 2,
   },
-  changeBtn: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    backgroundColor: theme.colors.secondary,
-    borderRadius: 45,
-    borderWidth: 2,
-    borderColor: theme.colors.white,
-    marginHorizontal: 5,
-  },
-  txtBtn: {
-    fontSize: 15,
+  btnEdit: {
+    width: 28,
+    height: 28,
+    alignSelf: 'flex-end',
   },
   viewMiddle: {
     backgroundColor: theme.colors.white,

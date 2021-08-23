@@ -12,7 +12,10 @@ const ProductFlatList = ({data}) => {
       renderItem={({item}) => (
         <FlatProduct
           onPress={() =>
-            ToastAndroid.show('item: ' + ' ' + item.content, ToastAndroid.SHORT)
+            ToastAndroid.show(
+              'item: ' + ' ' + item.nameProduct,
+              ToastAndroid.SHORT,
+            )
           }
           item={item}
         />

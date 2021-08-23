@@ -22,7 +22,11 @@ const Header = ({
       paddingHorizontal={8}
       justifyCenter
       alignCenter
-      style={{marginTop: StatusBar.currentHeight, height: 60, ...style}}>
+      style={{
+        paddingVertical: 16,
+        paddingTop: StatusBar.currentHeight + 8,
+        ...style,
+      }}>
       {iconLeft && (
         <Pressable onPress={leftPress}>
           <Image

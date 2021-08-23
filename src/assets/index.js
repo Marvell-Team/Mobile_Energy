@@ -24,4 +24,5 @@ export const icons = {
   email: require('./icons/email.png'),
   dashboard: require('./icons/dashboard.png'),
   wadd: require('./icons/wadd.png'),
+  edit: require('./icons/edit.png'),
 };

@@ -17,9 +17,10 @@ export default StyleSheet.create({
     alignSelf: 'center',
   },
   txtTitle: {
-    fontSize: 18,
+    fontSize: 25,
     fontWeight: 'bold',
-    color: theme.colors.lightGray,
+    color: theme.colors.primary,
+    textAlign: 'center',
   },
   // image: {
   //   width: 20,

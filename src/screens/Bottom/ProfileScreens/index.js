@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ToastAndroid, ScrollView} from 'react-native';
+import {ToastAndroid, ScrollView, Pressable} from 'react-native';
 import {icons} from '@assets';
 import {
   Block,
@@ -10,7 +10,7 @@ import {
   ProductFlatList,
 } from '@components';
 import styles from './style';
-import style from '../HomeScreens/style';
+import {theme} from '@theme';
 
 const products = [
   {
@@ -70,24 +70,27 @@ const ProfileScreens = () => {
   console.log(data);
   return (
     <Block flex style={styles.container}>
-      <Header title="Trang cá nhân" />
+      <Header />
       <Block paddingHorizontal={8} style={styles.viewInfo}>
-        <Block paddingTop={5} row>
-          <Thumbnail
-            source={{uri: avt}}
-            imageStyle={styles.avt}
-            style={styles.viewAvt}
-          />
-          <Block justifyCenter paddingHorizontal={8}>
+        <Block paddingTop={5} marginHorizontal={12} row>
+          <Block width={'30%'}>
+            <Thumbnail
+              source={{uri: avt}}
+              imageStyle={styles.avt}
+              style={styles.viewAvt}
+            />
+          </Block>
+          <Block width={'50%'} justifyCenter paddingHorizontal={8}>
             <Text style={styles.txtUsn}>HoaiBao0512</Text>
             <Text style={styles.txtEmail}>hoaibao0512@gmail.com</Text>
             <Text style={styles.txtPhone}>0696969696</Text>
           </Block>
-          <Block>
-            <Button
-              title="Thay đổi"
-              style={styles.changeBtn}
-              titleStyle={styles.txtBtn}
+          <Block width={'20%'}>
+            <Thumbnail
+              source={icons.edit}
+              resizeMode={'contain'}
+              style={styles.btnEdit}
+              imageStyle={{tintColor: theme.colors.white}}
             />
           </Block>
         </Block>
