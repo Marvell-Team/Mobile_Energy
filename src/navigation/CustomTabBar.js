@@ -33,14 +33,14 @@ const CustomTabBar = ({state, descriptors, navigation}) => {
         const isFocused = state.index === index;
         const icon =
           index === 0
-            ? icons.home
+            ? icons.dhome
             : index === 1
-            ? icons.dashboard
+            ? icons.dbox
             : index === 2
-            ? icons.bchat
+            ? icons.dchat
             : index === 3
-            ? icons.notification
-            : icons.profile;
+            ? icons.dbell
+            : icons.duser;
 
         const onPress = () => {
           const event = navigation.emit({
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     width: getSize.s(22),
     height: getSize.s(22),
     resizeMode: 'contain',
-    tintColor: isFocused ? theme.colors.primary : theme.colors.gray,
+    tintColor: isFocused ? theme.colors.primary : theme.colors.lightGray,
   }),
   container: {
     position: 'relative',

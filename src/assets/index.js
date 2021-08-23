@@ -26,4 +26,9 @@ export const icons = {
   wadd: require('./icons/wadd.png'),
   edit: require('./icons/edit.png'),
   sort: require('./icons/sort.png'),
+  dbell: require('./icons/dbell.png'),
+  dbox: require('./icons/dbox.png'),
+  dchat: require('./icons/dchat.png'),
+  dhome: require('./icons/dhome.png'),
+  duser: require('./icons/duser.png'),
 };
