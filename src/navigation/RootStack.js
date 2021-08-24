@@ -36,6 +36,10 @@ const RootStack = () => {
           name={routes.DETAILSCREENS}
           component={product.DETAILSCREENS}
         />
+        <Stack.Screen
+          name={routes.INFORMATIONSCREEN}
+          component={auth.INFORMATIONSCREEN}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

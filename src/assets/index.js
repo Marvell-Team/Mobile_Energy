@@ -31,4 +31,5 @@ export const icons = {
   dchat: require('./icons/dchat.png'),
   dhome: require('./icons/dhome.png'),
   duser: require('./icons/duser.png'),
+  bpen: require('./icons/bpen.png'),
 };
