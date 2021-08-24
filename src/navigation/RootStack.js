@@ -18,7 +18,7 @@ const RootStack = () => {
       />
       <Stack.Navigator
         presentation="modal"
-        initialRouteName={routes.LOGINSCREENS}
+        initialRouteName={routes.MYBILLSCREENS}
         screenOptions={{headerShown: false}}>
         <Stack.Screen
           name={routes.LOGINSCREENS}
@@ -39,6 +39,10 @@ const RootStack = () => {
         <Stack.Screen
           name={routes.INFORMATIONSCREEN}
           component={auth.INFORMATIONSCREEN}
+        />
+        <Stack.Screen
+          name={routes.MYBILLSCREENS}
+          component={product.MYBILLSCREENS}
         />
       </Stack.Navigator>
     </NavigationContainer>

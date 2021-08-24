@@ -32,4 +32,7 @@ export const icons = {
   dhome: require('./icons/dhome.png'),
   duser: require('./icons/duser.png'),
   bpen: require('./icons/bpen.png'),
+  up: require('./icons/up.png'),
+  down: require('./icons/down.png'),
+  done: require('./icons/done.png'),
 };

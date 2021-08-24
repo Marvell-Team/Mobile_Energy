@@ -24,7 +24,7 @@ const Header = ({
       alignCenter
       style={{
         paddingVertical: 16,
-        paddingTop: StatusBar.currentHeight + 8,
+        paddingTop: StatusBar.currentHeight + 12,
         ...style,
       }}>
       {iconLeft && (
