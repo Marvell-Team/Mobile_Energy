@@ -16,7 +16,7 @@ const BottomTabNavigation = () => {
         name={routes.HOMESCREENS}
         component={bottom.HOMESCREENS}
         options={{
-          tabBarLabel: 'Trang chủ',
+          tabBarLabel: '',
           // tabBarVisible: false,
         }}
       />
@@ -24,7 +24,7 @@ const BottomTabNavigation = () => {
         name={routes.POSTSCREENS}
         component={bottom.POSTSCREENS}
         options={{
-          tabBarLabel: 'Bài đăng',
+          tabBarLabel: '',
         }}
       />
       <Tab.Screen
@@ -38,7 +38,7 @@ const BottomTabNavigation = () => {
         name={routes.NOTIFICATIONSCREENS}
         component={bottom.NOTIFICATIONSCREENS}
         options={{
-          tabBarLabel: 'Thông báo',
+          tabBarLabel: '',
           tabBarBadge: 10,
         }}
       />
@@ -46,7 +46,7 @@ const BottomTabNavigation = () => {
         name={routes.PROFILESCREENS}
         component={bottom.PROFILESCREENS}
         options={{
-          tabBarLabel: 'Cá nhân',
+          tabBarLabel: '',
         }}
       />
     </Tab.Navigator>
