@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {ToastAndroid} from 'react-native';
-import {Block, Text, Header, BillList} from '@components';
+import {Block, Text, Header, BillList, Thumbnail} from '@components';
 import {icons} from '@assets';
 import styles from './styles';
 
@@ -69,6 +69,7 @@ const bill = [
 
 const MyBillScreens = () => {
   const [data, setData] = useState(bill);
+  console.log('Length >>>>>>' + data.length);
   return (
     <Block style={styles.container}>
       <Header
@@ -76,7 +77,17 @@ const MyBillScreens = () => {
         title="Đơn hàng của bạn"
         iconRight={icons.more}
       />
-      <BillList data={data} style={{marginVertical: 8}} />
+      {data.length == 0 ? (
+        <Block alignCenter justifyCenter flex>
+          <Thumbnail
+            source={icons.bill}
+            style={styles.viewBill}
+            imageStyle={styles.imgBill}
+          />
+        </Block>
+      ) : (
+        <BillList data={data} style={{marginVertical: 8}} />
+      )}
     </Block>
   );
 };
