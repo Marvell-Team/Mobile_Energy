@@ -18,7 +18,7 @@ const RootStack = () => {
       />
       <Stack.Navigator
         presentation="modal"
-        initialRouteName={routes.LOGINSCREENS}
+        initialRouteName={routes.DETAILSCREENS}
         screenOptions={{headerShown: false}}>
         <Stack.Screen
           name={routes.LOGINSCREENS}

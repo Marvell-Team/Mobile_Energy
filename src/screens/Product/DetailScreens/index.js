@@ -5,6 +5,7 @@ import {
   Dimensions,
   ScrollView,
   FlatList,
+  Platform,
 } from 'react-native';
 import {Block, Text, Thumbnail, Button} from '@components';
 import CommentCard from './card';
@@ -46,15 +47,19 @@ const DetailScreens = () => {
   return (
     <Block style={styles.container}>
       <ScrollView>
-       {/* image header  */}
+        {/* image header  */}
         <ImageBackground
           style={{flexDirection: 'row', width: width, height: height / 2.5}}
           source={{uri: imageBG}}>
           <Block margin={10} flex alignStart>
-            <Thumbnail source={icons.back} onPress={()=>ToastAndroid.show("Back",ToastAndroid.SHORT)} style={{width: 30, height: 30}} />
+            <Thumbnail
+              source={icons.back}
+              onPress={() => ToastAndroid.show('Back', ToastAndroid.SHORT)}
+              style={{width: 30, height: 30}}
+            />
           </Block>
           <Block margin={10} flex alignEnd>
-            <Thumbnail source={icons.more}  style={{width: 30, height: 30}} />
+            <Thumbnail source={icons.more} style={{width: 30, height: 30}} />
           </Block>
         </ImageBackground>
         {/* Body All */}
@@ -78,13 +83,15 @@ const DetailScreens = () => {
                 titleStyle={{
                   fontSize: 16,
                   color: theme.colors.primary,
-                }}></Button>
+                }}
+              />
             </Block>
           </Block>
           <Block
             width={width / 1.1}
-            style={{borderWidth: 0.3, borderColor: theme.colors.dark}}></Block>
-            {/* Body User */}
+            style={{borderWidth: 0.3, borderColor: theme.colors.dark}}
+          />
+          {/* Body User */}
           <Block row alignCenter style={styles.bodyuser}>
             <Block style={{flex: 1.5}}>
               <Thumbnail source={icons.user} style={{width: 50, height: 50}} />
@@ -103,13 +110,15 @@ const DetailScreens = () => {
                 titleStyle={{
                   fontSize: 16,
                   color: theme.colors.primary,
-                }}></Button>
+                }}
+              />
             </Block>
           </Block>
           {/* Body Detail product */}
           <Block
             width={width / 1.1}
-            style={{borderWidth: 0.3, borderColor: theme.colors.dark}}></Block>
+            style={{borderWidth: 0.3, borderColor: theme.colors.dark}}
+          />
           {isShow ? (
             <Block style={styles.detailbody}>
               <Text size={16}>
@@ -130,8 +139,9 @@ const DetailScreens = () => {
             title={isShow ? 'Rút gọn' : 'Xem thêm'}
             style={styles.button}
             titleStyle={{fontSize: 16, color: theme.colors.primary}}
-            onPress={() => setIsShow(!isShow)}></Button>
-            {/* Comment body */}
+            onPress={() => setIsShow(!isShow)}
+          />
+          {/* Comment body */}
           <Block marginBottom={5} style={styles.commentbody}>
             <Block alignCenter row marginBottom={10}>
               <Text flex size={18} style={{fontWeight: 'bold'}}>
@@ -146,13 +156,14 @@ const DetailScreens = () => {
               style={{
                 borderWidth: 0.3,
                 borderColor: theme.colors.dark,
-              }}></Block>
+              }}
+            />
             <FlatList
               ItemSeparatorComponent={
                 Platform.OS !== 'android' &&
                 (({highlighted}) => (
-                  <View
-                    style={[style.separator, highlighted && {marginLeft: 0}]}
+                  <Block
+                    style={[styles.separator, highlighted && {marginLeft: 0}]}
                   />
                 ))
               }
@@ -167,17 +178,13 @@ const DetailScreens = () => {
           justifyCenter
           alignCenter
           style={{flex: 2, backgroundColor: '#144C6E'}}>
-          <Thumbnail
-            source={icons.wchat}
-            style={{width: 25, height: 25}}></Thumbnail>
+          <Thumbnail source={icons.wchat} style={{width: 25, height: 25}} />
         </Block>
         <Block
           justifyCenter
           alignCenter
           style={{flex: 2, backgroundColor: '#186999'}}>
-          <Thumbnail
-            source={icons.cart}
-            style={{width: 25, height: 25}}></Thumbnail>
+          <Thumbnail source={icons.cart} style={{width: 25, height: 25}} />
         </Block>
         <Block
           style={{flex: 3, backgroundColor: theme.colors.primary}}
