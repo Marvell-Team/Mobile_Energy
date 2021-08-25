@@ -1,27 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {FlatList, ToastAndroid} from 'react-native';
-import {FlatCard} from '@components';
+import {BillCard} from '@components';
 import {useNavigation} from '@react-navigation/native';
 
-const VerticalList = ({data}) => {
+const BillList = ({data, style}) => {
   const navigation = useNavigation();
+  //   const [isShow, setShow] = useState(item.show);
   return (
     <FlatList
       data={data}
       keyExtractor={item => item.id}
       renderItem={({item}) => (
-        <FlatCard
+        <BillCard
           onPress={() =>
-            ToastAndroid.show('item: ' + ' ' + item.content, ToastAndroid.SHORT)
-          }
-          morePress={() =>
-            ToastAndroid.show('Option: ' + item.id, ToastAndroid.SHORT)
+            ToastAndroid.show('item: ' + ' ' + item.id, ToastAndroid.SHORT)
           }
           item={item}
         />
       )}
+      style={style}
     />
   );
 };
 
-export default VerticalList;
+export default BillList;

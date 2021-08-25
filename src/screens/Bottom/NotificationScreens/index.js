@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {ToastAndroid} from 'react-native';
 import {icons} from '@assets';
-import {Block, Header, VerticalList} from '@components';
+import {Block, Header, NotifiList} from '@components';
 import styles from './style';
 
 const noti = [
@@ -96,7 +96,7 @@ const NotificationScreens = () => {
   return (
     <Block flex style={styles.container}>
       <Header title="THÔNG BÁO" />
-      <VerticalList data={data} />
+      <NotifiList data={data} />
     </Block>
   );
 };

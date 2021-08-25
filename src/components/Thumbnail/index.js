@@ -13,6 +13,7 @@ const Thumbnail = ({
   onLongPress,
   onPressIn,
   onPressOut,
+  resizeMode,
   ...props
 }) => {
   return (
@@ -28,7 +29,7 @@ const Thumbnail = ({
           width={width}
           height={height}
           style={{width: '100%', height: '100%', ...imageStyle}}
-          resizeMode="contain"
+          resizeMode={resizeMode}
         />
       </Block>
     </Pressable>

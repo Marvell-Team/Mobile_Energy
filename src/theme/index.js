@@ -3,6 +3,8 @@ import {Platform} from 'react-native';
 export const theme = {
   colors: {
     primary: '#1DA1F2',
+    secondary: '#46B3F6',
+    thirdy: '#e7f5fe',
     text: '#242424',
     background: '#f5f5f5',
     orange: '#FE930F',
@@ -10,6 +12,7 @@ export const theme = {
     gray: '#424242',
     smoke: '#E6E6E6',
     white: '#ffffff',
+    grey: '#F0F4F8',
     black: '#000000',
     placeholder: '#707070',
     blue: '#0d5cb6',
@@ -19,6 +22,7 @@ export const theme = {
     lightGreen: '#29bb89',
     yellow: '#FFDF00',
     dark: '#00000060',
+    grayText: '#748A9D',
   },
 
   fonts: {

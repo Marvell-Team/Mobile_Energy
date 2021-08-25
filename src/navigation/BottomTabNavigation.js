@@ -16,36 +16,37 @@ const BottomTabNavigation = () => {
         name={routes.HOMESCREENS}
         component={bottom.HOMESCREENS}
         options={{
-          tabBarLabel: 'Trang chủ',
+          tabBarLabel: 'Trang chủ',
           // tabBarVisible: false,
         }}
       />
       <Tab.Screen
-        name={routes.CATEGORYSCREENS}
-        component={bottom.CATEGORYSCREENS}
+        name={routes.POSTSCREENS}
+        component={bottom.POSTSCREENS}
         options={{
-          tabBarLabel: 'Tin nhắn',
+          tabBarLabel: 'Bài đăng',
         }}
       />
       <Tab.Screen
         name={routes.CHATSCREENS}
         component={bottom.CHATSCREENS}
         options={{
-          tabBarLabel: 'Tin nhắn',
+          tabBarLabel: '',
         }}
       />
       <Tab.Screen
         name={routes.NOTIFICATIONSCREENS}
         component={bottom.NOTIFICATIONSCREENS}
         options={{
-          tabBarLabel: 'Thông báo',
+          tabBarLabel: 'Thông báo',
+          tabBarBadge: 10,
         }}
       />
       <Tab.Screen
         name={routes.PROFILESCREENS}
         component={bottom.PROFILESCREENS}
         options={{
-          tabBarLabel: 'Tài khoản',
+          tabBarLabel: 'Cá nhân',
         }}
       />
     </Tab.Navigator>

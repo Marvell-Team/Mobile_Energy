@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
-import {View, ToastAndroid, ScrollView} from 'react-native';
+import {View, ToastAndroid, ScrollView, StatusBar} from 'react-native';
 import styles from './style';
 import {icons} from '@assets';
+import {routes} from '../../../navigation/routes.js';
+import {useNavigation} from '@react-navigation/native';
 import {
   Block,
   Button,
@@ -11,15 +13,20 @@ import {
   PressText,
 } from '@components';
 const LoginScreens = () => {
+  const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const _login = () => {
+    navigation.navigate(routes.BOTTOMTABBAR);
+  };
   return (
     <Block flex paddingHorizontal={12} style={styles.container}>
       <ScrollView indicatorStyle={'white'}>
         <Thumbnail source={icons.logo} style={styles.thumb} />
-        <Text style={styles.txtTitle}>WELCOME BACK</Text>
+        <Text style={styles.txtTitle}>ĐĂNG NHẬP</Text>
         <TextInput
-          iconleft={icons.user}
+          iconleft={icons.email}
           placeholder="Nhập email..."
           setValue={setEmail}
           style={styles.input}
@@ -43,10 +50,7 @@ const LoginScreens = () => {
         <Button
           shadow
           title="ĐĂNG NHẬP"
-          onPressOut={() => {
-            console.log('Hello'),
-              ToastAndroid.show('Hello', ToastAndroid.SHORT);
-          }}
+          onPress={() => _login()}
           style={styles.button}
           titleStyle={styles.textBtn}
         />
@@ -70,10 +74,7 @@ const LoginScreens = () => {
         </Block>
         <PressText
           title="DON'T HAVE ACCOUNT?"
-          onPressOut={() => {
-            console.log('Sign Up'),
-              ToastAndroid.show('Sign Up', ToastAndroid.SHORT);
-          }}
+          onPress={() => navigation.navigate(routes.SIGNUPSCREENS)}
           style={styles.signUp}
           titleStyle={styles.txtSignUp}
         />

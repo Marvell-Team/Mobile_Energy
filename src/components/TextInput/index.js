@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {icons} from '@assets';
 import {Block} from '@components';
 import {View, Text, Image, TextInput, Pressable} from 'react-native';
+import {theme} from '@theme';
 
 const Input = ({
   iconleft,
@@ -20,6 +21,7 @@ const Input = ({
       row
       alignCenter
       borderWidth={1}
+      borderColor={theme.colors.lightGray}
       paddingHorizontal={12}
       radius={5}
       style={style}>
