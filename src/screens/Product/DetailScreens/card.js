@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Dimensions} from 'react-native';
+import {Dimensions, Platform, UIManager, LayoutAnimation} from 'react-native';
 import {Block, Text, Thumbnail, Button} from '@components';
 import {icons} from '@assets';
 import styles from './style';
@@ -18,7 +18,8 @@ const CommentCard = ({item}) => {
           <Thumbnail
             source={{uri: avt}}
             imageStyle={styles.avt}
-            style={styles.viewAvt}></Thumbnail>
+            style={styles.viewAvt}
+          />
         </Block>
         <Block style={{flex: 3}}>
           <Text size={16} style={{fontWeight: 'bold'}}>
@@ -28,19 +29,22 @@ const CommentCard = ({item}) => {
           {item.image == '' ? null : (
             <Thumbnail
               source={{uri: item.image}}
-              style={{width: 90, height: 70}}></Thumbnail>
+              style={{width: 90, height: 70}}
+            />
           )}
           <Text size={10}>{item.currentime}</Text>
         </Block>
         <Block justifyStart style={{flex: 1}}>
           <Thumbnail
             source={icons.graymore}
-            style={{width: 20, height: 20, alignSelf: 'flex-end'}}></Thumbnail>
+            style={{width: 20, height: 20, alignSelf: 'flex-end'}}
+          />
         </Block>
       </Block>
       <Block
         width={width / 1.1}
-        style={{borderWidth: 0.3, borderColor: theme.colors.dark}}></Block>
+        style={{borderWidth: 0.3, borderColor: theme.colors.dark}}
+      />
     </Block>
   );
 };

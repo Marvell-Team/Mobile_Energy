@@ -6,6 +6,8 @@ import {
   ScrollView,
   FlatList,
   Platform,
+  UIManager,
+  LayoutAnimation,
 } from 'react-native';
 import {Block, Text, Thumbnail, Button} from '@components';
 import CommentCard from './card';
@@ -43,6 +45,11 @@ const DetailScreens = () => {
   const [imageBG, setImageBG] = useState(
     'https://vnn-imgs-f.vgcloud.vn/2019/10/08/17/samsung-se-bo-galaxy-fold-va-galaxy-note-de-ra-dong-flagship-moi-3.jpg',
   );
+  if (Platform.OS === 'android') {
+    if (UIManager.setLayoutAnimationEnabledExperimental) {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+  }
   const [isShow, setIsShow] = useState(false);
   return (
     <Block style={styles.container}>
@@ -139,7 +146,10 @@ const DetailScreens = () => {
             title={isShow ? 'Rút gọn' : 'Xem thêm'}
             style={styles.button}
             titleStyle={{fontSize: 16, color: theme.colors.primary}}
-            onPress={() => setIsShow(!isShow)}
+            onPress={() => {
+              LayoutAnimation.easeInEaseOut();
+              setIsShow(!isShow);
+            }}
           />
           {/* Comment body */}
           <Block marginBottom={5} style={styles.commentbody}>
