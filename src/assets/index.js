@@ -36,4 +36,5 @@ export const icons = {
   down: require('./icons/down.png'),
   done: require('./icons/done.png'),
   bill: require('./icons/bill.png'),
+  safety: require('./icons/safety.png'),
 };

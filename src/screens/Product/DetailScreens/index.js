@@ -8,6 +8,7 @@ import {
   Platform,
   UIManager,
   LayoutAnimation,
+  Image,
 } from 'react-native';
 import {Block, Text, Thumbnail, Button} from '@components';
 import CommentCard from './card';
@@ -45,22 +46,69 @@ const data = [
 ];
 const DetailScreens = () => {
   const navigation = useNavigation();
-  const [imageBG, setImageBG] = useState(
+  const [active, setActive] = useState(0);
+  const [imageBG, setImageBG] = useState([
+    'https://i.ytimg.com/vi/SbR0_YbVSbU/maxresdefault.jpg',
     'https://vnn-imgs-f.vgcloud.vn/2019/10/08/17/samsung-se-bo-galaxy-fold-va-galaxy-note-de-ra-dong-flagship-moi-3.jpg',
-  );
+  ]);
   if (Platform.OS === 'android') {
     if (UIManager.setLayoutAnimationEnabledExperimental) {
       UIManager.setLayoutAnimationEnabledExperimental(true);
     }
   }
   const [isShow, setIsShow] = useState(false);
+
+  const change = nativeEvent => {
+    const slide = Math.ceil(
+      nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width,
+    );
+    if (slide !== active) {
+      setActive(slide);
+    }
+  };
   return (
     <Block style={styles.container}>
       <ScrollView>
         {/* image header  */}
-        <ImageBackground
-          style={{flexDirection: 'row', width: width, height: height / 2.5}}
-          source={{uri: imageBG}}>
+        <ScrollView
+          onScroll={({nativeEvent}) => change(nativeEvent)}
+          showsHorizontalScrollIndicator={false}
+          horizontal={true}>
+          {imageBG.map((item, index) => (
+            <Image
+              key={item}
+              resizeMode="stretch"
+              style={{flexDirection: 'row', width: width, height: height / 2.5}}
+              source={{uri: item}}></Image>
+          ))}
+        </ScrollView>
+        {/*header*/}
+        {/* dot cho image */}
+        <Block
+          justifyCenter
+          style={{
+            flexDirection: 'row',
+            width: width,
+            height: height / 15,
+            position: 'absolute',
+            top: height / 3,
+          }}>
+          {imageBG.map((item, index) => (
+            <Text
+              style={active === index ? styles.dotActive : styles.dot}
+              size={20}>
+              ●
+            </Text>
+          ))}
+        </Block>
+        <Block
+          style={{
+            flexDirection: 'row',
+            width: width,
+            height: height / 15,
+            position: 'absolute',
+            top: 0,
+          }}>
           <Block margin={10} flex alignStart>
             <Thumbnail
               source={icons.back}
@@ -71,7 +119,8 @@ const DetailScreens = () => {
           <Block margin={10} flex alignEnd>
             <Thumbnail source={icons.more} style={{width: 30, height: 30}} />
           </Block>
-        </ImageBackground>
+        </Block>
+
         {/* Body All */}
         <Block alignCenter style={styles.body}>
           {/* Body Name Product */}
@@ -110,7 +159,14 @@ const DetailScreens = () => {
               <Text style={{fontSize: 18, fontWeight: 'bold'}}>
                 Huynh Nhat Ban
               </Text>
-              <Text style={{fontSize: 10}}>Dang hoat dong</Text>
+              <Block row alignCenter>
+              <Text
+              color={theme.colors.green}
+              size={20} style={{marginTop:-3}}>
+              ●
+            </Text>
+              <Text size={12}> Dang hoat dong</Text>
+            </Block>
             </Block>
             <Block justifyCenter style={{flex: 2}}>
               <Button
@@ -154,6 +210,42 @@ const DetailScreens = () => {
               setIsShow(!isShow);
             }}
           />
+          <Block
+            marginTop={10}
+            marginBottom={15}
+            width={width / 1.1}
+            style={{borderWidth: 0.3, borderColor: theme.colors.dark}}
+          />
+          {/* duyet+ report */}
+          <Block flex width={width / 1.1}>
+            <Block row alignCenter style={{flex: 2}}>
+              <Thumbnail
+                marginRight={10}
+                style={{flex: 1}}
+                source={icons.safety}
+                style={{width: 80, height: 80}}
+              />
+              <Block style={{flex: 3}}>
+                <Text size={16}>
+                  Sản phẩm đã đuọc kiểm duyệt .Nếu gắp vấn đề gì vui lòng báo
+                  cáo tin đăng
+                </Text>
+              </Block>
+            </Block>
+            <Block flex>
+              <Button
+                style={{
+                  alignSelf: 'center',
+                  backgroundColor: 'white',
+                  width: width / 2,
+                  height: height / 29,
+                  borderColor: theme.colors.dark,
+                  borderWidth: 1,
+                }}
+                titleStyle={{fontSize: 18, fontWeight: 'bold', color: 'red'}}
+                title="Báo cáo tin"></Button>
+            </Block>
+          </Block>
           {/* Comment body */}
           <Block marginBottom={5} style={styles.commentbody}>
             <Block alignCenter row marginBottom={10}>

@@ -67,4 +67,12 @@ export default StyleSheet.create({
     height: '100%',
     borderRadius: 60 / 2,
   },
+  dotActive:{
+    margin:3,
+    color:'black'
+  },
+  dot:{
+    margin:3,
+    color:'#888'
+  }
 });
