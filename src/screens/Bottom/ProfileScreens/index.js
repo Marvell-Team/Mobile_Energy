@@ -12,6 +12,8 @@ import {
 } from '@components';
 import styles from './style';
 import {theme} from '@theme';
+import {useNavigation} from '@react-navigation/native';
+import {routes} from '@navigation/routes';
 
 const products = [
   {
@@ -65,6 +67,7 @@ const products = [
 ];
 
 const ProfileScreens = () => {
+  const navigation = useNavigation();
   const [avt, SetAvt] = useState(
     'https://scontent.fsgn2-1.fna.fbcdn.net/v/t1.6435-9/175359232_743984532948789_2282696370552683691_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=nPu3EZJ2n6gAX_3ZAHq&_nc_ht=scontent.fsgn2-1.fna&oh=383ed6b6ae6ac02e637258ae5a896c49&oe=6145D9DA',
   );
@@ -97,7 +100,7 @@ const ProfileScreens = () => {
           </Block>
           <Block width={'20%'}>
             <Thumbnail
-              onPress={() => console.log('Edit')}
+              onPress={() => navigation.navigate(routes.INFORMATIONSCREEN)}
               source={icons.edit}
               resizeMode={'contain'}
               style={styles.btnEdit}

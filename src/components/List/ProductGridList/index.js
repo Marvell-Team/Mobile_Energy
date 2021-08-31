@@ -2,6 +2,7 @@ import React from 'react';
 import {FlatList, ToastAndroid} from 'react-native';
 import {GridProduct} from '@components';
 import {useNavigation} from '@react-navigation/native';
+import {routes} from '@navigation/routes';
 
 const ProductGridList = ({data}) => {
   const navigation = useNavigation();
@@ -12,9 +13,7 @@ const ProductGridList = ({data}) => {
       keyExtractor={item => item.id}
       renderItem={({item}) => (
         <GridProduct
-          onPress={() =>
-            ToastAndroid.show('item: ' + ' ' + item.id, ToastAndroid.SHORT)
-          }
+          onPress={() => navigation.navigate(routes.DETAILSCREENS)}
           item={item}
         />
       )}

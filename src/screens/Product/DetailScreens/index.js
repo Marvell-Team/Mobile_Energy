@@ -14,6 +14,8 @@ import CommentCard from './card';
 import {icons} from '@assets';
 import styles from './style';
 import {theme} from '@theme';
+import {useNavigation} from '@react-navigation/native';
+import {routes} from '@navigation/routes';
 const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
 const data = [
@@ -42,6 +44,7 @@ const data = [
   },
 ];
 const DetailScreens = () => {
+  const navigation = useNavigation();
   const [imageBG, setImageBG] = useState(
     'https://vnn-imgs-f.vgcloud.vn/2019/10/08/17/samsung-se-bo-galaxy-fold-va-galaxy-note-de-ra-dong-flagship-moi-3.jpg',
   );
@@ -61,7 +64,7 @@ const DetailScreens = () => {
           <Block margin={10} flex alignStart>
             <Thumbnail
               source={icons.back}
-              onPress={() => ToastAndroid.show('Back', ToastAndroid.SHORT)}
+              onPress={() => navigation.navigate(routes.PROFILESCREENS)}
               style={{width: 30, height: 30}}
             />
           </Block>

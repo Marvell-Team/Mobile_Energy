@@ -4,8 +4,11 @@ import {Block, Text, Header, Thumbnail} from '@components';
 import {icons} from '@assets';
 import styles from './style';
 import {theme} from '@theme';
+import {useNavigation} from '@react-navigation/native';
+import {routes} from '@navigation/routes';
 
 const InformationScreen = () => {
+  const navigation = useNavigation();
   const [avt, SetAvt] = useState(
     'https://scontent.fsgn2-1.fna.fbcdn.net/v/t1.6435-9/175359232_743984532948789_2282696370552683691_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=nPu3EZJ2n6gAX_3ZAHq&_nc_ht=scontent.fsgn2-1.fna&oh=383ed6b6ae6ac02e637258ae5a896c49&oe=6145D9DA',
   );
@@ -14,6 +17,7 @@ const InformationScreen = () => {
       <Header
         iconLeft={icons.back}
         iconRight={icons.more}
+        leftPress={() => navigation.navigate(routes.PROFILESCREENS)}
         rightPress={() => ToastAndroid.show('more', ToastAndroid.SHORT)}
       />
       {/* View xanh chứa avatar */}
