@@ -33,7 +33,7 @@ const data = [
     imgProduct:
       'https://vnn-imgs-f.vgcloud.vn/2019/10/08/17/samsung-se-bo-galaxy-fold-va-galaxy-note-de-ra-dong-flagship-moi-3.jpg',
     quantity: 1,
-    currentime:20,
+    currentime: 20,
     show: false,
   },
   {
@@ -44,7 +44,7 @@ const data = [
       'https://image.thanhnien.vn/1024/uploaded/nthanhluan/2020_10_14/1_foyn.jpg',
     quantity: 2,
     status: 'Chưa thanh toán',
-    currentime:20,
+    currentime: 20,
     show: false,
   },
   {
@@ -55,7 +55,7 @@ const data = [
       'https://image.thanhnien.vn/1024/uploaded/nthanhluan/2020_10_14/1_foyn.jpg',
     quantity: 1,
     status: 'Đã thanh toán',
-    currentime:20,
+    currentime: 20,
     show: false,
   },
   {
@@ -66,7 +66,7 @@ const data = [
       'https://image.thanhnien.vn/1024/uploaded/nthanhluan/2020_10_14/1_foyn.jpg',
     quantity: 1,
     status: 'Chưa thanh toán',
-    currentime:20,
+    currentime: 20,
     show: false,
   },
   {
@@ -77,7 +77,7 @@ const data = [
       'https://image.thanhnien.vn/1024/uploaded/nthanhluan/2020_10_14/1_foyn.jpg',
     quantity: 1,
     status: 'Đã thanh toán',
-    currentime:20,
+    currentime: 20,
     show: false,
   },
   {
@@ -88,7 +88,7 @@ const data = [
       'https://image.thanhnien.vn/1024/uploaded/nthanhluan/2020_10_14/1_foyn.jpg',
     quantity: 1,
     status: 'Chưa thanh toán',
-    currentime:20,
+    currentime: 20,
     show: false,
   },
 ];
@@ -107,7 +107,6 @@ const PostScreens = () => {
       };
     } else {
       return {
-     
         padding: 5,
         justifyContent: 'center',
       };
@@ -161,10 +160,9 @@ const PostScreens = () => {
         </Block>
       </Block>
       {/* content */}
-      <Block style={{height: height/20,   backgroundColor: theme.colors.white,}}>
-      <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
-        {categori.map((item, index) => (
-         
+      <Block style={{height: height / 20, backgroundColor: theme.colors.white}}>
+        <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
+          {categori.map((item, index) => (
             <TouchableOpacity
               style={[jewelStyle(item.id)]}
               onPress={() => {
@@ -174,15 +172,15 @@ const PostScreens = () => {
                 {item.name}
               </Text>
             </TouchableOpacity>
-         
-        ))}
-      </ScrollView>
+          ))}
+        </ScrollView>
       </Block>
-      <Block flex alignCenter justifyCenter marginTop={10} >
+      <Block flex alignCenter justifyCenter marginTop={10}>
         <FlatList
-        data={data}
-        numColumns={2}
-        renderItem={({item,index})=><Product_Card item={item} />}/>
+          data={data}
+          numColumns={2}
+          renderItem={({item, index}) => <Product_Card item={item} />}
+        />
       </Block>
     </Block>
   );
