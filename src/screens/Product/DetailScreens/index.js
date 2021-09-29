@@ -160,13 +160,14 @@ const DetailScreens = () => {
                 Huynh Nhat Ban
               </Text>
               <Block row alignCenter>
-              <Text
-              color={theme.colors.green}
-              size={20} style={{marginTop:-3}}>
-              ●
-            </Text>
-              <Text size={12}> Dang hoat dong</Text>
-            </Block>
+                <Text
+                  color={theme.colors.green}
+                  size={20}
+                  style={{marginTop: -3}}>
+                  ●
+                </Text>
+                <Text size={12}> Đang hoạt động</Text>
+              </Block>
             </Block>
             <Block justifyCenter style={{flex: 2}}>
               <Button

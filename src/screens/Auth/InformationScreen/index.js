@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ToastAndroid} from 'react-native';
+import {ToastAndroid, FlatList, ScrollView} from 'react-native';
 import {Block, Text, Header, Thumbnail} from '@components';
 import {icons} from '@assets';
 import styles from './style';
@@ -7,11 +7,49 @@ import {theme} from '@theme';
 import {useNavigation} from '@react-navigation/native';
 import {routes} from '@navigation/routes';
 
+const info = [
+  {
+    title: 'Họ tên',
+    desc: 'Nguyễn Hoài Bão',
+  },
+  {
+    title: 'Giới tính',
+    desc: 'Khác',
+  },
+  {
+    title: 'Ngày sinh',
+    desc: '06/09/2069',
+  },
+  {
+    title: 'Số điện thoại',
+    desc: '0696969696',
+  },
+  {
+    title: 'Email',
+    desc: 'hoaibao0512@gmail.com',
+  },
+  {
+    title: 'Địa chỉ',
+    desc: 'CVPM Quang Trung, Quận 12, TP.HCM',
+  },
+];
+
 const InformationScreen = () => {
   const navigation = useNavigation();
+  const [data, seData] = useState(info);
   const [avt, SetAvt] = useState(
-    'https://scontent.fsgn2-1.fna.fbcdn.net/v/t1.6435-9/175359232_743984532948789_2282696370552683691_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=nPu3EZJ2n6gAX_3ZAHq&_nc_ht=scontent.fsgn2-1.fna&oh=383ed6b6ae6ac02e637258ae5a896c49&oe=6145D9DA',
+    'https://i.pinimg.com/originals/d9/b8/3a/d9b83aa1a08be3e46ebb47254db8cf75.jpg',
   );
+
+  const renderItem = ({item}) => {
+    return (
+      <Block shadow style={styles.boxInfo}>
+        <Text style={styles.titleBox}>{item.title}</Text>
+        <Text style={styles.contentBox}>{item.desc}</Text>
+      </Block>
+    );
+  };
+
   return (
     <Block flex style={styles.container}>
       <Header
@@ -37,7 +75,7 @@ const InformationScreen = () => {
         <Block style={styles.viewBorder} />
       </Block>
       {/* View trắng chứa thông tin user */}
-      <Block style={styles.viewInfo}>
+      <ScrollView style={styles.viewInfo}>
         {/* Tiêu đề và icon edit information */}
         <Block row paddingHorizontal={8}>
           <Block width={'50%'}>
@@ -55,40 +93,17 @@ const InformationScreen = () => {
         </Block>
         {/* View chứa các box thông tin */}
         <Block marginVertical={16} paddingHorizontal={8}>
-          {/* box name */}
-          <Block shadow style={styles.boxInfo}>
-            <Text style={styles.titleBox}>Họ tên</Text>
-            <Text style={styles.contentBox}>Nguyễn Hoài Bão</Text>
-          </Block>
-          {/* box male */}
-          <Block shadow style={styles.boxInfo}>
-            <Text style={styles.titleBox}>Giới tính</Text>
-            <Text style={styles.contentBox}>Khác</Text>
-          </Block>
-          {/* box date */}
-          <Block shadow style={styles.boxInfo}>
-            <Text style={styles.titleBox}>Ngày sinh</Text>
-            <Text style={styles.contentBox}>6/9/2069</Text>
-          </Block>
-          {/* box phone */}
-          <Block shadow style={styles.boxInfo}>
-            <Text style={styles.titleBox}>Số điện thoại</Text>
-            <Text style={styles.contentBox}>0696969696</Text>
-          </Block>
-          {/* box email */}
-          <Block shadow style={styles.boxInfo}>
-            <Text style={styles.titleBox}>Email</Text>
-            <Text style={styles.contentBox}>hoaibao0512@gmail.com</Text>
-          </Block>
-          {/* box adress */}
-          <Block shadow style={styles.boxInfo}>
-            <Text style={styles.titleBox}>Địa chỉ</Text>
-            <Text style={styles.contentBox}>
-              CVPM Quang Trung, Quận 12, TP.HCM
-            </Text>
-          </Block>
+          {/* <FlatList data={data} renderItem={renderItem} /> */}
+          {data.map(item => {
+            return (
+              <Block shadow style={styles.boxInfo}>
+                <Text style={styles.titleBox}>{item.title}</Text>
+                <Text style={styles.contentBox}>{item.desc}</Text>
+              </Block>
+            );
+          })}
         </Block>
-      </Block>
+      </ScrollView>
     </Block>
   );
 };

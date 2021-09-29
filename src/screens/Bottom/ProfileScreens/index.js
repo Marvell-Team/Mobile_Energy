@@ -69,7 +69,7 @@ const products = [
 const ProfileScreens = () => {
   const navigation = useNavigation();
   const [avt, SetAvt] = useState(
-    'https://scontent.fsgn2-1.fna.fbcdn.net/v/t1.6435-9/175359232_743984532948789_2282696370552683691_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=nPu3EZJ2n6gAX_3ZAHq&_nc_ht=scontent.fsgn2-1.fna&oh=383ed6b6ae6ac02e637258ae5a896c49&oe=6145D9DA',
+    'https://i.pinimg.com/originals/d9/b8/3a/d9b83aa1a08be3e46ebb47254db8cf75.jpg',
   );
   const [data, setData] = useState(products);
   const [isFlat, setFlat] = useState(true);
@@ -113,7 +113,7 @@ const ProfileScreens = () => {
       <Block row shadow alignCenter justifyCenter style={styles.viewMiddle}>
         <Block paddingHorizontal={12} alignCenter>
           <Text style={styles.numBer}>1,234</Text>
-          <Text style={styles.category}>Bài đăng</Text>
+          <Text style={styles.category}>Sản phẩm</Text>
         </Block>
         <Block style={styles.line} />
         <Block paddingHorizontal={12} alignCenter>
@@ -129,7 +129,7 @@ const ProfileScreens = () => {
       {/* danh sách các bài đăng */}
       <Block row style={styles.viewPostTitle}>
         <Block width={'50%'}>
-          <Text style={styles.titlePost}>Bài đăng</Text>
+          <Text style={styles.titlePost}>Sản phẩm</Text>
         </Block>
         <Block width={'50%'}>
           <Thumbnail

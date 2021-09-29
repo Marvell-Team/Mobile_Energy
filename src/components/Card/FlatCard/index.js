@@ -29,9 +29,15 @@ const FlatCard = ({item, onPress, style, morePress}) => {
           <Text style={{fontSize: 14, color: theme.colors.black}}>
             {content}
           </Text>
-          <Text style={{fontSize: 14, color: theme.colors.placeholder}}>
-            {time}
-          </Text>
+          <Block row paddingVertical={3}>
+            <Image
+              source={icons.history}
+              style={{width: 18, height: 18, marginRight: 5}}
+            />
+            <Text style={{fontSize: 14, color: theme.colors.placeholder}}>
+              {time}
+            </Text>
+          </Block>
         </Block>
         <Pressable onPress={morePress}>
           <Image

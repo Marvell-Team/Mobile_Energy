@@ -20,10 +20,10 @@ import {useNavigation} from '@react-navigation/native';
 import Product_Card from './data_card';
 const {height} = Dimensions.get('screen');
 const categori = [
-  {id: 1, name: 'Bài chưa duyệt'},
-  {id: 2, name: 'Bài từ chối'},
-  {id: 3, name: 'Cần thanh toan1'},
-  {id: 4, name: 'Cần thanh toan1'},
+  {id: 1, name: 'Bài đã duyệt'},
+  {id: 2, name: 'Bài chưa duyệt'},
+  {id: 3, name: 'Bài từ chối'},
+  {id: 4, name: 'Cần thanh toán'},
 ];
 const data = [
   {
