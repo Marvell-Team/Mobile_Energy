@@ -12,42 +12,16 @@ const BottomTabNavigation = () => {
         headerShown: false,
       }}
       tabBar={props => <CustomTabBar {...props} />}>
-      <Tab.Screen
-        name={routes.HOMESCREENS}
-        component={bottom.HOMESCREENS}
-        options={{
-          tabBarLabel: '',
-          // tabBarVisible: false,
-        }}
-      />
-      <Tab.Screen
-        name={routes.POSTSCREENS}
-        component={bottom.POSTSCREENS}
-        options={{
-          tabBarLabel: '',
-        }}
-      />
-      <Tab.Screen
-        name={routes.CHATSCREENS}
-        component={bottom.CHATSCREENS}
-        options={{
-          tabBarLabel: '',
-        }}
-      />
+      <Tab.Screen name={routes.HOMESCREENS} component={bottom.HOMESCREENS} />
+      <Tab.Screen name={routes.POSTSCREENS} component={bottom.POSTSCREENS} />
+      <Tab.Screen name={routes.CHATSCREENS} component={bottom.CHATSCREENS} />
       <Tab.Screen
         name={routes.NOTIFICATIONSCREENS}
         component={bottom.NOTIFICATIONSCREENS}
-        options={{
-          tabBarLabel: '',
-          tabBarBadge: 10,
-        }}
       />
       <Tab.Screen
         name={routes.PROFILESCREENS}
         component={bottom.PROFILESCREENS}
-        options={{
-          tabBarLabel: '',
-        }}
       />
     </Tab.Navigator>
   );

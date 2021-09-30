@@ -1,47 +1,39 @@
-import {icons, images} from '@assets';
-import {Block} from '@components';
-import {theme} from '@theme';
-import {getSize} from '@utils/responsive';
 import React from 'react';
-import {Image, Pressable, StyleSheet} from 'react-native';
-import Svg, {Path} from 'react-native-svg';
+import {Block} from '@components';
+import {StyleSheet, Text, Pressable, Image, Platform} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {theme} from '@theme';
+import {icons} from '@assets';
+import {getSize} from '@utils/responsive';
 
-const TabBarAdvancedButton = ({icon, onPress, isFocused}) => (
-  <Block style={styles.container}>
-    <Block style={styles.background} backgroundColor="transparent">
-      <Svg width={75} height={61} viewBox="0 0 75 61">
-        <Path
-          d="M75.2 0v61H0V0c4.1 0 7.4 3.1 7.9 7.1C10 21.7 22.5 33 37.7 33c15.2 0 27.7-11.3 29.7-25.9.5-4 3.9-7.1 7.9-7.1h-.1z"
-          fill={'#fff'}
-        />
-      </Svg>
-    </Block>
-    <Pressable style={styles.button} onPress={onPress}>
-      <Image
-        source={icon}
-        style={{...styles.iconstyle(isFocused), tintColor: theme.colors.white}}
-      />
-    </Pressable>
-  </Block>
-);
-
-const CustomTabBar = ({state, descriptors, navigation}) => {
+const MyTabBar = ({state, descriptors, navigation}) => {
+  const {bottom} = useSafeAreaInsets();
   return (
-    <Block row alignCenter backgroundColor="transparent">
+    <Block
+      row
+      backgroundColor={theme.colors.secondary}
+      paddingBottom={Platform.OS === 'ios' ? bottom : 10}
+      paddingTop={10}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
+        const label =
+          options.tabBarLabel !== undefined
+            ? options.tabBarLabel
+            : options.title !== undefined
+            ? options.title
+            : route.name;
+
         const isFocused = state.index === index;
         const icon =
           index === 0
-            ? icons.dhome
+            ? icons.home
             : index === 1
-            ? icons.dbox
+            ? icons.category
             : index === 2
-            ? icons.dchat
+            ? icons.cart
             : index === 3
-            ? icons.dbell
-            : icons.duser;
-
+            ? icons.notification
+            : icons.user;
         const onPress = () => {
           const event = navigation.emit({
             type: 'tabPress',
@@ -59,9 +51,7 @@ const CustomTabBar = ({state, descriptors, navigation}) => {
             target: route.key,
           });
         };
-        if (index === 2) {
-          return <TabBarAdvancedButton icon={icons.wadd} onPress={onPress} />;
-        }
+
         return (
           <Pressable
             key={index}
@@ -71,48 +61,36 @@ const CustomTabBar = ({state, descriptors, navigation}) => {
             testID={options.tabBarTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={styles.buttonCommon}>
-            {/* {index === 2(<CustomTabBarButton />)} */}
-            <Image source={icon} style={styles.iconstyle(isFocused)} />
-            {/* <Text style={{color: isFocused ? '#673ab7' : '#222'}}>{label}</Text> */}
+            style={styles.btn}>
+            <Block
+              style={{
+                backgroundColor: isFocused
+                  ? theme.colors.white
+                  : theme.colors.secondary,
+                padding: 5,
+                borderRadius: 8,
+              }}>
+              <Image source={icon} style={styles.iconstyle(isFocused)} />
+            </Block>
+            {/* <Text style={styles.textlabel(isFocused)}>{label}</Text> */}
           </Pressable>
         );
       })}
     </Block>
   );
 };
-
-export default CustomTabBar;
+export default MyTabBar;
 const styles = StyleSheet.create({
-  iconstyle: isFocused => ({
-    width: getSize.s(22),
-    height: getSize.s(22),
-    resizeMode: 'contain',
-    tintColor: isFocused ? theme.colors.primary : theme.colors.lightGray,
+  btn: {flex: 1, alignItems: 'center'},
+  textlabel: isFocused => ({
+    color: isFocused ? theme.colors.white : theme.colors.primary,
+    marginTop: 5,
+    fontSize: 10,
   }),
-  container: {
-    position: 'relative',
-    width: 75,
-    alignItems: 'center',
-  },
-  background: {
-    position: 'absolute',
-    top: 0,
-  },
-  button: {
-    top: -25,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 50,
-    height: 50,
-    borderRadius: 27,
-    backgroundColor: theme.colors.primary,
-  },
-  buttonCommon: {
-    height: 48,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: theme.colors.white,
-  },
+  iconstyle: isFocused => ({
+    width: getSize.s(20),
+    height: getSize.s(20),
+    resizeMode: 'contain',
+    tintColor: isFocused ? theme.colors.primary : theme.colors.white,
+  }),
 });
