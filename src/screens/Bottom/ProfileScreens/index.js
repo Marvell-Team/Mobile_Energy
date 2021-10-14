@@ -83,7 +83,7 @@ const ProfileScreens = () => {
   console.log(data);
   return (
     <Block flex style={styles.container}>
-      <Header iconRight={icons.more} />
+      <Header iconRight={icons.more} rightPress={()=>navigation.navigate(routes.OPTIONSCREENS)}/>
       <Block paddingHorizontal={8} style={styles.viewInfo}>
         <Block paddingTop={12} marginHorizontal={12} row>
           <Block width={'30%'}>
