@@ -9,6 +9,8 @@ import {
   UIManager,
   LayoutAnimation,
   Image,
+  Modal,
+  TouchableOpacity,
 } from 'react-native';
 import {Block, Text, Thumbnail, Button} from '@components';
 import CommentCard from './card';
@@ -17,6 +19,7 @@ import styles from './style';
 import {theme} from '@theme';
 import {useNavigation} from '@react-navigation/native';
 import {routes} from '@navigation/routes';
+import {getSize} from '@utils/responsive';
 const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
 const data = [
@@ -51,6 +54,7 @@ const DetailScreens = () => {
     'https://i.ytimg.com/vi/SbR0_YbVSbU/maxresdefault.jpg',
     'https://vnn-imgs-f.vgcloud.vn/2019/10/08/17/samsung-se-bo-galaxy-fold-va-galaxy-note-de-ra-dong-flagship-moi-3.jpg',
   ]);
+  const [modalVisible, setModalVisible] = useState(false);
   if (Platform.OS === 'android') {
     if (UIManager.setLayoutAnimationEnabledExperimental) {
       UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -150,37 +154,7 @@ const DetailScreens = () => {
             width={width / 1.1}
             style={{borderWidth: 0.3, borderColor: theme.colors.dark}}
           />
-          {/* Body User */}
-          <Block row alignCenter style={styles.bodyuser}>
-            <Block style={{flex: 1.5}}>
-              <Thumbnail source={icons.user} style={{width: 50, height: 50}} />
-            </Block>
-            <Block style={{flex: 4, marginLeft: 10}}>
-              <Text style={{fontSize: 18, fontWeight: 'bold'}}>
-                Huynh Nhat Ban
-              </Text>
-              <Block row alignCenter>
-                <Text
-                  color={theme.colors.green}
-                  size={20}
-                  style={{marginTop: -3}}>
-                  ●
-                </Text>
-                <Text size={12}> Đang hoạt động</Text>
-              </Block>
-            </Block>
-            <Block justifyCenter style={{flex: 2}}>
-              <Button
-                shadow
-                title="Yêu thích"
-                style={styles.button}
-                titleStyle={{
-                  fontSize: 16,
-                  color: theme.colors.primary,
-                }}
-              />
-            </Block>
-          </Block>
+
           {/* Body Detail product */}
           <Block
             width={width / 1.1}
@@ -280,30 +254,132 @@ const DetailScreens = () => {
         </Block>
       </ScrollView>
       <Block row width={width} height={height / 14} backgroundColor={'blue'}>
-        <Block
-          justifyCenter
-          alignCenter
-          style={{flex: 2, backgroundColor: '#144C6E'}}>
-          <Thumbnail source={icons.wchat} style={{width: 25, height: 25}} />
-        </Block>
-        <Block
-          justifyCenter
-          alignCenter
-          style={{flex: 2, backgroundColor: '#186999'}}>
+        <TouchableOpacity
+          onPress={() => setModalVisible(true)}
+          style={{
+            flex: 2,
+            backgroundColor: '#186999',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
           <Thumbnail source={icons.cart} style={{width: 25, height: 25}} />
-        </Block>
-        <Block
-          style={{flex: 3, backgroundColor: theme.colors.primary}}
-          justifyCenter
-          alignCenter>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            flex: 3,
+            backgroundColor: theme.colors.primary,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
           <Text
             color={theme.colors.white}
             size={17}
             style={{fontWeight: 'bold'}}>
             Mua hàng
           </Text>
-        </Block>
+        </TouchableOpacity>
       </Block>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+        <Block
+          backgroundColor="#00000066"
+          width={width}
+          height={height}
+          justifyEnd
+          alignEnd
+          style={{position: 'absolute',bottom:0}}>
+          <Block
+          padding={20}
+            backgroundColor={theme.colors.white}
+            width={width}
+            style={{
+              borderTopLeftRadius: getSize.m(20),
+              borderTopRightRadius: getSize.m(20),
+            }}>
+            <Block row >
+              <Block flex alignCenter justifyCenter></Block>
+              <Block style={{flex: 7}} alignCenter justifyCenter>
+                <Text
+                  style={{fontWeight: 'bold'}}
+                  size={20}
+                  color={theme.colors.primary}>
+                  Thêm vào giỏ hàng
+                </Text>
+              </Block>
+              <Block flex alignCenter justifyCenter>
+                <Thumbnail
+                  onPress={() =>{setModalVisible(false)}}
+                  source={icons.close}
+                  style={{width: 30, height: 30}}></Thumbnail>
+              </Block>
+            </Block>
+            <Block style={{borderBottomWidth:0.8}} borderColor='black' row>
+              <Block style={{flex: 2}}>
+                
+                
+                {/* hinh anh */}
+
+
+
+              </Block>
+              <Block style={{flex: 7,marginBottom:20}}>
+                <Text style={{fontWeight: 'bold'}} size={20}>
+                  IPHONE 11 PRO PLUS 256GB
+                </Text>
+                <Text color="#949599">
+                  Hãng:<Text>Apple</Text> - Màu:<Text>Đen</Text> - Dung lượng:
+                  <Text>256 GB</Text>{' '}
+                </Text>
+                <Text size={20}>28.500.000 Đ</Text>
+                <Block row>
+                  <Block
+                    justifyCenter
+                    borderColor={theme.colors.primary}
+                    borderWidth={1}
+                    width={getSize.s(30)}
+                    height={getSize.v(30)}>
+                    <Thumbnail source={icons.subtract}></Thumbnail>
+                  </Block>
+                  <Block
+                    width={getSize.s(30)}
+                    height={getSize.v(30)}
+                    alignCenter
+                    justifyCenter
+                    borderColor={theme.colors.primary}
+                    borderWidth={1}>
+                    <Text size={18}>0</Text>
+                  </Block>
+                  <Block
+                    justifyCenter
+                    width={getSize.s(30)}
+                    height={getSize.v(30)}
+                    borderColor={theme.colors.primary}
+                    borderWidth={1}>
+                    <Thumbnail source={icons.plus}></Thumbnail>
+                  </Block>
+                </Block>
+              </Block>
+            </Block>
+             <Block row paddingTop={20}>
+                <Block style={{flex:4}} >
+                  <Text size={18}>Tổng</Text>
+                  <Text color='red' size={20} style={{fontWeight: 'bold'}}>228.000 Đ</Text>
+                </Block>
+                <Block style={{flex:7}}>
+                  <TouchableOpacity style={{width:'100%', height:getSize.v(60),backgroundColor:theme.colors.primary,borderRadius:getSize.m(10),alignItems:'center',justifyContent:'center'}}>
+                     <Text color='white' style={{fontWeight: 'bold'}} size={22}  >Thêm Giỏ Hàng</Text>
+                  </TouchableOpacity>
+                </Block>
+             </Block>
+          </Block>
+        </Block>
+      </Modal>
     </Block>
   );
 };

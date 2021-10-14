@@ -38,4 +38,7 @@ export const icons = {
   bill: require('./icons/bill.png'),
   safety: require('./icons/safety.png'),
   history: require('./icons/history.png'),
+  close: require('./icons/close1.png'),
+  plus: require('./icons/plus.png'),
+  subtract:require('./icons/subtract.png'),
 };
