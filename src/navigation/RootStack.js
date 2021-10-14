@@ -7,6 +7,7 @@ import {navigate} from './RootNavigation';
 import {routes} from './routes';
 import {auth} from '../screens/Auth';
 import {product} from '@screens/Product';
+import OPTIONSCREENS from '../screens/OptionScreen/OptionsPicket'
 const Stack = createStackNavigator();
 const RootStack = () => {
   return (
@@ -43,6 +44,10 @@ const RootStack = () => {
         <Stack.Screen
           name={routes.MYBILLSCREENS}
           component={product.MYBILLSCREENS}
+        />
+        <Stack.Screen
+         name={routes.OPTIONSCREENS}
+         component={OPTIONSCREENS}
         />
       </Stack.Navigator>
     </NavigationContainer>
