@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, ToastAndroid, ScrollView, StatusBar} from 'react-native';
 import styles from './style';
 import {icons} from '@assets';
 import {routes} from '../../../navigation/routes.js';
 import {useNavigation} from '@react-navigation/native';
+import {connect} from 'react-redux';
+import {loginAction} from '../../../redux/actions'
 import {
   Block,
   Button,
@@ -12,7 +14,22 @@ import {
   Thumbnail,
   PressText,
 } from '@components';
-const LoginScreens = () => {
+const mapStateToProps = state => {
+  return {
+    error: state.loginReducers.error,
+    data: state.loginReducers.data,
+    loadding: state.loginReducers.loadding,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loginAction: (user, password) => {
+      dispatch(loginAction(user, password));
+    },
+  };
+};
+const LoginScreens = ({loginAction,data}) => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,6 +37,13 @@ const LoginScreens = () => {
   const _login = () => {
     navigation.navigate(routes.BOTTOMTABBAR);
   };
+  
+  useEffect(() => {
+    if(data!==null){
+      _login();
+    }
+  }, [data]);
+  
   return (
     <Block flex paddingHorizontal={12} style={styles.container}>
       <ScrollView indicatorStyle={'white'}>
@@ -50,7 +74,7 @@ const LoginScreens = () => {
         <Button
           shadow
           title="ĐĂNG NHẬP"
-          onPress={() => _login()}
+          onPress={() => {loginAction(email,password)}}
           style={styles.button}
           titleStyle={styles.textBtn}
         />
@@ -82,5 +106,5 @@ const LoginScreens = () => {
     </Block>
   );
 };
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreens);
 
-export default LoginScreens;
