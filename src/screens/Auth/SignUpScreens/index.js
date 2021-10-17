@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, ToastAndroid, ScrollView} from 'react-native';
 import styles from './style';
 import {icons} from '@assets';
 import {useNavigation} from '@react-navigation/native';
 import {routes} from '../../../navigation/routes.js';
+import {connect} from 'react-redux';
+import {signUpAction} from '../../../redux/actions'
 import {
   Block,
   Button,
@@ -12,11 +14,31 @@ import {
   Thumbnail,
   PressText,
 } from '@components';
-const SignUpScreens = () => {
+const mapStateToProps = state => {
+  return {
+    error: state.signupReducer.error,
+    data: state.signupReducer.data,
+    loadding: state.signupReducer.loadding,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    signUpAction: (user) => {
+      dispatch(signUpAction(user));
+    },
+  };
+};
+const SignUpScreens = ({signUpAction,data}) => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  useEffect(() => {
+    if(data!==null){
+      alert(data)
+    }
+  }, [data])
   return (
     <Block flex paddingHorizontal={12} style={styles.container}>
       <ScrollView indicatorStyle={'white'}>
@@ -46,8 +68,8 @@ const SignUpScreens = () => {
           shadow
           title="ĐĂNG KÍ"
           onPressOut={() => {
-            console.log('Hello'),
-              ToastAndroid.show('Hello', ToastAndroid.SHORT);
+            let user={email_user:email,pwd_user:password,name_user:username};
+            signUpAction(user);
           }}
           style={styles.button}
           titleStyle={styles.textBtn}
@@ -63,5 +85,4 @@ const SignUpScreens = () => {
     </Block>
   );
 };
-
-export default SignUpScreens;
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreens);
