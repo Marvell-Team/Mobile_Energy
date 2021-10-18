@@ -40,5 +40,8 @@ export const icons = {
   history: require('./icons/history.png'),
   close: require('./icons/close1.png'),
   plus: require('./icons/plus.png'),
-  subtract:require('./icons/subtract.png'),
+  subtract: require('./icons/subtract.png'),
+  dprofile: require('./icons/dprofile.png'),
+  dcart: require('./icons/dcart.png'),
+  dcategory: require('./icons/dcategory.png'),
 };

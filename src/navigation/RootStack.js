@@ -7,7 +7,7 @@ import {navigate} from './RootNavigation';
 import {routes} from './routes';
 import {auth} from '../screens/Auth';
 import {product} from '@screens/Product';
-import OPTIONSCREENS from '../screens/OptionScreen/OptionsPicket'
+import OPTIONSCREENS from '../screens/OptionScreen/OptionsPicket';
 const Stack = createStackNavigator();
 const RootStack = () => {
   return (
@@ -19,7 +19,7 @@ const RootStack = () => {
       />
       <Stack.Navigator
         presentation="modal"
-        initialRouteName={routes.LOGINSCREENS}
+        initialRouteName={routes.BOTTOMTABBAR}
         screenOptions={{headerShown: false}}>
         <Stack.Screen
           name={routes.LOGINSCREENS}
@@ -45,10 +45,7 @@ const RootStack = () => {
           name={routes.MYBILLSCREENS}
           component={product.MYBILLSCREENS}
         />
-        <Stack.Screen
-         name={routes.OPTIONSCREENS}
-         component={OPTIONSCREENS}
-        />
+        <Stack.Screen name={routes.OPTIONSCREENS} component={OPTIONSCREENS} />
       </Stack.Navigator>
     </NavigationContainer>
   );

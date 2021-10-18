@@ -13,7 +13,7 @@ const MyTabBar = ({state, descriptors, navigation}) => {
       row
       backgroundColor={theme.colors.secondary}
       paddingBottom={Platform.OS === 'ios' ? bottom : 10}
-      paddingTop={10}>
+      paddingTop={8}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
         const label =
@@ -26,14 +26,14 @@ const MyTabBar = ({state, descriptors, navigation}) => {
         const isFocused = state.index === index;
         const icon =
           index === 0
-            ? icons.home
+            ? icons.dhome
             : index === 1
-            ? icons.category
+            ? icons.dcategory
             : index === 2
-            ? icons.cart
+            ? icons.dcart
             : index === 3
-            ? icons.notification
-            : icons.user;
+            ? icons.dbell
+            : icons.dprofile;
         const onPress = () => {
           const event = navigation.emit({
             type: 'tabPress',
@@ -72,7 +72,7 @@ const MyTabBar = ({state, descriptors, navigation}) => {
               }}>
               <Image source={icon} style={styles.iconstyle(isFocused)} />
             </Block>
-            {/* <Text style={styles.textlabel(isFocused)}>{label}</Text> */}
+            <Text style={styles.textlabel(isFocused)}>{label}</Text>
           </Pressable>
         );
       })}
@@ -83,13 +83,13 @@ export default MyTabBar;
 const styles = StyleSheet.create({
   btn: {flex: 1, alignItems: 'center'},
   textlabel: isFocused => ({
-    color: isFocused ? theme.colors.white : theme.colors.primary,
-    marginTop: 5,
-    fontSize: 10,
+    color: isFocused ? theme.colors.white : theme.colors.white,
+    marginTop: 2,
+    fontSize: 14,
   }),
   iconstyle: isFocused => ({
-    width: getSize.s(20),
-    height: getSize.s(20),
+    width: getSize.s(22),
+    height: getSize.s(22),
     resizeMode: 'contain',
     tintColor: isFocused ? theme.colors.primary : theme.colors.white,
   }),
