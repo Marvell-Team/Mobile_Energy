@@ -23,6 +23,7 @@ export const theme = {
     yellow: '#FFDF00',
     dark: '#00000060',
     grayText: '#748A9D',
+    darkGray: '#888888',
   },
 
   fonts: {

@@ -12,8 +12,8 @@ const MyTabBar = ({state, descriptors, navigation}) => {
     <Block
       row
       backgroundColor={theme.colors.secondary}
-      paddingBottom={Platform.OS === 'ios' ? bottom : 10}
-      paddingTop={8}>
+      paddingBottom={Platform.OS === 'ios' ? bottom : 5}
+      paddingTop={5}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
         const label =
