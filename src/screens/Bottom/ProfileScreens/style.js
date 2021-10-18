@@ -1,5 +1,8 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {theme} from '@theme';
+import {useNavigation} from '@react-navigation/native';
+import {routes} from '@navigation/routes';
+
 
 const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
@@ -97,4 +100,29 @@ export default StyleSheet.create({
     alignSelf: 'flex-end',
     marginHorizontal: 8,
   },
+  modal:{
+    backgroundColor:'white',
+    borderRadius:10,
+
+},
+option:{
+    alignItems:'flex-start',
+    backgroundColor:'#F0F4F8',
+    marginTop:10, 
+    borderRadius:5, 
+    marginRight:150,
+    width:width,
+    borderRadius:10,
+    padding:5,
+
+},
+text:{
+    margin:5,
+    maxHeight:150,
+    fontSize:20,
+    fontWeight:'bold', 
+    marginLeft:5,
+    paddingHorizontal:10,
+    marginVertical:10,  
+}
 });
