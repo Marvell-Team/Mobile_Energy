@@ -44,4 +44,5 @@ export const icons = {
   dprofile: require('./icons/dprofile.png'),
   dcart: require('./icons/dcart.png'),
   dcategory: require('./icons/dcategory.png'),
+  help: require('./icons/help.png'),
 };

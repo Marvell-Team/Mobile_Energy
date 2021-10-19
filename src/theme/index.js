@@ -24,6 +24,7 @@ export const theme = {
     dark: '#00000060',
     grayText: '#748A9D',
     darkGray: '#888888',
+    blackText: '#2D2C3C',
   },
 
   fonts: {

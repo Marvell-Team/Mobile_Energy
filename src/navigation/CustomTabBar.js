@@ -11,8 +11,8 @@ const MyTabBar = ({state, descriptors, navigation}) => {
   return (
     <Block
       row
-      backgroundColor={theme.colors.secondary}
-      paddingBottom={Platform.OS === 'ios' ? bottom : 5}
+      backgroundColor={theme.colors.white}
+      paddingBottom={Platform.OS === 'ios' ? bottom : 10}
       paddingTop={5}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
@@ -25,6 +25,17 @@ const MyTabBar = ({state, descriptors, navigation}) => {
 
         const isFocused = state.index === index;
         const icon =
+          index === 0
+            ? icons.home
+            : index === 1
+            ? icons.category
+            : index === 2
+            ? icons.cart
+            : index === 3
+            ? icons.notification
+            : icons.user;
+
+        const dicon =
           index === 0
             ? icons.dhome
             : index === 1
@@ -62,15 +73,12 @@ const MyTabBar = ({state, descriptors, navigation}) => {
             onPress={onPress}
             onLongPress={onLongPress}
             style={styles.btn}>
-            <Block
-              style={{
-                backgroundColor: isFocused
-                  ? theme.colors.white
-                  : theme.colors.secondary,
-                padding: 5,
-                borderRadius: 8,
-              }}>
-              <Image source={icon} style={styles.iconstyle(isFocused)} />
+            <Block style={styles.blockIcon(isFocused)}>
+              {isFocused ? (
+                <Image source={dicon} style={styles.diconstyle} />
+              ) : (
+                <Image source={icon} style={styles.iconstyle} />
+              )}
             </Block>
             <Text style={styles.textlabel(isFocused)}>{label}</Text>
           </Pressable>
@@ -83,14 +91,27 @@ export default MyTabBar;
 const styles = StyleSheet.create({
   btn: {flex: 1, alignItems: 'center'},
   textlabel: isFocused => ({
-    color: isFocused ? theme.colors.white : theme.colors.white,
+    color: isFocused ? theme.colors.primary : theme.colors.blackText,
     marginTop: 2,
-    fontSize: 14,
+    fontSize: 15,
   }),
-  iconstyle: isFocused => ({
-    width: getSize.s(22),
-    height: getSize.s(22),
+  blockIcon: isFocused => ({
+    backgroundColor: isFocused ? theme.colors.secondary : theme.colors.white,
+    padding: 8,
+    borderRadius: 12,
+    borderWidth: 0.5,
+    borderColor: isFocused ? theme.colors.primary : theme.colors.white,
+  }),
+  iconstyle: {
+    width: getSize.s(23),
+    height: getSize.s(23),
     resizeMode: 'contain',
-    tintColor: isFocused ? theme.colors.primary : theme.colors.white,
-  }),
+    tintColor: theme.colors.blackText,
+  },
+  diconstyle: {
+    width: getSize.s(23),
+    height: getSize.s(23),
+    resizeMode: 'contain',
+    tintColor: theme.colors.white,
+  },
 });
