@@ -12,7 +12,7 @@ const MyTabBar = ({state, descriptors, navigation}) => {
     <Block
       row
       backgroundColor={theme.colors.white}
-      paddingBottom={Platform.OS === 'ios' ? bottom : 8}
+      paddingBottom={Platform.OS === 'ios' ? bottom : 6}
       borderTopWidth={0.5}
       borderTopColor={theme.colors.lightGray}
       paddingTop={5}>
