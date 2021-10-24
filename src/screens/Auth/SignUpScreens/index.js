@@ -5,7 +5,7 @@ import {icons} from '@assets';
 import {useNavigation} from '@react-navigation/native';
 import {routes} from '../../../navigation/routes.js';
 import {connect} from 'react-redux';
-import {signUpAction} from '../../../redux/actions'
+import {signUpAction} from '../../../redux/actions';
 import {
   Block,
   Button,
@@ -24,21 +24,21 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    signUpAction: (user) => {
+    signUpAction: user => {
       dispatch(signUpAction(user));
     },
   };
 };
-const SignUpScreens = ({signUpAction,data}) => {
+const SignUpScreens = ({signUpAction, data}) => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   useEffect(() => {
-    if(data!==null){
-      alert(data)
+    if (data !== null) {
+      alert(data);
     }
-  }, [data])
+  }, [data]);
   return (
     <Block flex paddingHorizontal={12} style={styles.container}>
       <ScrollView indicatorStyle={'white'}>
@@ -48,27 +48,31 @@ const SignUpScreens = ({signUpAction,data}) => {
         <TextInput
           iconleft={icons.user}
           placeholder="Nhập họ tên..."
-          setValue={setUsername}
+          onChangeText={text => setUsername(text)}
           style={styles.input}
         />
         <TextInput
           iconleft={icons.email}
           placeholder="Nhập email..."
-          setValue={setEmail}
+          onChangeText={text => setEmail(text)}
           style={styles.input}
         />
         <TextInput
           iconleft={icons.pass}
           issecure
           placeholder="Nhập password..."
-          setValue={setPassword}
+          onChangeText={text => setPassword(text)}
           style={styles.input}
         />
         <Button
           shadow
           title="ĐĂNG KÍ"
           onPressOut={() => {
-            let user={email_user:email,pwd_user:password,name_user:username};
+            let user = {
+              email_user: email,
+              pwd_user: password,
+              name_user: username,
+            };
             signUpAction(user);
           }}
           style={styles.button}

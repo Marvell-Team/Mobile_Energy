@@ -19,7 +19,7 @@ const Header = ({
     <Block
       row
       backgroundColor={theme.colors.primary}
-      paddingHorizontal={8}
+      paddingHorizontal={12}
       justifyCenter
       alignCenter
       style={{
