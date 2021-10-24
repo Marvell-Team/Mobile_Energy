@@ -53,12 +53,14 @@ const HomeScreens = () => {
   return (
     <Block flex style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Header
-          style={styles.header}
-          iconLeft={icons.turn}
-          iconRight={icons.location}
-          iconStyle={{tintColor: theme.colors.white}}
-        />
+        <Block row style={styles.header}>
+          <Text style={styles.headerTitle}>Hello, Kiet</Text>
+          <Thumbnail
+            source={icons.location}
+            style={styles.viewIcon}
+            imageStyle={{tintColor: theme.colors.white}}
+          />
+        </Block>
         <Block style={styles.blockTop}>
           <TextInput
             iconleft={icons.search}

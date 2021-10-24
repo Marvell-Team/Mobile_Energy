@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet, Dimensions, StatusBar} from 'react-native';
 import {theme} from '@theme';
 import {getSize} from '@utils/responsive';
 
@@ -13,18 +13,26 @@ export default StyleSheet.create({
 
   header: {
     backgroundColor: theme.colors.secondary,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 14,
+    paddingVertical: 16,
+    paddingTop: StatusBar.currentHeight + 12,
   },
 
-  titleHeader: {
+  viewIcon: {
+    width: 27,
+    height: 27,
+  },
+
+  headerTitle: {
     color: theme.colors.white,
     fontWeight: 'bold',
-    fontSize: getSize.m(16),
-    textAlign: 'left',
+    fontSize: getSize.m(22),
   },
 
   blockTop: {
     width: width,
-    paddingBottom: getSize.s(6),
     paddingHorizontal: getSize.s(12),
     backgroundColor: theme.colors.secondary,
     borderBottomLeftRadius: 20,
