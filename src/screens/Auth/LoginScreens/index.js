@@ -5,7 +5,7 @@ import {icons} from '@assets';
 import {routes} from '../../../navigation/routes.js';
 import {useNavigation} from '@react-navigation/native';
 import {connect} from 'react-redux';
-import {loginAction} from '../../../redux/actions'
+import {loginAction} from '../../../redux/actions';
 import {
   Block,
   Button,
@@ -29,7 +29,7 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
-const LoginScreens = ({loginAction,data}) => {
+const LoginScreens = ({loginAction, data}) => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -37,13 +37,13 @@ const LoginScreens = ({loginAction,data}) => {
   const _login = () => {
     navigation.navigate(routes.BOTTOMTABBAR);
   };
-  
+
   useEffect(() => {
-    if(data!==null){
+    if (data !== null) {
       _login();
     }
   }, [data]);
-  
+
   return (
     <Block flex paddingHorizontal={12} style={styles.container}>
       <ScrollView indicatorStyle={'white'}>
@@ -52,14 +52,14 @@ const LoginScreens = ({loginAction,data}) => {
         <TextInput
           iconleft={icons.email}
           placeholder="Nhập email..."
-          setValue={setEmail}
+          onChangeText={text => setEmail(text)}
           style={styles.input}
         />
         <TextInput
           iconleft={icons.pass}
           issecure
           placeholder="Nhập password..."
-          setValue={setPassword}
+          onChangeText={text => setPassword(text)}
           style={styles.input}
         />
         <PressText
@@ -74,7 +74,9 @@ const LoginScreens = ({loginAction,data}) => {
         <Button
           shadow
           title="ĐĂNG NHẬP"
-          onPress={() => {loginAction(email,password)}}
+          onPress={() => {
+            loginAction(email, password);
+          }}
           style={styles.button}
           titleStyle={styles.textBtn}
         />
@@ -107,4 +109,3 @@ const LoginScreens = ({loginAction,data}) => {
   );
 };
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreens);
-

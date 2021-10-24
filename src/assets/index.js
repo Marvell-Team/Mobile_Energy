@@ -1,4 +1,5 @@
 export const icons = {
+  bg: require('./images/bg.jpg'),
   home: require('./icons/home.png'),
   category: require('./icons/category.png'),
   notification: require('./icons/notification.png'),
@@ -8,7 +9,7 @@ export const icons = {
   closeeyes: require('./icons/close.png'),
   user: require('./icons/user.png'),
   pass: require('./icons/pass.png'),
-  logo: require('./icons/logo.jpg'),
+  logo: require('./icons/logo.png'),
   facebook: require('./icons/facebook.png'),
   twitter: require('./icons/twitter.png'),
   google: require('./icons/google.png'),
@@ -45,4 +46,16 @@ export const icons = {
   dcart: require('./icons/dcart.png'),
   dcategory: require('./icons/dcategory.png'),
   help: require('./icons/help.png'),
+  location: require('./icons/location.png'),
+  next: require('./icons/next.png'),
+  vui: require('./icons/vui.png'),
+  phanno: require('./icons/phanno.png'),
+  lmao: require('./icons/lmao.png'),
+  buon: require('./icons/buon.png'),
+  binhthuong: require('./icons/binhthuong.png'),
+  check: require('./icons/check.png'),
+  turn: require('./icons/turn.png'),
+  finish: require('./icons/finish.png'),
 };
+
+export const fonts = {};

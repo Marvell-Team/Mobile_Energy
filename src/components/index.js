@@ -13,6 +13,8 @@ import NotifiList from './List/NotifiList';
 import ProductFlatList from './List/ProductFlatList';
 import ProductGridList from './List/ProductGridList';
 import BillList from './List/BillList';
+import CategoryItem from './Card/CategoryItem';
+import ProductCard from './Card/ProductCard';
 export {
   Block,
   Text,
@@ -29,4 +31,6 @@ export {
   ProductFlatList,
   ProductGridList,
   BillList,
+  CategoryItem,
+  ProductCard,
 };

@@ -6,6 +6,7 @@ import BottomTabNavigation from './BottomTabNavigation';
 import {navigate} from './RootNavigation';
 import {routes} from './routes';
 import {auth} from '../screens/Auth';
+import {orders} from '@screens/Order';
 import {product} from '@screens/Product';
 import OPTIONSCREENS from '../screens/OptionScreen/OptionsPicket';
 const Stack = createStackNavigator();
@@ -46,6 +47,18 @@ const RootStack = () => {
           component={product.MYBILLSCREENS}
         />
         <Stack.Screen name={routes.OPTIONSCREENS} component={OPTIONSCREENS} />
+        <Stack.Screen
+          name={routes.ORDER_SUCCESS_SCREEN}
+          component={orders.ORDER_SUCCESS_SCREEN}
+        />
+        <Stack.Screen
+          name={routes.VOTE_SCREEN}
+          component={orders.VOTE_SCREEN}
+        />
+        <Stack.Screen
+          name={routes.VOTE_FINISH_SCREEN}
+          component={orders.VOTE_FINISH_SCREEN}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -10,7 +10,7 @@ const Input = ({
   placeholder,
   value,
   placeholderTextColor,
-  setValue,
+  onChangeText,
   inputstyle,
   issecure,
   ...props
@@ -28,7 +28,7 @@ const Input = ({
       {iconleft && (
         <Image
           source={iconleft}
-          style={{width: 20, height: 20}}
+          style={{width: 20, height: 20, marginRight: 5}}
           resizeMode="contain"
         />
       )}
@@ -39,7 +39,7 @@ const Input = ({
         autoCorrect={false}
         placeholderTextColor={placeholderTextColor}
         secureTextEntry={issecure ? isCheck : false}
-        onChangeText={text => setValue(text)}
+        onChangeText={onChangeText}
         underlineColorAndroid="transparent"
         style={{flex: 1, height: '100%', ...inputstyle}}
         {...props}
