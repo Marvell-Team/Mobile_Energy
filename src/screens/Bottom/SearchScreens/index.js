@@ -143,7 +143,7 @@ const SEARCHSCREEN = ({getProduct,data1}) => {
          
         </TextInput>
         <Block alignEnd justifyCenter style={{flex: 2}}>
-          <Thumbnail source={icons.filter}
+          <Thumbnail source={icons.filter1}
 
           style={{marginHorizontal: 2, width: getSize.s(22), height: getSize.s(22)}}
          />
