@@ -16,7 +16,7 @@ function* signInFlow(action){
             yield put({type:SIGNIN_SUCCESS,response})
         }else{
             //truong hợp này gọi tới sever bi sever báo lỗi về
-            yield put({type:SIGNIN_ERROR,error:response.message})
+            yield put({type:SIGNIN_ERROR,error:response.error})
         }
      }else{
          //Đôi khi api lỗi , sever ko trả dữ liệu vè
@@ -44,7 +44,7 @@ function* signUpFlow(action){
             yield put({type:SIGNUP_SUCCESS,response})
         }else{
             //truong hợp này gọi tới sever bi sever báo lỗi về
-            yield put({type:SIGNUP_ERROR,error:response.message})
+            yield put({type:SIGNUP_ERROR,error:response.error})
         }
      }else{
          //Đôi khi api lỗi , sever ko trả dữ liệu vè

@@ -47,8 +47,8 @@ export async function postSignUp(user) {
       //những không có giá trị trả về
       //nên tạo dữ liệu erro vào hàm này
       return {
-        resultCode: -1,
-        message: 'Có lỗi xảy ra , không kết nối được tới máy chủ',
+        status: -1,
+        error: 'Có lỗi xảy ra , không kết nối được tới máy chủ',
       };
     });
 }

@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Header} from '@components';
 import {theme} from '@theme';
+import { getSize } from '@utils/responsive';
 
 const ProfileScreens = () => {
   return (
@@ -41,22 +42,23 @@ const ProfileScreens = () => {
       </View>
 
       <View style={styles.userInfoSection}>
-        <View style={styles.row}>
-          <Icon name="map-marker-radius" color="white" size={24} />
-          <Text style={{color: 'white', marginLeft: 20, fontSize: 18}}>
-            TPHCM,VietNam{' '}
+      <View style={styles.row}>
+          <Icon name="email" color="white" size={getSize.s(20)} />
+          <Text style={{color: 'white', marginLeft: 20, fontSize: getSize.m(18)}}>
+            hotruongan19992017@gmail.com
           </Text>
         </View>
+        
         <View style={styles.row}>
-          <Icon name="phone" color="white" size={24} />
-          <Text style={{color: 'white', marginLeft: 20, fontSize: 18}}>
+          <Icon name="phone" color="white" size={getSize.s(20)} />
+          <Text style={{color: 'white', marginLeft: 20, fontSize: getSize.m(18)}}>
             0929447829
           </Text>
         </View>
         <View style={styles.row}>
-          <Icon name="email" color="white" size={24} />
-          <Text style={{color: 'white', marginLeft: 20, fontSize: 18}}>
-            hotruongan19992017@gmail.com
+          <Icon name="map-marker-radius" color="white" size={getSize.s(20)} />
+          <Text style={{color: 'white', marginLeft: 20, fontSize: getSize.m(18)}}>
+            TPHCM,VietNam{' '}
           </Text>
         </View>
       </View>
@@ -80,6 +82,7 @@ const ProfileScreens = () => {
       </View>
 
       <ScrollView style={styles.menuWrapper}>
+        <Text style={{fontWeight: 'bold',fontSize:getSize.m(24)}}>Cài đặt</Text>
         <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
             <Icon name="heart-outline" color="#FF6347" size={30} />
@@ -167,19 +170,21 @@ const styles = StyleSheet.create({
   },
   menuWrapper: {
     marginTop: 10,
+    backgroundColor: '#FFFAFA',
+    paddingHorizontal: 20,
   },
   menuItem: {
     flexDirection: 'row',
     paddingVertical: 12,
-    paddingHorizontal: 20,
-    backgroundColor: '#FFFAFA',
+    
+    
   },
   menuItemText: {
     color: '#777777',
-    marginLeft: 20,
     fontWeight: '600',
     fontSize: 20,
     lineHeight: 26,
+    marginLeft:20
   },
 });
 

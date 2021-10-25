@@ -45,4 +45,5 @@ export const icons = {
   dcart: require('./icons/dcart.png'),
   dcategory: require('./icons/dcategory.png'),
   help: require('./icons/help.png'),
+  filter: require('./icons/filter.png'),
 };

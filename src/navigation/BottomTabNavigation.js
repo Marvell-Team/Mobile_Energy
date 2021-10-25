@@ -18,8 +18,8 @@ const BottomTabNavigation = () => {
         options={{tabBarLabel: 'Trang chủ'}}
       />
       <Tab.Screen
-        name={routes.POSTSCREENS}
-        component={bottom.POSTSCREENS}
+        name={routes.SEARCHSCREEN}
+        component={bottom.SEARCHSCREEN}
         options={{tabBarLabel: 'Danh mục'}}
       />
       <Tab.Screen
