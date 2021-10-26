@@ -1,4 +1,5 @@
 import { POST_SIGNIN, POST_SIGNUP } from './LoginAction';
+import { GET_PRODUCT } from './ProductAction';
 
 export const loginAction = (user, password) => {
   return {
@@ -12,3 +13,8 @@ export const signUpAction = (user) => {
     data: user,
   };
 };
+export const getProduct = () =>{
+  return {
+    type:GET_PRODUCT,
+  };
+}
