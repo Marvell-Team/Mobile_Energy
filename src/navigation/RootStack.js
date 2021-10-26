@@ -20,7 +20,7 @@ const RootStack = () => {
       />
       <Stack.Navigator
         presentation="modal"
-        initialRouteName={routes.ORDER_SUCCESS_SCREEN}
+        initialRouteName={routes.BOTTOMTABBAR}
         screenOptions={{headerShown: false}}>
         <Stack.Screen
           name={routes.LOGINSCREENS}

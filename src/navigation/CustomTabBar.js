@@ -12,10 +12,9 @@ const MyTabBar = ({state, descriptors, navigation}) => {
     <Block
       row
       backgroundColor={theme.colors.white}
-      paddingBottom={Platform.OS === 'ios' ? bottom : 6}
-      borderTopWidth={0.5}
-      borderTopColor={theme.colors.lightGray}
-      paddingTop={5}>
+      paddingBottom={Platform.OS === 'ios' ? bottom : 4}
+      shadow
+      paddingTop={3}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
         const label =
@@ -95,7 +94,7 @@ const styles = StyleSheet.create({
   textlabel: isFocused => ({
     color: isFocused ? theme.colors.primary : theme.colors.blackText,
     marginTop: 2,
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: isFocused ? 'bold' : 'normal',
   }),
   blockIcon: isFocused => ({

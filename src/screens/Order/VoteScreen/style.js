@@ -55,7 +55,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    width: 359,
+    width: '95%',
     height: 48,
     position: 'absolute',
     bottom: 20,

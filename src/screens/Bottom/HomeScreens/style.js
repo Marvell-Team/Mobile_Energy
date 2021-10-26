@@ -85,7 +85,7 @@ export default StyleSheet.create({
   textTitle: {
     color: theme.colors.primary,
     fontWeight: 'bold',
-    fontSize: getSize.m(17),
+    fontSize: getSize.m(16),
   },
   viewMore: {
     flexDirection: 'row',

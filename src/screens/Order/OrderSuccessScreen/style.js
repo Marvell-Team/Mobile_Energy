@@ -22,7 +22,7 @@ export default StyleSheet.create({
     marginTop: 30,
   },
   button: {
-    width: 359,
+    width: '95%',
     height: 48,
     marginVertical: 10,
     marginTop: 30,

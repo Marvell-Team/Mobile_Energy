@@ -8,18 +8,21 @@ const {height} = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   body: {
-    width: 328,
-    height: 207,
+    paddingHorizontal: 16,
+    paddingVertical: 32,
     backgroundColor: theme.colors.white,
-    marginHorizontal: 40,
-    marginTop: 170,
-    borderRadius: 15,
+    marginHorizontal: 12,
+    borderRadius: 10,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   image: {
-    flex: 1,
+    width: width,
+    height: height,
     justifyContent: 'center',
   },
   check: {
@@ -31,12 +34,14 @@ export default StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    width: 296,
-    height: 48,
-    marginVertical: 10,
+    paddingVertical: 12,
     backgroundColor: theme.colors.primary,
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
+    position: 'absolute',
+    left: 12,
+    right: 12,
+    bottom: 16,
   },
 });
