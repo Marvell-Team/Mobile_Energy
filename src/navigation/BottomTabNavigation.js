@@ -17,11 +17,11 @@ const BottomTabNavigation = () => {
         component={bottom.HOMESCREENS}
         options={{tabBarLabel: 'Trang chủ'}}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name={routes.POSTSCREENS}
         component={bottom.POSTSCREENS}
         options={{tabBarLabel: 'Danh mục'}}
-      />
+      /> */}
       <Tab.Screen
         name={routes.CARTSCREENS}
         component={bottom.CARTSCREENS}
@@ -36,6 +36,11 @@ const BottomTabNavigation = () => {
         name={routes.PROFILESCREENS}
         component={bottom.PROFILESCREENS}
         options={{tabBarLabel: 'Cá nhân'}}
+      />
+      <Tab.Screen
+        name={routes.SEARCHSCREEN}
+        component={bottom.SEARCHSCREEN}
+        options={{tabBarLabel: 'Danh mục'}}
       />
     </Tab.Navigator>
   );

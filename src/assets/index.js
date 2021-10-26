@@ -56,6 +56,7 @@ export const icons = {
   check: require('./icons/check.png'),
   turn: require('./icons/turn.png'),
   finish: require('./icons/finish.png'),
+  filter1: require('./icons/filter.png'),
 };
 
 export const fonts = {};
