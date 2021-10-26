@@ -27,8 +27,7 @@ export default StyleSheet.create({
 
   headerTitle: {
     color: theme.colors.white,
-    fontWeight: 'bold',
-    fontSize: getSize.m(22),
+    fontSize: getSize.m(20),
   },
 
   blockTop: {
