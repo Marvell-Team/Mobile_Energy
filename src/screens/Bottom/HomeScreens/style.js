@@ -15,14 +15,21 @@ export default StyleSheet.create({
     backgroundColor: theme.colors.secondary,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 14,
+    paddingHorizontal: 16,
     paddingVertical: 16,
     paddingTop: StatusBar.currentHeight + 12,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 999,
   },
 
   viewIcon: {
-    width: 27,
-    height: 27,
+    width: 30,
+    height: 30,
   },
 
   headerTitle: {
@@ -31,11 +38,13 @@ export default StyleSheet.create({
   },
 
   blockTop: {
+    marginTop: 16 + 28 + StatusBar.currentHeight,
     width: width,
     paddingHorizontal: getSize.s(12),
+    paddingVertical: 8,
     backgroundColor: theme.colors.secondary,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
   },
 
   searchBox: {

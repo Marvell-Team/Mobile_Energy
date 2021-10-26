@@ -52,23 +52,12 @@ const HomeScreens = () => {
 
   return (
     <Block flex style={styles.container}>
+      <Block row style={styles.header}>
+        <Text style={styles.headerTitle}>Hello, Kiet</Text>
+        <Thumbnail source={icons.search_icon} style={styles.viewIcon} />
+      </Block>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Block row style={styles.header}>
-          <Text style={styles.headerTitle}>Hello, Kiet</Text>
-          <Thumbnail
-            source={icons.location}
-            style={styles.viewIcon}
-            imageStyle={{tintColor: theme.colors.white}}
-          />
-        </Block>
         <Block style={styles.blockTop}>
-          <TextInput
-            iconleft={icons.search}
-            style={styles.searchBox}
-            inputstyle={styles.search}
-            placeholder={'Bạn cần tìm gì hôm nay?'}
-            placeholderTextColor={theme.colors.white}
-          />
           <Thumbnail
             source={{
               uri: 'https://t4.ftcdn.net/jpg/02/14/36/43/360_F_214364367_ybIaCyV7swPGFwA231CGoy0sMlVJZSxO.jpg',

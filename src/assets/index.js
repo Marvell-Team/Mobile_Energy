@@ -57,6 +57,7 @@ export const icons = {
   turn: require('./icons/turn.png'),
   finish: require('./icons/finish.png'),
   filter1: require('./icons/filter.png'),
+  search_icon: require('./icons/search_icon.png'),
 };
 
 export const fonts = {};
