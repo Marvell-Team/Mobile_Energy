@@ -18,6 +18,7 @@ import styles from './style';
 import {theme} from '@theme';
 import {useNavigation} from '@react-navigation/native';
 import Product_Card from './data_card';
+import { routes } from '@navigation/routes';
 const {height} = Dimensions.get('screen');
 const categori = [
   {id: 1, name: 'Bài đã duyệt'},
@@ -93,6 +94,7 @@ const data = [
   },
 ];
 const PostScreens = () => {
+  const navigation = useNavigation();
   const [status, setStatus] = useState();
   const setStatusFilter = id => {
     setStatus(id);
@@ -132,7 +134,7 @@ const PostScreens = () => {
         </Block>
         <Block flex row justifyEnd>
           {/* search */}
-          <Pressable>
+          <Pressable onPress={() =>{navigation.navigate(routes.SEARCHSCREEN)}}>
             <Thumbnail
               source={icons.search}
               style={{

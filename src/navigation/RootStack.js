@@ -46,6 +46,10 @@ const RootStack = () => {
           name={routes.MYBILLSCREENS}
           component={product.MYBILLSCREENS}
         />
+        <Stack.Screen
+          name={routes.PRODUCTSEARCH}
+          component={product.PRODUCTSEARCH}
+        />
         <Stack.Screen name={routes.OPTIONSCREENS} component={OPTIONSCREENS} />
         <Stack.Screen
           name={routes.ORDER_SUCCESS_SCREEN}
