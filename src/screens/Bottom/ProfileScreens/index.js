@@ -8,13 +8,16 @@ import {
   TouchableRipple,
 } from 'react-native-paper';
 import {routes} from '@navigation/routes';
-import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Header} from '@components';
 import {theme} from '@theme';
+import EditProfile from './EditProfile';
+import {useNavigation} from '@react-navigation/native';
+
 
 const ProfileScreens = () => {
+  const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.userInfoSection}>
@@ -116,12 +119,15 @@ const ProfileScreens = () => {
             <Text style={styles.menuItemText}>Đổi Mật Khẩu</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
+        <TouchableRipple onPress={() => {navigation.navigate(routes.EDITPROFILE)}}>
           <View style={styles.menuItem}>
             <Icon name="logout" color="#FF6347" size={30} />
             <Text style={styles.menuItemText}>Đăng Xuất</Text>
           </View>
         </TouchableRipple>
+
+
+
       </ScrollView>
     </SafeAreaView>
   );
