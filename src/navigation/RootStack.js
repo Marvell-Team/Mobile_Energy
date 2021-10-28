@@ -9,6 +9,7 @@ import {auth} from '../screens/Auth';
 import {orders} from '@screens/Order';
 import {product} from '@screens/Product';
 import OPTIONSCREENS from '../screens/OptionScreen/OptionsPicket';
+import {bottom} from '@screens/Bottom';
 const Stack = createStackNavigator();
 const RootStack = () => {
   return (
@@ -62,6 +63,10 @@ const RootStack = () => {
         <Stack.Screen
           name={routes.VOTE_FINISH_SCREEN}
           component={orders.VOTE_FINISH_SCREEN}
+        />
+        <Stack.Screen
+          name={routes.EDITPROFILE}
+          component={bottom.EDITPROFILE}
         />
       </Stack.Navigator>
     </NavigationContainer>

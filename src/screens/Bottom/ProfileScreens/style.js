@@ -8,93 +8,89 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.white,
   },
-  viewInfo: {
+
+  viewEdit: {
+    backgroundColor: theme.colors.white,
+  },
+
+  viewText: {
+    backgroundColor: theme.colors.white,
+    height: 80,
+  },
+
+  textInput: {
+    height: 40,
+    backgroundColor: theme.colors.white,
+    borderBottomWidth: 0.5,
+    borderColor: '#A6A6A6',
+  },
+
+  viewAvatar: {
     backgroundColor: theme.colors.primary,
-    height: height / 4.5,
+    height: 160,
   },
-  viewAvt: {
-    width: 100,
-    height: 100,
+
+  inViewAvatar: {
+    width: 90,
+    height: 90,
     borderRadius: 100 / 2,
-    borderWidth: 2,
-    borderColor: theme.colors.white,
-    padding: 1,
-    marginRight: 5,
+    backgroundColor: theme.colors.white,
+    justifyContent: 'center',
+    alignSelf: 'center',
   },
-  avt: {
-    width: '100%',
-    height: '100%',
+
+  inAvatar: {
+    width: '96%',
+    height: '96%',
     borderRadius: 100 / 2,
+    position: 'relative',
   },
+
+  inEditViewAvatar: {
+    width: 32,
+    height: 32,
+    borderRadius: 100 / 2,
+    backgroundColor: theme.colors.white,
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 0,
+    left: 20,
+  },
+
+  inEditAvatar: {
+    width: '90%',
+    height: '90%',
+    borderRadius: 100 / 2,
+    alignSelf: 'center',
+  },
+
   txtUsn: {
     color: theme.colors.white,
     fontWeight: 'bold',
     marginVertical: 2,
     fontSize: 16,
   },
-  txtEmail: {
-    color: theme.colors.white,
-    marginVertical: 2,
-  },
-  txtPhone: {
-    color: theme.colors.white,
-    marginVertical: 2,
-  },
-  btnEdit: {
-    width: 28,
-    height: 28,
-    alignSelf: 'flex-end',
-  },
-  viewMiddle: {
-    backgroundColor: theme.colors.white,
-    paddingVertical: 20,
-    borderRadius: 10,
-    marginHorizontal: 12,
-    marginTop: -height * 0.06,
-  },
-  numBer: {
+  txtTitle: {
     color: theme.colors.black,
-    fontWeight: 'bold',
-    fontSize: 17,
+    marginLeft: 4,
   },
-  category: {
-    color: theme.colors.lightGray,
-    fontSize: 16,
-  },
-  followBtn: {
-    backgroundColor: theme.colors.primary,
-    marginHorizontal: 5,
-  },
-  linkInfo: {
-    color: theme.colors.gray,
-    marginVertical: 1,
-    marginHorizontal: 16,
-    fontSize: 16,
-  },
-  txtDesc: {
-    marginVertical: 2,
-    marginHorizontal: 16,
-    fontSize: 16,
-  },
-  line: {
-    height: '80%',
-    borderWidth: 1,
-    borderColor: theme.colors.lightGray,
-    marginHorizontal: 16,
-  },
-  viewPostTitle: {
-    marginVertical: 12,
-    marginHorizontal: 12,
-  },
-  titlePost: {
+  txtSave: {
+    color: theme.colors.black,
+    marginLeft: 4,
+    alignSelf: 'center',
     fontSize: 18,
     fontWeight: 'bold',
-    color: theme.colors.gray,
+    color: theme.colors.white,
   },
-  btnSort: {
-    width: 24,
-    height: 24,
-    alignSelf: 'flex-end',
-    marginHorizontal: 8,
+  btnSave: {
+    width: '92%',
+    height: 58,
+    flex: 1,
+    backgroundColor: theme.colors.primary,
+    borderRadius: 6,
+    justifyContent: 'center',
+    position: 'absolute',
+    alignSelf: 'center',
+    bottom: 16,
   },
 });
