@@ -15,10 +15,13 @@ import {icons} from '@assets';
 import {theme} from '@theme';
 import {category, listProduct} from '@utils/dummyData';
 import {useIsFocused} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
+import {routes} from '@navigation/routes';
 
 const HomeScreens = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [salesList, setSalesList] = useState(listProduct);
+  const navigation = useNavigation();
 
   const handlePressCategory = index => {};
 
@@ -54,7 +57,15 @@ const HomeScreens = () => {
     <Block flex style={styles.container}>
       <Block row style={styles.header}>
         <Text style={styles.headerTitle}>Hello, Kiet</Text>
-        <Thumbnail source={icons.search_icon} style={styles.viewIcon} />
+        <Thumbnail
+          source={icons.search_icon}
+          style={styles.viewIcon}
+          onPress={() =>
+            navigation.navigate(routes.BOTTOMTABBAR, {
+              screen: routes.SEARCHSCREEN,
+            })
+          }
+        />
       </Block>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Block style={styles.blockTop}>
