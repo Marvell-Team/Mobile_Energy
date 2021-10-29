@@ -69,6 +69,7 @@ const EditProfile = () => {
   };
   return (
     <Block flex styles={styles.container}>
+          <ScrollView>
       <Header
         iconLeft={icons.back}
         leftPress={() =>
@@ -77,7 +78,7 @@ const EditProfile = () => {
           })
         }
       />
-      <ScrollView>
+  
         <Block
           justifyCenter
           alignCenter
@@ -92,19 +93,14 @@ const EditProfile = () => {
 
           <Thumbnail
             style={styles.inEditViewAvatar}
-            source={{
-              uri: 'https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/248458060_3292984227595189_5537678220454330503_n.jpg?_nc_cat=1&ccb=1-5&_nc_sid=b9115d&_nc_ohc=QGI5B7w5jY8AX_Y6v42&_nc_ht=scontent.fsgn5-8.fna&oh=efddda2062a8556b88941de7a9152957&oe=619E57E0',
-            }}
-            imageStyle={styles.inEditAvatar}></Thumbnail>
+            source={icons.edit}
+            ></Thumbnail>
         </Block>
 
         <Block style={styles.viewEdit} padding={16}>
           <Block style={styles.viewText}>
-            <Text size={15} style={styles.txtTitle}>
-              Họ tên
-            </Text>
+            <Text style={styles.txtTitle}>Họ tên</Text>
             <TextInput
-              fontSize={18}
               style={styles.textInput}
               onChangeText={setName}
               placeholder="Nhập họ tên"
@@ -112,33 +108,30 @@ const EditProfile = () => {
           </Block>
 
           <Block style={styles.viewText}>
-            <Text size={15} style={styles.txtTitle}>
+            <Text style={styles.txtTitle}>
               Giới tính
             </Text>
 
-            <Picker
-              selectedValue={pickerValue}
-              onValueChange={itemValue => setPickerValue(itemValue)}>
-              <Picker.Item label="Nam" value="Nam" />
-              <Picker.Item label="Nữ" value="Nữ" />
-              <Picker.Item label="Khác" value="Khác" />
-            </Picker>
-
-            <Text fontSize={18}>{setPickerValue}</Text>
+            <Block style={styles.textInput}>
+              <Picker
+               
+                selectedValue={pickerValue}
+                onValueChange={itemValue => setPickerValue(itemValue)}>
+                <Picker.Item label="Nam" value="Nam" />
+                <Picker.Item label="Nữ" value="Nữ" />
+                <Picker.Item label="Khác" value="Khác" />
+              </Picker>
+            </Block>
           </Block>
 
           <Block style={styles.viewText}>
-            <Text size={15} style={styles.txtTitle}>
-              Ngày sinh
-            </Text>
+            <Text style={styles.txtTitle}>Ngày sinh</Text>
             <TouchableOpacity
-              style={styles.viewText}
+              style={styles.textInput}
               onPress={() => {
                 setShow(true);
               }}>
-              <Text fontSize={18} marginLeft={4} style={styles.textInput}>
-                {date1}
-              </Text>
+              <Text style={styles.textInput}>{date1}</Text>
             </TouchableOpacity>
             {show && (
               <DateTimePicker
@@ -153,10 +146,11 @@ const EditProfile = () => {
           </Block>
 
           <Block style={styles.viewText}>
-            <Text size={15} style={styles.txtTitle}>
+            <Text style={styles.txtTitle}>
               Số điện thoại
             </Text>
             <TextInput
+            keyboardType='numeric'
               fontSize={18}
               style={styles.textInput}
               onChangeText={setPhoneNumber}
@@ -169,12 +163,25 @@ const EditProfile = () => {
               Email
             </Text>
             <TextInput
+
               fontSize={18}
               style={styles.textInput}
               onChangeText={setEmail}
               placeholder="Nhập Email"
             />
           </Block>
+
+          <Block style={[styles.viewText,{marginBottom: getSize.m(100)}]}>
+            <Text size={15} style={styles.txtTitle}>
+              Address
+            </Text>
+            <TextInput
+              style={styles.textInput}
+              onChangeText={setEmail}
+              placeholder="Nhập Dia chi"
+            />
+          </Block>
+          
         </Block>
       </ScrollView>
       <TouchableOpacity style={styles.btnSave} onPress={() => {}}>

@@ -1,12 +1,13 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {theme} from '@theme';
+import { getSize } from '@utils/responsive';
 
 const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.white,
+   
   },
 
   viewEdit: {
@@ -19,10 +20,13 @@ export default StyleSheet.create({
   },
 
   textInput: {
-    height: 40,
+    fontSize:getSize.m(18),
+    height: getSize.m(50),
     backgroundColor: theme.colors.white,
+    justifyContent: 'center',
     borderBottomWidth: 0.5,
     borderColor: '#A6A6A6',
+    paddingVertical:getSize.m(10)
   },
 
   viewAvatar: {
@@ -50,7 +54,7 @@ export default StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 100 / 2,
-    backgroundColor: theme.colors.white,
+  
     justifyContent: 'center',
     position: 'absolute',
     bottom: 0,
@@ -73,6 +77,7 @@ export default StyleSheet.create({
   txtTitle: {
     color: theme.colors.black,
     marginLeft: 4,
+    fontSize: getSize.m(20)
   },
   txtSave: {
     color: theme.colors.black,

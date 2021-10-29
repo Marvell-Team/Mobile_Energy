@@ -142,6 +142,7 @@ const SEARCHSCREEN = ({getProduct, data1}) => {
               source={icons.back}
               style={{width: getSize.s(20), height: getSize.s(20)}}
               resizeMode="contain"
+              onPress={() => {navigation.goBack()}}
             />
           </Block>
           <TextInput
@@ -195,7 +196,7 @@ const SEARCHSCREEN = ({getProduct, data1}) => {
               }}>
               <Block
                 width={width}
-                style={{borderBottomWidth: 1, borderColor: '#808080'}}
+                style={{borderBottomWidth: 1, borderColor: '#A6A6A6'}}
                 paddingVertical={getSize.m(10)}
                 paddingHorizontal={getSize.m(10)}>
                 <Text size={20}>{item.nameProduct}</Text>
@@ -209,7 +210,7 @@ const SEARCHSCREEN = ({getProduct, data1}) => {
             }}>
             <Block
               width={width}
-              style={{borderBottomWidth: 1, borderColor: '#808080'}}
+              style={{borderBottomWidth: 1, borderColor: '#A6A6A6'}}
               paddingVertical={getSize.m(10)}
               paddingHorizontal={getSize.m(10)}>
               <Text size={20}>{item.nameProduct}</Text>
