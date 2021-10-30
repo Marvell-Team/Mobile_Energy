@@ -28,8 +28,12 @@ export default StyleSheet.create({
   },
 
   viewIcon: {
-    width: 30,
-    height: 30,
+    width: 34,
+    height: 34,
+    backgroundColor: theme.colors.white,
+    borderRadius: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   headerTitle: {

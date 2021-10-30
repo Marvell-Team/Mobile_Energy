@@ -13,6 +13,7 @@ const Input = ({
   onChangeText,
   inputstyle,
   issecure,
+  iconStyle,
   ...props
 }) => {
   const [isCheck, setCheck] = useState(true);
@@ -28,7 +29,7 @@ const Input = ({
       {iconleft && (
         <Image
           source={iconleft}
-          style={{width: 20, height: 20, marginRight: 5}}
+          style={[{width: 20, height: 20, marginRight: 5}, iconStyle]}
           resizeMode="contain"
         />
       )}
