@@ -1,24 +1,38 @@
 import React from 'react';
 import {Dimensions, StyleSheet, Pressable, Image} from 'react-native';
 import {theme} from '@theme';
-import {Block, Text} from '@components';
+import {Block, Text, Button} from '@components';
+import {getSize} from '@utils/responsive';
 
 const ProductCard = ({item, index, onPress, style}) => {
   const {id, name_product, img_product, price} = item;
   return (
     <Pressable onPress={onPress}>
       <Block column shadow flex style={[styles.cardContainer, style]}>
-        <Block flex={0.5} style={styles.viewImg}>
+        <Block style={styles.viewImg}>
           <Image
             source={{uri: img_product}}
             style={styles.imgProduct}
             resizeMode="contain"
           />
         </Block>
-        <Block flex={0.5} justifyCenter style={styles.viewInfo}>
-          <Text style={styles.name}>{name_product}</Text>
-          <Text style={styles.price}>Giá: {price} Đ</Text>
+        <Block justifyCenter style={styles.viewInfo}>
+          <Text style={styles.name} numberOfLines={2}>
+            {name_product}
+          </Text>
+          <Text style={styles.price}>
+            <Text
+              style={{
+                textDecorationLine: 'underline',
+                color: theme.colors.red,
+                fontSize: 15,
+              }}>
+              đ
+            </Text>
+            {price}
+          </Text>
         </Block>
+        <Button title="Add cart" style={styles.btnAddCart} />
       </Block>
     </Pressable>
   );
@@ -59,21 +73,23 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 17,
-    fontWeight: 'bold',
     color: theme.colors.gray,
     marginVertical: 1,
     textAlign: 'center',
   },
   price: {
-    fontSize: 15,
-    color: theme.colors.primary,
+    fontSize: 16,
+    color: theme.colors.red,
     fontWeight: 'bold',
     marginVertical: 5,
     textAlign: 'center',
   },
-  time: {
-    fontSize: 13,
-    color: theme.colors.lightGray,
-    marginVertical: 3,
+  btnAddCart: {
+    marginVertical: getSize.s(3),
+    marginHorizontal: getSize.s(12),
+    height: getSize.s(30),
+    paddingHorizontal: getSize.s(5),
+    borderRadius: 8,
+    backgroundColor: theme.colors.primary,
   },
 });

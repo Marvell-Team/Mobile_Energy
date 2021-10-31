@@ -74,7 +74,7 @@ export const listProduct = [
   },
   {
     id: 3,
-    name_product: 'Xiaomi Note 9 ',
+    name_product: 'Xiaomi Note 9 Pro Max',
     img_product:
       'https://cdn.hoanghamobile.com/i/preview/Uploads/2021/09/15/image-removebg-preview-11.png',
     price: 29999000,
