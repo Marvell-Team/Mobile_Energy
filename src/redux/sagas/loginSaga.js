@@ -1,7 +1,7 @@
 
 import {call,takeEvery,put,takeLatest} from 'redux-saga/effects'
 import {postLogin, postSignUp} from '../api/login'
-import { POST_SIGNIN, SIGNIN_ERROR, SIGNIN_SUCCESS,POST_SIGNUP, SIGNUP_ERROR, SIGNUP_SUCCESS } from "../actions/LoginAction";
+import { POST_SIGNIN, SIGNIN_ERROR, SIGNIN_SUCCESS,POST_SIGNUP, SIGNUP_ERROR, SIGNUP_SUCCESS, LOGOUT } from "../actions/LoginAction";
 export function* watchLogin(){
     yield takeEvery(POST_SIGNIN,signInFlow)
 }
@@ -29,6 +29,7 @@ function* signInFlow(action){
         yield put({type:SIGNIN_ERROR,error:message})
     }
 }
+
 export function* watchSignUp(){
     yield takeEvery(POST_SIGNUP,signUpFlow)
 }
