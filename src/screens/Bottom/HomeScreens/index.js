@@ -58,8 +58,14 @@ const HomeScreens = () => {
       <Block row style={styles.header}>
         <Text style={styles.headerTitle}>Hello, Kiet</Text>
         <Thumbnail
-          source={icons.search_icon}
+          source={icons.search}
           style={styles.viewIcon}
+          resizeMode="contain"
+          imageStyle={{
+            with: '70%',
+            height: '70%',
+            tintColor: theme.colors.primary,
+          }}
           onPress={() =>
             navigation.navigate(routes.BOTTOMTABBAR, {
               screen: routes.SEARCHSCREEN,

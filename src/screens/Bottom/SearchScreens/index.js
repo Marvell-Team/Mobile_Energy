@@ -52,8 +52,8 @@ const SEARCHSCREEN = ({getProduct, data1}) => {
   const [searchShow, setSearchShow] = useState(true);
   useEffect(() => {
     getDataSeach();
-  }, [])
-  const seachFilter = async(text) => {
+  }, []);
+  const seachFilter = async text => {
     if (text) {
       const newData = masterData.filter(item => {
         const itemData = item.nameProduct
@@ -64,44 +64,43 @@ const SEARCHSCREEN = ({getProduct, data1}) => {
       });
       setFilterData(newData);
       setSeach(text);
-    }else{
+    } else {
       getDataSeach();
     }
   };
-  const getDataSeach = async() =>{
-      setSeach('');    
-      const jsonValue=await AsyncStorage.getItem('history');
-      const value=jsonValue != null ? JSON.parse(jsonValue) : [];
-      setFilterData(value)
-  }
-  const storeData = async (value) => {
-    console.log(value)
+  const getDataSeach = async () => {
+    setSeach('');
+    const jsonValue = await AsyncStorage.getItem('history');
+    const value = jsonValue != null ? JSON.parse(jsonValue) : [];
+    setFilterData(value);
+  };
+  const storeData = async value => {
+    console.log(value);
     try {
-      const jsonValues=await AsyncStorage.getItem('history');
-      const values=jsonValues != null ? JSON.parse(jsonValues) : [];
-      let item=[];
-      if(values.length>0){
-        item.push(...values,value);
-      }else{
+      const jsonValues = await AsyncStorage.getItem('history');
+      const values = jsonValues != null ? JSON.parse(jsonValues) : [];
+      let item = [];
+      if (values.length > 0) {
+        item.push(...values, value);
+      } else {
         item.push(value);
       }
       const jsonValue = JSON.stringify(item);
       await AsyncStorage.setItem('history', jsonValue);
-      
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  }
+  };
   const getData = async () => {
     try {
-      const jsonValue = await AsyncStorage.getItem('history')
-      
+      const jsonValue = await AsyncStorage.getItem('history');
+
       return jsonValue != null ? JSON.parse(jsonValue) : null;
-    } catch(e) {
+    } catch (e) {
       // error reading value
     }
-  }
-  const clickseach = async (text) => {
+  };
+  const clickseach = async text => {
     if (text) {
       const newData = masterData.filter(item => {
         const itemData = item.nameProduct
@@ -110,8 +109,8 @@ const SEARCHSCREEN = ({getProduct, data1}) => {
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
-      storeData({nameProduct:text});
-   
+      storeData({nameProduct: text});
+
       navigation.navigate(routes.PRODUCTSEARCH, {item: newData});
     }
   };
@@ -142,7 +141,9 @@ const SEARCHSCREEN = ({getProduct, data1}) => {
               source={icons.back}
               style={{width: getSize.s(20), height: getSize.s(20)}}
               resizeMode="contain"
-              onPress={() => {navigation.goBack()}}
+              onPress={() => {
+                navigation.goBack();
+              }}
             />
           </Block>
           <TextInput
@@ -157,7 +158,8 @@ const SEARCHSCREEN = ({getProduct, data1}) => {
             inputstyle={{color: 'white', fontSize: getSize.m(18)}}
             width={'100%'}
             height={getSize.s(35)}
-            iconleft={icons.search}></TextInput>
+            iconleft={icons.search}
+            iconStyle={{tintColor: theme.colors.primary}}></TextInput>
           <Block alignEnd justifyCenter style={{flex: 2}}>
             <Thumbnail
               source={icons.filter1}
@@ -187,54 +189,59 @@ const SEARCHSCREEN = ({getProduct, data1}) => {
 
       <Block flex alignCenter justifyCenter>
         <ScrollView>
-          {filterData.map((item, index)=>
-           searchShow?(
-             index<4?(
+          {filterData.map((item, index) =>
+            searchShow ? (
+              index < 4 ? (
+                <TouchableOpacity
+                  onPress={() => {
+                    clickseach(item.nameProduct);
+                  }}>
+                  <Block
+                    width={width}
+                    style={{borderBottomWidth: 1, borderColor: '#A6A6A6'}}
+                    paddingVertical={getSize.m(10)}
+                    paddingHorizontal={getSize.m(10)}>
+                    <Text size={20}>{item.nameProduct}</Text>
+                  </Block>
+                </TouchableOpacity>
+              ) : null
+            ) : (
               <TouchableOpacity
+                onPress={() => {
+                  clickseach(item.nameProduct);
+                }}>
+                <Block
+                  width={width}
+                  style={{borderBottomWidth: 1, borderColor: '#A6A6A6'}}
+                  paddingVertical={getSize.m(10)}
+                  paddingHorizontal={getSize.m(10)}>
+                  <Text size={20}>{item.nameProduct}</Text>
+                </Block>
+              </TouchableOpacity>
+            ),
+          )}
+          {Array.isArray(filterData) && filterData.length ? (
+            <TouchableOpacity
               onPress={() => {
-                clickseach(item.nameProduct);
+                searchShow
+                  ? setSearchShow(!searchShow)
+                  : (setFilterData([]),
+                    setSearchShow(true),
+                    AsyncStorage.removeItem('history'));
               }}>
               <Block
                 width={width}
-                style={{borderBottomWidth: 1, borderColor: '#A6A6A6'}}
-                paddingVertical={getSize.m(10)}
-                paddingHorizontal={getSize.m(10)}>
-                <Text size={20}>{item.nameProduct}</Text>
+                style={{borderBottomWidth: 0.5, borderColor: '#808080'}}
+                paddingVertical={getSize.m(5)}
+                paddingHorizontal={getSize.m(10)}
+                justifyCenter
+                alignCenter>
+                <Text size={20}>
+                  {searchShow ? 'Hiển thị tất cả' : 'Xóa lịch sử tìm kiếm'}
+                </Text>
               </Block>
             </TouchableOpacity>
-             ):null
-           ):(
-            <TouchableOpacity
-            onPress={() => {
-              clickseach(item.nameProduct);
-            }}>
-            <Block
-              width={width}
-              style={{borderBottomWidth: 1, borderColor: '#A6A6A6'}}
-              paddingVertical={getSize.m(10)}
-              paddingHorizontal={getSize.m(10)}>
-              <Text size={20}>{item.nameProduct}</Text>
-            </Block>
-          </TouchableOpacity>
-           )
-          )}
-          {Array.isArray(filterData) && filterData.length?
-          (
-            <TouchableOpacity
-            onPress={() => {searchShow?setSearchShow(!searchShow):(setFilterData([]),setSearchShow(true),AsyncStorage.removeItem('history'))}}>
-            <Block
-              width={width}
-              style={{borderBottomWidth: 0.5, borderColor: '#808080'}}
-              paddingVertical={getSize.m(5)}
-              paddingHorizontal={getSize.m(10)}
-              justifyCenter
-              alignCenter>
-              <Text size={20}>{searchShow?'Hiển thị tất cả':'Xóa lịch sử tìm kiếm'}</Text>
-            </Block>
-          </TouchableOpacity>
-          ):(null)
-            
-          }
+          ) : null}
         </ScrollView>
       </Block>
     </Block>

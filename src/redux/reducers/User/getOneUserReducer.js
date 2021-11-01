@@ -1,42 +1,38 @@
-import { POST_SIGNIN ,SIGNIN_ERROR, SIGNIN_SUCCESS,LOGOUT} from "../../actions/LoginAction";
+import { GETONE_USER ,GETONE_USER_SUCCESS,GETONE_USER_ERROR} from "@redux/actions/UserAction";
 
 const initialStale = {
   loadding: false, //ko loadding dc
   data: null, //ko có dữ liệu
   error: null, //khong lỗi
 };
-const loginReducers = (state = initialStale, action) => {
+const getOneUserReducer = (state = initialStale, action) => {
     switch (action.type) {
       //đang đăng nhập
-      case POST_SIGNIN:
+      case GETONE_USER:
+        console.log('runreducer')
         return {
           loadding: true, //dang loadding
           data: null, //ko có dữ liệu
           error: null, //khong lỗi
         };
       //đăng nhập thành công
-      case SIGNIN_SUCCESS:
+      case GETONE_USER_SUCCESS:
+        console.log('runreducer')
         return {
           loadding: false, //ngừng loadding dc
           data: action.response, //co du lieu
           error: null, //khong lỗi
         };
       //đăng nhập thất bại
-      case SIGNIN_ERROR:
+      case GETONE_USER_ERROR:
         return {
           loadding: false, //ngung loadding dc
           data: null, //ko có dữ liệu
           error: action.error, //khong lỗi
         };
-      case LOGOUT: 
-      return {
-        loadding: false, //dang loadding
-        data: null, //ko có dữ liệu
-        error: null, //khong lỗi
-      }; 
       default:
         //trả về mặc định
         return state;
     }
 };
-export default loginReducers;
+export default getOneUserReducer;
