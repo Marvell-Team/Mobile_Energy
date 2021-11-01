@@ -10,7 +10,7 @@ import {
 import {routes} from '@navigation/routes';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {ScrollView} from 'react-native-gesture-handler';
-import {Header} from '@components';
+import {Header, Thumbnail} from '@components';
 import {theme} from '@theme';
 import EditProfile from './EditProfile';
 import {useNavigation} from '@react-navigation/native';
@@ -22,6 +22,7 @@ import {CommonActions} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
 import {getUserByID, logoutAction} from '@redux/actions';
 import {connect} from 'react-redux';
+import { icons } from '@assets';
 const mapStateToProps = state => {
   return {
     error: state.getOneUserReducer ? state.getOneUserReducer.error : null,
@@ -110,7 +111,8 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID}) => {
             </TouchableOpacity>
           </View>
         ) : (
-          <>
+          <View style={{flexDirection:'row'}}>
+            <View style={{flex:9}}>
             <View style={styles.userInfoSection}>
               <View style={{flexDirection: 'row', marginTop: getSize.m(15)}}>
                 <Avatar.Image
@@ -171,7 +173,12 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID}) => {
                 </Text>
               </View>
             </View>
-          </>
+            
+            </View>
+            <View style={{flex:1,justifyContent: 'center',alignItems:'center'}}>
+            <Thumbnail source={icons.next} imageStyle={{width:getSize.s(30),height:getSize.s(30)}} />
+            </View>
+          </View>
         )}
       </View>
 
