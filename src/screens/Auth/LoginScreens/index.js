@@ -1,11 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {View, ToastAndroid, ScrollView, StatusBar} from 'react-native';
 import styles from './style';
 import {icons} from '@assets';
 import {routes} from '../../../navigation/routes.js';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation,StackActions,CommonActions} from '@react-navigation/native';
 import {connect} from 'react-redux';
 import {loginAction} from '../../../redux/actions';
+import {call,takeEvery,put,takeLatest} from 'redux-saga/effects';
+import jwt_decode from "jwt-decode";
 import {
   Block,
   Button,
@@ -14,10 +16,12 @@ import {
   Thumbnail,
   PressText,
 } from '@components';
+import { useData } from 'config/config';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const mapStateToProps = state => {
   return {
     error: state.loginReducers.error,
-    data: state.loginReducers.data,
+    data: state.loginReducers?state.loginReducers.data:null,
     loadding: state.loginReducers.loadding,
   };
 };
@@ -34,16 +38,47 @@ const LoginScreens = ({loginAction, data}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const _login = () => {
-    navigation.navigate(routes.BOTTOMTABBAR);
+  function* _login() {
+      
   };
-
-  useEffect(() => {
+ 
+ 
+  
+  useEffect(async() => {
+  
     if (data !== null) {
+      await AsyncStorage.setItem('token', data.data.accesToken);
+      const tolen = data.data.accesToken;
+      var decoded = jwt_decode(tolen);
+      useData['token'] = tolen;
+      useData['id']=decoded.id;
       _login();
+      // navigation.dispatch(
+      //         CommonActions.reset({
+      //           index: 1,
+      //           routes: [
+      //             { name:  routes.PROFILESCREENS},
+      //             {
+      //               name: routes.HOMESCREENS,
+      //             },
+      //           ],
+      //         })
+      //       );
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [
+            
+            {
+              name: routes.BOTTOMTABBAR,
+            },
+          ],
+        })
+      );
+     
     }
   }, [data]);
-
+ 
   return (
     <Block flex paddingHorizontal={12} style={styles.container}>
       <ScrollView indicatorStyle={'white'}>

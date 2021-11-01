@@ -58,6 +58,8 @@ export const icons = {
   finish: require('./icons/finish.png'),
   filter1: require('./icons/filter.png'),
   search_icon: require('./icons/search_icon.png'),
+  images: require('./icons/images.png'),
+  name: require('./icons/name.png')
 };
 
 export const fonts = {};

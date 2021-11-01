@@ -1,5 +1,6 @@
-import { POST_SIGNIN, POST_SIGNUP } from './LoginAction';
+import { POST_SIGNIN, POST_SIGNUP,LOGOUT } from './LoginAction';
 import { GET_PRODUCT } from './ProductAction';
+import { GETONE_USER } from './UserAction';
 
 export const loginAction = (user, password) => {
   return {
@@ -7,6 +8,11 @@ export const loginAction = (user, password) => {
     data: {user, password},
   };
 };
+export const logoutAction=()=>{
+  return {
+    type: LOGOUT,
+  };
+}
 export const signUpAction = (user) => {
   return {
     type: POST_SIGNUP,
@@ -16,5 +22,12 @@ export const signUpAction = (user) => {
 export const getProduct = () =>{
   return {
     type:GET_PRODUCT,
+  };
+}
+export const getUserByID = (id)=>{
+  console.log('run'+id)
+  return {
+    type:GETONE_USER,
+    data:id
   };
 }
