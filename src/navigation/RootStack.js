@@ -79,6 +79,10 @@ const RootStack = () => {
           name={routes.EDITPROFILE}
           component={bottom.EDITPROFILE}
         />
+        <Stack.Screen
+          name={routes.ORDERLOCATION}
+          component={orders.ORDERLOCATION}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
