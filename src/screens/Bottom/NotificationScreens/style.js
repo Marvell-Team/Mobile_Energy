@@ -6,6 +6,7 @@ const {height} = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.white,
+    backgroundColor: theme.colors.grey, 
   },
+
 });
