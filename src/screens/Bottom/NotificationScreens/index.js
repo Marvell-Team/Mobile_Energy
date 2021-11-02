@@ -7,87 +7,42 @@ import styles from './style';
 const noti = [
   {
     id: 1,
-    name: 'Nguyễn Hoài Bão',
-    avt: 'https://i.pinimg.com/originals/d9/b8/3a/d9b83aa1a08be3e46ebb47254db8cf75.jpg',
-    content: 'Đã bình luận bài viết của bạn',
-    time: '2 giờ trước',
+    title: 'Top sản phẩm giảm giá đang được rao bán!',
+    time: '3 giờ trước',
+    image: 'https://p.turbosquid.com/ts-thumb/xj/I0MFEa/Kd/thumbnail/jpg/1632216275/2000x2000/fit_q99/e0f8fd0d8853a14ec04ac4ea03a43d191fb8b56c/thumbnail.jpg',
+    content: 'Giảm giá đến 1% nhanh tay rước vài em điện thoại xịn xò nào!',
   },
+
   {
     id: 2,
-    name: 'Nguyễn Hoài Bão',
-    avt: 'https://i.pinimg.com/originals/d9/b8/3a/d9b83aa1a08be3e46ebb47254db8cf75.jpg',
-    content: 'Đã đánh giá 1 sao sản phẩm của bạn',
-    time: '2 giờ trước',
+    title: 'Đặt hàng thành công!',
+    time: '3 giờ trước',
+    image: 'https://p.turbosquid.com/ts-thumb/xj/I0MFEa/Kd/thumbnail/jpg/1632216275/2000x2000/fit_q99/e0f8fd0d8853a14ec04ac4ea03a43d191fb8b56c/thumbnail.jpg',
+    content: 'Đơn hàng sẽ giao tới bạn trong 3 ngày tới!',
   },
+
   {
     id: 3,
-    name: 'Nguyễn Hoài Bão',
-    avt: 'https://i.pinimg.com/originals/d9/b8/3a/d9b83aa1a08be3e46ebb47254db8cf75.jpg',
-    content: 'Đã giao thành công',
+    title: 'Đặt hàng thành công!',
     time: '3 giờ trước',
+    image: 'https://p.turbosquid.com/ts-thumb/xj/I0MFEa/Kd/thumbnail/jpg/1632216275/2000x2000/fit_q99/e0f8fd0d8853a14ec04ac4ea03a43d191fb8b56c/thumbnail.jpg',
+    content: 'Sao hủy zậy a zai? Ko hài lòng gì à? Mua lại đi :>',
   },
+
   {
     id: 4,
-    name: 'Nguyễn Hoài Bão',
-    avt: 'https://i.pinimg.com/originals/d9/b8/3a/d9b83aa1a08be3e46ebb47254db8cf75.jpg',
-    content: 'Đã mua sản phẩm của bạn',
-    time: '2 ngày trước',
+    title: 'Đặt hàng thành công!',
+    time: '3 giờ trước',
+    image: 'https://p.turbosquid.com/ts-thumb/xj/I0MFEa/Kd/thumbnail/jpg/1632216275/2000x2000/fit_q99/e0f8fd0d8853a14ec04ac4ea03a43d191fb8b56c/thumbnail.jpg',
+    content: 'Nhanh tay rước em iPhone 13 tuyệt đẹp nào!',
   },
+
   {
     id: 5,
-    name: 'Nguyễn Hoài Bão',
-    avt: 'https://i.pinimg.com/originals/d9/b8/3a/d9b83aa1a08be3e46ebb47254db8cf75.jpg',
-    content: 'Đã yêu thích sản phẩm của bạn',
-    time: '2 ngày trước',
-  },
-  {
-    id: 6,
-    name: 'Nguyễn Hoài Bão',
-    avt: 'https://i.pinimg.com/originals/d9/b8/3a/d9b83aa1a08be3e46ebb47254db8cf75.jpg',
-    content: 'Đã nhắn tin cho bạn',
-    time: '3 ngày trước',
-  },
-  {
-    id: 7,
-    name: 'Nguyễn Hoài Bão',
-    avt: 'https://i.pinimg.com/originals/d9/b8/3a/d9b83aa1a08be3e46ebb47254db8cf75.jpg',
-    content: 'Đã bình luận bài viết của bạn',
-    time: '4 ngày trước',
-  },
-  {
-    id: 8,
-    name: 'Nguyễn Hoài Bão',
-    avt: 'https://i.pinimg.com/originals/d9/b8/3a/d9b83aa1a08be3e46ebb47254db8cf75.jpg',
-    content: 'Đã đánh giá 1 sao sản phẩm của bạn',
-    time: '5 ngày trước',
-  },
-  {
-    id: 9,
-    name: 'Nguyễn Hoài Bão',
-    avt: 'https://i.pinimg.com/originals/d9/b8/3a/d9b83aa1a08be3e46ebb47254db8cf75.jpg',
-    content: 'Đã giao thành công',
-    time: '6 ngày trước',
-  },
-  {
-    id: 10,
-    name: 'Nguyễn Hoài Bão',
-    avt: 'https://i.pinimg.com/originals/d9/b8/3a/d9b83aa1a08be3e46ebb47254db8cf75.jpg',
-    content: 'Đã mua sản phẩm của bạn',
-    time: '7 ngày trước',
-  },
-  {
-    id: 11,
-    name: 'Nguyễn Hoài Bão',
-    avt: 'https://i.pinimg.com/originals/d9/b8/3a/d9b83aa1a08be3e46ebb47254db8cf75.jpg',
-    content: 'Đã yêu thích sản phẩm của bạn',
-    time: '8 ngày trước',
-  },
-  {
-    id: 12,
-    name: 'Nguyễn Hoài Bão',
-    avt: 'https://i.pinimg.com/originals/d9/b8/3a/d9b83aa1a08be3e46ebb47254db8cf75.jpg',
-    content: 'Đã nhắn tin cho bạn',
-    time: '9 ngày trước',
+    title: 'Đánh giá app ngay, nhận quà liền tay!',
+    time: '3 giờ trước',
+    image: 'https://p.turbosquid.com/ts-thumb/xj/I0MFEa/Kd/thumbnail/jpg/1632216275/2000x2000/fit_q99/e0f8fd0d8853a14ec04ac4ea03a43d191fb8b56c/thumbnail.jpg',
+    content: 'Nhận ngay voucher giảm 1k trên đơn hàng 990k!',
   },
 ];
 const NotificationScreens = () => {
@@ -95,7 +50,7 @@ const NotificationScreens = () => {
   console.log(data);
   return (
     <Block flex style={styles.container}>
-      <Header title="THÔNG BÁO" />
+      <Header title="Thông báo"/>
       <NotifiList data={data} />
     </Block>
   );
