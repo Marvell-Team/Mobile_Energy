@@ -1,7 +1,7 @@
 import {watchLogin, watchSignUp} from './loginSaga';
 import {all} from 'redux-saga/effects';
 import { watchgetProducts } from './productSaga';
-import { watchGetUserById } from './userSaga';
+import { watchGetUserById, watchUpdateUserById } from './userSaga';
 
 
 export default function* rootSaga() {
@@ -10,5 +10,6 @@ export default function* rootSaga() {
     watchSignUp(),
     watchgetProducts(),
     watchGetUserById(),
+    watchUpdateUserById(),
   ]);
 }

@@ -1,6 +1,6 @@
 import { POST_SIGNIN, POST_SIGNUP,LOGOUT } from './LoginAction';
 import { GET_PRODUCT } from './ProductAction';
-import { GETONE_USER } from './UserAction';
+import { GETONE_USER, UPDATE_USER } from './UserAction';
 
 export const loginAction = (user, password) => {
   return {
@@ -31,3 +31,10 @@ export const getUserByID = (id)=>{
     data:id
   };
 }
+export const EditUserByID = (input)=>{
+  return {
+    type:UPDATE_USER,
+    data:input
+  };
+}
+

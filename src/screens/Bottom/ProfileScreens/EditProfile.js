@@ -33,19 +33,40 @@ import storage from '@react-native-firebase/storage';
 import Loading from '../../../components/Loadding/Loading';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
-const EditProfile = () => {
+import { useData } from 'config/config';
+
+import {connect} from 'react-redux';
+import { EditUserByID } from '@redux/actions';
+const mapStateToProps = state => {
+  return {
+    error: state.updateUserReducer ? state.updateUserReducer.error : null,
+    data: state.updateUserReducer ? state.updateUserReducer.data : null,
+    loadding: state.updateUserReducer ? state.updateUserReducer.loadding : null,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    
+    editUserByID: input => {
+      dispatch(EditUserByID(input));
+    },
+  };
+};
+const EditProfile = ({editUserByID,data}) => {
   const navigation = useNavigation();
   
   const [avatar, setAvatar] = useState();
   const [name, setName] = useState();
   const [phoneNumber, setPhoneNumber] = useState();
-  const [email, setEmail] = useState();
+  
   const [address, setAddress] = useState();
   const [pickerValue, setPickerValue] = useState('Nam');
   const [date1, setDate1] = useState('');
-  const [date, setDate] = useState(new Date(Date.now()));
+  const [date, setDate] = useState(useData.birthday);
   const [show, setShow] = useState(false);
   const [image, setImage] = useState(null);
+  const [imageUri,setImageUri]=useState('');
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
   const bs = React.createRef();
@@ -53,7 +74,20 @@ const EditProfile = () => {
   useEffect(() => {
     convertdatetostring(null);
   }, []);
-  
+  useEffect(() => {
+    if(data !== null){
+      console.log(data.data);
+    }
+  }, [data]);
+  useEffect(() => {
+    console.log('aa')
+    setName(useData.name);
+    setPickerValue(useData.gender);
+    setAddress(useData.address);
+    setDate(useData.birthday);
+    setImageUri(useData.avatar);
+    setPhoneNumber(useData.phone+'');
+  }, [])
   const renderContent = () => (
     <View
       style={{
@@ -121,9 +155,10 @@ const EditProfile = () => {
         console.log('errorCode: ', response.errorCode);
       } else {
         setImage(response.assets[0].uri);
-        bs.current.snapTo(1);
+        uploadImageFirebase(response.assets[0].uri);
       }
     });
+    bs.current.snapTo(1);
   };
   const openLibrary = () => {
     const options = {
@@ -141,9 +176,10 @@ const EditProfile = () => {
       } else {
         // You can also display the image using data:
         setImage(response.assets[0].uri);
-        bs.current.snapTo(1);
+        uploadImageFirebase(response.assets[0].uri);
       }
     });
+    bs.current.snapTo(1);
   };
   const convertdatetostring = currentDate => {
     console.log(currentDate);
@@ -169,8 +205,8 @@ const EditProfile = () => {
     setDate(currentDate);
     convertdatetostring(currentDate);
   };
-  const submitPost = async () => {
-    const uploadUri = image;
+  const uploadImageFirebase = async (images) => {
+    const uploadUri = images;
     let fileName = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
 
     //add firename
@@ -193,9 +229,10 @@ const EditProfile = () => {
     });
     try {
       await task;
-      setUploading(false);
       const url = await storage().ref(fileName).getDownloadURL();
-      alert('image upload'+url);
+
+      setImageUri(url);
+      setUploading(false);
     } catch (error) {
       console.log(error);
     }
@@ -226,7 +263,7 @@ const EditProfile = () => {
               onPress={() => {bs.current.snapTo(0)}}
               style={styles.inViewAvatar}
               source={{
-                uri: image,
+                uri: imageUri,
               }}
               imageStyle={styles.inAvatar}></Thumbnail>
 
@@ -240,7 +277,8 @@ const EditProfile = () => {
             <Text style={styles.txtTitle}>Họ tên</Text>
             <TextInput
               style={styles.textInput}
-              onChangeText={setName}
+              value={name}
+              onChangeText={text=>setName(text)}
               placeholder="Nhập họ tên"
             />
           </Block>
@@ -264,7 +302,7 @@ const EditProfile = () => {
             <TouchableOpacity
               style={styles.textInput}
               onPress={() => {
-                setShow(true);
+                setShow(true)
               }}>
               <Text style={styles.textInput}>{date1}</Text>
             </TouchableOpacity>
@@ -285,32 +323,22 @@ const EditProfile = () => {
             <TextInput
               keyboardType="numeric"
               fontSize={18}
+              value={phoneNumber}
               style={styles.textInput}
-              onChangeText={setPhoneNumber}
+              onChangeText={text=>setPhoneNumber(text)}
               placeholder="Nhập số điện thoại"
-            />
-          </Block>
-
-          <Block style={styles.viewText}>
-            <Text size={15} style={styles.txtTitle}>
-              Email
-            </Text>
-            <TextInput
-              fontSize={18}
-              style={styles.textInput}
-              onChangeText={setEmail}
-              placeholder="Nhập Email"
             />
           </Block>
 
           <Block style={[styles.viewText, {marginBottom: getSize.m(100)}]}>
             <Text size={15} style={styles.txtTitle}>
-              Address
+              Địa chỉ
             </Text>
             <TextInput
+            value={address}
               style={styles.textInput}
-              onChangeText={setEmail}
-              placeholder="Nhập Dia chi"
+              onChangeText={text=>{setAddress(text)}}
+              placeholder="Nhập Địa Chỉ"
             />
           </Block>
         </Block>
@@ -318,7 +346,11 @@ const EditProfile = () => {
       <TouchableOpacity
         style={styles.btnSave}
         onPress={() => {
-          submitPost();
+          
+          let input={name_user:name,phone_user:phoneNumber,address_user:address,avt_user:imageUri,gender_user:pickerValue,born_day:date};
+          editUserByID(input);
+          alert(imageUri)
+        
         }}>
         <Text fontSize={18} marginLeft={4} style={styles.txtSave}>
           Lưu thay đổi
@@ -332,7 +364,7 @@ const EditProfile = () => {
       </Animated.View>
       <BottomSheet
         ref={bs}
-        snapPoints={[150, 100, 0]}
+        snapPoints={[150, 0, 0]}
         borderRadius={10}
         initialSnap={1}
         callbackNode={fall}
@@ -344,5 +376,5 @@ const EditProfile = () => {
     </View>
   );
 };
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);
 
-export default EditProfile;

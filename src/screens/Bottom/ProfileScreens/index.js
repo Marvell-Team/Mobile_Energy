@@ -18,11 +18,11 @@ import {getSize, height, width} from '@utils/responsive';
 import {useData, token} from 'config/config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {CommonActions} from '@react-navigation/native';
-
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useSelector, useDispatch} from 'react-redux';
 import {getUserByID, logoutAction} from '@redux/actions';
 import {connect} from 'react-redux';
-import { icons } from '@assets';
+import {icons} from '@assets';
 const mapStateToProps = state => {
   return {
     error: state.getOneUserReducer ? state.getOneUserReducer.error : null,
@@ -48,12 +48,20 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID}) => {
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState(null);
   const [email, setEmail] = useState('');
+  const [url,setUrl]= useState('');
   useEffect(() => {
     if (data !== null) {
       setName(data.data.name_user);
       setEmail(data.data.email_user);
       setPhone(data.data.phone_user);
       setAddress(data.data.address_user);
+      setUrl(data.data.avt_user)
+      useData['address']=data.data.address_user;
+      useData['name']=data.data.name_user;
+      useData['birthday']=data.data.born_day;
+      useData['gender']=data.data.gender_user;
+      useData['avatar']=data.data.avt_user;
+      useData['phone']=data.data.phone_user;
     }
   }, [data]);
   useEffect(() => {
@@ -111,73 +119,86 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID}) => {
             </TouchableOpacity>
           </View>
         ) : (
-          <View style={{flexDirection:'row'}}>
-            <View style={{flex:9}}>
-            <View style={styles.userInfoSection}>
-              <View style={{flexDirection: 'row', marginTop: getSize.m(15)}}>
-                <Avatar.Image
-                  source={{
-                    uri: '',
-                  }}
-                  size={getSize.s(80)}
-                />
+          <View style={{flexDirection: 'row'}}>
+            <View style={{flex: 9}}>
+              <View style={{flexDirection: 'row'}}>
+                <View style={{flex: 9}}>
+                  <View style={styles.userInfoSection}>
+                    <View
+                      style={{flexDirection: 'row', marginTop: getSize.m(15)}}>
+                      <Avatar.Image
+                        source={{
+                          uri: url,
+                        }}
+                        size={getSize.s(80)}
+                      />
+                      <View
+                        style={{
+                          marginLeft: getSize.m(15),
+                          justifyContent: 'center',
+                        }}>
+                        <Title style={[styles.title]}>{name}</Title>
+                      </View>
+                    </View>
+                  </View>
+
+                  <View style={styles.userInfoSection}>
+                    <View style={styles.row}>
+                      <Icon name="email" color="white" size={getSize.m(24)} />
+                      <Text
+                        style={{
+                          color: 'white',
+                          marginLeft: 20,
+                          fontSize: getSize.m(18),
+                        }}>
+                        {email}
+                      </Text>
+                    </View>
+                    <View style={styles.row}>
+                      <Icon
+                        name="map-marker-radius"
+                        color="white"
+                        size={getSize.m(24)}
+                      />
+                      <Text
+                        style={[
+                          {
+                            color: 'white',
+                            marginLeft: 20,
+                            fontSize: getSize.m(18),
+                          },
+                          address !== '' ? null : {opacity: 0.5},
+                        ]}>
+                        {address !== '' ? address : 'Địa chỉ'}
+                      </Text>
+                    </View>
+                    <View style={styles.row}>
+                      <Icon name="phone" color="white" size={getSize.m(24)} />
+                      <Text
+                        style={[
+                          {
+                            color: 'white',
+                            marginLeft: 20,
+                            fontSize: getSize.m(18),
+                          },
+                          phone !== null ? null : {opacity: 0.5},
+                        ]}>
+                        {phone !== null ? phone : 'Số điện thoại'}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
                 <View
-                  style={{marginLeft: getSize.m(15), justifyContent: 'center'}}>
-                  <Title style={[styles.title]}>{name}</Title>
+                  style={styles.iconedit}>
+                   <TouchableOpacity onPress={() =>{ navigation.navigate(routes.EDITPROFILE);}}>
+              <MaterialIcons color={'white'} name={'navigate-next'} size={getSize.m(50)}/>
+            </TouchableOpacity>
                 </View>
               </View>
             </View>
-
-            <View style={styles.userInfoSection}>
-              <View style={styles.row}>
-                <Icon name="email" color="white" size={getSize.m(24)} />
-                <Text
-                  style={{
-                    color: 'white',
-                    marginLeft: 20,
-                    fontSize: getSize.m(18),
-                  }}>
-                  {email}
-                </Text>
-              </View>
-              <View style={styles.row}>
-                <Icon
-                  name="map-marker-radius"
-                  color="white"
-                  size={getSize.m(24)}
-                />
-                <Text
-                  style={[
-                    {
-                      color: 'white',
-                      marginLeft: 20,
-                      fontSize: getSize.m(18),
-                    },
-                    address !== '' ? null : {opacity: 0.5},
-                  ]}>
-                  {address !== '' ? address : 'Địa chỉ'}
-                </Text>
-              </View>
-              <View style={styles.row}>
-                <Icon name="phone" color="white" size={getSize.m(24)} />
-                <Text
-                  style={[
-                    {
-                      color: 'white',
-                      marginLeft: 20,
-                      fontSize: getSize.m(18),
-                    },
-                    phone !== null ? null : {opacity: 0.5},
-                  ]}>
-                  {phone !== null ? phone : 'Số điện thoại'}
-                </Text>
-              </View>
-            </View>
-            
-            </View>
-            <View style={{flex:1,justifyContent: 'center',alignItems:'center'}}>
-            <Thumbnail source={icons.next} imageStyle={{width:getSize.s(30),height:getSize.s(30)}} />
-            </View>
+            {/* <TouchableOpacity onPress={() =>{ navigation.navigate(routes.EDITPROFILE);}}>
+              <MaterialIcons color={'white'} icon={} size={getSize.m(24)}/>
+            </TouchableOpacity> */}
           </View>
         )}
       </View>
@@ -242,7 +263,7 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID}) => {
         </TouchableRipple>
         <TouchableRipple
           onPress={() => {
-            navigation.navigate(routes.EDITPROFILE);
+           
           }}>
           <View style={styles.menuItem}>
             <Icon name="key-outline" color="#FF6347" size={30} />
@@ -253,6 +274,7 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID}) => {
           onPress={async () => {
             await AsyncStorage.removeItem('token');
             useData['token'] = null;
+            useData['id']=null;
             logoutAction();
             setChecktoken(null);
             navigation.navigate(routes.HOMESCREENS);
@@ -269,6 +291,12 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  iconedit:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal:getSize.m(10)
   },
   userInfoSection: {
     paddingHorizontal: 20,
