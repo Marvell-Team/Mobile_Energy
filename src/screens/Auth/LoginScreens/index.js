@@ -8,6 +8,9 @@ import {connect} from 'react-redux';
 import {loginAction} from '../../../redux/actions';
 import {call,takeEvery,put,takeLatest} from 'redux-saga/effects';
 import jwt_decode from "jwt-decode";
+//import Loadding
+import Loading from '@components/Loadding/Loading';
+
 import {
   Block,
   Button,
@@ -18,9 +21,10 @@ import {
 } from '@components';
 import { useData } from 'config/config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const mapStateToProps = state => {
   return {
-    error: state.loginReducers.error,
+    error: state.loginReducers?state.loginReducers.error:null, 
     data: state.loginReducers?state.loginReducers.data:null,
     loadding: state.loginReducers.loadding,
   };
@@ -33,7 +37,11 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
-const LoginScreens = ({loginAction, data}) => {
+const LoginScreens = ({loginAction, data,loadding}) => {
+  // tao useState Loadding
+  const [loading, setLoading] = useState(false);
+ //
+
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -42,8 +50,11 @@ const LoginScreens = ({loginAction, data}) => {
       
   };
  
- 
-  
+  //Loadding trong screen
+  useEffect(() => {
+    setLoading(loadding)
+  }, [loadding])
+
   useEffect(async() => {
   
     if (data !== null) {
@@ -140,6 +151,10 @@ const LoginScreens = ({loginAction, data}) => {
           titleStyle={styles.txtSignUp}
         />
       </ScrollView>
+      {/* Tao cai nay ms hien Loadding */}
+      {loading && 
+        (<Loading/>)
+      }
     </Block>
   );
 };
