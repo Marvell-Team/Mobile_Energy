@@ -18,50 +18,64 @@ import {useIsFocused} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
 import {routes} from '@navigation/routes';
 import {connect} from 'react-redux';
-import {getProductbyCategories,getProductbyIdAction} from '../../../redux/actions';
+import {
+  getProductbyCategories,
+  getProductbyIdAction,
+} from '../../../redux/actions';
 const mapStateToProps = state => {
-  console.log(state.getProductByCategoriesReducer.data)
+  console.log(state.getProductByCategoriesReducer.data);
   return {
-    error: state.getProductByCategoriesReducer?state.getProductByCategoriesReducer.error:null, 
-    data: state.getProductByCategoriesReducer?state.getProductByCategoriesReducer.data:null,
-    loadding: state.getProductByCategoriesReducer?state.getProductByCategoriesReducer.loadding:null,
+    error: state.getProductByCategoriesReducer
+      ? state.getProductByCategoriesReducer.error
+      : null,
+    data: state.getProductByCategoriesReducer
+      ? state.getProductByCategoriesReducer.data
+      : null,
+    loadding: state.getProductByCategoriesReducer
+      ? state.getProductByCategoriesReducer.loadding
+      : null,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getProductbyCategories:(categori)=>{
-      dispatch(getProductbyCategories(categori))
+    getProductbyCategories: categori => {
+      dispatch(getProductbyCategories(categori));
     },
-    getProductbyIdAction:(id)=>{
-      dispatch(getProductbyIdAction(id))
+    getProductbyIdAction: id => {
+      dispatch(getProductbyIdAction(id));
     },
-  
   };
 };
 
-const HomeScreens = ({data,getProductbyCategories,getProductbyIdAction,loadding,error}) => {
+const HomeScreens = ({
+  data,
+  getProductbyCategories,
+  getProductbyIdAction,
+  loadding,
+  error,
+}) => {
   const [isFocused, setIsFocused] = useState(false);
   const [salesList, setSalesList] = useState([]);
   const navigation = useNavigation();
   useEffect(() => {
-    getProductbyCategories('PHONE')
-  }, [getProductbyCategories])
+    getProductbyCategories('PHONE');
+  }, [getProductbyCategories]);
   useEffect(() => {
-    if(data!==null){
-      setSalesList(data.data)
+    if (data !== null) {
+      setSalesList(data.data);
     }
-  }, [data])
+  }, [data]);
   const handlePressCategory = index => {};
 
   const blockListProduct = useCallback(() => {
-   // console.log('DATA >>> ', salesList);
+    // console.log('DATA >>> ', salesList);
     return (
       <Block style={styles.blockProductContainer}>
         <Block style={styles.blockTitle}>
           <Text style={styles.textTitle}>TOP SẢN PHẨM ĐANG GIẢM GIÁ</Text>
           <Pressable
-            onPress={() =>  getProductbyCategories('PHONE')}
+            onPress={() => getProductbyCategories('PHONE')}
             style={styles.viewMore}>
             <Text style={styles.txtMore}>Xem thêm</Text>
             <Thumbnail
@@ -76,7 +90,14 @@ const HomeScreens = ({data,getProductbyCategories,getProductbyIdAction,loadding,
           style={{alignSelf: 'center', marginTop: 15}}
           showsHorizontalScrollIndicator={false}
           horizontal
-          renderItem={({item, index}) => item.id_category!==null && <ProductCard getProductbyIdAction={getProductbyIdAction} item={item} />}
+          renderItem={({item, index}) =>
+            item.id_category !== null && (
+              <ProductCard
+                getProductbyIdAction={getProductbyIdAction}
+                item={item}
+              />
+            )
+          }
         />
       </Block>
     );
@@ -95,11 +116,7 @@ const HomeScreens = ({data,getProductbyCategories,getProductbyIdAction,loadding,
             height: '70%',
             tintColor: theme.colors.primary,
           }}
-          onPress={() =>
-            navigation.navigate(routes.BOTTOMTABBAR, {
-              screen: routes.SEARCHSCREEN,
-            })
-          }
+          onPress={() => navigation.navigate(routes.SEARCHSCREEN)}
         />
       </Block>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -129,4 +146,3 @@ const HomeScreens = ({data,getProductbyCategories,getProductbyIdAction,loadding,
   );
 };
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreens);
-

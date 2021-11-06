@@ -1,6 +1,6 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {StatusBar} from 'react-native';
 import BottomTabNavigation from './BottomTabNavigation';
 import {navigate} from './RootNavigation';
@@ -10,19 +10,19 @@ import {orders} from '@screens/Order';
 import {product} from '@screens/Product';
 import OPTIONSCREENS from '../screens/OptionScreen/OptionsPicket';
 import {bottom} from '@screens/Bottom';
-import { useData } from 'config/config';
+import {useData} from 'config/config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
 const Stack = createStackNavigator();
 const RootStack = () => {
-  useEffect(async() => {
-    const tolen=await AsyncStorage.getItem('token');
-      useData['token'] = tolen != null ? tolen : null;
-      if(tolen!==null){
-        var decoded = jwt_decode(tolen);
-        useData['id']=decoded.id;
-      }
-  }, [useData])
+  useEffect(async () => {
+    const tolen = await AsyncStorage.getItem('token');
+    useData['token'] = tolen != null ? tolen : null;
+    if (tolen !== null) {
+      var decoded = jwt_decode(tolen);
+      useData['id'] = decoded.id;
+    }
+  }, [useData]);
   return (
     <NavigationContainer ref={navigate}>
       <StatusBar
@@ -82,6 +82,10 @@ const RootStack = () => {
         <Stack.Screen
           name={routes.ORDERLOCATION}
           component={orders.ORDERLOCATION}
+        />
+        <Stack.Screen
+          name={routes.SEARCHSCREEN}
+          component={bottom.SEARCHSCREEN}
         />
       </Stack.Navigator>
     </NavigationContainer>

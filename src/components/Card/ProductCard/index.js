@@ -5,6 +5,7 @@ import {Block, Text, Button} from '@components';
 import {getSize} from '@utils/responsive';
 import {useNavigation} from '@react-navigation/native';
 import {routes} from '@navigation/routes';
+import {formatCurrency} from '@utils/utils';
 
 const ProductCard = ({item, index, onPress, style, getProductbyIdAction}) => {
   const navigation = useNavigation();
@@ -39,10 +40,8 @@ const ProductCard = ({item, index, onPress, style, getProductbyIdAction}) => {
                 textDecorationLine: 'underline',
                 color: theme.colors.red,
                 fontSize: 15,
-              }}>
-              đ
-            </Text>
-            {price_product}
+              }}></Text>
+            {formatCurrency(price_product)}
           </Text>
         </Block>
         <Button title="Add cart" style={styles.btnAddCart} />
