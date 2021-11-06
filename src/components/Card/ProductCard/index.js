@@ -1,25 +1,37 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Dimensions, StyleSheet, Pressable, Image} from 'react-native';
 import {theme} from '@theme';
 import {Block, Text, Button} from '@components';
-import {getSize, textMedium, textSemiBold} from '@utils/responsive';
-import {formatCurrency} from '@utils/utils';
+import {getSize} from '@utils/responsive';
+import {useNavigation} from '@react-navigation/native';
+import {routes} from '@navigation/routes';
 
-const ProductCard = ({item, index, onPress, style}) => {
-  const {id, name_product, img_product, price} = item;
+const ProductCard = ({item, index, onPress, style, getProductbyIdAction}) => {
+  const navigation = useNavigation();
+  const {nameProduct, id_image, price_product} = item;
+  console.log(id_image.nameImage[0]);
+  const img = str => {
+    const newstr = str.replace(/localhost/i, '10.0.2.2');
+    return newstr;
+  };
+
   return (
-    <Pressable onPress={onPress}>
+    <Pressable
+      onPress={() => {
+        getProductbyIdAction(item._id),
+          navigation.navigate(routes.DETAILSCREENS);
+      }}>
       <Block column shadow flex style={[styles.cardContainer, style]}>
         <Block style={styles.viewImg}>
           <Image
-            source={{uri: img_product}}
+            source={{uri: img(id_image.nameImage[0])}}
             style={styles.imgProduct}
             resizeMode="contain"
           />
         </Block>
         <Block justifyCenter style={styles.viewInfo}>
-          <Text style={[styles.name]} numberOfLines={2}>
-            {name_product}
+          <Text style={styles.name} numberOfLines={2}>
+            {nameProduct}
           </Text>
           <Text style={styles.price}>
             <Text
@@ -27,20 +39,17 @@ const ProductCard = ({item, index, onPress, style}) => {
                 textDecorationLine: 'underline',
                 color: theme.colors.red,
                 fontSize: 15,
-              }}></Text>
-            {formatCurrency(price)}
+              }}>
+              đ
+            </Text>
+            {price_product}
           </Text>
         </Block>
-        <Button
-          title="Add cart"
-          style={styles.btnAddCart}
-          titleStyle={[textSemiBold, {fontSize: getSize.v(16)}]}
-        />
+        <Button title="Add cart" style={styles.btnAddCart} />
       </Block>
     </Pressable>
   );
 };
-
 export default ProductCard;
 
 const {width} = Dimensions.get('screen');
@@ -75,11 +84,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   name: {
-    fontSize: getSize.v(17),
+    fontSize: 17,
     color: theme.colors.gray,
     marginVertical: 1,
     textAlign: 'center',
-    fontFamily: 'Barlow-Medium',
   },
   price: {
     fontSize: 16,
