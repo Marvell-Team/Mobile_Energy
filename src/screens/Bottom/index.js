@@ -6,6 +6,7 @@ import ChatScreens from './ChatScreens';
 import CartScreens from './CartScreens';
 import SearchScreens from './SearchScreens';
 import EditProfile from './ProfileScreens/EditProfile';
+import Category from './CategorySrceen';
 export const bottom = {
   HOMESCREENS: HomeScreens,
   POSTSCREENS: PostScreens,
@@ -14,4 +15,5 @@ export const bottom = {
   CARTSCREENS: CartScreens,
   SEARCHSCREEN: SearchScreens,
   EDITPROFILE: EditProfile,
+  CATEGORYSRCEEN:Category,
 };
