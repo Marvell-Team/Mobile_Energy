@@ -2,7 +2,8 @@ import React from 'react';
 import {Dimensions, StyleSheet, Pressable, Image} from 'react-native';
 import {theme} from '@theme';
 import {Block, Text, Button} from '@components';
-import {getSize} from '@utils/responsive';
+import {getSize, textMedium, textSemiBold} from '@utils/responsive';
+import {formatCurrency} from '@utils/utils';
 
 const ProductCard = ({item, index, onPress, style}) => {
   const {id, name_product, img_product, price} = item;
@@ -17,7 +18,7 @@ const ProductCard = ({item, index, onPress, style}) => {
           />
         </Block>
         <Block justifyCenter style={styles.viewInfo}>
-          <Text style={styles.name} numberOfLines={2}>
+          <Text style={[styles.name]} numberOfLines={2}>
             {name_product}
           </Text>
           <Text style={styles.price}>
@@ -26,13 +27,15 @@ const ProductCard = ({item, index, onPress, style}) => {
                 textDecorationLine: 'underline',
                 color: theme.colors.red,
                 fontSize: 15,
-              }}>
-              đ
-            </Text>
-            {price}
+              }}></Text>
+            {formatCurrency(price)}
           </Text>
         </Block>
-        <Button title="Add cart" style={styles.btnAddCart} />
+        <Button
+          title="Add cart"
+          style={styles.btnAddCart}
+          titleStyle={[textSemiBold, {fontSize: getSize.v(16)}]}
+        />
       </Block>
     </Pressable>
   );
@@ -72,10 +75,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   name: {
-    fontSize: 17,
+    fontSize: getSize.v(17),
     color: theme.colors.gray,
     marginVertical: 1,
     textAlign: 'center',
+    fontFamily: 'Barlow-Medium',
   },
   price: {
     fontSize: 16,
