@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   Block,
   Button,
@@ -17,22 +17,51 @@ import {category, listProduct} from '@utils/dummyData';
 import {useIsFocused} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
 import {routes} from '@navigation/routes';
+import {connect} from 'react-redux';
+import {getProductbyCategories,getProductbyIdAction} from '../../../redux/actions';
+const mapStateToProps = state => {
+  console.log(state.getProductByCategoriesReducer.data)
+  return {
+    error: state.getProductByCategoriesReducer?state.getProductByCategoriesReducer.error:null, 
+    data: state.getProductByCategoriesReducer?state.getProductByCategoriesReducer.data:null,
+    loadding: state.getProductByCategoriesReducer?state.getProductByCategoriesReducer.loadding:null,
+  };
+};
 
-const HomeScreens = () => {
+const mapDispatchToProps = dispatch => {
+  return {
+    getProductbyCategories:(categori)=>{
+      dispatch(getProductbyCategories(categori))
+    },
+    getProductbyIdAction:(id)=>{
+      dispatch(getProductbyIdAction(id))
+    },
+  
+  };
+};
+
+const HomeScreens = ({data,getProductbyCategories,getProductbyIdAction,loadding,error}) => {
   const [isFocused, setIsFocused] = useState(false);
-  const [salesList, setSalesList] = useState(listProduct);
+  const [salesList, setSalesList] = useState([]);
   const navigation = useNavigation();
-
+  useEffect(() => {
+    getProductbyCategories('PHONE')
+  }, [getProductbyCategories])
+  useEffect(() => {
+    if(data!==null){
+      setSalesList(data.data)
+    }
+  }, [data])
   const handlePressCategory = index => {};
 
   const blockListProduct = useCallback(() => {
-    console.log('DATA >>> ', salesList);
+   // console.log('DATA >>> ', salesList);
     return (
       <Block style={styles.blockProductContainer}>
         <Block style={styles.blockTitle}>
           <Text style={styles.textTitle}>TOP SẢN PHẨM ĐANG GIẢM GIÁ</Text>
           <Pressable
-            onPress={() => console.log('VIEW')}
+            onPress={() =>  getProductbyCategories('PHONE')}
             style={styles.viewMore}>
             <Text style={styles.txtMore}>Xem thêm</Text>
             <Thumbnail
@@ -47,7 +76,7 @@ const HomeScreens = () => {
           style={{alignSelf: 'center', marginTop: 15}}
           showsHorizontalScrollIndicator={false}
           horizontal
-          renderItem={({item, index}) => <ProductCard item={item} />}
+          renderItem={({item, index}) => item.id_category!==null && <ProductCard getProductbyIdAction={getProductbyIdAction} item={item} />}
         />
       </Block>
     );
@@ -99,5 +128,5 @@ const HomeScreens = () => {
     </Block>
   );
 };
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreens);
 
-export default HomeScreens;

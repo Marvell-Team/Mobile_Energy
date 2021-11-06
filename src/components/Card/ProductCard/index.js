@@ -1,24 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Dimensions, StyleSheet, Pressable, Image} from 'react-native';
 import {theme} from '@theme';
 import {Block, Text, Button} from '@components';
 import {getSize} from '@utils/responsive';
+import {useNavigation} from '@react-navigation/native';
+import { routes } from '@navigation/routes';
 
-const ProductCard = ({item, index, onPress, style}) => {
-  const {id, name_product, img_product, price} = item;
+
+const ProductCard = ({item, index, onPress, style,getProductbyIdAction}) => {
+  const navigation = useNavigation();
+  const { nameProduct, id_image, price_product} = item;
+  console.log(id_image.nameImage[0])
+  const img =(str)=>{
+    const newstr=str.replace(/localhost/i, '10.0.2.2');
+    return newstr
+  }
+ 
   return (
-    <Pressable onPress={onPress}>
+    <Pressable onPress={()=>{getProductbyIdAction(item._id),navigation.navigate(routes.DETAILSCREENS)}}>
       <Block column shadow flex style={[styles.cardContainer, style]}>
         <Block style={styles.viewImg}>
           <Image
-            source={{uri: img_product}}
+            source={{uri:img(id_image.nameImage[0]) }}
             style={styles.imgProduct}
             resizeMode="contain"
           />
         </Block>
         <Block justifyCenter style={styles.viewInfo}>
           <Text style={styles.name} numberOfLines={2}>
-            {name_product}
+            {nameProduct}
           </Text>
           <Text style={styles.price}>
             <Text
@@ -29,7 +39,7 @@ const ProductCard = ({item, index, onPress, style}) => {
               }}>
               đ
             </Text>
-            {price}
+            {price_product}
           </Text>
         </Block>
         <Button title="Add cart" style={styles.btnAddCart} />
@@ -37,7 +47,6 @@ const ProductCard = ({item, index, onPress, style}) => {
     </Pressable>
   );
 };
-
 export default ProductCard;
 
 const {width} = Dimensions.get('screen');
