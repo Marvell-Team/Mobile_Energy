@@ -1,5 +1,5 @@
 import { POST_SIGNIN, POST_SIGNUP,LOGOUT } from './LoginAction';
-import { GET_PRODUCT } from './ProductAction';
+import { GET_PRODUCT, GET_PRODUCT_BY_CATEGORYS ,GET_PRODUCT_BY_ID} from './ProductAction';
 import { GETONE_USER, UPDATE_USER } from './UserAction';
 
 export const loginAction = (user, password) => {
@@ -37,4 +37,19 @@ export const EditUserByID = (input)=>{
     data:input
   };
 }
+export const getProductbyCategories = (input)=>{
+  return {
+    type:GET_PRODUCT_BY_CATEGORYS,
+    data:input
+  };
+}
 
+export const getProductbyIdAction = (input)=>{
+  console.log('====================================');
+  console.log('action'+input);
+  console.log('====================================');
+  return {
+    type:GET_PRODUCT_BY_ID,
+    data:input
+  };
+}

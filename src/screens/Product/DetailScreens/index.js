@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ToastAndroid,
   ImageBackground,
@@ -22,7 +22,29 @@ import {routes} from '@navigation/routes';
 import {getSize} from '@utils/responsive';
 const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
-const data = [
+import {connect} from 'react-redux';
+import {getProductbyCategories,getProductbyIdAction} from '../../../redux/actions';
+const mapStateToProps = state => {
+  //console.log(state.getProductByIDReducer.data)
+  return {
+    error: state.getProductByIDReducer?state.getProductByIDReducer.error:null, 
+    data: state.getProductByIDReducer?state.getProductByIDReducer.data:null,
+    loadding: state.getProductByIDReducer?state.getProductByIDReducer.loadding:null,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getProductbyCategories:(categori)=>{
+      dispatch(getProductbyCategories(categori))
+    },
+    getProductbyIdAction:(id)=>{
+      dispatch(getProductbyIdAction(id))
+    },
+  
+  };
+};
+const datas = [
   {
     id: 1,
     name: 'Nguyễn Hoài Bão',
@@ -47,18 +69,28 @@ const data = [
     currentime: '16 giờ trước',
   },
 ];
-const DetailScreens = () => {
+const DetailScreens = ({data,getProductbyIdAction}) => {
   const navigation = useNavigation();
   const [active, setActive] = useState(0);
-  const [imageBG, setImageBG] = useState([
-    'https://i.ytimg.com/vi/SbR0_YbVSbU/maxresdefault.jpg',
-    'https://vnn-imgs-f.vgcloud.vn/2019/10/08/17/samsung-se-bo-galaxy-fold-va-galaxy-note-de-ra-dong-flagship-moi-3.jpg',
-  ]);
+  const [name, setName] = useState('')
+  const [imageBG, setImageBG] = useState([]);
+  const [price, setPrice] = useState(null)
+  const [description, setDescription] = useState(null)
+  // const [price, setPrice] = useState(null)
+  // const [price, setPrice] = useState(null)
+  // const [price, setPrice] = useState(null)
+  // const [price, setPrice] = useState(null)
+  
+
   const [modalVisible, setModalVisible] = useState(false);
   if (Platform.OS === 'android') {
     if (UIManager.setLayoutAnimationEnabledExperimental) {
       UIManager.setLayoutAnimationEnabledExperimental(true);
     }
+  }
+  const img =(str)=>{
+    const newstr=str.replace(/localhost/i, '10.0.2.2');
+    return newstr
   }
   const [isShow, setIsShow] = useState(false);
 
@@ -70,6 +102,26 @@ const DetailScreens = () => {
       setActive(slide);
     }
   };
+  useEffect(() => {
+    if(data !== null){
+      const item = data.data;
+      console.log(item.id_image.nameImage)
+      setImageBG(item.id_image.nameImage);
+      setName(item.nameProduct);
+      setPrice(item.price_product);
+      setDescription(item.description_product)
+
+
+      Object.keys(item.description_product).map(function(key, index) {
+       
+        console.log( item.description_product[key] +"aa"+index);
+      });
+      
+    
+
+
+    }
+  }, [data])
   return (
     <Block style={styles.container}>
       <ScrollView>
@@ -83,7 +135,7 @@ const DetailScreens = () => {
               key={item}
               resizeMode="stretch"
               style={{flexDirection: 'row', width: width, height: height / 2.5}}
-              source={{uri: item}}></Image>
+              source={{uri: img(item)}}></Image>
           ))}
         </ScrollView>
         {/*header*/}
@@ -131,10 +183,10 @@ const DetailScreens = () => {
           <Block row style={styles.bodyname}>
             <Block justifyCenter style={{flex: 3}}>
               <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-                Xsm 64g. gold
+                {name}
               </Text>
               <Text style={{fontSize: 17, fontWeight: 'bold', color: 'red'}}>
-                50000000 VND
+                {price}
               </Text>
               <Text style={{fontSize: 12}}>16 giờ trước</Text>
             </Block>
@@ -162,17 +214,35 @@ const DetailScreens = () => {
           />
           {isShow ? (
             <Block style={styles.detailbody}>
-              <Text size={16}>
-                Bán điện thoại số lượng lớn, bảo hành trọn đời, 1 mua không trả
-                lại. Pin xài 5 phút bảo đảm không hết.
-              </Text>
-              <Text size={16} color="blue">
-                Liên hệ ngay: 088828***
-              </Text>
-              <Text size={16}>Hãng: Apple</Text>
-              <Text size={16}>Tình trạng: Cũ</Text>
-              <Text size={16}>Dung lượng: 69 GB</Text>
-              <Text size={16}>Số lượng: 96</Text>
+              {
+                Object.keys(description).map((key,index)=>
+                  (description.description_product===description[key]?(
+                   
+                    <Block paddingVertical={getSize.m(8)} backgroundColor={'#ffffff'} width={'100%'}>
+                         <Text size={18} color={'#333333'}>{ description[key]}</Text>
+                      </Block>
+                  ):
+                  (
+                    index%2===0?(
+                      <Block paddingVertical={getSize.m(6)} backgroundColor={'#ffffff'} width={'100%'}>
+                        <Text size={16} ><Text style={{fontWeight: 'bold'}} size={16}>{key}</Text>: { description[key]}</Text>
+                      </Block>
+                    ): (
+                      <Block paddingVertical={getSize.m(6)} backgroundColor={'#f5f5f5'} width={'100%'}>
+                        <Text size={16}  ><Text style={{fontWeight: 'bold'}} size={16}>{key}</Text>: { description[key]}</Text>
+                      </Block>
+                    )
+                  )
+                  )
+               )
+              }
+               {/* {
+                Object.keys(description_product).map(function(key, index) {
+                  (
+                    <Text size={16}>Hãng: Apple</Text>
+                  )
+              }
+              } */}
             </Block>
           ) : null}
           <Button
@@ -247,7 +317,7 @@ const DetailScreens = () => {
                   />
                 ))
               }
-              data={data}
+              data={datas}
               renderItem={({item, index}) => <CommentCard item={item} />}
             />
           </Block>
@@ -383,5 +453,5 @@ const DetailScreens = () => {
     </Block>
   );
 };
+export default connect(mapStateToProps, mapDispatchToProps)(DetailScreens);
 
-export default DetailScreens;
