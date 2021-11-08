@@ -59,7 +59,9 @@ export const icons = {
   filter1: require('./icons/filter.png'),
   search_icon: require('./icons/search_icon.png'),
   images: require('./icons/images.png'),
-  name: require('./icons/name.png')
+  name: require('./icons/name.png'),
+  logoo: require('./icons/logoo.png'),
+
 };
 
 export const fonts = {};

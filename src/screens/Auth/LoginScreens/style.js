@@ -7,67 +7,93 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.colors.white,
+    position: 'relative',
   },
-  thumb: {
-    width: 120,
-    height: 120,
-    marginTop: height * 0.05,
-    marginBottom: height * 0.02,
+
+  viewLogo: {
+    width: 100,
+    height: 130,
+    marginTop: height * 0.08,
+    marginBottom: height * 0.04,
     justifyContent: 'center',
     alignSelf: 'center',
   },
+
+  viewInLogo: {
+    width: '100%',
+    height: '100%',
+  },
+
+  viewFormLogin: {
+    backgroundColor: theme.colors.white,
+    color: theme.colors.black,
+  },
+
   txtTitle: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    color: theme.colors.primary,
-    textAlign: 'center',
+    fontSize: 18,
+    color: theme.colors.greyTitle,
+    textAlign: 'left',
   },
-  // image: {
-  //   width: 20,
-  //   height: 20,
-  // },
-  input: {
+
+  txtInput: {
     marginVertical: height * 0.01,
+    color: theme.colors.black,
+    backgroundColor: theme.colors.grey,
+    borderWidth: 1,
+    borderColor: theme.colors.grey,
+    borderRadius: 8,
   },
-  forgot: {
+
+  viewForgotPassword: {
     alignSelf: 'flex-end',
   },
-  forgotTxt: {
-    fontSize: 15,
+
+  txtForgotPassword: {
+    fontSize: 16,
     textAlign: 'right',
-    marginHorizontal: 3,
-    marginVertical: 5,
-    color: theme.colors.gray,
+    color: theme.colors.greyTitle,
   },
-  button: {
+
+  viewButtonLogin: {
     backgroundColor: theme.colors.primary,
+    height: 56,
   },
-  textBtn: {
-    fontSize: 15,
+
+  txtButtonLogin: {
+    fontSize: 18,
+    fontWeight: 'bold',
   },
-  txtOR: {
+
+  txtLoginWith: {
     fontSize: 17,
     textAlign: 'center',
-    marginVertical: 8,
+    marginVertical: 16,
+    color: theme.colors.greyTitle,
   },
-  viewDif: {
+
+  viewLoginWith: {
     alignSelf: 'center',
-    marginVertical: 5,
+    marginVertical: height * 0.08,
   },
+
   thumb1: {
     width: 45,
     height: 45,
     justifyContent: 'center',
     alignSelf: 'center',
-    marginHorizontal: 24,
+    marginHorizontal: 16,
   },
-  signUp: {
-    marginVertical: height * 0.03,
+
+  viewSignUp: {
+    position: 'absolute',
+    bottom: 0,
+    alignSelf:'center',
+    height: 30,
   },
+
   txtSignUp: {
     color: theme.colors.primary,
-    fontSize: 15,
-    textAlign: 'center',
+    fontSize: 14,
     fontWeight: 'bold',
   },
 });
