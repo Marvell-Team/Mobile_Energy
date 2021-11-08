@@ -24,6 +24,7 @@ import {connect} from 'react-redux';
 import {getProduct} from '../../../redux/actions';
 import {routes} from '@navigation/routes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Loading from '@components/Loadding/Loading';
 const categori = [
   {id: 2, name: 'Điện thoại'},
   {id: 3, name: 'Phụ kiện'},
@@ -33,6 +34,7 @@ const mapStateToProps = state => {
   return {
     error: state.getProductReducer.error,
     data1: state.getProductReducer.data,
+    //loading here
     loadding: state.getProductReducer.loadding,
   };
 };
@@ -44,12 +46,21 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
-const SEARCHSCREEN = ({getProduct, data1}) => {
+const SEARCHSCREEN = ({getProduct, data1, loadding}) => {
+    // tao useState Loadding
+    const [loading, setLoading] = useState(false);
+  
   const navigation = useNavigation();
   const [masterData, setMasterData] = useState([]);
   const [filterData, setFilterData] = useState([]);
   const [seach, setSeach] = useState('');
   const [searchShow, setSearchShow] = useState(true);
+
+    //Loadding trong screen
+    useEffect(() => {
+    setLoading(loadding)
+  }, [loadding])
+
   useEffect(() => {
     getDataSeach();
   }, []);
@@ -244,6 +255,12 @@ const SEARCHSCREEN = ({getProduct, data1}) => {
           ) : null}
         </ScrollView>
       </Block>
+
+      {/* Tao cai nay ms hien Loadding */}
+      {loading && 
+        (<Loading/>)
+      }
+
     </Block>
   );
 };

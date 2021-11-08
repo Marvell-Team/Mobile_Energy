@@ -22,12 +22,15 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useSelector, useDispatch} from 'react-redux';
 import {getUserByID, logoutAction} from '@redux/actions';
 import {connect} from 'react-redux';
+import Loading from '@components/Loadding/Loading';
 import {icons} from '@assets';
 const mapStateToProps = state => {
   return {
     error: state.getOneUserReducer ? state.getOneUserReducer.error : null,
     data: state.getOneUserReducer ? state.getOneUserReducer.data : null,
     loadding: state.getOneUserReducer ? state.getOneUserReducer.loadding : null,
+    //loading
+    loadding: state.getOneUserReducer.loadding,
   };
 };
 
@@ -41,7 +44,10 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
-const ProfileScreens = ({logoutAction, data, error, getUserByID}) => {
+const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
+    // tao useState Loadding
+  const [loading, setLoading] = useState(false);
+
   const navigation = useNavigation();
   const [checktoken, setChecktoken] = useState(null);
   const [name, setName] = useState('');
@@ -49,6 +55,11 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID}) => {
   const [phone, setPhone] = useState(null);
   const [email, setEmail] = useState('');
   const [url,setUrl]= useState('');
+    //Loadding trong screen
+    useEffect(() => {
+      setLoading(loadding)
+    }, [loadding])
+
   useEffect(() => {
     if (data !== null) {
       setName(data.data.name_user);
@@ -285,6 +296,12 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID}) => {
           </View>
         </TouchableOpacity>
       </ScrollView>
+
+            {/* Tao cai nay ms hien Loadding */}
+            {loading && 
+            (<Loading/>)
+            }
+
     </SafeAreaView>
   );
 };

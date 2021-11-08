@@ -26,6 +26,7 @@ const mapStateToProps = state => {
   return {
     error: state.loginReducers?state.loginReducers.error:null, 
     data: state.loginReducers?state.loginReducers.data:null,
+    //loading
     loadding: state.loginReducers.loadding,
   };
 };
