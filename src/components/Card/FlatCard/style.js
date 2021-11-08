@@ -31,14 +31,16 @@ export default StyleSheet.create({
     margin: 8,
     borderRadius: 50,
     justifyContent: 'center',
+    alignItems: 'center'
   },
 
   inViewIcon: {
-    width: '90%',
-    height: '90%',
+    width: '70%',
+    height: '70%',
     borderRadius: 100 / 2,
-    backgroundColor: theme.colors.white,
-    alignSelf: 'center'
+    backgroundColor: theme.colors.primary,
+    alignSelf: 'center',
+    tintColor: theme.colors.white
   },
 
   viewIsSeen: {

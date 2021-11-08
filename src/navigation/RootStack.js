@@ -87,6 +87,10 @@ const RootStack = () => {
           name={routes.SEARCHSCREEN}
           component={bottom.SEARCHSCREEN}
         />
+        <Stack.Screen
+          name={routes.CHANGEPASSSCREEN}
+          component={auth.CHANGEPASSSCREEN}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

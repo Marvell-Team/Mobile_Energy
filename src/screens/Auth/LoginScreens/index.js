@@ -1,12 +1,12 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {View, ToastAndroid, ScrollView, StatusBar} from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, ToastAndroid, ScrollView, StatusBar } from 'react-native';
 import styles from './style';
-import {icons} from '@assets';
-import {routes} from '../../../navigation/routes.js';
-import {useNavigation,StackActions,CommonActions} from '@react-navigation/native';
-import {connect} from 'react-redux';
-import {loginAction} from '../../../redux/actions';
-import {call,takeEvery,put,takeLatest} from 'redux-saga/effects';
+import { icons } from '@assets';
+import { routes } from '../../../navigation/routes.js';
+import { useNavigation, StackActions, CommonActions } from '@react-navigation/native';
+import { connect } from 'react-redux';
+import { loginAction } from '../../../redux/actions';
+import { call, takeEvery, put, takeLatest } from 'redux-saga/effects';
 import jwt_decode from "jwt-decode";
 //import Loadding
 import Loading from '@components/Loadding/Loading';
@@ -21,11 +21,12 @@ import {
 } from '@components';
 import { useData } from 'config/config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { theme } from '@theme';
 
 const mapStateToProps = state => {
   return {
-    error: state.loginReducers?state.loginReducers.error:null, 
-    data: state.loginReducers?state.loginReducers.data:null,
+    error: state.loginReducers ? state.loginReducers.error : null,
+    data: state.loginReducers ? state.loginReducers.data : null,
     //loading
     loadding: state.loginReducers.loadding,
   };
@@ -38,32 +39,32 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
-const LoginScreens = ({loginAction, data,loadding}) => {
+const LoginScreens = ({ loginAction, data, loadding }) => {
   // tao useState Loadding
   const [loading, setLoading] = useState(false);
- //
+  //
 
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   function* _login() {
-      
+
   };
- 
+
   //Loadding trong screen
   useEffect(() => {
     setLoading(loadding)
   }, [loadding])
 
-  useEffect(async() => {
-  
+  useEffect(async () => {
+
     if (data !== null) {
       await AsyncStorage.setItem('token', data.data.accesToken);
       const tolen = data.data.accesToken;
       var decoded = jwt_decode(tolen);
       useData['token'] = tolen;
-      useData['id']=decoded.id;
+      useData['id'] = decoded.id;
       _login();
       // navigation.dispatch(
       //         CommonActions.reset({
@@ -80,43 +81,53 @@ const LoginScreens = ({loginAction, data,loadding}) => {
         CommonActions.reset({
           index: 1,
           routes: [
-            
+
             {
               name: routes.BOTTOMTABBAR,
             },
           ],
         })
       );
-     
+
     }
   }, [data]);
- 
+
   return (
-    <Block flex paddingHorizontal={12} style={styles.container}>
-      <ScrollView indicatorStyle={'white'}>
-        <Thumbnail source={icons.logo} style={styles.thumb} />
-        <Text style={styles.txtTitle}>ĐĂNG NHẬP</Text>
+    <Block flex paddingHorizontal={16} style={styles.container}>
+      <Thumbnail
+        source={icons.logoo}
+        style={styles.viewLogo}
+        imageStyle={styles.viewInLogo} />
+
+      <Block style={styles.viewFormLogin}>
+
+        <Text style={styles.txtTitle}>Đăng nhập để tiếp tục</Text>
+
         <TextInput
           iconleft={icons.email}
           placeholder="Nhập email..."
+          placeholderTextColor={theme.colors.grayText}
           onChangeText={text => setEmail(text)}
-          style={styles.input}
-        />
+          style={styles.txtInput}
+          iconStyle={{width: 24, height: 24, tintColor: theme.colors.grayText}} />
+
         <TextInput
-          iconleft={icons.pass}
+          iconleft={icons.psdlg}
           issecure
           placeholder="Nhập password..."
+          placeholderTextColor={theme.colors.grayText}
           onChangeText={text => setPassword(text)}
-          style={styles.input}
-        />
+          style={styles.txtInput} 
+          iconStyle={{width: 24, height: 24, tintColor: theme.colors.grayText}}/>
+
         <PressText
           title="Quên mật khẩu?"
           onPressOut={() => {
             console.log('Quên mật khẩu'),
               ToastAndroid.show('Quên mật khẩu', ToastAndroid.SHORT);
           }}
-          style={styles.forgot}
-          titleStyle={styles.forgotTxt}
+          style={styles.viewForgotPassword}
+          titleStyle={styles.txtForgotPassword}
         />
         <Button
           shadow
@@ -124,11 +135,13 @@ const LoginScreens = ({loginAction, data,loadding}) => {
           onPress={() => {
             loginAction(email, password);
           }}
-          style={styles.button}
-          titleStyle={styles.textBtn}
+          style={styles.viewButtonLogin}
+          titleStyle={styles.txtButtonLogin}
         />
-        <Text style={styles.txtOR}>OR</Text>
-        <Block row alignCenter style={styles.viewDif}>
+      </Block>
+      <Block style={styles.viewLoginWith}>
+        <Text style={styles.txtLoginWith}>Hoặc đăng nhập với</Text>
+        <Block row>
           <Thumbnail
             source={icons.facebook}
             onPress={() => console.log('Facebook')}
@@ -145,18 +158,20 @@ const LoginScreens = ({loginAction, data,loadding}) => {
             style={styles.thumb1}
           />
         </Block>
+      </Block>
+
+      <Block style={styles.viewSignUp} >
         <PressText
-          title="DON'T HAVE ACCOUNT?"
+          title="BẠN CHƯA CÓ TÀI KHOẢN? ĐĂNG KÝ"
           onPress={() => navigation.navigate(routes.SIGNUPSCREENS)}
-          style={styles.signUp}
-          titleStyle={styles.txtSignUp}
-        />
-      </ScrollView>
+          titleStyle={styles.txtSignUp} />
+      </Block>
       {/* Tao cai nay ms hien Loadding */}
       {loading && 
         (<Loading/>)
       }
     </Block>
+
   );
 };
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreens);
