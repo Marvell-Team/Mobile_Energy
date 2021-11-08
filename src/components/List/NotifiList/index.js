@@ -9,6 +9,7 @@ const NotifiList = ({data}) => {
     <FlatList
       data={data}
       keyExtractor={item => item.id}
+      showsVerticalScrollIndicator={false}
       renderItem={({item}) => (
         <FlatCard
           onPress={() =>

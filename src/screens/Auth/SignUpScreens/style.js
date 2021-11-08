@@ -31,14 +31,14 @@ export default StyleSheet.create({
 
   txtTitle: {
     fontSize: 18,
-    color: theme.colors.greyTitle,
+    color: theme.colors.secondary,
     textAlign: 'left',
   },
 
   txtInput: {
     marginVertical: height * 0.01,
     color: theme.colors.black,
-    backgroundColor: theme.colors.grey,
+    backgroundColor: theme.colors.smoke,
     borderWidth: 1,
     borderColor: theme.colors.grey,
     borderRadius: 8,
@@ -51,7 +51,7 @@ export default StyleSheet.create({
   txtForgotPassword: {
     fontSize: 16,
     textAlign: 'right',
-    color: theme.colors.greyTitle,
+    color: theme.colors.secondary,
   },
 
   viewButtonRegister: {

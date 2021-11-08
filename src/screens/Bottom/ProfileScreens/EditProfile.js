@@ -30,7 +30,6 @@ import {useNavigation} from '@react-navigation/native';
 import {routes} from '@navigation/routes';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import storage from '@react-native-firebase/storage';
-import Loading from '../../../components/Loadding/Loading';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 import { useData } from 'config/config';

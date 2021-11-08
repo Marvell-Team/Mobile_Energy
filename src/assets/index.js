@@ -61,6 +61,8 @@ export const icons = {
   images: require('./icons/images.png'),
   name: require('./icons/name.png'),
   logoo: require('./icons/logoo.png'),
+  userlg: require('./icons/userlg.png'),
+  psdlg: require('./icons/psdlg.png'),
 
 };
 

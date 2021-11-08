@@ -15,15 +15,15 @@ const FlatCard = ({item, onPress}) => {
 
             <Thumbnail
               style={styles.viewIcon}
-              source={ {uri: ''}}
-              imageStyle={styles.inViewIcon} >
-            </Thumbnail>
+              source={icons.dbell}
+              imageStyle={styles.inViewIcon}
+              resizeMode='contain'
+               />
               
             <Thumbnail
               style={styles.viewIsSeen}
               source={ {uri: ''}}
-              imageStyle={styles.inViewIsSeen} >
-            </Thumbnail>
+              imageStyle={styles.inViewIsSeen} />
 
           </Block>
           

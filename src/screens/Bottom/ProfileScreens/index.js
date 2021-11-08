@@ -274,7 +274,7 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
         </TouchableRipple>
         <TouchableRipple
           onPress={() => {
-           
+           navigation.navigate(routes.CHANGEPASSSCREEN)
           }}>
           <View style={styles.menuItem}>
             <Icon name="key-outline" color="#FF6347" size={30} />

@@ -16,9 +16,10 @@ import {
   Thumbnail,
   PressText,
 } from '@components';
+import { theme } from '@theme';
 const mapStateToProps = state => {
   return {
-    error: state.signupReducer.error,
+    error: state.signupReducer.error,  
     data: state.signupReducer.data,
     loadding: state.signupReducer.loadding,
   };
@@ -49,58 +50,71 @@ const SignUpScreens = ({signUpAction, data,loadding}) => {
       setLoading(loadding)
     }, [loadding])
 
-  return (
-    <Block flex paddingHorizontal={12} style={styles.container}>
-      <ScrollView indicatorStyle={'white'}>
-        <Thumbnail source={icons.logo} style={styles.thumb} />
-        <Text style={styles.txtTitle}>TẠO TÀI KHOẢN</Text>
-
-        <TextInput
-          iconleft={icons.user}
-          placeholder="Nhập họ tên..."
-          onChangeText={text => setUsername(text)}
-          style={styles.input}
-        />
-        <TextInput
-          iconleft={icons.email}
-          placeholder="Nhập email..."
-          onChangeText={text => setEmail(text)}
-          style={styles.input}
-        />
-        <TextInput
-          iconleft={icons.pass}
-          issecure
-          placeholder="Nhập password..."
-          onChangeText={text => setPassword(text)}
-          style={styles.input}
-        />
-        <Button
-          shadow
-          title="ĐĂNG KÍ"
-          onPressOut={() => {
-            let user = {
-              email_user: email,
-              pwd_user: password,
-              name_user: username,
-            };
-            signUpAction(user);
-          }}
-          style={styles.button}
-          titleStyle={styles.textBtn}
-        />
-
-        <PressText
-          title="ĐÃ CÓ TÀI KHOẢN? ĐĂNG NHẬP"
-          onPress={() => navigation.navigate(routes.LOGINSCREENS)}
-          style={styles.signUp}
-          titleStyle={styles.txtSignUp}
-        />
-      </ScrollView>
-            {/* Tao cai nay ms hien Loadding */}
+    return (
+      <Block flex paddingHorizontal={16} style={styles.container}>
+  
+        <Thumbnail
+          source={icons.logoo}
+          style={styles.viewLogo}
+          imageStyle={styles.viewInLogo} />
+  
+        <Block style={styles.viewFormLogin}>
+  
+          <Text style={styles.txtTitle}>Tạo tài khoản mới</Text>
+  
+          <TextInput
+            iconleft={icons.userlg}
+            placeholder="Nhập họ tên..."
+            placeholderTextColor={theme.colors.grayText}
+            onChangeText={text => setUsername(text)}
+            style={styles.txtInput}
+            iconStyle={{width: 24, height: 24, tintColor: theme.colors.grayText}} />
+  
+          <TextInput
+            iconleft={icons.email}
+            placeholder="Nhập email..."
+            placeholderTextColor={theme.colors.grayText}
+            onChangeText={text => setEmail(text)}
+            style={styles.txtInput}
+            iconStyle={{width: 24, height: 24, tintColor: theme.colors.grayText}} />
+  
+          <TextInput
+            iconleft={icons.pass}
+            issecure
+            placeholder="Nhập password..."
+            placeholderTextColor={theme.colors.grayText}
+            onChangeText={text => setPassword(text)}
+            style={styles.txtInput}
+            iconStyle={{width: 24, height: 24, tintColor: theme.colors.grayText}} />
+  
+          <Button
+            shadow
+            title="ĐĂNG KÝ"
+            onPressOut={() => {
+              let user = {
+                email_user: email,
+                pwd_user: password,
+                name_user: username,
+              };
+              signUpAction(user);
+            }}
+            style={styles.viewButtonRegister}
+            titleStyle={styles.txtButtonRegister} />
+  
+        </Block>
+  
+        <Block style={styles.viewSignIn}>
+  
+          <PressText
+            title="ĐÃ CÓ TÀI KHOẢN? ĐĂNG NHẬP"
+            onPress={() => navigation.navigate(routes.LOGINSCREENS)}
+            titleStyle={styles.txtSignIn} />
+  
+        </Block>
+        {/* Tao cai nay ms hien Loadding */}
             {loading && 
-        (<Loading/>)
-      }
-    </Block>
-  );
+        (<Loading/>)}
+      </Block>
+    );
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreens);
