@@ -26,6 +26,8 @@ export const theme = {
     grayText: '#748A9D',
     darkGray: '#888888',
     blackText: '#2D2C3C',
+    greyText: '#A6BCD0',
+    greyTitle: '#88B2D9',
   },
 
   fonts: {
