@@ -34,6 +34,8 @@ import Loading from '../../../components/Loadding/Loading';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 import { useData } from 'config/config';
+//import Loadding
+import Loading from '@components/Loadding/Loading';
 
 import {connect} from 'react-redux';
 import { EditUserByID } from '@redux/actions';
@@ -42,6 +44,8 @@ const mapStateToProps = state => {
     error: state.updateUserReducer ? state.updateUserReducer.error : null,
     data: state.updateUserReducer ? state.updateUserReducer.data : null,
     loadding: state.updateUserReducer ? state.updateUserReducer.loadding : null,
+      //loading
+      loadding: state.updateUserReducer.loadding,
   };
 };
 
@@ -53,7 +57,10 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
-const EditProfile = ({editUserByID,data}) => {
+const EditProfile = ({editUserByID,data, loadding}) => {
+    // tao useState Loadding
+    const [loading, setLoading] = useState(false);
+    //
   const navigation = useNavigation();
   
   const [avatar, setAvatar] = useState();
@@ -71,6 +78,11 @@ const EditProfile = ({editUserByID,data}) => {
   const [transferred, setTransferred] = useState(0);
   const bs = React.createRef();
   const fall = new Animated.Value(1);
+    //Loadding trong screen
+       useEffect(() => {
+          setLoading(loadding)
+        },  [loadding])
+
   useEffect(() => {
     convertdatetostring(null);
   }, []);
@@ -373,6 +385,10 @@ const EditProfile = ({editUserByID,data}) => {
         renderHeader={hedarBottom}
        
       />
+      {/* Tao cai nay ms hien Loadding */}
+      {loading && 
+        (<Loading/>)
+      }
     </View>
   );
 };

@@ -6,6 +6,8 @@ import {useNavigation} from '@react-navigation/native';
 import {routes} from '../../../navigation/routes.js';
 import {connect} from 'react-redux';
 import {signUpAction} from '../../../redux/actions';
+import Loading from '@components/Loadding/Loading';
+
 import {
   Block,
   Button,
@@ -29,16 +31,24 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
-const SignUpScreens = ({signUpAction, data}) => {
+const SignUpScreens = ({signUpAction, data,loadding}) => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+    // tao useState Loadding
+    const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (data !== null) {
       alert(data);
     }
   }, [data]);
+
+    //Loadding trong screen
+    useEffect(() => {
+      setLoading(loadding)
+    }, [loadding])
+
   return (
     <Block flex paddingHorizontal={12} style={styles.container}>
       <ScrollView indicatorStyle={'white'}>
@@ -86,6 +96,10 @@ const SignUpScreens = ({signUpAction, data}) => {
           titleStyle={styles.txtSignUp}
         />
       </ScrollView>
+            {/* Tao cai nay ms hien Loadding */}
+            {loading && 
+        (<Loading/>)
+      }
     </Block>
   );
 };
