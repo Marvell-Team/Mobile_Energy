@@ -79,6 +79,7 @@ const LoginScreens = ({loginAction, data,loadding}) => {
         CommonActions.reset({
           index: 1,
           routes: [
+            
             {
               name: routes.BOTTOMTABBAR,
             },
