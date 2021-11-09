@@ -17,16 +17,20 @@ import CommentCard from './card';
 import {icons} from '@assets';
 import styles from './style';
 import {theme} from '@theme';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation,CommonActions} from '@react-navigation/native';
 import {routes} from '@navigation/routes';
 import {getSize} from '@utils/responsive';
 const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
 import {connect} from 'react-redux';
-import {getProductbyCategories,getProductbyIdAction} from '../../../redux/actions';
+import { useData } from 'config/config';
+import {getCartByUser, getProductbyCategories,getProductbyIdAction, UpdateCartByUser} from '../../../redux/actions';
+import Count from '@components/Count';
+import {formatCurrency} from '@utils/utils';
 const mapStateToProps = state => {
   //console.log(state.getProductByIDReducer.data)
   return {
+    dataCart: state.getCartByUserReducer? state.getCartByUserReducer.data: null,
     error: state.getProductByIDReducer?state.getProductByIDReducer.error:null, 
     data: state.getProductByIDReducer?state.getProductByIDReducer.data:null,
     loadding: state.getProductByIDReducer?state.getProductByIDReducer.loadding:null,
@@ -41,6 +45,14 @@ const mapDispatchToProps = dispatch => {
     getProductbyIdAction:(id)=>{
       dispatch(getProductbyIdAction(id))
     },
+    getCartByUser: id =>{
+      dispatch(getCartByUser(id))
+    },
+    UpdateCartByUser: input =>{
+      dispatch(UpdateCartByUser(input))
+    },
+    
+    
   
   };
 };
@@ -69,19 +81,33 @@ const datas = [
     currentime: '16 giờ trước',
   },
 ];
-const DetailScreens = ({data,getProductbyIdAction}) => {
+const DetailScreens = ({data,getProductbyIdAction,dataCart,getCartByUser,UpdateCartByUser}) => {
+  const [amount, setAmount] = useState(1)
+  const [dataCarts, setDataCarts] = useState([])
   const navigation = useNavigation();
   const [active, setActive] = useState(0);
   const [name, setName] = useState('')
   const [imageBG, setImageBG] = useState([]);
   const [price, setPrice] = useState(null)
-  const [description, setDescription] = useState(null)
-  // const [price, setPrice] = useState(null)
-  // const [price, setPrice] = useState(null)
-  // const [price, setPrice] = useState(null)
-  // const [price, setPrice] = useState(null)
+  const [description, setDescription] = useState(null);
   
+  // const [price, setPrice] = useState(null)
+  // const [price, setPrice] = useState(null)
+  // const [price, setPrice] = useState(null)
+  // const [price, setPrice] = useState(null)
+  useEffect(() => {
 
+    if(useData.token!==null && useData.id!==null){
+      if(dataCart!==null){
+        setDataCarts(dataCart.data2.products);
+      }
+    }
+  }, [dataCart])
+  useEffect(() => {
+    if(useData.token!==null && useData.id!==null){
+      getCartByUser(useData.id)
+    }
+  }, [getCartByUser,UpdateCartByUser]);
   const [modalVisible, setModalVisible] = useState(false);
   if (Platform.OS === 'android') {
     if (UIManager.setLayoutAnimationEnabledExperimental) {
@@ -89,8 +115,13 @@ const DetailScreens = ({data,getProductbyIdAction}) => {
     }
   }
   const img =(str)=>{
-    const newstr=str.replace(/localhost/i, '10.0.2.2');
-    return newstr
+    if(str===undefined){
+      return null;
+    }
+    else{
+      const newstr=str.replace(/localhost/i, '10.0.2.2');
+      return newstr
+    }
   }
   const [isShow, setIsShow] = useState(false);
 
@@ -102,26 +133,32 @@ const DetailScreens = ({data,getProductbyIdAction}) => {
       setActive(slide);
     }
   };
+  
   useEffect(() => {
     if(data !== null){
       const item = data.data;
-      console.log(item.id_image.nameImage)
+      console.log(item.id_image.nameImage+'aaaaaa')
       setImageBG(item.id_image.nameImage);
       setName(item.nameProduct);
       setPrice(item.price_product);
       setDescription(item.description_product)
-
-
-      Object.keys(item.description_product).map(function(key, index) {
-       
-        console.log( item.description_product[key] +"aa"+index);
-      });
-      
-    
-
-
     }
-  }, [data])
+  }, [data]);
+  const addCart=(Carts,id,amount,idcart,total)=>{
+    const index=Carts.findIndex((el)=>el.id_product===id)
+    let items=[];
+    console.log(amount+'aa'+price+'aa'+dataCart.data.total)
+    if(index===-1){ 
+      const item={id_product:id,amount:amount}
+      items.push(item,...Carts);
+      UpdateCartByUser({idcart:idcart,id_product:items,total:total+(parseInt(price)*parseInt(amount))});
+    }else{
+      Carts[index].amount=Carts[index].amount+amount;
+      items.push(...Carts);
+      UpdateCartByUser({idcart:idcart,id_product:items,total:total+(parseInt(price)*parseInt(amount))});
+    }
+    navigation.navigate(routes.CARTSCREENS)
+  }
   return (
     <Block style={styles.container}>
       <ScrollView>
@@ -130,13 +167,16 @@ const DetailScreens = ({data,getProductbyIdAction}) => {
           onScroll={({nativeEvent}) => change(nativeEvent)}
           showsHorizontalScrollIndicator={false}
           horizontal={true}>
-          {imageBG.map((item, index) => (
+          {Array.isArray(imageBG) && imageBG.length?(
+          imageBG.map((item, index) => 
+          (
             <Image
               key={item}
               resizeMode="stretch"
               style={{flexDirection: 'row', width: width, height: height / 2.5}}
               source={{uri: img(item)}}></Image>
-          ))}
+          )
+          )):null}
         </ScrollView>
         {/*header*/}
         {/* dot cho image */}
@@ -390,59 +430,28 @@ const DetailScreens = ({data,getProductbyIdAction}) => {
               </Block>
             </Block>
             <Block style={{borderBottomWidth:0.8}} borderColor='black' row>
-              <Block style={{flex: 2}}>
-                
-                
-                {/* hinh anh */}
-
-
-
+              <Block style={{flex: 2}} alignStart paddingVertical={getSize.m(4)} >
+                <Thumbnail source={{uri:img(imageBG[0])}} imageStyle={{width: getSize.s(70),height:getSize.s(85)}}/>
               </Block>
               <Block style={{flex: 7,marginBottom:20}}>
                 <Text style={{fontWeight: 'bold'}} size={20}>
-                  IPHONE 11 PRO PLUS 256GB
+                  {name}
                 </Text>
                 <Text color="#949599">
-                  Hãng:<Text>Apple</Text> - Màu:<Text>Đen</Text> - Dung lượng:
+                  Hãng:<Text>Apple</Text> - Dung lượng:
                   <Text>256 GB</Text>{' '}
                 </Text>
-                <Text size={20}>28.500.000 Đ</Text>
-                <Block row>
-                  <Block
-                    justifyCenter
-                    borderColor={theme.colors.primary}
-                    borderWidth={1}
-                    width={getSize.s(30)}
-                    height={getSize.v(30)}>
-                    <Thumbnail source={icons.subtract}></Thumbnail>
-                  </Block>
-                  <Block
-                    width={getSize.s(30)}
-                    height={getSize.v(30)}
-                    alignCenter
-                    justifyCenter
-                    borderColor={theme.colors.primary}
-                    borderWidth={1}>
-                    <Text size={18}>0</Text>
-                  </Block>
-                  <Block
-                    justifyCenter
-                    width={getSize.s(30)}
-                    height={getSize.v(30)}
-                    borderColor={theme.colors.primary}
-                    borderWidth={1}>
-                    <Thumbnail source={icons.plus}></Thumbnail>
-                  </Block>
-                </Block>
+                <Text size={20}>{formatCurrency(price)}</Text>
+                <Count onPressSubtract={()=>{amount>1?(setAmount(amount-1)):null}} amount={amount} onPressPlus={() =>{setAmount(amount+1)}}/>
               </Block>
             </Block>
              <Block row paddingTop={20}>
                 <Block style={{flex:4}} >
                   <Text size={18}>Tổng</Text>
-                  <Text color='red' size={20} style={{fontWeight: 'bold'}}>228.000 Đ</Text>
+                  <Text color='red' size={20} style={{fontWeight: 'bold'}}>{formatCurrency(price*amount)}</Text>
                 </Block>
                 <Block style={{flex:7}}>
-                  <TouchableOpacity style={{width:'100%', height:getSize.v(60),backgroundColor:theme.colors.primary,borderRadius:getSize.m(10),alignItems:'center',justifyContent:'center'}}>
+                  <TouchableOpacity onPress={()=>{addCart(dataCarts,data.data._id,amount,dataCart.data2._id,dataCart.data.total)}} style={{width:'100%', height:getSize.v(60),backgroundColor:theme.colors.primary,borderRadius:getSize.m(10),alignItems:'center',justifyContent:'center'}}>
                      <Text color='white' style={{fontWeight: 'bold'}} size={22}  >Thêm Giỏ Hàng</Text>
                   </TouchableOpacity>
                 </Block>

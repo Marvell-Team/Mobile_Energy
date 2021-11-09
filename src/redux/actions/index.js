@@ -1,3 +1,4 @@
+import { GET_CART, UPDATE_CART } from './CartAction';
 import { POST_SIGNIN, POST_SIGNUP,LOGOUT } from './LoginAction';
 import { GET_PRODUCT, GET_PRODUCT_BY_CATEGORYS ,GET_PRODUCT_BY_ID} from './ProductAction';
 import { GETONE_USER, UPDATE_USER } from './UserAction';
@@ -43,11 +44,24 @@ export const getProductbyCategories = (input)=>{
     data:input
   };
 }
+export const getCartByUser = (input)=>{
+  console.log('dag chay dc chua')
+  return {
+    type:GET_CART,
+    data:input
+  };
+}
+
+export const UpdateCartByUser = (input)=>{
+  console.log('dag chay dc chua')
+  return {
+    type:UPDATE_CART,
+    data:input
+  };
+}
+
 
 export const getProductbyIdAction = (input)=>{
-  console.log('====================================');
-  console.log('action'+input);
-  console.log('====================================');
   return {
     type:GET_PRODUCT_BY_ID,
     data:input
