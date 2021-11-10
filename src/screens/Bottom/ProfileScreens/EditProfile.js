@@ -368,9 +368,7 @@ const EditProfile = ({editUserByID,data, loadding}) => {
         </Text>
       </TouchableOpacity>
       {uploading?(
-        
         <Loading/>
-       
       ):null}
       </Animated.View>
       <BottomSheet

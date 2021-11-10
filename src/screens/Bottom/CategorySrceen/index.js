@@ -144,15 +144,11 @@ const Category = ({ }) => {
         <Text style={{ fontSize: 20, color: COLORS.dark,fontWeight: 'bold',marginTop:getSize.m(10)}}>Danh Mục Sản Phẩm</Text>
       </View>
       <FlatList 
-      
         showsVerticalScrollIndicator={false}
         data={category}
         horizontal={false}
         numColumns={4}
         renderItem={({ item }) => <CartCard item={item}
-        
-        
-//tu xu di
         />}
       />
     </SafeAreaView>
