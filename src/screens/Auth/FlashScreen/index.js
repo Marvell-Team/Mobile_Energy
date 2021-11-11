@@ -17,8 +17,7 @@ const FlashScreen =() =>{
                 Energy Mobile
             </Text>
         </View>
-    )
-        
+    )      
     
 }
 export default FlashScreen
