@@ -452,7 +452,7 @@ const DetailScreens = ({data,getProductbyIdAction,dataCart,getCartByUser,UpdateC
                 </Block>
                 <Block style={{flex:7}}>
                   <TouchableOpacity onPress={()=>{addCart(dataCarts,data.data._id,amount,dataCart.data2._id,dataCart.data.total)}} style={{width:'100%', height:getSize.v(60),backgroundColor:theme.colors.primary,borderRadius:getSize.m(10),alignItems:'center',justifyContent:'center'}}>
-                     <Text color='white' style={{fontWeight: 'bold'}} size={22}  >Thêm Giỏ Hàng</Text>
+                     <Text color='white' style={{fontWeight: 'bold'}} size={22}>Thêm Giỏ Hàng</Text>
                   </TouchableOpacity>
                 </Block>
              </Block>
