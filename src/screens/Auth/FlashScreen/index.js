@@ -12,7 +12,6 @@ const FlashScreen =() =>{
     return(
         <View style={styles.container}>
             <Image resizeMode='contain' source={require('../FlashScreen/Logooo.png')} style={styles.image}>
-            
             </Image>  
             <Text style={styles.text}>
                 Energy Mobile
