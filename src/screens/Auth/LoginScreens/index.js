@@ -15,6 +15,7 @@ import {
   Block,
   Button,
   Text,
+  Header,
   TextInput,
   Thumbnail,
   PressText,
@@ -94,6 +95,18 @@ const LoginScreens = ({ loginAction, data, loadding }) => {
 
   return (
     <Block flex paddingHorizontal={16} style={styles.container}>
+
+      <Header
+        iconLeft={icons.back}
+        style={{backgroundColor: theme.colors.white}}
+        iconStyle={{width: 24, height: 24, tintColor: theme.colors.grayText}}
+        leftPress={() =>
+          navigation.navigate(routes.BOTTOMTABBAR, {
+            screen: routes.PROFILESCREENS,
+          })
+        }
+      />
+
       <Thumbnail
         source={icons.logoo}
         style={styles.viewLogo}
@@ -109,7 +122,8 @@ const LoginScreens = ({ loginAction, data, loadding }) => {
           placeholderTextColor={theme.colors.grayText}
           onChangeText={text => setEmail(text)}
           style={styles.txtInput}
-          iconStyle={{width: 24, height: 24, tintColor: theme.colors.grayText}} />
+          iconStyle={{width: 24, height: 24, tintColor: theme.colors.grayText}} 
+          keyboardType='email-address'/>
 
         <TextInput
           iconleft={icons.psdlg}

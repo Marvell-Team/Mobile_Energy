@@ -76,7 +76,8 @@ const SignUpScreens = ({signUpAction, data,loadding}) => {
             placeholderTextColor={theme.colors.grayText}
             onChangeText={text => setEmail(text)}
             style={styles.txtInput}
-            iconStyle={{width: 24, height: 24, tintColor: theme.colors.grayText}} />
+            iconStyle={{width: 24, height: 24, tintColor: theme.colors.grayText}} 
+            keyboardType='email-address'/>
   
           <TextInput
             iconleft={icons.pass}

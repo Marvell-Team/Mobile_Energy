@@ -13,7 +13,7 @@ export default StyleSheet.create({
   viewLogo: {
     width: 100,
     height: 130,
-    marginTop: height * 0.08,
+    marginTop: height * 0.12,
     marginBottom: height * 0.04,
     justifyContent: 'center',
     alignSelf: 'center',
