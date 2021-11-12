@@ -1,13 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { View, ToastAndroid, ScrollView, StatusBar } from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {View, ToastAndroid, ScrollView, StatusBar} from 'react-native';
 import styles from './style';
-import { icons } from '@assets';
-import { routes } from '../../../navigation/routes.js';
-import { useNavigation, StackActions, CommonActions } from '@react-navigation/native';
-import { connect } from 'react-redux';
-import { loginAction } from '../../../redux/actions';
-import { call, takeEvery, put, takeLatest } from 'redux-saga/effects';
-import jwt_decode from "jwt-decode";
+import {icons} from '@assets';
+import {routes} from '../../../navigation/routes.js';
+import {
+  useNavigation,
+  StackActions,
+  CommonActions,
+} from '@react-navigation/native';
+import {connect} from 'react-redux';
+import {loginAction} from '../../../redux/actions';
+import {call, takeEvery, put, takeLatest} from 'redux-saga/effects';
+import jwt_decode from 'jwt-decode';
 //import Loadding
 import Loading from '@components/Loadding/Loading';
 
@@ -20,9 +24,9 @@ import {
   Thumbnail,
   PressText,
 } from '@components';
-import { useData } from 'config/config';
+import {useData} from 'config/config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { theme } from '@theme';
+import {theme} from '@theme';
 
 const mapStateToProps = state => {
   return {
@@ -40,7 +44,7 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
-const LoginScreens = ({ loginAction, data, loadding }) => {
+const LoginScreens = ({loginAction, data, loadding}) => {
   // tao useState Loadding
   const [loading, setLoading] = useState(false);
   //
@@ -49,23 +53,20 @@ const LoginScreens = ({ loginAction, data, loadding }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  function* _login() {
-
-  };
+  function* _login() {}
 
   //Loadding trong screen
   useEffect(() => {
-    setLoading(loadding)
-  }, [loadding])
+    setLoading(loadding);
+  }, [loadding]);
 
   useEffect(async () => {
-
     if (data !== null) {
       await AsyncStorage.setItem('token', data.data.accesToken);
       const tolen = data.data.accesToken;
       var decoded = jwt_decode(tolen);
-      useData['token'] = tolen;
-      useData['id'] = decoded.id;
+      useData.token = tolen;
+      useData.id = decoded.id;
       _login();
       // navigation.dispatch(
       //         CommonActions.reset({
@@ -82,25 +83,22 @@ const LoginScreens = ({ loginAction, data, loadding }) => {
         CommonActions.reset({
           index: 1,
           routes: [
-
             {
               name: routes.BOTTOMTABBAR,
             },
           ],
-        })
+        }),
       );
-
     }
   }, [data]);
 
   return (
     <Block flex paddingHorizontal={16} style={styles.container}>
-
       <Header
         iconRight={icons.delete}
         style={{backgroundColor: theme.colors.white}}
         iconStyle={{width: 32, height: 32, tintColor: theme.colors.grayText}}
-        leftPress={() =>
+        rightPress={() =>
           navigation.navigate(routes.BOTTOMTABBAR, {
             screen: routes.PROFILESCREENS,
           })
@@ -110,10 +108,10 @@ const LoginScreens = ({ loginAction, data, loadding }) => {
       <Thumbnail
         source={icons.logoo}
         style={styles.viewLogo}
-        imageStyle={styles.viewInLogo} />
+        imageStyle={styles.viewInLogo}
+      />
 
       <Block style={styles.viewFormLogin}>
-
         <Text style={styles.txtTitle}>Đăng nhập để tiếp tục</Text>
 
         <TextInput
@@ -122,8 +120,9 @@ const LoginScreens = ({ loginAction, data, loadding }) => {
           placeholderTextColor={theme.colors.grayText}
           onChangeText={text => setEmail(text)}
           style={styles.txtInput}
-          iconStyle={{width: 24, height: 24, tintColor: theme.colors.grayText}} 
-          keyboardType='email-address'/>
+          iconStyle={{width: 24, height: 24, tintColor: theme.colors.grayText}}
+          keyboardType="email-address"
+        />
 
         <TextInput
           iconleft={icons.psdlg}
@@ -131,8 +130,9 @@ const LoginScreens = ({ loginAction, data, loadding }) => {
           placeholder="Nhập password..."
           placeholderTextColor={theme.colors.grayText}
           onChangeText={text => setPassword(text)}
-          style={styles.txtInput} 
-          iconStyle={{width: 24, height: 24, tintColor: theme.colors.grayText}}/>
+          style={styles.txtInput}
+          iconStyle={{width: 24, height: 24, tintColor: theme.colors.grayText}}
+        />
 
         <PressText
           title="Quên mật khẩu?"
@@ -174,18 +174,16 @@ const LoginScreens = ({ loginAction, data, loadding }) => {
         </Block>
       </Block>
 
-      <Block style={styles.viewSignUp} >
+      <Block style={styles.viewSignUp}>
         <PressText
           title="BẠN CHƯA CÓ TÀI KHOẢN? ĐĂNG KÝ"
           onPress={() => navigation.navigate(routes.SIGNUPSCREENS)}
-          titleStyle={styles.txtSignUp} />
+          titleStyle={styles.txtSignUp}
+        />
       </Block>
       {/* Tao cai nay ms hien Loadding */}
-      {loading && 
-        (<Loading/>)
-      }
+      {loading && <Loading />}
     </Block>
-
   );
 };
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreens);
