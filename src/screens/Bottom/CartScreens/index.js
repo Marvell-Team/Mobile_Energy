@@ -19,6 +19,8 @@ import {
   getCartByUser, UpdateCartByUser
 } from '../../../redux/actions';
 import { useData } from 'config/config';
+import { useNavigation } from '@react-navigation/native';
+import { routes } from '@navigation/routes';
 const mapStateToProps = state => {
   return {
     error: state.getCartByUserReducer
@@ -47,7 +49,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 const CartScreens = ({data,getCartByUser,UpdateCartByUser,dataUpdate}) => {
-  
+  const navigation = useNavigation();
   const [dataCart, setDataCart] = useState([]);
   const [dataID, setDataID] = useState('');
   const [dataTotal, setDataTotal] = useState(0);
@@ -97,17 +99,17 @@ const CartScreens = ({data,getCartByUser,UpdateCartByUser,dataUpdate}) => {
           </Text>
         </View>
         <View style={{width: '50%'}}>
-          <PrimaryButton title="Thanh Toán" onPress={()=>{getCartByUser(useData.id),console.log('aa')}}/>
+          <PrimaryButton title="Thanh Toán" onPress={()=>{navigation.navigate(routes.MYBILLSCREENS)}}/>
         </View>
       </View>
     </SafeAreaView>
   );
 };
-const CartCard = ({setDataTotal,item,index,dataCart,dataID,UpdateCartByUser,dataTotal}) => {
+const CartCard = ({setDataTotal,item,index,dataCart,dataID,UpdateCartByUser,dataTotal,getCartByUser}) => {
   const [amount, setAmount] = useState(0);
   useEffect(() => {
     setAmount(item.amount)
-  }, [item])
+  }, [getCartByUser])
   const {id_image,price_product,nameProduct}=item.id_product
 
   const addCart=(Carts,idcart,index)=>{
@@ -119,7 +121,7 @@ const CartCard = ({setDataTotal,item,index,dataCart,dataID,UpdateCartByUser,data
     setDataTotal(parseInt(dataTotal)+parseInt(price_product))   
     items.push(...Carts);
     console.log(dataCart)
-     UpdateCartByUser({idcart:idcart,id_product:items,total:parseInt(dataTotal)-parseInt(price_product)});
+     UpdateCartByUser({idcart:idcart,id_product:items,total:parseInt(dataTotal)+parseInt(price_product)});
     
     
   }
@@ -128,12 +130,9 @@ const CartCard = ({setDataTotal,item,index,dataCart,dataID,UpdateCartByUser,data
     Carts[index].amount=Carts[index].amount-parseInt(1);
     console.log(index+'aaa'+Carts[index].amount+'idcart'+idcart)
     setAmount(Carts[index].amount)
-    
     items.push(...Carts);
     console.log(dataCart)
-    UpdateCartByUser({idcart:idcart,id_product:items,total:parseInt(dataTotal)+parseInt(price_product)});
-    
-    
+    UpdateCartByUser({idcart:idcart,id_product:items,total:parseInt(dataTotal)-parseInt(price_product)});
   }
 
 const img = str => {
@@ -154,7 +153,7 @@ const img = str => {
         <Text style={{fontSize: 13, color: COLORS.grey}}>
           {item.ingredients}
         </Text>
-        <Text style={{fontSize: 17, fontWeight: 'bold'}}>{formatCurrency(price_product*item.amount)}</Text>
+        <Text style={{fontSize: 17, fontWeight: 'bold'}}>{formatCurrency(price_product*amount)}</Text>
       </View>
       <View style={{marginRight: 20, alignItems: 'center'}}>
         <Count amount={amount} onPressSubtract={()=>{subtractCart(dataCart,dataID,index)}} onPressPlus={()=>{addCart(dataCart,dataID,index)}}/>
