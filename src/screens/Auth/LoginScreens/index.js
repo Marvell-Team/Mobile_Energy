@@ -97,9 +97,9 @@ const LoginScreens = ({ loginAction, data, loadding }) => {
     <Block flex paddingHorizontal={16} style={styles.container}>
 
       <Header
-        iconLeft={icons.back}
+        iconRight={icons.delete}
         style={{backgroundColor: theme.colors.white}}
-        iconStyle={{width: 24, height: 24, tintColor: theme.colors.grayText}}
+        iconStyle={{width: 32, height: 32, tintColor: theme.colors.grayText}}
         leftPress={() =>
           navigation.navigate(routes.BOTTOMTABBAR, {
             screen: routes.PROFILESCREENS,
