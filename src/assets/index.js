@@ -60,8 +60,11 @@ export const icons = {
   search_icon: require('./icons/search_icon.png'),
   images: require('./icons/images.png'),
   name: require('./icons/name.png'),
-  local: require('./icons/local.png'),
-  dollar: require('./icons/dollar.png')
+  logoo: require('./icons/logoo.png'),
+  userlg: require('./icons/userlg.png'),
+  psdlg: require('./icons/psdlg.png'),
+  delete: require('./icons/delete.png'),
+
 };
 
 export const fonts = {};
