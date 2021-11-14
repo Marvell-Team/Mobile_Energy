@@ -96,6 +96,10 @@ const RootStack = () => {
           name={routes.CHANGEPASSSCREEN}
           component={auth.CHANGEPASSSCREEN}
         />
+        <Stack.Screen
+        name={routes.PAYMENT_SCREEN}
+        component={orders.PAYMENT_SCREEN}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
