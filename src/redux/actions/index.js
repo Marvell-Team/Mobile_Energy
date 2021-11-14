@@ -1,6 +1,8 @@
+import { ADD_BILL, ADD_BILL_NULL, GET_BILL } from './BillAction';
 import { GET_CART, UPDATE_CART } from './CartAction';
 import { POST_SIGNIN, POST_SIGNUP,LOGOUT } from './LoginAction';
 import { GET_PRODUCT, GET_PRODUCT_BY_CATEGORYS ,GET_PRODUCT_BY_ID} from './ProductAction';
+import { GET_STORE, GET_STORE_BY_ID,  } from './StoreAction';
 import { GETONE_USER, UPDATE_USER } from './UserAction';
 
 export const loginAction = (user, password) => {
@@ -66,4 +68,46 @@ export const getProductbyIdAction = (input)=>{
     type:GET_PRODUCT_BY_ID,
     data:input
   };
+}
+
+export const getStoreAction = ()=>{
+  console.log('store')
+  return {
+    type:GET_STORE,
+  };
+}
+
+// get by id
+export const getStoreByIdAction = (input)=>{
+  console.log('store')
+  return {
+    type:GET_STORE_BY_ID,
+    data:input,
+
+  };
+}
+export const addbillNullAction=()=>{
+  return {
+    type: ADD_BILL_NULL,
+  }
+}
+// add bill
+export const addBillAction = (input)=>{
+  console.log('bill')
+  return {
+    type:ADD_BILL,
+    data:input,
+
+  }; 
+}
+
+// get bill
+export const getBillAction = (input)=>{
+  console.log('bill')
+  return {
+    type:GET_BILL,
+    data:input,
+
+  };
+  
 }

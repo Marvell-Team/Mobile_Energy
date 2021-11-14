@@ -208,7 +208,7 @@ const DetailScreens = ({data,getProductbyIdAction,dataCart,getCartByUser,UpdateC
           <Block margin={10} flex alignStart>
             <Thumbnail
               source={icons.back}
-              onPress={() => navigation.navigate(routes.PROFILESCREENS)}
+              onPress={() => navigation.navigate(routes.HOMESCREENS)}
               style={{width: 30, height: 30}}
             />
           </Block>

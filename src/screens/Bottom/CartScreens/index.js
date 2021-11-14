@@ -6,8 +6,9 @@ import {
   Text,
   Image,
   StatusBar,
+  FlatList
 } from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from './colors';
 import Phones from './Phones';
@@ -21,6 +22,8 @@ import {
 import { useData } from 'config/config';
 import { useNavigation } from '@react-navigation/native';
 import { routes } from '@navigation/routes';
+import { Header } from '@components';
+import { icons } from '@assets';
 const mapStateToProps = state => {
   return {
     error: state.getCartByUserReducer
@@ -73,8 +76,8 @@ const CartScreens = ({data,getCartByUser,UpdateCartByUser,dataUpdate}) => {
   return (
     <SafeAreaView style={{backgroundColor: COLORS.white, flex: 1}}>
       <View style={style.header}>
-        <Icon name="arrow-back-ios" size={28} color="white" />
-        <Text style={{fontSize: 20, color: COLORS.white}}>Giỏ Hàng</Text>
+        
+        <Text style={{fontSize: 20,fontWeight: 'bold',color: COLORS.white}}>Giỏ Hàng</Text>
       </View>
       <FlatList
         showsVerticalScrollIndicator={false}
@@ -99,7 +102,7 @@ const CartScreens = ({data,getCartByUser,UpdateCartByUser,dataUpdate}) => {
           </Text>
         </View>
         <View style={{width: '50%'}}>
-          <PrimaryButton title="Thanh Toán" onPress={()=>{navigation.navigate(routes.MYBILLSCREENS)}}/>
+          <PrimaryButton title="Mua Hàng" onPress={()=>{navigation.navigate(routes.PAYMENT_SCREEN)}}/>
         </View>
       </View>
     </SafeAreaView>
@@ -115,15 +118,12 @@ const CartCard = ({setDataTotal,item,index,dataCart,dataID,UpdateCartByUser,data
   const addCart=(Carts,idcart,index)=>{
     let items=[];
     Carts[index].amount=Carts[index].amount+parseInt(1);
-  
     setAmount(Carts[index].amount);
    // console.log(parseInt(dataTotal)+parseInt(price_product))
     setDataTotal(parseInt(dataTotal)+parseInt(price_product))   
     items.push(...Carts);
     console.log(dataCart)
      UpdateCartByUser({idcart:idcart,id_product:items,total:parseInt(dataTotal)+parseInt(price_product)});
-    
-    
   }
   const subtractCart=(Carts,idcart,index)=>{
     let items=[];
@@ -169,6 +169,8 @@ const style = StyleSheet.create({
     backgroundColor: COLORS.primary,
     paddingTop: StatusBar.currentHeight + 12,
     paddingBottom: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   cartCard: {
     height: 100,

@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import {Block, Text, Thumbnail, Button, Header, TextInput} from '@components';
 import {icons} from '@assets';
-
 import {theme} from '@theme';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {getSize} from '@utils/responsive';
