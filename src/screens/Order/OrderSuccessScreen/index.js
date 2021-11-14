@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -13,14 +13,18 @@ import {
   Button,
 } from 'react-native';
 import {routes} from '@navigation/routes';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation,useRoute} from '@react-navigation/native';
 import {icons} from '@assets';
 import {theme} from '@theme';
 import styles from './style';
 
 const OrderSuccessScreen = () => {
   const navigation = useNavigation();
-
+  const route=useRoute();
+  const {id} =route.params;
+  useEffect(() => {
+    console.log(id)
+  }, [id])
   return (
     <View style={styles.container}>
       <Image
@@ -31,7 +35,7 @@ const OrderSuccessScreen = () => {
       {/* <View style={styles.body}> */}
       <Text style={styles.text}>Đặt hàng thành công</Text>
       <Text style={{color: '#7FB0DD'}}>Mã đơn hàng:</Text>
-      <Text style={{color: '#1DA1F2'}}>696969</Text>
+      <Text style={{color: '#1DA1F2'}}>{id}</Text>
       {/* </View> */}
 
       <TouchableOpacity

@@ -87,6 +87,10 @@ const RootStack = () => {
           name={routes.SEARCHSCREEN}
           component={bottom.SEARCHSCREEN}
         />
+        <Stack.Screen
+          name={routes.PAYMENT_SCREEN}
+          component={orders.PAYMENT_SCREEN}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

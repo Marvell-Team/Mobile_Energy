@@ -34,14 +34,13 @@ export default StyleSheet.create({
     fontSize: 16,
   },
   button: {
+    marginVertical:12,
+    paddingHorizontal:getSize.m(40),
     paddingVertical: 12,
     backgroundColor: theme.colors.primary,
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    position: 'absolute',
-    left: 12,
-    right: 12,
-    bottom: 16,
+   
   },
 });

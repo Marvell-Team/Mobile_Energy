@@ -240,10 +240,10 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID}) => {
             <Text style={styles.menuItemText}>Thanh Toán</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
+        <TouchableRipple onPress={() => {navigation.navigate(routes.MYBILLSCREENS)}}>
           <View style={styles.menuItem}>
             <Icon name="history" color="#FF6347" size={30} />
-            <Text style={styles.menuItemText}>Lịch Sử Mua Hàng</Text>
+            <Text style={styles.menuItemText}>Đơn Hàng Của Tôi</Text>
           </View>
         </TouchableRipple>
         <TouchableRipple onPress={() => {}}>

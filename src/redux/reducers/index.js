@@ -7,7 +7,11 @@ import updateUserReducer from './User/updateUserReducer';
 import getProductByCategoriesReducer from './Product/getProdcutByCategoriesReducer';
 import getProductByIDReducer from './Product/getProductByIDReducer';
 import getCartByUserReducer from './Cart/getCartByUser';
-import updateCartByCartReducer from './Cart/updateCartByCartReducer'
+import updateCartByCartReducer from './Cart/updateCartByCartReducer';
+import getStoreReducer from './Store/getStoreReducer';
+import getStoreByIdReducer from './Store/getStoreByIdReducer';
+import addBillReducers from './Bill/addBillReducers';
+import getBillReducers from './Bill/getBillReducer'
 const allReducers=combineReducers({
     loginReducers,
     signupReducer,
@@ -18,5 +22,9 @@ const allReducers=combineReducers({
     getProductByIDReducer,
     getCartByUserReducer,
     updateCartByCartReducer,
+    getStoreReducer,
+    getStoreByIdReducer,
+    addBillReducers,
+    getBillReducers,
 });
 export default allReducers;
