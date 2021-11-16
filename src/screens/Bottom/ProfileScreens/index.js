@@ -257,7 +257,9 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
             <Text style={styles.menuItemText}>Đơn Hàng Của Tôi</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
+        <TouchableRipple onPress={() => {
+          navigation.navigate(routes.FAVORITELISTSCREEN)
+        }}>
           <View style={styles.menuItem}>
             <Icon name="account-check-outline" color="#FF6347" size={30} />
             <Text style={styles.menuItemText}>Hỗ Trợ</Text>
