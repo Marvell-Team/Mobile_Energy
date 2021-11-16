@@ -86,11 +86,11 @@ const mapDispatchToProps = dispatch => {
 };
 
 const MyBillScreens = ({data1,getBillAction}) => {
-  const [data, setData] = useState(bill);
+  const [data, setData] = useState([]);
   console.log('Length >>>>>>' + data.length);
   useEffect(() => {
     if(data1 !== null){
-    //  setData(data1.data)
+      setData(data1.data)
     }
   }, [data1]);
   useEffect(() => {

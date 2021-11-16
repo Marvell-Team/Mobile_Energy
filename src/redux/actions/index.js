@@ -1,4 +1,4 @@
-import { ADD_BILL, ADD_BILL_NULL, GET_BILL } from './BillAction';
+import { ADD_BILL, ADD_BILL_NULL, GET_BILL, GET_BILL_BY_ID } from './BillAction';
 import { GET_CART, UPDATE_CART } from './CartAction';
 import { POST_SIGNIN, POST_SIGNUP,LOGOUT } from './LoginAction';
 import { GET_PRODUCT, GET_PRODUCT_BY_CATEGORYS ,GET_PRODUCT_BY_ID} from './ProductAction';
@@ -106,6 +106,17 @@ export const getBillAction = (input)=>{
   console.log('bill')
   return {
     type:GET_BILL,
+    data:input,
+
+  };
+  
+}
+
+// get bill
+export const getBillByIdAction = (input)=>{
+  console.log('bill')
+  return {
+    type:GET_BILL_BY_ID,
     data:input,
 
   };
