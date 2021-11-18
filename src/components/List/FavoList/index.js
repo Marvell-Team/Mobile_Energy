@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {FlatList, ToastAndroid} from 'react-native';
 import {FavoriteCard} from '@components';
 import {useNavigation} from '@react-navigation/native';

@@ -7,7 +7,7 @@ import CartScreens from './CartScreens';
 import SearchScreens from './SearchScreens';
 import EditProfile from './ProfileScreens/EditProfile';
 import Category from './CategorySrceen';
-import FavoriteList from './ProfileScreens/FavoriteList';
+import FavoriteListScreen from './ProfileScreens/FavoriteList';
 
 export const bottom = {
   HOMESCREENS: HomeScreens,
@@ -18,5 +18,5 @@ export const bottom = {
   SEARCHSCREEN: SearchScreens,
   EDITPROFILE: EditProfile,
   CATEGORYSRCEEN:Category,
-  FAVORITELISTSCREEN: FavoriteList,
+  FAVORITELISTSCREEN: FavoriteListScreen,
 };

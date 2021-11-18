@@ -32,7 +32,7 @@ const RootStack = () => {
       />
       <Stack.Navigator
         presentation="modal"
-        initialRouteName={routes.BOTTOMTABBAR}
+        initialRouteName={routes.FAVORITELIST_SCREEN}
         screenOptions={{headerShown: false}}>
 
         <Stack.Screen
@@ -101,7 +101,7 @@ const RootStack = () => {
         component={orders.PAYMENT_SCREEN}
         />
         <Stack.Screen
-        name={routes.FAVORITELISTSCREEN}
+        name={routes.FAVORITELIST_SCREEN}
         component={bottom.FAVORITELISTSCREEN}
         />
       </Stack.Navigator>
