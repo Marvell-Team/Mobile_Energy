@@ -1,5 +1,6 @@
 import { ADD_BILL, ADD_BILL_NULL, GET_BILL, GET_BILL_BY_ID } from './BillAction';
 import { GET_CART, UPDATE_CART } from './CartAction';
+import { GET_FAVORITE, GET_FAVORITE_BY_ID } from './FavoriteAction';
 import { POST_SIGNIN, POST_SIGNUP,LOGOUT } from './LoginAction';
 import { GET_PRODUCT, GET_PRODUCT_BY_CATEGORYS ,GET_PRODUCT_BY_ID} from './ProductAction';
 import { GET_STORE, GET_STORE_BY_ID,  } from './StoreAction';
@@ -120,5 +121,23 @@ export const getBillByIdAction = (input)=>{
     data:input,
 
   };
-  
+
 }
+
+//get favorite
+export const getFavoriteAction = () =>{
+  console.log('>>>>>>>>>>>favorite action')
+  return {
+    type:GET_FAVORITE,
+  };
+}
+
+//get favorite by id
+export const getFavoriteById = (input) =>{
+  console.log('>>>>>>>>>>>favorite id action')
+  return {
+    type:GET_FAVORITE_BY_ID,
+    data: input,
+  };
+}
+
