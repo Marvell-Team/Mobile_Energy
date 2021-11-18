@@ -100,6 +100,10 @@ const RootStack = () => {
         name={routes.PAYMENT_SCREEN}
         component={orders.PAYMENT_SCREEN}
         />
+        <Stack.Screen
+        name={routes.FAVORITELISTSCREEN}
+        component={bottom.FAVORITELISTSCREEN}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
