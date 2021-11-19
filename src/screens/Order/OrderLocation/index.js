@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,50 +7,82 @@ import {
   View,
   Dimensions,
 } from 'react-native';
+
 import {useNavigation} from '@react-navigation/native';
 import {Button, Header} from '@components';
 import { icons } from '@assets';
 import { theme } from '@theme';
 import { getSize } from '@utils/responsive';
+import { getStoreAction, getStoreByIdAction } from '@redux/actions';
+import Modalpicker from '@components/Modal/ModalPicker';
 const {width} = Dimensions.get('window');
 const {height} = Dimensions.get('window');
+import {connect} from 'react-redux';
+const mapStateToProps = state => {
+  return {
+    error: state.getStoreReducer ? state.getStoreReducer.error : null,
+    data: state.getStoreReducer ? state.getStoreReducer.data : null,
 
-const OrderLocation = () => {
+    loadding: state.getStoreReducer
+      ? state.getStoreReducer.loadding
+      : null,
+
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getStoreAction: () => {
+      dispatch(getStoreAction());
+    },
+    getStoreByIdAction: id =>{
+      dispatch(getStoreByIdAction(id))
+    }
+    
+  };
+};
+const OrderLocation = ({data,getStoreAction,getStoreByIdAction}) => {
+  const [idlocal, setIdlocal] = useState();
+  const [data1, setData1] = useState([])
+  useEffect(() => {
+    getStoreAction();
+  }, [getStoreAction])
+  useEffect(() => {
+    if(data !== null){
+      setData1(data.data);
+    //  console.log(data.data)
+    }
+  }, [data])
   const navigation = useNavigation();
   const [pickerValue, setPickerValue] = useState('Nam');
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState(null);
   return (
     <View style={styles.container}>
-      <Header iconLeft={icons.back} title="Địa chỉ nhận hàng" />
+      <Header iconLeft={icons.back} title="Địa chỉ lấy hàng"  leftPress={()=>{navigation.goBack()}}/>
       <View style={styles.body}>
         <Text style={styles.text}>Họ tên</Text>
-        <TextInput placeholder={'Nhập họ tên'} style={styles.textin} />
+        <TextInput onChangeText={setName} placeholder={'Nhập họ tên'} style={styles.textin} />
 
         <Text style={styles.text}>Số điện thoại</Text>
-        <TextInput placeholder={'01232130823'} style={styles.textin} />
+        <TextInput onChangeText={setPhone} placeholder={'01232130823'} style={styles.textin} />
 
         <Text style={styles.text}>Địa chỉ cụ thể</Text>
-        <TextInput placeholder={'số nhà, đường'} style={styles.textin} />
-
-        <Text style={styles.text}>Tỉnh/ thành phố</Text>
-        <TextInput placeholder={'TP. HCM'} style={styles.textin} />
-
-        <Text style={styles.text}>Quận/ huyện</Text>
-        <TextInput placeholder={'huyện Củ Chi'} style={styles.textin} />
-
-        <Text style={styles.text}>Phường/ xã</Text>
-        <TextInput placeholder={'xã Tân Phú Trung'} style={styles.textin} />
+        <Modalpicker setIdlocal={setIdlocal} item={data1} />
       </View>
-
+     
       <View style={styles.footer}>
-          <Button style={styles.button} title="Lưu địa chỉ" />
+          <Button style={styles.button} onPress={() => {getStoreByIdAction({idlocal:idlocal,name:name,phone:phone}),navigation.goBack()}} title="Lưu địa chỉ" />
       </View>
     </View>
   );
 };
-export default OrderLocation;
+export default connect(mapStateToProps, mapDispatchToProps)(OrderLocation);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: theme.colors.white
   },
   body: {
     paddingVertical: getSize.s(24),
@@ -75,7 +107,7 @@ const styles = StyleSheet.create({
   textin: {
     borderBottomWidth: 1,
     borderColor: theme.colors.lightGray,
-    height: 45,
+ 
   },
   picker: {
     borderBottomWidth: 0.5,

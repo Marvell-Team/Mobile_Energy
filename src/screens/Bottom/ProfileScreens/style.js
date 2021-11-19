@@ -8,6 +8,7 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.white, 
     position: 'relative',
+
   },
 
   viewEdit: {
@@ -20,22 +21,62 @@ export default StyleSheet.create({
   },
 
   textInput: {
-    height: 48,
-    backgroundColor: theme.colors.white,
-    borderColor:"#FFF",
-    alignSelf: 'flex-start',
-    borderBottomColor: theme.colors.gray,
-    borderRadius: 0,
-    borderWidth: 0.5,
-    paddingLeft: 0,
+    height: 40,
+    backgroundColor:theme.colors.white,
+    borderBottomWidth:0.5,
+    borderColor:"#A6A6A6",
+    fontSize: 18,
   },
 
+  viewAvatar: {
+    backgroundColor: theme.colors.primary,
+    height: 160,
+  },
+
+  inViewAvatar: {
+    width: 90,
+    height: 90,
+    borderRadius: 100 / 2,
+    backgroundColor: theme.colors.white,
+    justifyContent: 'center',
+    alignSelf: 'center'
+  },
+
+  inAvatar: {
+    width: '96%',
+    height: '96%',
+    borderRadius: 100 / 2,
+  },
+
+  inEditViewAvatar: {
+    width: 32,
+    height: 32,
+    borderRadius: 100 / 2,
+    backgroundColor: theme.colors.white,
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 0,
+    left: 20,
+  },
+  
+  inEditAvatar: {
+    width: '90%',
+    height: '90%',
+    borderRadius: 100 / 2,
+    alignSelf: 'center'
+  },
+
+  txtUsn: {
+    color: theme.colors.white,
+    fontWeight: 'bold',
+    marginVertical: 2,
+    fontSize: 16,
+  },
   txtTitle: {
     color: theme.colors.black,
     marginLeft:4,
     
   },
-
   txtSave: {
     color: theme.colors.black,
     marginLeft:4,
@@ -43,26 +84,18 @@ export default StyleSheet.create({
     fontSize:18,
     fontWeight:'bold',
     color:theme.colors.white,
-  },
-
-  backgroundBtnSave: {
-    width: '100%',
-    backgroundColor: theme.colors.white,
-    height: 84,
-    position: 'absolute',
-    bottom:0,
-    justifyContent:'center',
 
   },
-
   btnSave: {
     width: '92%',
     height: 52,
+    flex:1,
     backgroundColor:theme.colors.primary,
     borderRadius:6,
-    alignSelf:'center',
     justifyContent:'center',
-    paddingLeft: 16,
+    position: 'absolute',
+    alignSelf:'center',
+    bottom:0,
   },
 
 });

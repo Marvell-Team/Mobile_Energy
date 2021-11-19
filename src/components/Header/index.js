@@ -24,25 +24,28 @@ const Header = ({
       alignCenter
       style={{
         paddingVertical: 16,
-        paddingTop: StatusBar.currentHeight + 12,
+        paddingTop: StatusBar.currentHeight + 18,
         ...style,
       }}>
+        <Block flex>
       {iconLeft && (
         <Pressable onPress={leftPress}>
           <Image
             source={iconLeft}
-            style={{marginHorizontal: 2, width: 27, height: 27, ...iconStyle}}
+            style={{marginHorizontal: 2, width: 24, height: 24, ...iconStyle}}
             resizeMode="contain"
           />
         </Pressable>
       )}
-      <Block flex alignCenter justifyCenter>
+      </Block>
+      <Block  alignCenter justifyCenter>
         <Text
           style={{
             fontSize: 20,
             color: theme.colors.white,
             fontWeight: 'bold',
             ...titleStyle,
+            flex: 3,
           }}>
           {title}
         </Text>
@@ -51,20 +54,22 @@ const Header = ({
         <Pressable onPress={difPress}>
           <Image
             source={iconDif}
-            style={{marginHorizontal: 5, width: 27, height: 27, ...iconStyle}}
+            style={{marginHorizontal: 5, width: 24, height: 24, ...iconStyle}}
             resizeMode="contain"
           />
         </Pressable>
       )}
+       <Block flex>
       {iconRight && (
         <Pressable onPress={rightPress}>
           <Image
             source={iconRight}
-            style={{marginHorizontal: 2, width: 27, height: 27, ...iconStyle}}
+            style={{marginHorizontal: 2, width: 24, height: 24, ...iconStyle}}
             resizeMode="contain"
           />
         </Pressable>
       )}
+      </Block>
     </Block>
   );
 };

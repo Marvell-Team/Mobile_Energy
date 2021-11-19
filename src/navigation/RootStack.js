@@ -32,8 +32,13 @@ const RootStack = () => {
       />
       <Stack.Navigator
         presentation="modal"
-        initialRouteName={routes.BOTTOMTABBAR}
+        initialRouteName={routes.FAVORITELIST_SCREEN}
         screenOptions={{headerShown: false}}>
+
+        <Stack.Screen
+          name={routes.FLASHSCREEN}
+          component={auth.FLASHSCREEN}
+        />
         <Stack.Screen
           name={routes.LOGINSCREENS}
           component={auth.LOGINSCREENS}
@@ -95,9 +100,19 @@ const RootStack = () => {
           name={routes.CHANGEPASSSCREEN}
           component={auth.CHANGEPASSSCREEN}
         />
+        <Stack.Screen
+        name={routes.PAYMENT_SCREEN}
+        component={orders.PAYMENT_SCREEN}
+        />
+        <Stack.Screen
+        name={routes.FAVORITELIST_SCREEN}
+        component={bottom.FAVORITELISTSCREEN}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
 export default RootStack;
+
+
