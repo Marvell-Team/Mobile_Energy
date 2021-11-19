@@ -6,6 +6,7 @@ import {watchGetCartbyUser, watchUpdateCartbyCart} from './cartSaga'
 import {watchGetStore, watchGetStoreById} from './storeSaga'
 import { watchAddBill, watchgetBill, watchgetBillById } from './billSaga';
 import { watchEditLike, watchRemoveLike, watchStatusLike } from './likeSaga';
+import { watchGetFavorite, watchGetFavoriteById } from './favoriteSaga';
 
 export default function* rootSaga() {
   yield all([
@@ -25,6 +26,8 @@ export default function* rootSaga() {
     watchgetBillById(),
     watchEditLike(),
     watchStatusLike(),
-    watchRemoveLike()
+    watchRemoveLike(),
+    watchGetFavorite(),
+    watchGetFavoriteById(),
   ]);
 }
