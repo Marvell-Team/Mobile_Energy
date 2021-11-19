@@ -89,6 +89,10 @@ const RootStack = () => {
           component={orders.ORDERLOCATION}
         />
         <Stack.Screen
+          name={routes.ORDERDETAIL}
+          component={orders.ORDERDETAIL}
+        />
+        <Stack.Screen
           name={routes.SEARCHSCREEN}
           component={bottom.SEARCHSCREEN}
         />
