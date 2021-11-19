@@ -56,6 +56,8 @@ export async function getBillApi(input) {
     });
 }
 export async function getBillByIdApi(id) {
+  //console.log ra cho nay
+  console.log('Bill Api Action'+id)
   return axios
     .post(api+'/bill/billdetails/'+id,{
       headers: { 'Authorization': `Bearer ${useData.token}` },

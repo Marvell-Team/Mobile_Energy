@@ -68,7 +68,7 @@ export function* watchgetBillById(){
     yield takeEvery(GET_BILL_BY_ID,getBillByIdSaga)
 }
 function* getBillByIdSaga(action){
- //   console.log('runid'+id)
+    console.log('Bill ID Saga'+id)
     const {data}=action;
     const response = yield getBillByIdApi(data);   
     try {
