@@ -1,5 +1,6 @@
 import { ADD_BILL, ADD_BILL_NULL, GET_BILL, GET_BILL_BY_ID } from './BillAction';
 import { GET_CART, UPDATE_CART } from './CartAction';
+import { EDIT_LIKE, REMOVE_LIKE, STATUS_LIKE } from './likeAction';
 import { POST_SIGNIN, POST_SIGNUP,LOGOUT } from './LoginAction';
 import { GET_PRODUCT, GET_PRODUCT_BY_CATEGORYS ,GET_PRODUCT_BY_ID} from './ProductAction';
 import { GET_STORE, GET_STORE_BY_ID,  } from './StoreAction';
@@ -114,11 +115,37 @@ export const getBillAction = (input)=>{
 
 // get bill
 export const getBillByIdAction = (input)=>{
-  console.log('bill')
+  console.log('>>>>BillIdAction '+input)
   return {
     type:GET_BILL_BY_ID,
     data:input,
 
   };
-  
+}
+
+//edit like
+export const addLikeAction = (input)=>{
+  console.log('>>>>BillIdAction '+input)
+  return {
+    type:EDIT_LIKE,
+    data:input,
+  };
+}
+
+//status like
+export const checkstatusLikeAction = (input)=>{
+  console.log('>>>>StatusAction '+input)
+  return {
+    type:STATUS_LIKE,
+    data:input,
+  };
+}
+
+//remove like
+export const removeLikeAction = (input)=>{
+  console.log('>>>>RemoveAction '+input)
+  return {
+    type:REMOVE_LIKE,
+    data:input,
+  };
 }

@@ -16,15 +16,15 @@ import { formatCurrency } from '@utils/utils';
 const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
 const Product_Card = ({item}) => {
-    const img =(str)=>{
-      if(str===undefined){
-        return null;
-      }
-      else{
-        const newstr=str.replace(/localhost/i, '10.0.2.2');
-        return newstr
-      }
+  const img =(str)=>{
+    if(str===undefined){
+      return null;
     }
+    else{
+      const newstr=str.replace(/localhost/i, '10.0.2.2');
+      return newstr
+    }
+  }
     return (
       <Block
         borderWidth={1}
