@@ -7,18 +7,30 @@ import {
   UIManager,
   Platform,
   LayoutAnimation,
+  Text
 } from 'react-native';
-import {Block, Text, Thumbnail} from '@components';
+import {Block, Thumbnail} from '@components';
 import {theme} from '@theme';
 import {icons} from '@assets';
+import { formatCurrency } from '@utils/utils';
 
 const BillCard = ({item, onPress, style}) => {
-  const {id, nameProduct, price, imgProduct, quantity, status, show} = item;
-  const [isShow, setShow] = useState(show);
-  const total = price * quantity;
+  const {_id, products,total} = item;
+  const [isShow, setShow] = useState(false);
+  const [data, setData] = useState(products)
+  const [status, setStatus] = useState('Đã thanh toán')
   if (Platform.OS === 'android') {
     if (UIManager.setLayoutAnimationEnabledExperimental) {
       UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+  }
+  const img =(str)=>{
+    if(str===undefined){
+      return null;
+    }
+    else{
+      const newstr=str.replace(/localhost/i, '10.0.2.2');
+      return newstr
     }
   }
   return (
@@ -27,7 +39,7 @@ const BillCard = ({item, onPress, style}) => {
         //  Mặc định bill thu nhỏ
         <Block shadow row justifyCenter style={styles.cardContainer}>
           <Block width={'50%'}>
-            <Text style={styles.idProduct}>Mã đơn hàng #{id}</Text>
+            <Text style={styles.idProduct}>Mã đơn hàng #{_id}</Text>
           </Block>
           <Block width={'50%'}>
             <Thumbnail
@@ -47,7 +59,7 @@ const BillCard = ({item, onPress, style}) => {
           {/* mã với nút up down */}
           <Block row paddingVertical={5}>
             <Block width={'50%'}>
-              <Text style={styles.idProduct}>Mã đơn hàng #{id}</Text>
+              <Text style={styles.idProduct}>Mã đơn hàng #{_id}</Text>
             </Block>
             <Block width={'50%'}>
               <Thumbnail
@@ -61,16 +73,19 @@ const BillCard = ({item, onPress, style}) => {
               />
             </Block>
           </Block>
+          {data.map((item, index)=>
+          
           <Block row paddingVertical={8}>
-            <Block style={styles.viewImg} width={'50%'}>
-              <Image source={{uri: imgProduct}} style={styles.imgProduct} />
-            </Block>
-            <Block style={styles.viewInfo} width={'50%'}>
-              <Text style={styles.nameProduct}>{nameProduct}</Text>
-              <Text style={styles.price}>{price} VNĐ</Text>
-              <Text style={styles.quantity}>x{quantity}</Text>
-            </Block>
+          <Block style={styles.viewImg} width={'50%'}>
+             <Image source={{uri: img(item.id_product.id_image.nameImage[0])}} style={styles.imgProduct} /> 
           </Block>
+          <Block style={styles.viewInfo} width={'50%'}>
+            <Text numberOfLines={1} style={styles.nameProduct}>{item.id_product.nameProduct}</Text>
+            <Text style={styles.price}>{formatCurrency(item.id_product.price_product)} VNĐ</Text>
+            <Text style={styles.quantity}>x{item.id_product.amount}</Text>
+          </Block>
+        </Block>)}
+          
           <Block row alignCenter paddingVertical={5} paddingHorizontal={5}>
             {status === 'Đã thanh toán' ? (
               <Block row width={'50%'}>

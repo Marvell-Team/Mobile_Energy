@@ -4,7 +4,9 @@ import { watchgetProducts ,watchgetProductsByCategories,watchgetProductsById} fr
 import { watchGetUserById, watchUpdateUserById } from './userSaga';
 import {watchGetCartbyUser, watchUpdateCartbyCart} from './cartSaga'
 import {watchGetStore, watchGetStoreById} from './storeSaga'
-import { watchAddBill, watchgetBill } from './billSaga';
+import { watchAddBill, watchgetBill, watchgetBillById } from './billSaga';
+import { watchEditLike, watchRemoveLike, watchStatusLike } from './likeSaga';
+import { watchGetFavorite, watchGetFavoriteById } from './favoriteSaga';
 
 export default function* rootSaga() {
   yield all([
@@ -20,6 +22,12 @@ export default function* rootSaga() {
     watchGetStore(),
     watchGetStoreById(),
     watchAddBill(),
-    watchgetBill()
+    watchgetBill(),
+    watchgetBillById(),
+    watchEditLike(),
+    watchStatusLike(),
+    watchRemoveLike(),
+    watchGetFavorite(),
+    watchGetFavoriteById(),
   ]);
 }

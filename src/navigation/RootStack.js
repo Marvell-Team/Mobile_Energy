@@ -17,10 +17,10 @@ const Stack = createStackNavigator();
 const RootStack = () => {
   useEffect(async () => {
     const tolen = await AsyncStorage.getItem('token');
-    useData['token'] = tolen != null ? tolen : null;
+    useData.token = tolen != null ? tolen : null;
     if (tolen !== null) {
       var decoded = jwt_decode(tolen);
-      useData['id'] = decoded.id;
+      useData.id = decoded.id;
     }
   }, [useData]);
   return (
@@ -32,13 +32,9 @@ const RootStack = () => {
       />
       <Stack.Navigator
         presentation="modal"
-        initialRouteName={routes.FLASHSCREEN}
+        initialRouteName={routes.BOTTOMTABBAR}
         screenOptions={{headerShown: false}}>
-
-        <Stack.Screen
-          name={routes.FLASHSCREEN}
-          component={auth.FLASHSCREEN}
-        />
+        <Stack.Screen name={routes.FLASHSCREEN} component={auth.FLASHSCREEN} />
         <Stack.Screen
           name={routes.LOGINSCREENS}
           component={auth.LOGINSCREENS}
@@ -89,6 +85,10 @@ const RootStack = () => {
           component={orders.ORDERLOCATION}
         />
         <Stack.Screen
+          name={routes.ORDERDETAIL}
+          component={orders.ORDERDETAIL}
+        />
+        <Stack.Screen
           name={routes.SEARCHSCREEN}
           component={bottom.SEARCHSCREEN}
         />
@@ -97,8 +97,12 @@ const RootStack = () => {
           component={auth.CHANGEPASSSCREEN}
         />
         <Stack.Screen
-        name={routes.PAYMENT_SCREEN}
-        component={orders.PAYMENT_SCREEN}
+          name={routes.PAYMENT_SCREEN}
+          component={orders.PAYMENT_SCREEN}
+        />
+        <Stack.Screen
+          name={routes.FAVORITELIST_SCREEN}
+          component={bottom.FAVORITELISTSCREEN}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -106,5 +110,3 @@ const RootStack = () => {
 };
 
 export default RootStack;
-
-

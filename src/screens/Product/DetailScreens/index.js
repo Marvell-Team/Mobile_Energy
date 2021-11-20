@@ -17,43 +17,87 @@ import CommentCard from './card';
 import {icons} from '@assets';
 import styles from './style';
 import {theme} from '@theme';
-import {useNavigation,CommonActions} from '@react-navigation/native';
+import {useNavigation, CommonActions, useRoute} from '@react-navigation/native';
 import {routes} from '@navigation/routes';
 import {getSize} from '@utils/responsive';
 const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
 import {connect} from 'react-redux';
-import { useData } from 'config/config';
-import {getCartByUser, getProductbyCategories,getProductbyIdAction, UpdateCartByUser} from '../../../redux/actions';
+import {useData} from 'config/config';
+import {
+  addLikeAction,
+  checkstatusLikeAction,
+  getCartByUser,
+  getProductbyCategories,
+  getProductbyIdAction,
+  removeLikeAction,
+  UpdateCartByUser,
+} from '../../../redux/actions';
 import Count from '@components/Count';
 import {formatCurrency} from '@utils/utils';
 const mapStateToProps = state => {
   //console.log(state.getProductByIDReducer.data)
   return {
-    dataCart: state.getCartByUserReducer? state.getCartByUserReducer.data: null,
-    error: state.getProductByIDReducer?state.getProductByIDReducer.error:null, 
-    data: state.getProductByIDReducer?state.getProductByIDReducer.data:null,
-    loadding: state.getProductByIDReducer?state.getProductByIDReducer.loadding:null,
+    dataCart: state.getCartByUserReducer
+      ? state.getCartByUserReducer.data
+      : null,
+    error: state.getProductByIDReducer
+      ? state.getProductByIDReducer.error
+      : null,
+    data: state.getProductByIDReducer ? state.getProductByIDReducer.data : null,
+    loadding: state.getProductByIDReducer
+      ? state.getProductByIDReducer.loadding
+      : null,
+
+    errorLike: state.editLikeReducer ? state.editLikeReducer.error : null,
+    dataLike: state.editLikeReducer ? state.editLikeReducer.data : null,
+    loaddingLike: state.editLikeReducer ? state.editLikeReducer.loadding : null,
+
+    errorLike: state.editLikeReducer ? state.editLikeReducer.error : null,
+    dataLike: state.editLikeReducer ? state.editLikeReducer.data : null,
+    loaddingLike: state.editLikeReducer ? state.editLikeReducer.loadding : null,
+
+    errorStatusLike: state.getStatusLikeReducer
+      ? state.getStatusLikeReducer.error
+      : null,
+    dataStatusLike: state.getStatusLikeReducer
+      ? state.getStatusLikeReducer.data
+      : null,
+    loaddingStatusLike: state.getStatusLikeReducer
+      ? state.getStatusLikeReducer.loadding
+      : null,
+      
+
+      removeerrorLike: state.removeLikeReducer ? state.removeLikeReducer.error : null,
+      removedataLike: state.removeLikeReducer ? state.removeLikeReducer.data : null,
+      removeloaddingLike: state.removeLikeReducer ? state.removeLikeReducer.loadding : null,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getProductbyCategories:(categori)=>{
-      dispatch(getProductbyCategories(categori))
+    getProductbyCategories: categori => {
+      dispatch(getProductbyCategories(categori));
     },
-    getProductbyIdAction:(id)=>{
-      dispatch(getProductbyIdAction(id))
+    getProductbyIdAction: id => {
+      dispatch(getProductbyIdAction(id));
     },
-    getCartByUser: id =>{
-      dispatch(getCartByUser(id))
+    getCartByUser: id => {
+      dispatch(getCartByUser(id));
     },
-    UpdateCartByUser: input =>{
-      dispatch(UpdateCartByUser(input))
+    UpdateCartByUser: input => {
+      dispatch(UpdateCartByUser(input));
+    },
+    addLikeAction: input => {
+      dispatch(addLikeAction(input));
+    },
+    checkstatusLikeAction: input => {
+      dispatch(checkstatusLikeAction(input));
     },
     
-    
-  
+    removeLikeAction: input => {
+      dispatch(removeLikeAction(input));
+    },
   };
 };
 const datas = [
@@ -81,48 +125,87 @@ const datas = [
     currentime: '16 giờ trước',
   },
 ];
-const DetailScreens = ({data,getProductbyIdAction,dataCart,getCartByUser,UpdateCartByUser}) => {
-  const [amount, setAmount] = useState(1)
-  const [dataCarts, setDataCarts] = useState([])
+const DetailScreens = ({
+  data,
+  getProductbyIdAction,
+  dataCart,
+  getCartByUser,
+  UpdateCartByUser,
+  addLikeAction,
+  dataStatusLike,
+  checkstatusLikeAction,
+  removeLikeAction,
+  dataLike,
+  removedataLike
+}) => {
+  const route = useRoute();
+  const {id} = route.params;
+  const [amount, setAmount] = useState(1);
+  const [dataCarts, setDataCarts] = useState([]);
   const navigation = useNavigation();
   const [active, setActive] = useState(0);
-  const [name, setName] = useState('')
+  const [name, setName] = useState('');
   const [imageBG, setImageBG] = useState([]);
-  const [price, setPrice] = useState(null)
+  const [price, setPrice] = useState(null);
   const [description, setDescription] = useState(null);
-  
+  const [check, setCheck] = useState(false);
+  const [checkId, setcheckId] = useState('')
   // const [price, setPrice] = useState(null)
   // const [price, setPrice] = useState(null)
   // const [price, setPrice] = useState(null)
   // const [price, setPrice] = useState(null)
   useEffect(() => {
-
-    if(useData.token!==null && useData.id!==null){
-      if(dataCart!==null){
+    if (useData.token !== null && useData.id !== null) {
+      if (dataStatusLike !== null) {
+        if (dataStatusLike.data !== null) {
+          setCheck(true);
+          setcheckId(dataStatusLike.data._id)
+        } else {
+          setCheck(false);
+          setcheckId('')
+        }
+      } else {
+        setCheck(false);
+        setcheckId('')
+      }
+    } else {
+      setCheck(false);
+      setcheckId('')
+    }
+  }, [dataStatusLike]);
+  useEffect(() => {
+    if (useData.token !== null && useData.id !== null) {
+      checkstatusLikeAction({id_user: useData.id, id_product: id});
+    }
+  }, [dataLike,removedataLike]);
+  useEffect(() => {
+    if (useData.token !== null && useData.id !== null) {
+      if (dataCart !== null) {
         setDataCarts(dataCart.data2.products);
       }
     }
-  }, [dataCart])
+  }, [dataCart]);
+
   useEffect(() => {
-    if(useData.token!==null && useData.id!==null){
-      getCartByUser(useData.id)
+    if (useData.token !== null && useData.id !== null) {
+      getCartByUser(useData.id);
     }
-  }, [getCartByUser,UpdateCartByUser]);
+  }, [getCartByUser, UpdateCartByUser]);
+
   const [modalVisible, setModalVisible] = useState(false);
   if (Platform.OS === 'android') {
     if (UIManager.setLayoutAnimationEnabledExperimental) {
       UIManager.setLayoutAnimationEnabledExperimental(true);
     }
   }
-  const img =(str)=>{
-    if(str===undefined){
+  const img = str => {
+    if (str === undefined) {
       return null;
+    } else {
+      const newstr = str.replace(/localhost/i, '10.0.2.2');
+      return newstr;
     }
-    else{
-      const newstr=str.replace(/localhost/i, '10.0.2.2');
-      return newstr
-    }
-  }
+  };
   const [isShow, setIsShow] = useState(false);
 
   const change = nativeEvent => {
@@ -133,31 +216,48 @@ const DetailScreens = ({data,getProductbyIdAction,dataCart,getCartByUser,UpdateC
       setActive(slide);
     }
   };
-  
+
   useEffect(() => {
-    if(data !== null){
+    if (data !== null) {
       const item = data.data;
-      console.log(item.id_image.nameImage+'aaaaaa')
+     
       setImageBG(item.id_image.nameImage);
       setName(item.nameProduct);
       setPrice(item.price_product);
-      setDescription(item.description_product)
+      setDescription(item.description_product);
     }
   }, [data]);
-  const addCart=(Carts,id,amount,idcart,total)=>{
-    const index=Carts.findIndex((el)=>el.id_product===id)
-    let items=[];
-    console.log(amount+'aa'+price+'aa'+dataCart.data.total)
-    if(index===-1){ 
-      const item={id_product:id,amount:amount}
-      items.push(item,...Carts);
-      UpdateCartByUser({idcart:idcart,id_product:items,total:total+(parseInt(price)*parseInt(amount))});
-    }else{
-      Carts[index].amount=Carts[index].amount+amount;
+  const addCart = (Carts, id, amount, idcart, total) => {
+    const index = Carts.findIndex(el => el.id_product === id);
+    let items = [];
+   
+    if (index === -1) {
+      const item = {id_product: id, amount: amount};
+      items.push(...Carts, item);
+      UpdateCartByUser({
+        idcart: idcart,
+        id_product: items,
+        total: total + parseInt(price) * parseInt(amount),
+      });
+    } else {
+      Carts[index].amount = Carts[index].amount + amount;
       items.push(...Carts);
-      UpdateCartByUser({idcart:idcart,id_product:items,total:total+(parseInt(price)*parseInt(amount))});
+      UpdateCartByUser({
+        idcart: idcart,
+        id_product: items,
+        total: total + parseInt(price) * parseInt(amount),
+      });
     }
-    navigation.navigate(routes.CARTSCREENS)
+    navigation.navigate(routes.CARTSCREENS);
+  };
+  const remove=(idc)=>{
+    console.log('remove'+idc)
+      if(idc!==''){
+        console.log('remove')
+        removeLikeAction(checkId)
+        setcheckId('');
+        setCheck(false)
+      }
   }
   return (
     <Block style={styles.container}>
@@ -167,16 +267,19 @@ const DetailScreens = ({data,getProductbyIdAction,dataCart,getCartByUser,UpdateC
           onScroll={({nativeEvent}) => change(nativeEvent)}
           showsHorizontalScrollIndicator={false}
           horizontal={true}>
-          {Array.isArray(imageBG) && imageBG.length?(
-          imageBG.map((item, index) => 
-          (
-            <Image
-              key={item}
-              resizeMode="stretch"
-              style={{flexDirection: 'row', width: width, height: height / 2.5}}
-              source={{uri: img(item)}}></Image>
-          )
-          )):null}
+          {Array.isArray(imageBG) && imageBG.length
+            ? imageBG.map((item, index) => (
+                <Image
+                  key={item}
+                  resizeMode="stretch"
+                  style={{
+                    flexDirection: 'row',
+                    width: width,
+                    height: height / 2.5,
+                  }}
+                  source={{uri: img(item)}}></Image>
+              ))
+            : null}
         </ScrollView>
         {/*header*/}
         {/* dot cho image */}
@@ -208,7 +311,7 @@ const DetailScreens = ({data,getProductbyIdAction,dataCart,getCartByUser,UpdateC
           <Block margin={10} flex alignStart>
             <Thumbnail
               source={icons.back}
-              onPress={() => navigation.navigate(routes.HOMESCREENS)}
+              onPress={() => navigation.goBack()}
               style={{width: 30, height: 30}}
             />
           </Block>
@@ -222,9 +325,7 @@ const DetailScreens = ({data,getProductbyIdAction,dataCart,getCartByUser,UpdateC
           {/* Body Name Product */}
           <Block row style={styles.bodyname}>
             <Block justifyCenter style={{flex: 3}}>
-              <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-                {name}
-              </Text>
+              <Text style={{fontSize: 20, fontWeight: 'bold'}}>{name}</Text>
               <Text style={{fontSize: 17, fontWeight: 'bold', color: 'red'}}>
                 {price}
               </Text>
@@ -232,8 +333,11 @@ const DetailScreens = ({data,getProductbyIdAction,dataCart,getCartByUser,UpdateC
             </Block>
             <Block flex justifyCenter>
               <Button
+                onPress={() => {
+                  check?remove(checkId):addLikeAction({id_user: useData.id,id_product: data.data._id,})
+                }}
                 shadow
-                title="Yêu thích"
+                title={check ? 'Đã thích' : 'Yêu thích'}
                 style={styles.button}
                 titleStyle={{
                   fontSize: 16,
@@ -254,29 +358,43 @@ const DetailScreens = ({data,getProductbyIdAction,dataCart,getCartByUser,UpdateC
           />
           {isShow ? (
             <Block style={styles.detailbody}>
-              {
-                Object.keys(description).map((key,index)=>
-                  (description.description_product===description[key]?(
-                   
-                    <Block paddingVertical={getSize.m(8)} backgroundColor={'#ffffff'} width={'100%'}>
-                         <Text size={18} color={'#333333'}>{ description[key]}</Text>
-                      </Block>
-                  ):
-                  (
-                    index%2===0?(
-                      <Block paddingVertical={getSize.m(6)} backgroundColor={'#ffffff'} width={'100%'}>
-                        <Text size={16} ><Text style={{fontWeight: 'bold'}} size={16}>{key}</Text>: { description[key]}</Text>
-                      </Block>
-                    ): (
-                      <Block paddingVertical={getSize.m(6)} backgroundColor={'#f5f5f5'} width={'100%'}>
-                        <Text size={16}  ><Text style={{fontWeight: 'bold'}} size={16}>{key}</Text>: { description[key]}</Text>
-                      </Block>
-                    )
-                  )
-                  )
-               )
-              }
-               {/* {
+              {Object.keys(description).map((key, index) =>
+                description.description_product === description[key] ? (
+                  <Block
+                    paddingVertical={getSize.m(8)}
+                    backgroundColor={'#ffffff'}
+                    width={'100%'}>
+                    <Text size={18} color={'#333333'}>
+                      {description[key]}
+                    </Text>
+                  </Block>
+                ) : index % 2 === 0 ? (
+                  <Block
+                    paddingVertical={getSize.m(6)}
+                    backgroundColor={'#ffffff'}
+                    width={'100%'}>
+                    <Text size={16}>
+                      <Text style={{fontWeight: 'bold'}} size={16}>
+                        {key}
+                      </Text>
+                      : {description[key]}
+                    </Text>
+                  </Block>
+                ) : (
+                  <Block
+                    paddingVertical={getSize.m(6)}
+                    backgroundColor={'#f5f5f5'}
+                    width={'100%'}>
+                    <Text size={16}>
+                      <Text style={{fontWeight: 'bold'}} size={16}>
+                        {key}
+                      </Text>
+                      : {description[key]}
+                    </Text>
+                  </Block>
+                ),
+              )}
+              {/* {
                 Object.keys(description_product).map(function(key, index) {
                   (
                     <Text size={16}>Hãng: Apple</Text>
@@ -403,16 +521,16 @@ const DetailScreens = ({data,getProductbyIdAction,dataCart,getCartByUser,UpdateC
           height={height}
           justifyEnd
           alignEnd
-          style={{position: 'absolute',bottom:0}}>
+          style={{position: 'absolute', bottom: 0}}>
           <Block
-          padding={20}
+            padding={20}
             backgroundColor={theme.colors.white}
             width={width}
             style={{
               borderTopLeftRadius: getSize.m(20),
               borderTopRightRadius: getSize.m(20),
             }}>
-            <Block row >
+            <Block row>
               <Block flex alignCenter justifyCenter></Block>
               <Block style={{flex: 7}} alignCenter justifyCenter>
                 <Text
@@ -424,16 +542,24 @@ const DetailScreens = ({data,getProductbyIdAction,dataCart,getCartByUser,UpdateC
               </Block>
               <Block flex alignCenter justifyCenter>
                 <Thumbnail
-                  onPress={() =>{setModalVisible(false)}}
+                  onPress={() => {
+                    setModalVisible(false);
+                  }}
                   source={icons.close}
                   style={{width: 30, height: 30}}></Thumbnail>
               </Block>
             </Block>
-            <Block style={{borderBottomWidth:0.8}} borderColor='black' row>
-              <Block style={{flex: 2}} alignStart paddingVertical={getSize.m(4)} >
-                <Thumbnail source={{uri:img(imageBG[0])}} imageStyle={{width: getSize.s(70),height:getSize.s(85)}}/>
+            <Block style={{borderBottomWidth: 0.8}} borderColor="black" row>
+              <Block
+                style={{flex: 2}}
+                alignStart
+                paddingVertical={getSize.m(4)}>
+                <Thumbnail
+                  source={{uri: img(imageBG[0])}}
+                  imageStyle={{width: getSize.s(70), height: getSize.s(85)}}
+                />
               </Block>
-              <Block style={{flex: 7,marginBottom:20}}>
+              <Block style={{flex: 7, marginBottom: 20}}>
                 <Text style={{fontWeight: 'bold'}} size={20}>
                   {name}
                 </Text>
@@ -442,20 +568,49 @@ const DetailScreens = ({data,getProductbyIdAction,dataCart,getCartByUser,UpdateC
                   <Text>256 GB</Text>{' '}
                 </Text>
                 <Text size={20}>{formatCurrency(price)}</Text>
-                <Count onPressSubtract={()=>{amount>1?(setAmount(amount-1)):null}} amount={amount} onPressPlus={() =>{setAmount(amount+1)}}/>
+                <Count
+                  onPressSubtract={() => {
+                    amount > 1 ? setAmount(amount - 1) : null;
+                  }}
+                  amount={amount}
+                  onPressPlus={() => {
+                    setAmount(amount + 1);
+                  }}
+                />
               </Block>
             </Block>
-             <Block row paddingTop={20}>
-                <Block style={{flex:4}} >
-                  <Text size={18}>Tổng</Text>
-                  <Text color='red' size={20} style={{fontWeight: 'bold'}}>{formatCurrency(price*amount)}</Text>
-                </Block>
-                <Block style={{flex:7}}>
-                  <TouchableOpacity onPress={()=>{addCart(dataCarts,data.data._id,amount,dataCart.data2._id,dataCart.data.total)}} style={{width:'100%', height:getSize.v(60),backgroundColor:theme.colors.primary,borderRadius:getSize.m(10),alignItems:'center',justifyContent:'center'}}>
-                     <Text color='white' style={{fontWeight: 'bold'}} size={22}>Thêm Giỏ Hàng</Text>
-                  </TouchableOpacity>
-                </Block>
-             </Block>
+            <Block row paddingTop={20}>
+              <Block style={{flex: 4}}>
+                <Text size={18}>Tổng</Text>
+                <Text color="red" size={20} style={{fontWeight: 'bold'}}>
+                  {formatCurrency(price * amount)}
+                </Text>
+              </Block>
+              <Block style={{flex: 7}}>
+                <TouchableOpacity
+                  onPress={() => {
+                    addCart(
+                      dataCarts,
+                      data.data._id,
+                      amount,
+                      dataCart.data2._id,
+                      dataCart.data.total,
+                    );
+                  }}
+                  style={{
+                    width: '100%',
+                    height: getSize.v(60),
+                    backgroundColor: theme.colors.primary,
+                    borderRadius: getSize.m(10),
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text color="white" style={{fontWeight: 'bold'}} size={22}>
+                    Thêm Giỏ Hàng
+                  </Text>
+                </TouchableOpacity>
+              </Block>
+            </Block>
           </Block>
         </Block>
       </Modal>
@@ -463,4 +618,3 @@ const DetailScreens = ({data,getProductbyIdAction,dataCart,getCartByUser,UpdateC
   );
 };
 export default connect(mapStateToProps, mapDispatchToProps)(DetailScreens);
-

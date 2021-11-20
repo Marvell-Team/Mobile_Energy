@@ -1,8 +1,8 @@
 import { } from '@redux/actions/UserAction';
 import {getCartByUserApi, updateCartByCartApi} from '../api/cart';
 import {call,takeEvery,put,takeLatest} from 'redux-saga/effects'
-import { ADD_BILL, ADD_BILL_ERROR, ADD_BILL_SUCCESS, GET_BILL, GET_BILL_ERROR, GET_BILL_SUCCESS,  } from '@redux/actions/BillAction';
-import { addBillApi, getBillApi } from '@redux/api/bill';
+import { ADD_BILL, ADD_BILL_ERROR, ADD_BILL_SUCCESS, GET_BILL, GET_BILL_BY_ID, GET_BILL_BY_ID_ERROR, GET_BILL_BY_ID_SUCCESS, GET_BILL_ERROR, GET_BILL_SUCCESS,  } from '@redux/actions/BillAction';
+import { addBillApi, getBillApi, getBillByIdApi } from '@redux/api/bill';
 
 
 export function* watchAddBill(){
@@ -61,5 +61,34 @@ function* getBillSaga(action){
     } catch (error) {
         const message="Có lỗi xảy ra, không thể kết nối tới sever"
         yield put({type:GET_BILL_ERROR,error:message})
+    }
+}
+
+export function* watchgetBillById(){
+    yield takeEvery(GET_BILL_BY_ID,getBillByIdSaga)
+}
+function* getBillByIdSaga(action){
+    console.log('Bill ID Saga'+id)
+    const {data}=action;
+    const response = yield getBillByIdApi(data);   
+    try {
+         // kiem tra xem co goi dc api ko 
+    if(response !==undefined && response!==null){
+        if(response.status===1){
+            //thanh cong sẽ put về
+            yield put({type:GET_BILL_BY_ID_SUCCESS,response})
+        }else{
+            //truong hợp này gọi tới sever bi sever báo lỗi về
+            yield put({type:GET_BILL_BY_ID_ERROR,error:response.error})
+        }
+     }else{
+         //Đôi khi api lỗi , sever ko trả dữ liệu vè
+         const message="Có lỗi xảy ra, không thể kết nối tới sever"
+         yield put({type:GET_BILL_BY_ID_ERROR,error:message})
+         
+     }
+    } catch (error) {
+        const message="Có lỗi xảy ra, không thể kết nối tới sever"
+        yield put({type:GET_BILL_BY_ID_ERROR,error:message})
     }
 }
