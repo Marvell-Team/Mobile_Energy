@@ -32,7 +32,7 @@ const RootStack = () => {
       />
       <Stack.Navigator
         presentation="modal"
-        initialRouteName={routes.LOGINSCREENS}
+        initialRouteName={routes.FLASHSCREEN}
         screenOptions={{headerShown: false}}>
 
         <Stack.Screen
