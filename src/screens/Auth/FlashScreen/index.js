@@ -10,7 +10,7 @@ const FlashScreen =() =>{
     const navigation = useNavigation();
     setTimeout(() => {
         navigation.navigate(routes.BOTTOMTABBAR);
-        }, 5000);
+        }, 3000);
 
     return(
         <View style={styles.container}>

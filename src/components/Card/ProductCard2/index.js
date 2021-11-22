@@ -29,7 +29,7 @@ const Product_Card = ({item}) => {
       <Block style={styles.viewContent}>
         <Thumbnail
           source={{
-            uri: img(item.id_image.nameImage[0]),
+            uri: item.id_image.nameImage[0]
           }}
           style={styles.viewContentImage}
           resizeMode={'stretch'}
