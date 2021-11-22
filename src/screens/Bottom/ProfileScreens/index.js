@@ -121,8 +121,7 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
 
             <TouchableOpacity
               onPress={() => {
-                //navigation.navigate(routes.SIGNUPSCREENS);
-                console.log(useData.token, useData.id);
+                navigation.navigate(routes.SIGNUPSCREENS);
               }}
               style={[
                 styles.button,

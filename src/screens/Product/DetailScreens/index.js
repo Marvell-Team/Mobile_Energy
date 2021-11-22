@@ -108,31 +108,7 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
-const datas = [
-  {
-    id: 1,
-    name: 'Nguyễn Hoài Bão',
-    image:
-      'https://vnn-imgs-f.vgcloud.vn/2019/10/08/17/samsung-se-bo-galaxy-fold-va-galaxy-note-de-ra-dong-flagship-moi-3.jpg',
-    content: 'Sản phẩm này tốt như anh Nam z đẹp trai vô cùng còn thông nữa',
-    currentime: '16 giờ trước',
-  },
-  {
-    id: 1,
-    name: 'Nguyễn Hoài Bão',
-    image:
-      'https://vnn-imgs-f.vgcloud.vn/2019/10/08/17/samsung-se-bo-galaxy-fold-va-galaxy-note-de-ra-dong-flagship-moi-3.jpg',
-    content: 'Sản phẩm này tốt như anh Nam z đẹp trai vô cùng còn thông nữa',
-    currentime: '16 giờ trước',
-  },
-  {
-    id: 2,
-    name: 'Nguyễn Hoài Bão',
-    image: '',
-    content: 'Sản phẩm này tốt như anh Nam z đẹp trai vô cùng còn thông nữa',
-    currentime: '16 giờ trước',
-  },
-];
+
 const DetailScreens = ({
   data,
   getProductbyIdAction,
@@ -283,6 +259,8 @@ const DetailScreens = ({
         setCheck(false)
       }
   }
+
+  
   return (
     <Block style={styles.container}>
       <ScrollView>
