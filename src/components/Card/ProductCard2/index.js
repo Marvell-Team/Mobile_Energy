@@ -34,7 +34,7 @@ const Product_Card = ({item}) => {
         margin={10}>
         <Thumbnail
           source={{
-            uri: img(item.id_image.nameImage[0])
+            uri: item.id_image.nameImage[0]
           }}
           style={{width: '100%', height: getSize.s(183)}}
           resizeMode={'stretch'}

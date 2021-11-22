@@ -32,7 +32,7 @@ const RootStack = () => {
       />
       <Stack.Navigator
         presentation="modal"
-        initialRouteName={routes.BOTTOMTABBAR}
+        initialRouteName={routes.FLASHSCREEN}
         screenOptions={{headerShown: false}}>
         <Stack.Screen name={routes.FLASHSCREEN} component={auth.FLASHSCREEN} />
         <Stack.Screen
