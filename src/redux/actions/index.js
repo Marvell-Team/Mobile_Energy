@@ -1,4 +1,4 @@
-import { ADD_BILL, ADD_BILL_NULL, GET_BILL, GET_BILL_BY_ID } from './BillAction';
+import { ADD_BILL, ADD_BILL_NULL, GET_BILL, GET_BILL_BY_ID, GET_BILL_DETAIL_BY_ID } from './BillAction';
 import { GET_CART, UPDATE_CART } from './CartAction';
 import { EDIT_LIKE, REMOVE_LIKE, STATUS_LIKE } from './likeAction';
 import { GET_FAVORITE, GET_FAVORITE_BY_ID } from './FavoriteAction';
@@ -118,11 +118,13 @@ export const getBillAction = (input)=>{
 // get bill
 export const getBillByIdAction = (input)=>{
   console.log('>>>>BillIdAction '+input)
+
   return {
     type:GET_BILL_BY_ID,
     data:input,
 
   };
+
 }
 
 //edit like
@@ -153,6 +155,17 @@ export const removeLikeAction = (input)=>{
 }
 
 
+
+
+// get bill
+export const getBillDetailByIdAction = (input)=>{
+  console.log('-------------------bill detail')
+  return {
+    type:GET_BILL_DETAIL_BY_ID,
+    data:input,
+  };
+
+}
 
 //get favorite
 export const getFavoriteAction = () =>{

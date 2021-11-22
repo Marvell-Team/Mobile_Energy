@@ -8,78 +8,101 @@ const {height} = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: theme.colors.white,
+    position: 'relative',
   },
   v1: {
-    width: width,
-    height: height/4,
     backgroundColor: theme.colors.white,
     borderBottomWidth: 0.5,
     alignItems: 'center',
     justifyContent: 'center',
+    borderColor: theme.colors.gray,
+
   },
   v2: {  
-    width: width,
-    height: height/6,
-    backgroundColor: theme.colors.white,
     borderBottomWidth: 0.5,
-    
+    borderColor: theme.colors.gray,
   },
-  v21: {  
-    backgroundColor: theme.colors.white,
-    flexDirection: 'row',
-    paddingVertical: 5,
-    
+  viewNameProduct: {
+    width: '75%',
+    position: 'relative',
   },
-  v22: {  
-    flexDirection: 'row',
-  },
-  v3: {  
-    width: width,
-    height: height/8,
-    flexDirection: 'row',
-    backgroundColor: theme.colors.white,
-    borderBottomWidth: 0.5,
-    alignItems: 'center',
-    
-  },
-  v4: {  
-    width: width,
-    height: height/4,
-    backgroundColor: theme.colors.white,
-    borderBottomWidth: 0.5,
-    
-  },
-  v5: {  
-    width: width,
-    height: height/6,
-    backgroundColor: theme.colors.white,
-    borderBottomWidth: 0.5,
-    
-  },
+
   image: {
     width: 100,
-    height: 100,
-    justifyContent: 'center',
+    height: 100,   
   },
+  txtNameProduct: {  
+    fontSize: 20,
+    color: theme.colors.blackText,
+    textAlign: 'left',
+    paddingLeft: 8,
+    width: '65%',
+  },
+
+  txtPrice: {  
+    position: 'absolute',
+    right: 0,
+    fontSize: 16,
+    color: theme.colors.blackText,
+    textAlign: 'right',
+    width: '35%',
+  },
+  txtTotal: {
+    color: theme.colors.blackText,
+    fontSize: 18,
+    textAlign: 'left',
+    width: '50%'
+  },
+  txtTotall: {
+    color: theme.colors.blackText,
+    fontSize: 18,
+    textAlign: 'right',
+    width: '50%',
+    fontWeight: 'bold',
+  },
+  v3: {  
+    width: '100%',
+    borderBottomWidth: 0.5,  
+    borderColor: theme.colors.gray,  
+  },
+  v4: {  
+    width: '100%',
+    borderBottomWidth: 0.5,  
+    borderColor: theme.colors.gray,
+  },
+  v5: {  
+    height: 52,
+    width: '94%',
+    backgroundColor: theme.colors.primary,
+    justifyContent:'center',
+    position: 'absolute',
+    alignSelf:'center',
+    alignItems: 'center',
+    bottom: 8,
+    borderRadius: 6,
+  },
+
   text: {
     color: theme.colors.black,
-    fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 16,
+    textAlign: 'center',
+    margin: 4,
+  },
+  txtStatus: {
+    color: theme.colors.blackText,
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  txtStatuss: {
+    color: theme.colors.blackText,
+    fontSize: 16,
+    textAlign: 'center',
+    fontWeight: '400'
   },
   text2: {
     fontSize: 18,
     margin: 5,
   },
-  button: {
-    height: 60,
-    paddingVertical: 12,
-    backgroundColor: theme.colors.primary,
-    borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    left: 50,
-    right: 50,
-    bottom: 40,
-  },
+
 });
