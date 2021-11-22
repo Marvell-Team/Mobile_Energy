@@ -27,7 +27,8 @@ const Header = ({
         paddingTop: StatusBar.currentHeight + 18,
         ...style,
       }}>
-        <Block flex>
+       
+      <Block flex height={'100%'} >
       {iconLeft && (
         <Pressable onPress={leftPress}>
           <Image
@@ -38,14 +39,14 @@ const Header = ({
         </Pressable>
       )}
       </Block>
-      <Block  alignCenter justifyCenter>
+      <Block style={{flex:3}} alignCenter justifyCenter>
         <Text
           style={{
             fontSize: 20,
             color: theme.colors.white,
             fontWeight: 'bold',
             ...titleStyle,
-            flex: 3,
+           
           }}>
           {title}
         </Text>
@@ -59,7 +60,7 @@ const Header = ({
           />
         </Pressable>
       )}
-       <Block flex>
+       <Block flex alignEnd>
       {iconRight && (
         <Pressable onPress={rightPress}>
           <Image

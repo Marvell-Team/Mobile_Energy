@@ -7,7 +7,7 @@ import {watchGetStore, watchGetStoreById} from './storeSaga'
 import { watchAddBill, watchgetBill, watchgetBillById, watchGetBillDetailById } from './billSaga';
 import { watchEditLike, watchRemoveLike, watchStatusLike } from './likeSaga';
 import { watchGetFavorite, watchGetFavoriteById } from './favoriteSaga';
-
+import { watchAddComment, watchGetComment } from './commentSaga';
 export default function* rootSaga() {
   yield all([
     watchLogin(),
@@ -30,5 +30,7 @@ export default function* rootSaga() {
     watchGetFavorite(),
     watchGetFavoriteById(),
     watchGetBillDetailById(),
+    watchGetComment(),
+    watchAddComment()
   ]);
 }

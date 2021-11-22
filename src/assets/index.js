@@ -65,7 +65,8 @@ export const icons = {
   psdlg: require('./icons/psdlg.png'),
   delete: require('./icons/delete.png'),
   local: require('./icons/local.png'),
-  dollar: require('./icons/dollar.png')
+  dollar: require('./icons/dollar.png'),
+  maleuser: require('./icons/maleuser.png')
 };
 
 export const fonts = {};

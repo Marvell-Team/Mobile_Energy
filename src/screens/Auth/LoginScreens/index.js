@@ -27,6 +27,7 @@ import {
 import {useData} from 'config/config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {theme} from '@theme';
+import { getSize } from '@utils/responsive';
 
 const mapStateToProps = state => {
   return {
@@ -93,18 +94,15 @@ const LoginScreens = ({loginAction, data, loadding}) => {
   }, [data]);
 
   return (
-    <Block flex paddingHorizontal={16} style={styles.container}>
-      <Header
-        iconRight={icons.delete}
-        style={{backgroundColor: theme.colors.white}}
-        iconStyle={{width: 32, height: 32, tintColor: theme.colors.grayText}}
-        rightPress={() =>
-          navigation.navigate(routes.BOTTOMTABBAR, {
-            screen: routes.PROFILESCREENS,
-          })
+    <>
+    <Header
+        title="Đăng nhập"
+        iconLeft={icons.back}
+        leftPress={() =>
+          navigation.goBack()
         }
       />
-
+    <Block flex paddingHorizontal={getSize.m(16)} style={styles.container}>
       <Thumbnail
         source={icons.logoo}
         style={styles.viewLogo}
@@ -184,6 +182,7 @@ const LoginScreens = ({loginAction, data, loadding}) => {
       {/* Tao cai nay ms hien Loadding */}
       {loading && <Loading />}
     </Block>
+    </>
   );
 };
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreens);
