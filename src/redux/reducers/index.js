@@ -18,6 +18,7 @@ import getStatusLikeReducer from './Like/getStatusLikeReducer';
 import removeLikeReducer from './Like/removeLikeReducer'
 import getFavoriteReducer from './Favorite/getFavoriteReducer';
 import getFavoriteByIdReducer from './Favorite/getFavoriteByIdReducer';
+import getBillDetailByIdReducer from './Bill/getBillDetailByIdReducer';
 
 const allReducers=combineReducers({
     loginReducers,
@@ -39,6 +40,6 @@ const allReducers=combineReducers({
     removeLikeReducer,
     getFavoriteReducer,
     getFavoriteByIdReducer,
-
+    getBillDetailByIdReducer,
 });
 export default allReducers;

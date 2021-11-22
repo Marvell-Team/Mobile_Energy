@@ -4,7 +4,7 @@ import { watchgetProducts ,watchgetProductsByCategories,watchgetProductsById} fr
 import { watchGetUserById, watchUpdateUserById } from './userSaga';
 import {watchGetCartbyUser, watchUpdateCartbyCart} from './cartSaga'
 import {watchGetStore, watchGetStoreById} from './storeSaga'
-import { watchAddBill, watchgetBill, watchgetBillById } from './billSaga';
+import { watchAddBill, watchgetBill, watchgetBillById, watchGetBillDetailById } from './billSaga';
 import { watchEditLike, watchRemoveLike, watchStatusLike } from './likeSaga';
 import { watchGetFavorite, watchGetFavoriteById } from './favoriteSaga';
 
@@ -29,5 +29,6 @@ export default function* rootSaga() {
     watchRemoveLike(),
     watchGetFavorite(),
     watchGetFavoriteById(),
+    watchGetBillDetailById(),
   ]);
 }
