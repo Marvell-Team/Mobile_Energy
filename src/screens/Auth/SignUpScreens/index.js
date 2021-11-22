@@ -15,6 +15,7 @@ import {
   TextInput,
   Thumbnail,
   PressText,
+  Header,
 } from '@components';
 import { theme } from '@theme';
 const mapStateToProps = state => {
@@ -51,6 +52,14 @@ const SignUpScreens = ({signUpAction, data,loadding}) => {
     }, [loadding])
 
     return (
+      <>
+      <Header
+          title="Đăng ký"
+          iconLeft={icons.back}
+          leftPress={() =>
+            navigation.goBack()
+          }
+        />
       <Block flex paddingHorizontal={16} style={styles.container}>
   
         <Thumbnail
@@ -116,6 +125,7 @@ const SignUpScreens = ({signUpAction, data,loadding}) => {
             {loading && 
         (<Loading/>)}
       </Block>
+      </>
     );
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreens);
