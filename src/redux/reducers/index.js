@@ -18,7 +18,8 @@ import getStatusLikeReducer from './Like/getStatusLikeReducer';
 import removeLikeReducer from './Like/removeLikeReducer'
 import getFavoriteReducer from './Favorite/getFavoriteReducer';
 import getFavoriteByIdReducer from './Favorite/getFavoriteByIdReducer';
-
+import getCommentsReducer from './Comment/getCommentReducer';
+import addCommentsReducer from './Comment/addCommentReducer';
 const allReducers=combineReducers({
     loginReducers,
     signupReducer,
@@ -39,6 +40,8 @@ const allReducers=combineReducers({
     removeLikeReducer,
     getFavoriteReducer,
     getFavoriteByIdReducer,
+    getCommentsReducer,
+    addCommentsReducer,
 
 });
 export default allReducers;

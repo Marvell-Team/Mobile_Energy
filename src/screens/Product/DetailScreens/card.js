@@ -10,29 +10,29 @@ const CommentCard = ({item}) => {
   const [avt, SetAvt] = useState(
     'https://scontent.fsgn2-1.fna.fbcdn.net/v/t1.6435-9/175359232_743984532948789_2282696370552683691_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=nPu3EZJ2n6gAX_3ZAHq&_nc_ht=scontent.fsgn2-1.fna&oh=383ed6b6ae6ac02e637258ae5a896c49&oe=6145D9DA',
   );
-
+  const {id_user,image,id_product,content,date}=item;
   return (
     <Block>
       <Block marginBottom={10} row style={styles.card}>
         <Block alignStart style={{flex: 1}}>
           <Thumbnail
-            source={{uri: avt}}
+            source={{uri: ''}}
             imageStyle={styles.avt}
             style={styles.viewAvt}
           />
         </Block>
         <Block style={{flex: 3}}>
           <Text size={16} style={{fontWeight: 'bold'}}>
-            {item.name}
+            {id_user.name_user}
           </Text>
-          <Text size={14}>{item.content}</Text>
-          {item.image == '' ? null : (
+          <Text size={14}>{content}</Text>
+          {image == null ? null : (
             <Thumbnail
-              source={{uri: item.image}}
+              source={{uri: image}}
               style={{width: 90, height: 70}}
             />
           )}
-          <Text size={10}>{item.currentime}</Text>
+          <Text size={10}>{date}</Text>
         </Block>
         <Block justifyStart style={{flex: 1}}>
           <Thumbnail

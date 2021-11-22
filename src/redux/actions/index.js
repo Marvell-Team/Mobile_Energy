@@ -6,6 +6,7 @@ import { POST_SIGNIN, POST_SIGNUP,LOGOUT } from './LoginAction';
 import { GET_PRODUCT, GET_PRODUCT_BY_CATEGORYS ,GET_PRODUCT_BY_ID} from './ProductAction';
 import { GET_STORE, GET_STORE_BY_ID,  } from './StoreAction';
 import { GETONE_USER, UPDATE_USER } from './UserAction';
+import { ADD_COMMENT, GET_COMMENT } from './CommentAction';
 
 export const loginAction = (user, password) => {
   return {
@@ -166,6 +167,25 @@ export const getFavoriteById = (input) =>{
   console.log('>>>>>>>>>>>favorite id action')
   return {
     type:GET_FAVORITE_BY_ID,
+    data: input,
+  };
+}
+
+//get comment by id
+export const getCommentByProduct = (input) =>{
+  console.log('>>>>>>>>>>>favorite id action')
+  return {
+    type:GET_COMMENT,
+    data: input,
+  };
+}
+
+
+//add comment by id
+export const addComment = (input) =>{
+  console.log('>>>>>>>>>>>favorite id action')
+  return {
+    type:ADD_COMMENT,
     data: input,
   };
 }

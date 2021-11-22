@@ -28,6 +28,7 @@ import {
   addLikeAction,
   checkstatusLikeAction,
   getCartByUser,
+  getCommentByProduct,
   getProductbyCategories,
   getProductbyIdAction,
   removeLikeAction,
@@ -36,7 +37,7 @@ import {
 import Count from '@components/Count';
 import {formatCurrency} from '@utils/utils';
 const mapStateToProps = state => {
-  //console.log(state.getProductByIDReducer.data)
+  console.log(state.getCommentsReducer)
   return {
     dataCart: state.getCartByUserReducer
       ? state.getCartByUserReducer.data
@@ -71,6 +72,11 @@ const mapStateToProps = state => {
       removeerrorLike: state.removeLikeReducer ? state.removeLikeReducer.error : null,
       removedataLike: state.removeLikeReducer ? state.removeLikeReducer.data : null,
       removeloaddingLike: state.removeLikeReducer ? state.removeLikeReducer.loadding : null,
+
+      
+      commenterror: state.getCommentsReducer ? state.getCommentsReducer.error : null,
+      commentdata: state.getCommentsReducer ? state.getCommentsReducer.data : null,
+      commentloadding: state.getCommentsReducer ? state.getCommentsReducer.loadding : null,
   };
 };
 
@@ -94,9 +100,11 @@ const mapDispatchToProps = dispatch => {
     checkstatusLikeAction: input => {
       dispatch(checkstatusLikeAction(input));
     },
-    
     removeLikeAction: input => {
       dispatch(removeLikeAction(input));
+    },
+    getCommentByProduct: input => {
+      dispatch(getCommentByProduct(input));
     },
   };
 };
@@ -136,7 +144,9 @@ const DetailScreens = ({
   checkstatusLikeAction,
   removeLikeAction,
   dataLike,
-  removedataLike
+  removedataLike,
+  commentdata,
+  getCommentByProduct
 }) => {
   const route = useRoute();
   const {id} = route.params;
@@ -149,11 +159,25 @@ const DetailScreens = ({
   const [price, setPrice] = useState(null);
   const [description, setDescription] = useState(null);
   const [check, setCheck] = useState(false);
-  const [checkId, setcheckId] = useState('')
+  const [checkId, setcheckId] = useState('');
+  const [dataComment, setDataComment] = useState([]);
   // const [price, setPrice] = useState(null)
   // const [price, setPrice] = useState(null)
   // const [price, setPrice] = useState(null)
   // const [price, setPrice] = useState(null)
+  useEffect(() => {
+    getCommentByProduct({id_product:id})
+  //  setDataComment(datas)
+  }, [])
+  useEffect(() => {
+    if(commentdata!== null){
+       setDataComment(commentdata.data);
+       console.log(commentdata.data)
+       console.log('====================================');
+       console.log('aaaaaaaaaaaaa');
+       console.log('====================================');
+    }
+  }, [commentdata])
   useEffect(() => {
     if (useData.token !== null && useData.id !== null) {
       if (dataStatusLike !== null) {
@@ -467,20 +491,26 @@ const DetailScreens = ({
               }}
             />
             <FlatList
+            
               ItemSeparatorComponent={
                 Platform.OS !== 'android' &&
                 (({highlighted}) => (
+                  
                   <Block
                     style={[styles.separator, highlighted && {marginLeft: 0}]}
                   />
+                  
                 ))
               }
-              data={datas}
-              renderItem={({item, index}) => <CommentCard item={item} />}
+              data={dataComment}
+              renderItem={({item, index}) => <CommentCard item={item} />
+              }
             />
+            
           </Block>
         </Block>
       </ScrollView>
+      {/* {dataComment.map((item, index)=><CommentCard item={item} />)} */}
       <Block row width={width} height={height / 14} backgroundColor={'blue'}>
         <TouchableOpacity
           onPress={() => setModalVisible(true)}
