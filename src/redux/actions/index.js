@@ -1,7 +1,7 @@
 import { ADD_BILL, ADD_BILL_NULL, GET_BILL, GET_BILL_BY_ID } from './BillAction';
 import { GET_CART, UPDATE_CART } from './CartAction';
 import { POST_SIGNIN, POST_SIGNUP,LOGOUT } from './LoginAction';
-import { GET_PRODUCT, GET_PRODUCT_BY_CATEGORYS ,GET_PRODUCT_BY_ID} from './ProductAction';
+import { GET_PRODUCT, GET_PRODUCT_BY_CATEGORYS ,GET_PRODUCT_BY_CATEGORYS_CHILD,GET_PRODUCT_BY_ID} from './ProductAction';
 import { GET_STORE, GET_STORE_BY_ID,  } from './StoreAction';
 import { GETONE_USER, UPDATE_USER } from './UserAction';
 
@@ -110,6 +110,13 @@ export const getBillAction = (input)=>{
 
   };
   
+}
+export const getProductByCategoriesChild = (input)=>{
+  console.log('action')
+  return {
+    type:GET_PRODUCT_BY_CATEGORYS_CHILD,
+    data:input
+  };
 }
 
 // get bill

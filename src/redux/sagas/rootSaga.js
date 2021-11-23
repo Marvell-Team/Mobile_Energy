@@ -1,6 +1,6 @@
 import {watchLogin, watchSignUp} from './loginSaga';
 import {all} from 'redux-saga/effects';
-import { watchgetProducts ,watchgetProductsByCategories,watchgetProductsById} from './productSaga';
+import { watchgetProductByCategoriesChildSaga, watchgetProducts ,watchgetProductsByCategories,watchgetProductsById} from './productSaga';
 import { watchGetUserById, watchUpdateUserById } from './userSaga';
 import {watchGetCartbyUser, watchUpdateCartbyCart} from './cartSaga'
 import {watchGetStore, watchGetStoreById} from './storeSaga'
@@ -21,6 +21,8 @@ export default function* rootSaga() {
     watchGetStoreById(),
     watchAddBill(),
     watchgetBill(),
-    watchgetBillById()
+    watchgetBillById(),
+    watchgetProductByCategoriesChildSaga(),
+
   ]);
 }

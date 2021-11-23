@@ -13,7 +13,9 @@ import getStoreByIdReducer from './Store/getStoreByIdReducer';
 import addBillReducers from './Bill/addBillReducers';
 import getBillReducers from './Bill/getBillReducer';
 import getBillByIdReducers from './Bill/getBillByIdReducer';
-const allReducers=combineReducers({
+import getProductByCategoriesChildReducer from'./Product/getProductByCategoriesChildReducer';
+
+const allReducers =combineReducers({
     loginReducers,
     signupReducer,
     getProductReducer,
@@ -26,7 +28,9 @@ const allReducers=combineReducers({
     getStoreReducer,
     getStoreByIdReducer,
     addBillReducers,
-    getBillReducers,
+    getBillReducers,    
     getBillByIdReducers,
+    getProductByCategoriesChildReducer,
+
 });
 export default allReducers;

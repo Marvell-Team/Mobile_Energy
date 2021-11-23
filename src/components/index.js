@@ -13,8 +13,8 @@ import NotifiList from './List/NotifiList';
 import ProductFlatList from './List/ProductFlatList';
 import ProductGridList from './List/ProductGridList';
 import BillList from './List/BillList';
-import CategoryItem from './Card/CategoryItem';
 import ProductCard from './Card/ProductCard';
+import CategoryItem from './Card/CategoryItem';
 export {
   Block,
   Text,

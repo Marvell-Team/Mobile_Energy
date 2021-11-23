@@ -237,10 +237,15 @@ const CartCard = ({
   }, [getCartByUser]);
   const {id_image, price_product, nameProduct} = item.id_product;
 
-  const img = str => {
-    const newstr = str.replace(/localhost/i, '10.0.2.2');
-    return newstr;
-  };
+  const img =(str)=>{
+    if(str===undefined){
+      return null;
+    }
+    else{
+      const newstr=str.replace(/localhost/i, '10.0.2.2');
+      return newstr
+    }
+  }
   return (
     <View style={style.cartCard}>
       <Image

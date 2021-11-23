@@ -135,10 +135,15 @@ const CartCard = ({setDataTotal,item,index,dataCart,dataID,UpdateCartByUser,data
     UpdateCartByUser({idcart:idcart,id_product:items,total:parseInt(dataTotal)-parseInt(price_product)});
   }
 
-const img = str => {
-  const newstr = str.replace(/localhost/i, '10.0.2.2');
-  return newstr;
-};
+  const img =(str)=>{
+    if(str===undefined){
+      return null;
+    }
+    else{
+      const newstr=str.replace(/localhost/i, '10.0.2.2');
+      return newstr
+    }
+  }
   return (
     <View style={style.cartCard}>
       <Image source={{uri:img(id_image.nameImage[0])}} style={{height: 80, width: 80}} />

@@ -123,6 +123,7 @@ const SEARCHSCREEN = ({getProduct, data1, loadding}) => {
       storeData({nameProduct: text});
 
       navigation.navigate(routes.PRODUCTSEARCH, {item: newData});
+      
     }
   };
   useEffect(() => {
