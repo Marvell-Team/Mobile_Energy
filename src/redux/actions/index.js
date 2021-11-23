@@ -3,7 +3,7 @@ import { GET_CART, UPDATE_CART } from './CartAction';
 import { EDIT_LIKE, REMOVE_LIKE, STATUS_LIKE } from './likeAction';
 import { GET_FAVORITE, GET_FAVORITE_BY_ID } from './FavoriteAction';
 import { POST_SIGNIN, POST_SIGNUP,LOGOUT } from './LoginAction';
-import { GET_PRODUCT, GET_PRODUCT_BY_CATEGORYS ,GET_PRODUCT_BY_ID} from './ProductAction';
+import { GET_PRODUCT, GET_PRODUCT_BY_CATEGORYS ,GET_PRODUCT_BY_CATEGORYS_CHILD,GET_PRODUCT_BY_ID} from './ProductAction';
 import { GET_STORE, GET_STORE_BY_ID,  } from './StoreAction';
 import { GETONE_USER, UPDATE_USER } from './UserAction';
 import { ADD_COMMENT, GET_COMMENT } from './CommentAction';
@@ -113,6 +113,13 @@ export const getBillAction = (input)=>{
 
   };
   
+}
+export const getProductByCategoriesChild = (input)=>{
+  console.log('action')
+  return {
+    type:GET_PRODUCT_BY_CATEGORYS_CHILD,
+    data:input
+  };
 }
 
 // get bill

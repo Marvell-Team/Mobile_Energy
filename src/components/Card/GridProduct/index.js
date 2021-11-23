@@ -1,3 +1,5 @@
+
+
 import React from 'react';
 import {Pressable, Image, StyleSheet, Dimensions} from 'react-native';
 import {icons} from '@assets';

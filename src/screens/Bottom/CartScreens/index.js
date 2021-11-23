@@ -169,6 +169,17 @@ const CartCard = ({
     }
   };
 
+<<<<<<< HEAD
+  const img =(str)=>{
+    if(str===undefined){
+      return null;
+    }
+    else{
+      const newstr=str.replace(/localhost/i, '10.0.2.2');
+      return newstr
+    }
+  }
+=======
   const removeCart = (Carts, id, idcart, index) => {
     const amountI = Carts[index].amount;
     var filtered = Carts.filter(function (el) {
@@ -205,6 +216,7 @@ const CartCard = ({
         { text: "OK", onPress: () => removeCart(dataCart, item._id, dataID, index) }
       ]
     );
+>>>>>>> 58453778e1f8f5bc811bbf7317043ddf1341ebec
   return (
 
       <View style={style.cartCard}>

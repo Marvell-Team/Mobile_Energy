@@ -12,7 +12,6 @@ import styles from './style';
 import {theme} from '@theme';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {getSize} from '@utils/responsive';
-import { routes } from '@navigation/routes';
 const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
 const categori = [
