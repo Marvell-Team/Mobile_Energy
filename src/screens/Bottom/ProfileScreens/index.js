@@ -24,6 +24,8 @@ import {getUserByID, logoutAction} from '@redux/actions';
 import {connect} from 'react-redux';
 import Loading from '@components/Loadding/Loading';
 import {icons} from '@assets';
+import { getFavoriteApi } from '@redux/api/favorite';
+import { getFavoriteAction} from '@redux/actions/FavoriteAction';
 const mapStateToProps = state => {
   return {
     error: state.getOneUserReducer ? state.getOneUserReducer.error : null,
@@ -119,8 +121,7 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
 
             <TouchableOpacity
               onPress={() => {
-                //navigation.navigate(routes.SIGNUPSCREENS);
-                console.log(useData.token, useData.id);
+                navigation.navigate(routes.SIGNUPSCREENS);
               }}
               style={[
                 styles.button,
@@ -236,6 +237,7 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
         <TouchableRipple
           onPress={() => {
             console.log(useData.token, useData.id);
+
           }}>
           <View style={styles.menuItem}>
             <Icon name="heart-outline" color="#FF6347" size={30} />
@@ -257,7 +259,7 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
             <Text style={styles.menuItemText}>Đơn Hàng Của Tôi</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
+        <TouchableRipple onPress={() => {navigation.navigate(routes.FAVORITELIST_SCREEN)}}>
           <View style={styles.menuItem}>
             <Icon name="account-check-outline" color="#FF6347" size={30} />
             <Text style={styles.menuItemText}>Hỗ Trợ</Text>

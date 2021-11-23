@@ -8,6 +8,9 @@ const {height}= Dimensions.get('window');
 
 const FlashScreen =() =>{
     const navigation = useNavigation();
+    setTimeout(() => {
+        navigation.navigate(routes.BOTTOMTABBAR);
+        }, 3000);
 
     return(
         <View style={styles.container}>

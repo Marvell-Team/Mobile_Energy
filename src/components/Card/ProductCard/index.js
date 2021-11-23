@@ -24,7 +24,7 @@ const ProductCard = ({item, index, onPress, style, getProductbyIdAction}) => {
     <Pressable
       onPress={() => {
         getProductbyIdAction(item._id),
-          navigation.navigate(routes.DETAILSCREENS);
+          navigation.navigate(routes.DETAILSCREENS,{id:item._id});
       }}>
       <Block column shadow flex style={[styles.cardContainer, style]}>
         <Block style={styles.viewImg}>

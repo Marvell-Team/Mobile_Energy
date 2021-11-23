@@ -15,6 +15,8 @@ import ProductGridList from './List/ProductGridList';
 import BillList from './List/BillList';
 import ProductCard from './Card/ProductCard';
 import CategoryItem from './Card/CategoryItem';
+import FavoriteCard from './Card/FavoriteCard';
+import Product from './Product';
 export {
   Block,
   Text,
@@ -33,4 +35,6 @@ export {
   BillList,
   CategoryItem,
   ProductCard,
+  FavoriteCard,
+  Product
 };

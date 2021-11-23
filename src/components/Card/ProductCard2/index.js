@@ -11,44 +11,41 @@ import {icons} from '@assets';
 import {theme} from '@theme';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {getSize} from '@utils/responsive';
-import { routes } from '@navigation/routes';
-import { formatCurrency } from '@utils/utils';
-const {width} = Dimensions.get('screen');
-const {height} = Dimensions.get('screen');
+import {routes} from '@navigation/routes';
+import {formatCurrency} from '@utils/utils';
+import styles from './style';
+
 const Product_Card = ({item}) => {
-    const img =(str)=>{
-      if(str===undefined){
-        return null;
-      }
-      else{
-        const newstr=str.replace(/localhost/i, '10.0.2.2');
-        return newstr
-      }
+  const img = str => {
+    if (str === undefined) {
+      return null;
+    } else {
+      const newstr = str.replace(/localhost/i, '10.0.2.2');
+      return newstr;
     }
-    return (
-      <Block
-        borderWidth={1}
-        borderColor="#D3D3D3"
-        borderRadius={5}
-        width={width/2.3}
-        margin={10}>
+  };
+  return (
+    <Block style={styles.container} margin={8} borderRadius={8}>
+      <Block style={styles.viewContent}>
         <Thumbnail
           source={{
-            uri: img(item.id_image.nameImage[0])
+            uri: item.id_image.nameImage[0]
           }}
-          style={{width: '100%', height: getSize.s(183)}}
+          style={styles.viewContentImage}
           resizeMode={'stretch'}
         />
-        <Block paddingVertical={getSize.m(4)} paddingHorizontal={getSize.m(5)}>
-        <Text size={getSize.s(18)} color={'#333333'}>
-          {item.nameProduct}
-        </Text>
-        <Text size={getSize.m(16)} color={theme.colors.red} style={{fontWeight: 'bold'}}>
-          {formatCurrency(item.price_product)}
-        </Text>
+      </Block>
+
+      <Block justifyCenter paddingHorizontal={8}>
+        <Text style={styles.txtTitle}>{item.nameProduct}</Text>
+        <Block flex row marginBottom={8} marginTop={4}>
+          <Text style={styles.txtPrice}>
+            {formatCurrency(item.price_product)}
+          </Text>
         </Block>
       </Block>
-    );
-  };
-  
+    </Block>
+  );
+};
+
 export default Product_Card;

@@ -8,7 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
   PermissionsAndroid,
-  View
+  View,
 } from 'react-native';
 import {icons} from '@assets';
 import {
@@ -32,100 +32,144 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import storage from '@react-native-firebase/storage';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
-import { useData } from 'config/config';
+import {useData} from 'config/config';
 //import Loadding
 import Loading from '@components/Loadding/Loading';
 
 import {connect} from 'react-redux';
-import { EditUserByID } from '@redux/actions';
+import {EditUserByID} from '@redux/actions';
 const mapStateToProps = state => {
   return {
     error: state.updateUserReducer ? state.updateUserReducer.error : null,
     data: state.updateUserReducer ? state.updateUserReducer.data : null,
     loadding: state.updateUserReducer ? state.updateUserReducer.loadding : null,
-      //loading
-      loadding: state.updateUserReducer.loadding,
+    //loading
+    loadding: state.updateUserReducer.loadding,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    
     editUserByID: input => {
       dispatch(EditUserByID(input));
     },
   };
 };
-const EditProfile = ({editUserByID,data, loadding}) => {
-    // tao useState Loadding
-    const [loading, setLoading] = useState(false);
-    //
+const EditProfile = ({editUserByID, data, loadding}) => {
+  // tao useState Loadding
+  const [loading, setLoading] = useState(false);
+  //
   const navigation = useNavigation();
-  
+
   const [avatar, setAvatar] = useState();
   const [name, setName] = useState();
   const [phoneNumber, setPhoneNumber] = useState();
-  
+
   const [address, setAddress] = useState();
   const [pickerValue, setPickerValue] = useState('Nam');
   const [date1, setDate1] = useState('');
-  const [date, setDate] = useState(useData.birthday);
+  const [date, setDate] = useState();
   const [show, setShow] = useState(false);
   const [image, setImage] = useState(null);
-  const [imageUri,setImageUri]=useState('');
+  const [imageUri, setImageUri] = useState('');
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
   const bs = React.createRef();
   const fall = new Animated.Value(1);
-    //Loadding trong screen
-       useEffect(() => {
-          setLoading(loadding)
-        },  [loadding])
+  //Loadding trong screen
+  useEffect(() => {
+    setLoading(loadding);
+  }, [loadding]);
 
   useEffect(() => {
     convertdatetostring(null);
   }, []);
   useEffect(() => {
-    if(data !== null){
+    if (data !== null) {
       console.log(data.data);
     }
   }, [data]);
   useEffect(() => {
-    console.log('aa')
+    console.log('aa');
     setName(useData.name);
     setPickerValue(useData.gender);
     setAddress(useData.address);
-    setDate(useData.birthday);
+    if(useData.birthday!==null){
+      setDate(useData.birthday);
+    }else{
+      setDate(new Date());
+    }
     setImageUri(useData.avatar);
-    setPhoneNumber(useData.phone+'');
-  }, [])
+    setPhoneNumber(useData.phone + '');
+  }, []);
   const renderContent = () => (
     <View
       style={{
-        backgroundColor:'white'
-      }}
-    >
-      <TouchableOpacity style={{flexDirection:'row',width:width,height:50, padding: 10,alignItems:'center'}} onPress={()=>{openCamera()}}>
-        <Block width={getSize.s(40)} height={getSize.s(40)} borderRadius={getSize.s(40)/2} backgroundColor='red' justifyCenter marginRight={getSize.m(10)}>
-        <Thumbnail imageStyle={{width:getSize.s(30), height:getSize.s(30)}}  source={icons.name}/>
+        backgroundColor: 'white',
+      }}>
+      <TouchableOpacity
+        style={{
+          flexDirection: 'row',
+          width: width,
+          height: 50,
+          padding: 10,
+          alignItems: 'center',
+        }}
+        onPress={() => {
+          openCamera();
+        }}>
+        <Block
+          width={getSize.s(40)}
+          height={getSize.s(40)}
+          borderRadius={getSize.s(40) / 2}
+          backgroundColor="red"
+          justifyCenter
+          marginRight={getSize.m(10)}>
+          <Thumbnail
+            imageStyle={{width: getSize.s(30), height: getSize.s(30)}}
+            source={icons.name}
+          />
         </Block>
-        <Text style={{fontWeight: 'bold'}} size={20}>Chụp ảnh đại diện</Text>
+        <Text style={{fontWeight: 'bold'}} size={20}>
+          Chụp ảnh đại diện
+        </Text>
       </TouchableOpacity>
-      <TouchableOpacity style={{flexDirection:'row',width:width,height:50, padding: 10,alignItems:'center'}} onPress={()=>{openLibrary()}}>
-        <Block width={getSize.s(40)} height={getSize.s(40)} borderRadius={getSize.s(40)/2} backgroundColor='red' justifyCenter  marginRight={getSize.m(10)}>
-        <Thumbnail imageStyle={{width:getSize.s(30), height:getSize.s(30)}}  source={icons.images}/>
+      <TouchableOpacity
+        style={{
+          flexDirection: 'row',
+          width: width,
+          height: 50,
+          padding: 10,
+          alignItems: 'center',
+        }}
+        onPress={() => {
+          openLibrary();
+        }}>
+        <Block
+          width={getSize.s(40)}
+          height={getSize.s(40)}
+          borderRadius={getSize.s(40) / 2}
+          backgroundColor="red"
+          justifyCenter
+          marginRight={getSize.m(10)}>
+          <Thumbnail
+            imageStyle={{width: getSize.s(30), height: getSize.s(30)}}
+            source={icons.images}
+          />
         </Block>
-        <Text style={{fontWeight: 'bold'}} size={20}>Chọn ảnh đại diện</Text>
+        <Text style={{fontWeight: 'bold'}} size={20}>
+          Chọn ảnh đại diện
+        </Text>
       </TouchableOpacity>
     </View>
   );
   const hedarBottom = () => {
     return (
       <View style={styles.header}>
-      <View style={styles.panelHeader}>
-        <View style={styles.panelHandle} />
+        <View style={styles.panelHeader}>
+          <View style={styles.panelHandle} />
+        </View>
       </View>
-    </View>
     );
   };
   //camera && libary
@@ -216,16 +260,16 @@ const EditProfile = ({editUserByID,data, loadding}) => {
     setDate(currentDate);
     convertdatetostring(currentDate);
   };
-  const uploadImageFirebase = async (images) => {
+  const uploadImageFirebase = async images => {
     const uploadUri = images;
     let fileName = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
 
     //add firename
 
     const extension = fileName.split('.').pop();
-    const name =fileName.split('.').slice(0,-1).join('.');
+    const name = fileName.split('.').slice(0, -1).join('.');
     fileName = name + Date.now() + '.' + extension;
-  
+
     setUploading(true);
     setTransferred(0);
     const task = storage().ref(fileName).putFile(uploadUri);
@@ -235,8 +279,9 @@ const EditProfile = ({editUserByID,data, loadding}) => {
         `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`,
       );
       setTransferred(
-        Math.round(taskSnapshot.bytesTransferred / taskSnapshot.totalBytes )*100
-      )
+        Math.round(taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) *
+          100,
+      );
     });
     try {
       await task;
@@ -247,129 +292,136 @@ const EditProfile = ({editUserByID,data, loadding}) => {
     } catch (error) {
       console.log(error);
     }
-    
-  //  setImage(null);
+
+    //  setImage(null);
   };
-  
+
   return (
-    <View  style={[styles.container]}>
-      <Animated.View style={{opacity:Animated.add(0.3,Animated.multiply(fall,1.0))}}>
-      <ScrollView>
-        <Header
-          
-          iconLeft={icons.back}
-          leftPress={() =>
-            navigation.navigate(routes.BOTTOMTABBAR, {
-              screen: routes.PROFILESCREENS,
-            })
-          }
-        />
-        <TouchableOpacity>
-          <Block
-            justifyCenter
-            alignCenter
-            paddingHorizontal={16}
-            style={styles.viewAvatar}>
-            <Thumbnail
-              onPress={() => {bs.current.snapTo(0)}}
-              style={styles.inViewAvatar}
-              source={{
-                uri: imageUri,
-              }}
-              imageStyle={styles.inAvatar}></Thumbnail>
+    <View style={[styles.container]}>
+      <Animated.View
+        style={{opacity: Animated.add(0.3, Animated.multiply(fall, 1.0))}}>
+        <ScrollView>
+          <Header
+            iconLeft={icons.back}
+            leftPress={() =>
+              navigation.navigate(routes.BOTTOMTABBAR, {
+                screen: routes.PROFILESCREENS,
+              })
+            }
+          />
+          <TouchableOpacity>
+            <Block
+              justifyCenter
+              alignCenter
+              paddingHorizontal={16}
+              style={styles.viewAvatar}>
+              <Thumbnail
+                onPress={() => {
+                  bs.current.snapTo(0);
+                }}
+                style={styles.inViewAvatar}
+                source={{
+                  uri: imageUri,
+                }}
+                imageStyle={styles.inAvatar}></Thumbnail>
 
-            <Thumbnail
-              style={styles.inEditViewAvatar}
-              source={icons.edit}></Thumbnail>
-          </Block>
-        </TouchableOpacity>
-        <Block style={styles.viewEdit} padding={16}>
-          <Block style={styles.viewText}>
-            <Text style={styles.txtTitle}>Họ tên</Text>
-            <TextInput
-              style={styles.textInput}
-              value={name}
-              onChangeText={text=>setName(text)}
-              placeholder="Nhập họ tên"
-            />
-          </Block>
+              <Thumbnail
+                style={styles.inEditViewAvatar}
+                source={icons.edit}></Thumbnail>
+            </Block>
+          </TouchableOpacity>
+          <Block style={styles.viewEdit} padding={16}>
+            <Block style={styles.viewText}>
+              <Text style={styles.txtTitle}>Họ tên</Text>
+              <TextInput
+                style={styles.textInput}
+                value={name}
+                onChangeText={text => setName(text)}
+                placeholder="Nhập họ tên"
+              />
+            </Block>
 
-          <Block style={styles.viewText}>
-            <Text style={styles.txtTitle}>Giới tính</Text>
+            <Block style={styles.viewText}>
+              <Text style={styles.txtTitle}>Giới tính</Text>
 
-            <Block style={styles.textInput}>
-              <Picker
-                selectedValue={pickerValue}
-                onValueChange={itemValue => setPickerValue(itemValue)}>
-                <Picker.Item label="Nam" value="Nam" />
-                <Picker.Item label="Nữ" value="Nữ" />
-                <Picker.Item label="Khác" value="Khác" />
-              </Picker>
+              <Block style={styles.textInput}>
+                <Picker
+                  selectedValue={pickerValue}
+                  onValueChange={itemValue => setPickerValue(itemValue)}>
+                  <Picker.Item label="Nam" value="Nam" />
+                  <Picker.Item label="Nữ" value="Nữ" />
+                  <Picker.Item label="Khác" value="Khác" />
+                </Picker>
+              </Block>
+            </Block>
+
+            <Block style={styles.viewText}>
+              <Text style={styles.txtTitle}>Ngày sinh</Text>
+              <TouchableOpacity
+                style={styles.textInput}
+                onPress={() => {
+                  setShow(true);
+                }}>
+                <Text style={styles.textInput}>{date1}</Text>
+              </TouchableOpacity>
+              {show && (
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  value={date}
+                  mode={'date'}
+                  is24Hour={true}
+                  display="default"
+                  onChange={onChange}
+                />
+              )}
+            </Block>
+
+            <Block style={styles.viewText}>
+              <Text style={styles.txtTitle}>Số điện thoại</Text>
+              <TextInput
+                keyboardType="numeric"
+                fontSize={18}
+                value={phoneNumber}
+                style={styles.textInput}
+                onChangeText={text => setPhoneNumber(text)}
+                placeholder="Nhập số điện thoại"
+              />
+            </Block>
+
+            <Block style={[styles.viewText, {marginBottom: getSize.m(100)}]}>
+              <Text size={15} style={styles.txtTitle}>
+                Địa chỉ
+              </Text>
+              <TextInput
+                value={address}
+                style={styles.textInput}
+                onChangeText={text => {
+                  setAddress(text);
+                }}
+                placeholder="Nhập Địa Chỉ"
+              />
             </Block>
           </Block>
-
-          <Block style={styles.viewText}>
-            <Text style={styles.txtTitle}>Ngày sinh</Text>
-            <TouchableOpacity
-              style={styles.textInput}
-              onPress={() => {
-                setShow(true)
-              }}>
-              <Text style={styles.textInput}>{date1}</Text>
-            </TouchableOpacity>
-            {show && (
-              <DateTimePicker
-                testID="dateTimePicker"
-                value={date}
-                mode={'date'}
-                is24Hour={true}
-                display="default"
-                onChange={onChange}
-              />
-            )}
-          </Block>
-
-          <Block style={styles.viewText}>
-            <Text style={styles.txtTitle}>Số điện thoại</Text>
-            <TextInput
-              keyboardType="numeric"
-              fontSize={18}
-              value={phoneNumber}
-              style={styles.textInput}
-              onChangeText={text=>setPhoneNumber(text)}
-              placeholder="Nhập số điện thoại"
-            />
-          </Block>
-
-          <Block style={[styles.viewText, {marginBottom: getSize.m(100)}]}>
-            <Text size={15} style={styles.txtTitle}>
-              Địa chỉ
-            </Text>
-            <TextInput
-            value={address}
-              style={styles.textInput}
-              onChangeText={text=>{setAddress(text)}}
-              placeholder="Nhập Địa Chỉ"
-            />
-          </Block>
-        </Block>
-      </ScrollView>
-      <TouchableOpacity
-        style={styles.btnSave}
-        onPress={() => {
-          
-          let input={name_user:name,phone_user:phoneNumber,address_user:address,avt_user:imageUri,gender_user:pickerValue,born_day:date};
-          editUserByID(input);
-          alert(imageUri)
-        
-        }}>
-        <Text fontSize={18} marginLeft={4} style={styles.txtSave}>
-          Lưu thay đổi
-        </Text>
-      </TouchableOpacity>
-      {uploading?(
-        <Loading/>
-      ):null}
+        </ScrollView>
+        <TouchableOpacity
+          style={styles.btnSave}
+          onPress={() => {
+            let input = {
+              name_user: name,
+              phone_user: phoneNumber,
+              address_user: address,
+              avt_user: imageUri,
+              gender_user: pickerValue,
+              born_day: date,
+            };
+            editUserByID(input);
+            alert(imageUri);
+          }}>
+          <Text fontSize={18} marginLeft={4} style={styles.txtSave}>
+            Lưu thay đổi
+          </Text>
+        </TouchableOpacity>
+        {uploading ? <Loading /> : null}
       </Animated.View>
       <BottomSheet
         ref={bs}
@@ -380,14 +432,10 @@ const EditProfile = ({editUserByID,data, loadding}) => {
         enabledGestureInteraction={true}
         renderContent={renderContent}
         renderHeader={hedarBottom}
-       
       />
       {/* Tao cai nay ms hien Loadding */}
-      {loading && 
-        (<Loading/>)
-      }
+      {loading && <Loading />}
     </View>
   );
 };
 export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);
-
