@@ -455,7 +455,7 @@ const DetailScreens = ({
           <Block marginBottom={5} style={styles.commentbody}>
             <Block alignCenter row marginBottom={10}>
               <Text flex size={18} style={{fontWeight: 'bold'}}>
-                Bình luận
+                Bài viết đánh giá
               </Text>
               <Text flex size={14} right style={{fontStyle: 'italic'}}>
                 100 đánh giá - 3,6/5
@@ -484,6 +484,18 @@ const DetailScreens = ({
               renderItem={({item, index}) => <CommentCard item={item} />
               }
             />
+            <Block row  >
+              <Block flex alignCenter >
+                <TouchableOpacity onPress={() =>{ navigation.navigate(routes.VOTE_SCREEN)}} style={[styles.btnComment,{backgroundColor:theme.colors.blue,marginRight:getSize.m(4)}]} >
+                  <Text style={[styles.txtComment,{color: theme.colors.white}]}>Viết đánh giá</Text>
+                </TouchableOpacity>
+              </Block>
+              <Block flex alignCenter>
+              <TouchableOpacity  style={[styles.btnComment,{marginLeft:getSize.m(4)}]} >
+                  <Text style={styles.txtComment}>Xem 10 đánh giá</Text>
+                </TouchableOpacity>
+              </Block>
+            </Block>
             
           </Block>
         </Block>
