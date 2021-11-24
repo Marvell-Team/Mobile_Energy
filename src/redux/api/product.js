@@ -103,3 +103,27 @@ export async function getProduct() {
         };
       });
   }
+  export async function getProductByCategorysChild(categori) {
+    console.log(categori)
+    return axios  
+      .get(api+'/product/categorys/'+categori)
+      .then((response) => {
+        console.log('response catch => getProductByCategoriesChildApi => '+response.data);
+        console.log(response.data);
+        return response.data;
+      })
+      .then((response) => {
+        return response;
+      })
+      .catch(function (error) {
+        //Đăng nhập sai
+        //Theo api nó sẽ trả về status 401 nên bay về hàm này
+        //những không có giá trị trả về
+        //nên tạo dữ liệu erro vào hàm này
+        console.log()
+        return {
+          status: -1,
+          error: 'Có lỗi xảy ra , không kết nối được tới máy chủ',
+        };
+      });
+  }

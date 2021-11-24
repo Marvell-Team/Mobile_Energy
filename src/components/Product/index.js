@@ -8,10 +8,13 @@ import {
 } from 'react-native';
 import {Block, Text, Thumbnail, Button, Header, TextInput} from '@components';
 import {icons} from '@assets';
-import styles from './style';
+import styles from './styles';
 import {theme} from '@theme';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {getSize} from '@utils/responsive';
+import { routes } from '@navigation/routes';
+import { formatCurrency } from '@utils/utils';
+import ProductCard2 from '@components/Card/ProductCard2';
 const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
 const categori = [
@@ -104,6 +107,7 @@ const Product = () => {
             paddingHorizontal={getSize.m(8)}>
             <Thumbnail
               source={icons.search}
+            
               style={{width: 20, height: 20,marginRight:getSize.m(5)}}
               resizeMode="contain"
             />
@@ -159,41 +163,13 @@ const Product = () => {
         <FlatList
           data={item}
           numColumns={2}
-          renderItem={({item, index}) => <Product_Card item={item} />}
+          renderItem={({item, index}) => <ProductCard2 item={item} />}
         />
       </Block>
     </Block>
   );
 };
 
-const Product_Card = ({item}) => {
-  
-  return (
-    <Block
-      style={{}}
-      borderWidth={1}
-      borderColor="#D3D3D3"
-      borderRadius={5}
-      width={width / 2.3}
-      margin={10}>
-      <Thumbnail
-        source={{
-          uri: 'http://10.0.2.2:3000/public/assets/images/imgProduct2-1635167989136.jpg',
-        }}
-        style={{width: '100%', height: getSize.s(150)}}
-        resizeMode={'stretch'}
-      />
-      <Text marginTop={5} size={18} style={{fontWeight: 'bold'}}>
-        {' '}
-        {item.nameProduct}
-      </Text>
-      <Text size={14} color={theme.colors.red} style={{fontWeight: 'bold'}}>
-        {' '}
-        {item.price_product + ' VND'}
-      </Text>
-      <Text size={10} margin={5}></Text>
-    </Block>
-  );
-};
+
 
 export default Product;

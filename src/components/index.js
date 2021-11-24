@@ -13,10 +13,10 @@ import NotifiList from './List/NotifiList';
 import ProductFlatList from './List/ProductFlatList';
 import ProductGridList from './List/ProductGridList';
 import BillList from './List/BillList';
-import CategoryItem from './Card/CategoryItem';
 import ProductCard from './Card/ProductCard';
+import CategoryItem from './Card/CategoryItem';
 import FavoriteCard from './Card/FavoriteCard';
-
+import Product from './Product';
 export {
   Block,
   Text,
@@ -36,4 +36,5 @@ export {
   CategoryItem,
   ProductCard,
   FavoriteCard,
+  Product
 };

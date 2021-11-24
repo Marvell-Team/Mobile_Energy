@@ -14,6 +14,7 @@ import { icons } from '@assets';
 import { theme } from '@theme';
 import { getSize } from '@utils/responsive';
 import { getStoreAction, getStoreByIdAction } from '@redux/actions';
+
 import Modalpicker from '@components/Modal/ModalPicker';
 const {width} = Dimensions.get('window');
 const {height} = Dimensions.get('window');
@@ -41,6 +42,8 @@ const mapDispatchToProps = dispatch => {
     
   };
 };
+
+// 
 const OrderLocation = ({data,getStoreAction,getStoreByIdAction}) => {
   const [idlocal, setIdlocal] = useState();
   const [data1, setData1] = useState([])
@@ -77,7 +80,7 @@ const OrderLocation = ({data,getStoreAction,getStoreByIdAction}) => {
     </View>
   );
 };
-export default connect(mapStateToProps, mapDispatchToProps)(OrderLocation);
+export default connect(mapStateToProps, mapDispatchToProps, )(OrderLocation);
 
 const styles = StyleSheet.create({
   container: {

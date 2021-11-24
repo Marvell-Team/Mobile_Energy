@@ -20,7 +20,6 @@ const ProductCard = ({item, index, onPress, style, getProductbyIdAction}) => {
       return newstr
     }
   }
-
   return (
     <Pressable
       onPress={() => {
