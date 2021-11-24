@@ -18,13 +18,12 @@ import getStatusLikeReducer from './Like/getStatusLikeReducer';
 import removeLikeReducer from './Like/removeLikeReducer'
 import getFavoriteReducer from './Favorite/getFavoriteReducer';
 import getFavoriteByIdReducer from './Favorite/getFavoriteByIdReducer';
-<<<<<<< HEAD
 import getBillDetailByIdReducer from './Bill/getBillDetailByIdReducer';
-
-=======
 import getCommentsReducer from './Comment/getCommentReducer';
 import addCommentsReducer from './Comment/addCommentReducer';
->>>>>>> 114fe549c40eeeb54088c4fda72cc3948254bf1c
+import getLikeByUserReducer from './Like/getLikeByUserReducer';
+import getNotificationByUserReducer from './Notification/getNotificationByUserReducer';
+
 const allReducers=combineReducers({
     loginReducers,
     signupReducer,
@@ -45,12 +44,11 @@ const allReducers=combineReducers({
     removeLikeReducer,
     getFavoriteReducer,
     getFavoriteByIdReducer,
-<<<<<<< HEAD
     getBillDetailByIdReducer,
-=======
     getCommentsReducer,
     addCommentsReducer,
+    getLikeByUserReducer,
+    getNotificationByUserReducer,
 
->>>>>>> 114fe549c40eeeb54088c4fda72cc3948254bf1c
 });
 export default allReducers;

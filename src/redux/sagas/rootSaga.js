@@ -5,9 +5,10 @@ import { watchGetUserById, watchUpdateUserById } from './userSaga';
 import {watchGetCartbyUser, watchUpdateCartbyCart} from './cartSaga'
 import {watchGetStore, watchGetStoreById} from './storeSaga'
 import { watchAddBill, watchgetBill, watchgetBillById, watchGetBillDetailById } from './billSaga';
-import { watchEditLike, watchRemoveLike, watchStatusLike } from './likeSaga';
+import { watchEditLike, watchGetLikeByUser, watchRemoveLike, watchStatusLike } from './likeSaga';
 import { watchGetFavorite, watchGetFavoriteById } from './favoriteSaga';
 import { watchAddComment, watchGetComment } from './commentSaga';
+import { watchGetNotificationByUser } from './notificationSaga';
 export default function* rootSaga() {
   yield all([
     watchLogin(),
@@ -31,6 +32,8 @@ export default function* rootSaga() {
     watchGetFavoriteById(),
     watchGetBillDetailById(),
     watchGetComment(),
-    watchAddComment()
+    watchAddComment(),
+    watchGetLikeByUser(),
+    watchGetNotificationByUser(),
   ]);
 }

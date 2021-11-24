@@ -16,20 +16,13 @@ import {formatCurrency} from '@utils/utils';
 import styles from './style';
 
 const Product_Card = ({item}) => {
-  const img = str => {
-    if (str === undefined) {
-      return null;
-    } else {
-      const newstr = str.replace(/localhost/i, '10.0.2.2');
-      return newstr;
-    }
-  };
+  
   return (
     <Block style={styles.container} margin={8} borderRadius={8}>
       <Block style={styles.viewContent}>
         <Thumbnail
           source={{
-            uri: img(item.id_image.nameImage[0]),
+            uri: item.id_image.nameImage[0],
           }}
           style={styles.viewContentImage}
           resizeMode={'stretch'}

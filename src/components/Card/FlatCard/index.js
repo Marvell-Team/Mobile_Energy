@@ -6,7 +6,7 @@ import {Block, Text, Header, Thumbnail} from '@components';
 import styles from './style';
 
 const FlatCard = ({item, onPress}) => {
-  const {isSeen, title, time, image, content} = item;
+  const {title, time, image, content} = item;
   return (
     <Pressable onPress={onPress}>
       <Block flex column margin={8} backgroundColor={theme.colors.white} borderRadius={8}> 
