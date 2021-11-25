@@ -35,7 +35,7 @@ export default StyleSheet.create({
     borderRadius: getSize.m(20),
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: theme.colors.blue,
+    borderColor: theme.colors.secondary,
     borderWidth:1,
   },
   button:{

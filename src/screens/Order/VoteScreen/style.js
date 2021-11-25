@@ -20,6 +20,34 @@ export default StyleSheet.create({
     borderRadius: 15,
     alignItems: 'center',
   },
+  products: {
+    flexDirection: 'row',
+    borderBottomWidth: 0.7,
+    borderColor: theme.colors.gray,
+    paddingVertical: getSize.m(6),
+    paddingHorizontal: getSize.m(10),
+  },
+  fontSize:{
+    fontSize:getSize.m(18),
+},
+  textArea:{
+    width:'100%',
+    height:200,
+    borderRadius:5,
+    borderWidth:2,
+    borderColor:'#888888',
+    padding:10,
+    textAlignVertical: 'top',
+    backgroundColor: theme.colors.grey
+  },
+  camera: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: theme.colors.primary,
+    borderWidth: 3,
+    borderRadius: 2,
+    margin:10
+  },
   icon: {
     flexDirection: 'row',
     marginTop: 10,
