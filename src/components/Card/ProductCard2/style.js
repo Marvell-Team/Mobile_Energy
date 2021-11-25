@@ -9,6 +9,7 @@ export default StyleSheet.create({
     borderRadius: 6,
     borderWidth: 2,
     borderColor: theme.colors.smoke,
+    backgroundColor: theme.colors.white,
   },
 
   viewContent: {

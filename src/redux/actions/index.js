@@ -1,12 +1,13 @@
 import { ADD_BILL, ADD_BILL_NULL, GET_BILL, GET_BILL_BY_ID, GET_BILL_DETAIL_BY_ID } from './BillAction';
 import { GET_CART, UPDATE_CART } from './CartAction';
-import { EDIT_LIKE, REMOVE_LIKE, STATUS_LIKE } from './likeAction';
+import { EDIT_LIKE, GET_LIKE_BY_USER, REMOVE_LIKE, STATUS_LIKE } from './likeAction';
 import { GET_FAVORITE, GET_FAVORITE_BY_ID } from './FavoriteAction';
 import { POST_SIGNIN, POST_SIGNUP,LOGOUT } from './LoginAction';
 import { GET_PRODUCT, GET_PRODUCT_BY_CATEGORYS ,GET_PRODUCT_BY_CATEGORYS_CHILD,GET_PRODUCT_BY_ID} from './ProductAction';
 import { GET_STORE, GET_STORE_BY_ID,  } from './StoreAction';
 import { GETONE_USER, UPDATE_USER } from './UserAction';
 import { ADD_COMMENT, GET_COMMENT } from './CommentAction';
+import { GET_NOTIFICATION_BY_USER } from './NotificationAction';
 
 export const loginAction = (user, password) => {
   return {
@@ -161,8 +162,15 @@ export const removeLikeAction = (input)=>{
   };
 }
 
+//get like by user
+export const getLikeByUserAction = (input)=>{
+  console.log('------------->>>>>>>>>>>>> getLikeByUserAction --------->>>>>>>>>>')
+  return {
+    type:GET_LIKE_BY_USER,
+    data:input,
+  };
 
-
+}
 
 // get bill
 export const getBillDetailByIdAction = (input)=>{
@@ -210,3 +218,12 @@ export const addComment = (input) =>{
   };
 }
 
+//get notification by user
+export const getNotificationByUserAction = (input)=>{
+  console.log('==============>>>>>>>>>>>>> getNotificationByUserAction ================>>>>>>>>>>')
+  return {
+    type:GET_NOTIFICATION_BY_USER,
+    data:input,
+  };
+
+}
