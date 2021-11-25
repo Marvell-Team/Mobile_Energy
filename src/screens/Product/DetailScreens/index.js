@@ -77,6 +77,10 @@ const mapStateToProps = state => {
       commenterror: state.getCommentsReducer ? state.getCommentsReducer.error : null,
       commentdata: state.getCommentsReducer ? state.getCommentsReducer.data : null,
       commentloadding: state.getCommentsReducer ? state.getCommentsReducer.loadding : null,
+      
+      addcommenterror: state.addCommentsReducer ? state.addCommentsReducer.error : null,
+      addcommentdata: state.addCommentsReducer ? state.addCommentsReducer.data : null,
+      addcommentloadding: state.addCommentsReducer ? state.addCommentsReducer.loadding : null,
   };
 };
 
@@ -106,6 +110,9 @@ const mapDispatchToProps = dispatch => {
     getCommentByProduct: input => {
       dispatch(getCommentByProduct(input));
     },
+    addComment:input => {
+      dispatch(addComment(input));
+    }
   };
 };
 
@@ -122,7 +129,9 @@ const DetailScreens = ({
   dataLike,
   removedataLike,
   commentdata,
-  getCommentByProduct
+  getCommentByProduct,
+  addComment,
+  addcommentdata
 }) => {
   const route = useRoute();
   const {id} = route.params;
@@ -144,16 +153,12 @@ const DetailScreens = ({
   useEffect(() => {
     getCommentByProduct({id_product:id})
   //  setDataComment(datas)
-  }, [])
+  }, [addcommentdata,addComment])
   useEffect(() => {
     if(commentdata!== null){
        setDataComment(commentdata.data);
-       console.log(commentdata.data)
-       console.log('====================================');
-       console.log('aaaaaaaaaaaaa');
-       console.log('====================================');
     }
-  }, [commentdata])
+  }, [commentdata,addComment,addcommentdata])
   useEffect(() => {
     if (useData.token !== null && useData.id !== null) {
       if (dataStatusLike !== null) {
@@ -219,8 +224,7 @@ const DetailScreens = ({
 
   useEffect(() => {
     if (data !== null) {
-      const item = data.data;
-     
+      const item = data.data; 
       setImageBG(item.id_image.nameImage);
       setName(item.nameProduct);
       setPrice(item.price_product);
@@ -481,18 +485,18 @@ const DetailScreens = ({
                 ))
               }
               data={dataComment}
-              renderItem={({item, index}) => <CommentCard item={item} />
+              renderItem={({item, index}) => index<3?(<CommentCard item={item} />):null
               }
             />
             <Block row  >
               <Block flex alignCenter >
-                <TouchableOpacity onPress={() =>{ navigation.navigate(routes.VOTE_SCREEN)}} style={[styles.btnComment,{backgroundColor:theme.colors.blue,marginRight:getSize.m(4)}]} >
+                <TouchableOpacity onPress={() =>{ navigation.navigate(routes.VOTE_SCREEN)}} style={[styles.btnComment,{backgroundColor:theme.colors.secondary,marginRight:getSize.m(4)}]} >
                   <Text style={[styles.txtComment,{color: theme.colors.white}]}>Viết đánh giá</Text>
                 </TouchableOpacity>
               </Block>
               <Block flex alignCenter>
               <TouchableOpacity  style={[styles.btnComment,{marginLeft:getSize.m(4)}]} >
-                  <Text style={styles.txtComment}>Xem 10 đánh giá</Text>
+                  <Text style={[styles.txtComment,{color:theme.colors.secondary}]}>Xem {dataComment.length} đánh giá</Text>
                 </TouchableOpacity>
               </Block>
             </Block>

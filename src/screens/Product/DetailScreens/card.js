@@ -57,7 +57,7 @@ const CommentCard = ({item}) => {
             {id_user.name_user}
           </Text>
           <Text size={14}>{content}</Text>
-          {image == null ? null : (
+          {image == null || image=='' ? null : (
             <Thumbnail
               source={{uri: image}}
               style={{width: 90, height: 70}}

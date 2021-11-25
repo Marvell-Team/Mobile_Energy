@@ -5,7 +5,9 @@ export async function getCommentsApi(input) {
     console.log(input);
     console.log('aaa')
     return axios
-      .post(api+'/comment',input)
+      .post(api+'/comment',input,{
+        headers: { 'Authorization': `Bearer ${useData.token}` },
+      })
       .then((response) => {
         console.log('response catch => getCommentsApi => '+response.data);
         console.log(response.data);
