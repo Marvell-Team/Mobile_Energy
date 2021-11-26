@@ -17,11 +17,15 @@ import {category, listProduct} from '@utils/dummyData';
 import {useIsFocused} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
 import {routes} from '@navigation/routes';
-import {connect} from 'react-redux';
+
 import {
   getProductbyCategories,
   getProductbyIdAction,
 } from '../../../redux/actions';
+import {useData} from 'config/config';
+import {connect} from 'react-redux';
+import {getCateGoryAction} from '@redux/actions';
+
 const mapStateToProps = state => {
   console.log(state.getProductByCategoriesReducer.data);
   return {
@@ -34,6 +38,16 @@ const mapStateToProps = state => {
     loadding: state.getProductByCategoriesReducer
       ? state.getProductByCategoriesReducer.loadding
       : null,
+
+    errorCate: state.getCategoriesReducer
+      ? state.getCategoriesReducer.error
+      : null,
+    data1Cate: state.getCategoriesReducer
+      ? state.getCategoriesReducer.data
+      : null,
+    loaddingCate: state.getCategoriesReducer
+      ? state.getCategoriesReducer.loadding
+      : null,
   };
 };
 
@@ -45,6 +59,9 @@ const mapDispatchToProps = dispatch => {
     getProductbyIdAction: id => {
       dispatch(getProductbyIdAction(id));
     },
+    getCateGoryAction: categori => {
+      dispatch(getCateGoryAction(categori));
+    },
   };
 };
 
@@ -54,9 +71,12 @@ const HomeScreens = ({
   getProductbyIdAction,
   loadding,
   error,
+  getCateGoryAction,
+  data1Cate,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [salesList, setSalesList] = useState([]);
+  const [dataCate, setDataCate] = useState([]);
   const navigation = useNavigation();
   useEffect(() => {
     getProductbyCategories('PHONE');
@@ -66,6 +86,15 @@ const HomeScreens = ({
       setSalesList(data.data);
     }
   }, [data]);
+  useEffect(() => {
+    if (data1Cate !== null) {
+      setDataCate(data1Cate.data);
+    }
+  }, [data1Cate]);
+  useEffect(() => {
+    getCateGoryAction('PHONE');
+  }, []);
+
   const handlePressCategory = index => {};
 
   const blockListProduct = useCallback(() => {
@@ -106,7 +135,9 @@ const HomeScreens = ({
   return (
     <Block flex style={styles.container}>
       <Block row style={styles.header}>
-        <Text style={styles.headerTitle}>Hello, Kiet</Text>
+        <Text style={[styles.headerTitle, {fontWeight: 'bold'}]}>
+          Energy Moblie
+        </Text>
         <Thumbnail
           source={icons.search}
           style={styles.viewIcon}
@@ -132,7 +163,7 @@ const HomeScreens = ({
         <Block style={styles.blockCategory}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <FlatList
-              data={category}
+              data={dataCate}
               style={{alignSelf: 'center'}}
               numColumns={5}
               renderItem={({item}) => <CategoryItem item={item} />}

@@ -88,12 +88,15 @@ export function* watchgetProductByCategoriesChildSaga(){
 }
 function* getProductByCategoriesChildSaga(action){
     const {data}=action;
-    const response = yield getProductByCategorysChild(data);   
+    const response = yield getProductByCategorysChild(data);  
+    console.log(response);
+    console.log('SAGA') 
     try {
          // kiem tra xem co goi dc api ko 
     if(response !==undefined && response!==null){ 
         if(response.status===1){
             //thanh cong sẽ put về
+            console.log('SAGA') 
             yield put({type:GET_PRODUCT_BY_CATEGORYS_CHILD_SUCCESS,response})
         }else{
             //truong hợp này gọi tới sever bi sever báo lỗi về

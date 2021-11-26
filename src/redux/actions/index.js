@@ -8,6 +8,7 @@ import { GET_STORE, GET_STORE_BY_ID,  } from './StoreAction';
 import { GETONE_USER, UPDATE_USER } from './UserAction';
 import { ADD_COMMENT, GET_COMMENT } from './CommentAction';
 import { GET_NOTIFICATION_BY_USER } from './NotificationAction';
+import { GET_CATEGORY } from './CategoriesAction';
 
 export const loginAction = (user, password) => {
   return {
@@ -223,6 +224,16 @@ export const getNotificationByUserAction = (input)=>{
   console.log('==============>>>>>>>>>>>>> getNotificationByUserAction ================>>>>>>>>>>')
   return {
     type:GET_NOTIFICATION_BY_USER,
+    data:input,
+  };
+
+}
+
+//get Category 
+export const getCateGoryAction = (input)=>{
+  console.log('==============>>>>>>>>>>>>> getCateGoryAction ================>>>>>>>>>>')
+  return {
+    type:GET_CATEGORY,
     data:input,
   };
 

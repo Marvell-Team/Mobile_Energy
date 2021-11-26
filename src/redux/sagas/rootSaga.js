@@ -9,6 +9,7 @@ import { watchEditLike, watchGetLikeByUser, watchRemoveLike, watchStatusLike } f
 import { watchGetFavorite, watchGetFavoriteById } from './favoriteSaga';
 import { watchAddComment, watchGetComment } from './commentSaga';
 import { watchGetNotificationByUser } from './notificationSaga';
+import { watchGetCategory } from './categoriesSaga';
 export default function* rootSaga() {
   yield all([
     watchLogin(),
@@ -36,5 +37,6 @@ export default function* rootSaga() {
     watchAddComment(),
     watchGetLikeByUser(),
     watchGetNotificationByUser(),
+    watchGetCategory(),
   ]);
 }

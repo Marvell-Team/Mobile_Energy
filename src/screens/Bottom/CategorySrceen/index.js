@@ -15,28 +15,53 @@ import axios from 'axios';
 const categori = [
   { id: 2, name: 'Điện thoại',nameid:'PHONE' },
   { id: 3, name: 'Phụ kiện',nameid:'ACCESSORY' },
-
 ];
-const Category = ({ }) => {
-  useEffect(() => {
-    // getListCategory();
-    getListCategory('PHONE');
-    setStatusFilter(2);
-  }, [])
- 
+import {connect} from 'react-redux';
+import { getCateGoryAction } from '@redux/actions';
+const mapStateToProps = state => {
+  return {
+    error: state.getCategoriesReducer
+      ? state.getCategoriesReducer.error
+      : null,
+    data1: state.getCategoriesReducer
+      ? state.getCategoriesReducer.data
+      : null,
+    loadding: state.getCategoriesReducer
+      ? state.getCategoriesReducer.loadding
+      : null,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getCateGoryAction: categori => {
+      dispatch(getCateGoryAction(categori));
+    },
+    
+  };
+};
+const CartCard = ({ item }) => {
+  return (
+    <View style={style.cartCard}>
+      <CategoryItem item={item} />
+      <Text style={{ fontSize: getSize.m(16), fontWeight: 'bold' }}>{item.name_category}</Text>
+    </View>
+  );
+};
+const Category = ({ getCateGoryAction,data1}) => {
   const [data, setData] = useState([]);
   const [isLoading, setisLoading] = useState(true);
-  const getListCategory = (text) => {
-   const apiURL = api + '/category/'+text;
-    axios.get(apiURL).then(
-     response => {setData(response.data.data)}
-   ).catch(err =>
-    {console.log(err)}
-    )
-  }
-
-  
   const [status, setStatus] = useState();
+  useEffect(() => {
+    // getListCategory();
+    getCateGoryAction('PHONE');
+    setStatusFilter(2);
+  }, [])
+  useEffect(() => {
+    if(data1 !== null){
+      setData(data1.data)
+    }
+  }, [data1])
   const jewelStyle = id => {
     if (id === status) {
       return {
@@ -75,15 +100,7 @@ const Category = ({ }) => {
   const setStatusFilter = id => {
     setStatus(id);
   };
-  const CartCard = ({ item }) => {
-    return (
-      <View style={style.cartCard}>
-        <CategoryItem item={item} />
-        <Text style={{ fontSize: getSize.m(16), fontWeight: 'bold' }}>{item.name_category}</Text>
-        
-      </View>
-    );
-  };
+ 
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.white, flex: 1 }}>
       <Block
@@ -152,7 +169,7 @@ const Category = ({ }) => {
           <TouchableOpacity
             style={[jewelStyle(item.id), { width: '37%', justifyContent: 'center', alignItems: 'center', margin: 10 }]}
             onPress={() => {
-              getListCategory(item.nameid);
+              getCateGoryAction(item.nameid);
               console.log(item.nameid);
               setStatusFilter(item.id);
             }}>
@@ -210,6 +227,5 @@ const style = StyleSheet.create({
   },
 
 });
+export default connect(mapStateToProps, mapDispatchToProps)(Category);
 
-
-export default Category;

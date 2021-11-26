@@ -15,6 +15,9 @@ import {getSize} from '@utils/responsive';
 import { routes } from '@navigation/routes';
 import { formatCurrency } from '@utils/utils';
 import Product_Card from '@components/Card/ProductCard2';
+import { getProductByCategoriesChild } from '@redux/actions';
+import {connect} from 'react-redux';
+import { GET_PRODUCT_BY_CATEGORYS_CHILD } from '@redux/actions/ProductAction';
 const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
 const categori = [
@@ -22,14 +25,44 @@ const categori = [
   {id: 3, name: 'Mới nhất'},
   {id: 4, name: 'Bán chạy'},
 ];
-const Product = () => {
+const mapStateToProps = state => {
+    return {
+
+      loadingCategories: state.getProductByCategoriesChildReducer? state.getProductByCategoriesChildReducer.loading: null,
+      dataCategories: state.getProductByCategoriesChildReducer ? state.getProductByCategoriesChildReducer.data: null,
+      errorCategories: state.getProductByCategoriesChildReducer ? state.getProductByCategoriesChildReducer.error : null,
+  
+  };
+  }
+  const mapDispatchToProps = dispatch => {
+  
+   return {
+     getProductByCategoriesChild: (id) => {
+       dispatch(getProductByCategoriesChild(id));
+     },
+   };
+  };
+const Product = ({getProductByCategoriesChild,dataCategories}) => {
   const navigation = useNavigation();
   const route = useRoute();
-  const {item} = route.params;
+  const {id,type} = route.params;
   const [status, setStatus] = useState();
+  const [data, setData] = useState([])
   const setStatusFilter = id => {
     setStatus(id);
   };
+  useEffect(() => {
+      if(type ===GET_PRODUCT_BY_CATEGORYS_CHILD){
+        getProductByCategoriesChild(id)
+      }
+  }, [])
+  useEffect(() => {
+    if(type === GET_PRODUCT_BY_CATEGORYS_CHILD){
+          if(dataCategories!==null){ 
+                setData(dataCategories.data);       
+          }
+      }
+  }, [dataCategories])
   const jewelStyle = id => {
     if (id === status) {
       return {
@@ -80,7 +113,6 @@ const Product = () => {
               style={{width: getSize.s(20), height: getSize.s(20)}}
               resizeMode="contain"
               onPress={() => {
-                setData([])
                 navigation.goBack();
               }}
             />
@@ -162,7 +194,7 @@ const Product = () => {
 
       <Block flex alignCenter justifyCenter marginTop={10}>
         <FlatList
-          data={item}
+          data={data}
           numColumns={2}
           renderItem={({item, index}) => <Product_Card item={item} />}
         />
@@ -171,6 +203,6 @@ const Product = () => {
   );
 };
 
+export default connect (mapStateToProps, mapDispatchToProps)(Product);
 
 
-export default Product;

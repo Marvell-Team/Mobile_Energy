@@ -24,7 +24,7 @@ import getCommentsReducer from './Comment/getCommentReducer';
 import addCommentsReducer from './Comment/addCommentReducer';
 import getLikeByUserReducer from './Like/getLikeByUserReducer';
 import getNotificationByUserReducer from './Notification/getNotificationByUserReducer';
-
+import getCategoriesReducer from './Categories/getCategoriesReducer'
 const allReducers=combineReducers({
     loginReducers,
     signupReducer,
@@ -50,5 +50,7 @@ const allReducers=combineReducers({
     addCommentsReducer,
     getLikeByUserReducer,
     getNotificationByUserReducer,
+    getProductByCategoriesChildReducer,
+    getCategoriesReducer
 });
 export default allReducers;
