@@ -473,15 +473,12 @@ const DetailScreens = ({
               }}
             />
             <FlatList
-            
               ItemSeparatorComponent={
                 Platform.OS !== 'android' &&
                 (({highlighted}) => (
-                  
                   <Block
                     style={[styles.separator, highlighted && {marginLeft: 0}]}
                   />
-                  
                 ))
               }
               data={dataComment}
@@ -500,7 +497,6 @@ const DetailScreens = ({
                 </TouchableOpacity>
               </Block>
             </Block>
-            
           </Block>
         </Block>
       </ScrollView>
@@ -509,16 +505,7 @@ const DetailScreens = ({
         <TouchableOpacity
           onPress={() => setModalVisible(true)}
           style={{
-            flex: 2,
-            backgroundColor: '#186999',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Thumbnail source={icons.cart} style={{width: 25, height: 25}} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            flex: 3,
+            flex: 1,
             backgroundColor: theme.colors.primary,
             alignItems: 'center',
             justifyContent: 'center',
