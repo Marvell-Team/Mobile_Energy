@@ -9,4 +9,9 @@ export default StyleSheet.create({
     backgroundColor: theme.colors.grey, 
   },
 
+  txt: {
+    color: theme.colors.black,
+    alignSelf: 'center',
+    fontSize: 18,
+  },
 });
