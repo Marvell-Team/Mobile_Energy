@@ -37,18 +37,10 @@ function timeSince(date) {
 
 const FlatCard = ({item, getBillDetailByIdAction}) => {
   const navigation = useNavigation();
-  const [imageProduct, setImageProduct] = useState([]);
+  const [imageProduct, setImageProduct] = useState([0]);
 
   const {nameProduct} = item.id_billdetail.products[0].id_product;
   const {image} = item.id_billdetail.products[0].id_product.id_image.nameImage[0];
-
-  // useEffect(() => {
-  //   const product=item.id_billdetail.products;
-  //   if(product.length>0){
-  //     console.log(product[0].id_product.id_image.nameImage[0]);
-  //     console.log('======================>>>>>>>>>>>>>>>> IMAGE: ')
-  //   }
-  // }, [item])
 
   useEffect(() => {
     if (image !== null) {
@@ -60,29 +52,21 @@ const FlatCard = ({item, getBillDetailByIdAction}) => {
     }
   }, [image]);
 
-  //nham 
- //thui tui cho ong tu set zo nhe
- //user  name: item.id_user.name_user  image:item.id_user.image tí tự copy vao
- // phần product ay ông custom them cho tui cái mã id thui nó nằm trên content
- //prodct  image : item.id_billdetail.products[0].id_product.id_image.nameImage[0]
+  useEffect(() => {
+    if (imageProduct !== null) {
+      console.log(imageProduct);
+      console.log(
+        '===============>>>>>>>>>>>>>>>>>>>>> image ==========>>>>>>>>>>>>>>>>',
+      );
+    }
+  }, [imageProduct]);
 
-  //const {id_product, content, date, id_image} = item;
-  //console.log(id_image.nameImage[0]);
-
-  //console.log('==================================== id_image.nameImage[0]');
-  //console.log(item.data.id_billdetail.products.id_product.nameProduct);
-  //console.log('==================================== nameProduct');
-  //ong cho hinh anh cai avatar la cua ca nhan nha neu chua co hinh anh thi cho vao cai incon.avt
-  //Cái hình product bó tay rồi hả? // ko lay ra r do // tai co card no ko hinh anh 
-  //nen ms underfile ong bo vao cai useState r setImage vao cho cho 
-  //dieu kien luon con tui chỉnh lại cái card cho
   return (
     <Pressable onPress={() => {
       getBillDetailByIdAction(item.id_billdetail._id),
-      console.log(item)
-      console.log(item.id_billdetail._id)
-
-      console.log('========================>>>>>>>>>>>>>>>>>>>>> ID_BILLDETAIL')
+      //console.log(item)
+      //console.log(item.id_billdetail._id)
+      //console.log('========================>>>>>>>>>>>>>>>>>>>>> ID_BILLDETAIL')
       navigation.navigate(routes.ORDERDETAIL,{id:item.id_billdetail._id});
     }}>
       <Block flex column margin={8} backgroundColor={theme.colors.white} borderRadius={8}> 
@@ -114,7 +98,7 @@ const FlatCard = ({item, getBillDetailByIdAction}) => {
                 
             <Image
               style={styles.viewContentImage}
-              source={{uri: imageProduct}}/>
+              source={{uri: item.id_billdetail.products[0].id_product.id_image.nameImage[0]}}/>
 
             <Text style={styles.txtContent}> Mã đơn hàng: {item._id} </Text>
 
