@@ -3,7 +3,10 @@ import { api } from 'config/config';
 
 export async function getProduct() {
     return axios
-      .get('http://10.0.2.2:3000/product')
+      .post(api+'/product/type',{
+        sell:null,
+        price:null
+    })
       .then((response) => {
         console.log('response catch => getLoginApi => '+response.data);
         return response.data;
@@ -25,9 +28,12 @@ export async function getProduct() {
   }
 
   export async function getProductByCategorys(categori) {
-    console.log(categori)
+    const {name,price,sell}=categori;
     return axios
-      .get(api+'/product/'+categori)
+      .post(api+'/product/'+name,{
+        sell:price,
+        price:sell
+    })
       .then((response) => {
         console.log('response catch => getProductApi => '+response.data);
         console.log(response.data);
@@ -104,9 +110,12 @@ export async function getProduct() {
       });
   }
   export async function getProductByCategorysChild(categori) {
-    console.log(categori)
+    const {name,price,sell}=categori;
     return axios  
-      .get(api+'/product/categorys/'+categori)
+      .post(api+'/product/categorys/'+name,{
+        sell:price,
+        price:sell
+    })
       .then((response) => {
         console.log('response catch => getProductByCategoriesChildApi => '+response.data);
         console.log(response.data);

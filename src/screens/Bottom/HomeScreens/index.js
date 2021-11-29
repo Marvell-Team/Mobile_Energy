@@ -21,6 +21,7 @@ import {routes} from '@navigation/routes';
 import {
   getProductbyCategories,
   getProductbyIdAction,
+  getProduct
 } from '../../../redux/actions';
 import {useData} from 'config/config';
 import {connect} from 'react-redux';
@@ -48,6 +49,17 @@ const mapStateToProps = state => {
     loaddingCate: state.getCategoriesReducer
       ? state.getCategoriesReducer.loadding
       : null,
+    
+      errorPrdt: state.getProductReducer
+      ? state.getProductReducer.error
+      : null,
+    dataPrdt: state.getProductReducer
+      ? state.getProductReducer.data
+      : null,
+    loaddingPrdt: state.getProductReducer
+      ? state.getProductReducer.loadding
+      : null,   
+        
   };
 };
 
@@ -62,6 +74,9 @@ const mapDispatchToProps = dispatch => {
     getCateGoryAction: categori => {
       dispatch(getCateGoryAction(categori));
     },
+    getProduct: categori => {
+      dispatch(getProduct(categori));
+    },
   };
 };
 
@@ -70,16 +85,19 @@ const HomeScreens = ({
   getProductbyCategories,
   getProductbyIdAction,
   loadding,
+  getProduct,
   error,
+  dataPrdt,
   getCateGoryAction,
   data1Cate,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [salesList, setSalesList] = useState([]);
+  const [dataasscess, setDataasscess] = useState([])
   const [dataCate, setDataCate] = useState([]);
   const navigation = useNavigation();
   useEffect(() => {
-    getProductbyCategories('PHONE');
+    getProductbyCategories({name:'PHONE',price:null,sell:null});
   }, [getProductbyCategories]);
   useEffect(() => {
     if (data !== null) {
@@ -97,12 +115,12 @@ const HomeScreens = ({
 
   const handlePressCategory = index => {};
 
-  const blockListProduct = useCallback(() => {
+  const blockListProduct = useCallback(({title,data}) => {
     // console.log('DATA >>> ', salesList);
     return (
       <Block style={styles.blockProductContainer}>
         <Block style={styles.blockTitle}>
-          <Text style={styles.textTitle}>TOP SẢN PHẨM ĐANG GIẢM GIÁ</Text>
+          <Text style={styles.textTitle}>{title}</Text>
           <Pressable
             onPress={() => getProductbyCategories('PHONE')}
             style={styles.viewMore}>
@@ -170,8 +188,8 @@ const HomeScreens = ({
             />
           </ScrollView>
         </Block>
-        {blockListProduct()}
-        {blockListProduct()}
+        {blockListProduct({title:'SẢN PHẨM PHỔ BIẾN'})}
+        {blockListProduct({title:'PHỤ KIỆN PHỔ BIẾN'})}
       </ScrollView>
     </Block>
   );

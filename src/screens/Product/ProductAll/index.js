@@ -53,7 +53,7 @@ const Product = ({getProductByCategoriesChild,dataCategories}) => {
   };
   useEffect(() => {
       if(type ===GET_PRODUCT_BY_CATEGORYS_CHILD){
-        getProductByCategoriesChild(id)
+        getProductByCategoriesChild({name:id,price:null,sell:null})
       }
   }, [])
   useEffect(() => {
