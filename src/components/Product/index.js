@@ -22,10 +22,17 @@ const categori = [
   {id: 3, name: 'Mới nhất'},
   {id: 4, name: 'Bán chạy'},
 ];
-const Product = () => {
+const Product = ({data}) => {
+  const [data1,setData1 ] = useState([])
+  useEffect(() => {
+    if (data !== null){
+      setData1(data.data)
+    }
+  }, [data])
+  
   const navigation = useNavigation();
   const route = useRoute();
-  const {item} = route.params;
+  //  const {item} = route.params;
   const [status, setStatus] = useState();
   const setStatusFilter = id => {
     setStatus(id);
@@ -152,7 +159,7 @@ const Product = () => {
                   : {borderRightWidth: 0.7},
               ]}
               size={getSize.m(18)}>
-              {item.name}
+               {item.name} 
             </Text>
           </TouchableOpacity>
         ))}
@@ -161,7 +168,7 @@ const Product = () => {
 
       <Block flex alignCenter justifyCenter marginTop={10}>
         <FlatList
-          data={item}
+          data={data1}
           numColumns={2}
           renderItem={({item, index}) => <ProductCard2 item={item} />}
         />

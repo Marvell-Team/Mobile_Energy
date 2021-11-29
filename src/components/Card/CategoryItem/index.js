@@ -32,12 +32,20 @@ const mapDispatchToProps = dispatch => {
 };
 const CategoryItem = ({item,getProductByCategoriesChild,dataCategories,data,_id}) => {
   const navigation = useNavigation();
+<<<<<<< HEAD
+  //  const onPress = () => {getProductByCategoriesChild(item._id)
+  //  console.log('ITEM >>>>>> ', item._id);
+  // const onPress= () => navigation.navigate(routes.PRODUCRTSRC);
+  
+  useEffect(() => { 
+=======
   const onPress = () => {
    // getProductByCategoriesChild(item._id);  
     console.log(item._id)
     navigation.navigate(routes.PRODUCTCUSTOM,{id:item._id,type:GET_PRODUCT_BY_CATEGORYS_CHILD})
   };
  useEffect(() => { 
+>>>>>>> d21793440c2e98dc59e45fa25cf40de728d22be5
    if(dataCategories !==null){
      console.log(dataCategories.data)
      console.log('========>aaa')
@@ -47,10 +55,11 @@ const CategoryItem = ({item,getProductByCategoriesChild,dataCategories,data,_id}
   return (
     <Thumbnail
       source={{uri:item.img_categorys}}
-      onPress={() => onPress()}
+      onPress={() =>navigation.navigate(routes.PRODUCRTSRC,{item:item._id})}
       style={styles.boxImg}
       imageStyle={styles.img_category}
       resizeMode="contain"
+
     />
   );
 };

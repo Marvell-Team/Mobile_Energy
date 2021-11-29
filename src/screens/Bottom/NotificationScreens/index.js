@@ -1,59 +1,101 @@
-import React, {useState} from 'react';
-import {ToastAndroid} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {ToastAndroid, FlatList, Text} from 'react-native';
 import {icons} from '@assets';
-import {Block, Header, NotifiList} from '@components';
+import {Block, FlatCard, Header, NotifiList} from '@components';
 import styles from './style';
+import {connect} from 'react-redux';
 
-const noti = [
-  {
-    id: 1,
-    title: 'Top sản phẩm giảm giá đang được rao bán!',
-    time: '3 giờ trước',
-    image: 'https://p.turbosquid.com/ts-thumb/xj/I0MFEa/Kd/thumbnail/jpg/1632216275/2000x2000/fit_q99/e0f8fd0d8853a14ec04ac4ea03a43d191fb8b56c/thumbnail.jpg',
-    content: 'Giảm giá đến 1% nhanh tay rước vài em điện thoại xịn xò nào!',
-  },
+import {useData} from 'config/config';
+import {getBillDetailByIdAction, getNotificationByUserAction} from '@redux/actions';
 
-  {
-    id: 2,
-    title: 'Đặt hàng thành công!',
-    time: '3 giờ trước',
-    image: 'https://p.turbosquid.com/ts-thumb/xj/I0MFEa/Kd/thumbnail/jpg/1632216275/2000x2000/fit_q99/e0f8fd0d8853a14ec04ac4ea03a43d191fb8b56c/thumbnail.jpg',
-    content: 'Đơn hàng sẽ giao tới bạn trong 3 ngày tới!',
-  },
+const mapStateToProps = state => {
+  // console.log(state.getNotificationByUserReducer.data);
+  // console.log(
+  //   '=============>>>>>>>>>>>>> getNotificationByUserReducer ===============>>>>>>>>>>> ',
+  // );
+  return {
+    error: state.getNotificationByUserReducer
+      ? state.getNotificationByUserReducer.error
+      : null,
+    data1: state.getNotificationByUserReducer
+      ? state.getNotificationByUserReducer.data
+      : null,
+    loadding: state.getNotificationByUserReducer
+      ? state.getNotificationByUserReducer.loadding
+      : null,
+  };
+};
 
-  {
-    id: 3,
-    title: 'Đặt hàng thành công!',
-    time: '3 giờ trước',
-    image: 'https://p.turbosquid.com/ts-thumb/xj/I0MFEa/Kd/thumbnail/jpg/1632216275/2000x2000/fit_q99/e0f8fd0d8853a14ec04ac4ea03a43d191fb8b56c/thumbnail.jpg',
-    content: 'Sao hủy zậy a zai? Ko hài lòng gì à? Mua lại đi :>',
-  },
+const mapDispatchToProps = dispatch => {
+  return {
+    getNotificationByUserAction: id => {
+      dispatch(getNotificationByUserAction(id));
+    },
+    getBillDetailByIdAction: id => {
+      dispatch(getBillDetailByIdAction(id));
+    },
+  };
+};
 
-  {
-    id: 4,
-    title: 'Đặt hàng thành công!',
-    time: '3 giờ trước',
-    image: 'https://p.turbosquid.com/ts-thumb/xj/I0MFEa/Kd/thumbnail/jpg/1632216275/2000x2000/fit_q99/e0f8fd0d8853a14ec04ac4ea03a43d191fb8b56c/thumbnail.jpg',
-    content: 'Nhanh tay rước em iPhone 13 tuyệt đẹp nào!',
-  },
+const NotificationScreens = ({data1, getNotificationByUserAction, getBillDetailByIdAction}) => {
+   const [data2, setData2] = useState([]);
+  useEffect(() => {
+    if (useData.token !== null && useData.id !== null) {
+      getNotificationByUserAction(useData.id);
+      // console.log(useData.id);
+      // console.log(
+      //   '============>>>>>>>>>>>> getLikeByUserAction(useData.id) =============>>>>>>>>>>>',
+      // );
 
-  {
-    id: 5,
-    title: 'Đánh giá app ngay, nhận quà liền tay!',
-    time: '3 giờ trước',
-    image: 'https://p.turbosquid.com/ts-thumb/xj/I0MFEa/Kd/thumbnail/jpg/1632216275/2000x2000/fit_q99/e0f8fd0d8853a14ec04ac4ea03a43d191fb8b56c/thumbnail.jpg',
-    content: 'Nhận ngay voucher giảm 1k trên đơn hàng 990k!',
-  },
-];
-const NotificationScreens = () => {
-  const [data, setData] = useState(noti);
-  console.log(data);
+      // console.log(useData.token);
+      // console.log('======================>>>>>>>>>>>>>>>>>>>>>> TOKEN: ');
+    }
+  }, [getNotificationByUserAction]);
+
+  useEffect(() => {
+    if (data1 !== null) {
+      setData2(data1.data);
+      // console.log(data1.data);
+      // console.log(
+      //   '===============>>>>>>>>>>>>>> NotificationScreens =============>>>>>>>>>>>',
+      // )
+    }
+  }, [data1]);
+
+  useEffect(() => {
+    if (data2 !== null) {
+      console.log(data2);
+      console.log(
+        '===============>>>>>>>>>>>>>> DATA22222222222 =============>>>>>>>>>>>',
+      )
+    }
+  }, [data2]);
+
+ 
+  // console.log(data2);
+  // console.log(
+  //   '===============>>>>>>>>>>>>>> data =============>>>>>>>>>>>',
+  // );
   return (
     <Block flex style={styles.container}>
-      <Header title="Thông báo"/>
-      <NotifiList data={data} />
+      <Header title="Thông báo" />
+      <Block flex justifyCenter>
+        {Array.isArray(data2) && data2.length ? (
+          <FlatList
+            data={data2.reverse()}
+            showsVerticalScrollIndicator={false}
+            renderItem={({item}) =>
+             <FlatCard
+              getBillDetailByIdAction={getBillDetailByIdAction}
+              item={item} 
+            />}
+          />
+        ) : (
+          <Text style={styles.txt}>Bạn chưa like bài đăng nào!</Text>
+        )}
+      </Block>
     </Block>
   );
 };
 
-export default NotificationScreens;
+export default connect(mapStateToProps,mapDispatchToProps)(NotificationScreens);
