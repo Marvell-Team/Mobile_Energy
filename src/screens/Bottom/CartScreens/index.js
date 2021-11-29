@@ -8,12 +8,15 @@ import {
   StatusBar,
   FlatList,
   TouchableOpacity,
-  Alert
+  Alert,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from './colors';
 import Phones from './Phones';
+import {height, width} from '@utils/responsive';
+import {theme} from '@theme';
+
 import {PrimaryButton} from './Button';
 import Count from '@components/Count';
 import {formatCurrency} from '@utils/utils';
@@ -53,15 +56,15 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate}) => {
   const [dataCart, setDataCart] = useState([]);
   const [dataID, setDataID] = useState('');
   const [dataTotal, setDataTotal] = useState(0);
+  const [checktoken, setChecktoken] = useState(null);
+
   useEffect(() => {
     if (useData.token !== null) {
       getCartByUser(useData.id);
     }
   }, [UpdateCartByUser, dataUpdate, getCartByUser]);
   useEffect(() => {
-    if (useData.token === null) {
-      navigation.navigate(routes.LOGINSCREENS);
-    } else {
+    if (useData.token !== null) {
       if (data !== null) {
         console.log(data.data);
         setDataCart(data.data.products);
@@ -70,7 +73,10 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate}) => {
       }
     }
   }, [data]);
-
+  useEffect(() => {
+    console.log('token' + useData.token);
+    setChecktoken(useData.token);
+  }, [useData.token]);
   return (
     <SafeAreaView style={{backgroundColor: COLORS.white, flex: 1}}>
       <View style={style.header}>
@@ -78,47 +84,93 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate}) => {
           Giỏ Hàng
         </Text>
       </View>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{paddingBottom: 80}}
-        data={dataCart}
-        renderItem={({item, index}) => (
-          <CartCard
-            setDataTotal={setDataTotal}
-            dataTotal={dataTotal}
-            item={item}
-            index={index}
-            dataCart={dataCart}
-            dataID={dataID}
-            UpdateCartByUser={UpdateCartByUser}
-          />
-        )}
-        ListFooterComponentStyle={{paddingHorizontal: 20, marginTop: 20}}
-      />
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingHorizontal: 12,
-          position: 'absolute',
-          bottom: 8,
-          marginTop: 8,
-        }}>
-        <View style={{width: '50%', justifyContent: 'center'}}>
-          <Text style={{fontSize: 18}}>Tổng</Text>
-          <Text style={{fontSize: 20, fontWeight: 'bold', color: 'red'}}>
-            {formatCurrency(dataTotal)}
-          </Text>
+      {checktoken === null ? (
+        <View style={{backgroundColor: COLORS.light}}>
+          <View
+            style={{
+              width: '100%',
+              height: '88%',
+              alignItems: 'center',
+              justifyContent: 'center',
+              paddingVertical: getSize.m(20),
+              flexDirection: 'row',
+            }}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate(routes.LOGINSCREENS);
+              }}
+              style={[
+                style.button,
+                {width: width / 3, alignItems: 'flex-end'},
+              ]}>
+              <Text style={[style.textbtn]}>Đăng nhập</Text>
+            </TouchableOpacity>
+            <View
+              style={{
+                paddingVertical: getSize.m(10),
+                backgroundColor: theme.colors.white,
+              }}>
+              <Text style={style.textbtn}>/</Text>
+            </View>
+
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate(routes.SIGNUPSCREENS);
+              }}
+              style={[
+                style.button,
+                {width: width / 3, alignItems: 'flex-start'},
+              ]}>
+              <Text style={style.textbtn}>Đăng ký</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={{width: '50%'}}>
-          <PrimaryButton
-            title="Mua Hàng"
-            onPress={() => {
-              navigation.navigate(routes.PAYMENT_SCREEN);
-            }}
+      ) : (
+        <View style={{flex:1}}>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{paddingBottom: 80}}
+            data={dataCart}
+            renderItem={({item, index}) => (
+              <CartCard
+                setDataTotal={setDataTotal}
+                dataTotal={dataTotal}
+                item={item}
+                index={index}
+                dataCart={dataCart}
+                dataID={dataID}
+                UpdateCartByUser={UpdateCartByUser}
+              />
+            )}
+            ListFooterComponentStyle={{paddingHorizontal: 20, marginTop: 20}}
           />
+          <View
+            style={{
+              
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              paddingHorizontal: 12,
+              position: 'absolute',
+              bottom: 8,
+              marginTop: 8,
+            }}>
+            <View style={{width: '50%', justifyContent: 'center'}}>
+              <Text style={{fontSize: 18}}>Tổng</Text>
+              <Text style={{fontSize: 20, fontWeight: 'bold', color: 'red'}}>
+                {formatCurrency(dataTotal)}
+              </Text>
+            </View>
+            <View style={{width: '50%'}}>
+              <PrimaryButton
+                title="Đặt Hàng"
+                onPress={() => {
+                  navigation.navigate(routes.PAYMENT_SCREEN);
+                }}
+              />
+            </View>
+          </View>
         </View>
-      </View>
+      )}
     </SafeAreaView>
   );
 };
@@ -169,17 +221,14 @@ const CartCard = ({
     }
   };
 
-<<<<<<< HEAD
-  const img =(str)=>{
-    if(str===undefined){
+  const img = str => {
+    if (str === undefined) {
       return null;
+    } else {
+      const newstr = str.replace(/localhost/i, '10.0.2.2');
+      return newstr;
     }
-    else{
-      const newstr=str.replace(/localhost/i, '10.0.2.2');
-      return newstr
-    }
-  }
-=======
+  };
   const removeCart = (Carts, id, idcart, index) => {
     const amountI = Carts[index].amount;
     var filtered = Carts.filter(function (el) {
@@ -195,73 +244,68 @@ const CartCard = ({
       total: parseInt(dataTotal) - parseInt(price_product * amountI),
     });
   };
-  const img = str => {
-    if (str === undefined) {
-      return null;
-    } else {
-      const newstr = str.replace(/localhost/i, '10.0.2.2');
-      return newstr;
-    }
-  };
+  //  const img = str => {
+  //    if (str === undefined) {
+  //    return null;
+  //    } else {
+  //    const newstr = str.replace(/localhost/i, '10.0.2.2');
+  //     return newstr;
+  //    }
+  // };
   const createThreeButtonAlert = () =>
-    Alert.alert(
-      "Xóa Sản Phẩm",
-      "Bạn có chắc muốn bỏ sản phẩm này",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => removeCart(dataCart, item._id, dataID, index) }
-      ]
-    );
->>>>>>> 58453778e1f8f5bc811bbf7317043ddf1341ebec
+    Alert.alert('Xóa Sản Phẩm', 'Bạn có chắc muốn bỏ sản phẩm này', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {
+        text: 'OK',
+        onPress: () => removeCart(dataCart, item._id, dataID, index),
+      },
+    ]);
   return (
-
-      <View style={style.cartCard}>
-        <Image
-          source={{uri: img(id_image.nameImage[0])}}
-          style={{height: 80, width: 80}}
+    <View style={style.cartCard}>
+      <Image
+        source={{uri: img(id_image.nameImage[0])}}
+        style={{height: 80, width: 80}}
+      />
+      <View
+        style={{
+          marginLeft: 10,
+          paddingVertical: 20,
+          flex: 3,
+        }}>
+        <Text numColumns={1} style={{fontWeight: 'bold', fontSize: 18}}>
+          {nameProduct}
+        </Text>
+        <Text style={{fontSize: 14, color: COLORS.grey}}>
+          {item.ingredients}
+        </Text>
+        <Text style={{fontSize: 18, fontWeight: 'bold'}}>
+          {formatCurrency(price_product)}
+        </Text>
+      </View>
+      <View style={{alignItems: 'center', flex: 2}}>
+        <Count
+          amount={amount}
+          onPressSubtract={() => {
+            subtractCart(dataCart, dataID, index);
+          }}
+          onPressPlus={() => {
+            addCart(dataCart, dataID, index);
+          }}
         />
-        <View
-          style={{
-            marginLeft: 10,
-            paddingVertical: 20,
-            flex: 3,
-          
-          }}>
-          <Text numColumns={1} style={{fontWeight: 'bold', fontSize: 18}}>
-            {nameProduct}
-          </Text>
-          <Text style={{fontSize: 14, color: COLORS.grey}}>
-            {item.ingredients}
-          </Text>
-          <Text style={{fontSize: 18, fontWeight: 'bold'}}>
-            {formatCurrency(price_product)}
-          </Text>
-        </View>
-        <View style={{ alignItems: 'center',flex:2}}>
-          <Count
-            amount={amount}
-            onPressSubtract={() => {
-              subtractCart(dataCart, dataID, index);
-            }}
-            onPressPlus={() => {
-              addCart(dataCart, dataID, index);
-            }}
-          />
-        </View>
-
-        <View style={{height: '100%', paddingTop: 8 }}>
-          <Thumbnail
-          onPress={() => createThreeButtonAlert()}
-            source={icons.close}
-            imageStyle={{width: getSize.s(15), height: getSize.s(15)}}
-          />
-        </View>
       </View>
 
+      <View style={{height: '100%', paddingTop: 8}}>
+        <Thumbnail
+          onPress={() => createThreeButtonAlert()}
+          source={icons.close}
+          imageStyle={{width: getSize.s(15), height: getSize.s(15)}}
+        />
+      </View>
+    </View>
   );
 };
 const style = StyleSheet.create({
@@ -296,6 +340,16 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignContent: 'center',
+  },
+  button: {
+    paddingVertical: getSize.m(10),
+    backgroundColor: theme.colors.white,
+    paddingHorizontal: getSize.m(10),
+  },
+  textbtn: {
+    fontWeight: 'bold',
+    fontSize: getSize.m(18),
+    color: theme.colors.primary,
   },
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CartScreens);

@@ -16,6 +16,7 @@ export default StyleSheet.create({
     marginBottom: height * 0.04,
     justifyContent: 'center',
     alignSelf: 'center',
+    paddingTop:15
   },
 
   viewInLogo: {

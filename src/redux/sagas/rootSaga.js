@@ -24,10 +24,8 @@ export default function* rootSaga() {
     watchAddBill(),
     watchgetBill(),
     watchgetBillById(),
-<<<<<<< HEAD
     watchgetProductByCategoriesChildSaga(),
 
-=======
     watchEditLike(),
     watchStatusLike(),
     watchRemoveLike(),
@@ -36,6 +34,5 @@ export default function* rootSaga() {
     watchGetBillDetailById(),
     watchGetComment(),
     watchAddComment()
->>>>>>> 58453778e1f8f5bc811bbf7317043ddf1341ebec
   ]);
 }

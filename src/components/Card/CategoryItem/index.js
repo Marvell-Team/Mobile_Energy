@@ -32,11 +32,11 @@ const mapDispatchToProps = dispatch => {
 };
 const CategoryItem = ({item,getProductByCategoriesChild,dataCategories,data,_id}) => {
   const navigation = useNavigation();
-  const onPress = () => {getProductByCategoriesChild(item._id)
-  console.log('ITEM >>>>>> ', item._id);
-      
-  };
- useEffect(() => { 
+  //  const onPress = () => {getProductByCategoriesChild(item._id)
+  //  console.log('ITEM >>>>>> ', item._id);
+  // const onPress= () => navigation.navigate(routes.PRODUCRTSRC);
+  
+  useEffect(() => { 
    if(dataCategories !==null){
      console.log(dataCategories.data)
      console.log('========>aaa')
@@ -46,10 +46,11 @@ const CategoryItem = ({item,getProductByCategoriesChild,dataCategories,data,_id}
   return (
     <Thumbnail
       source={{uri:item.img_categorys}}
-      onPress={() => onPress()}
+      onPress={() =>navigation.navigate(routes.PRODUCRTSRC,{item:item._id})}
       style={styles.boxImg}
       imageStyle={styles.img_category}
       resizeMode="contain"
+
     />
   );
 };

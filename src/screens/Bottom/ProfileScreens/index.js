@@ -131,6 +131,7 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
             </TouchableOpacity>
           </View>
         ) : (
+  
           <View style={{flexDirection: 'row'}}>
             <View style={{flex: 9}}>
               <View style={{flexDirection: 'row'}}>
@@ -285,12 +286,23 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
         </TouchableRipple>
         <TouchableOpacity
           onPress={async () => {
+            
             await AsyncStorage.removeItem('token');
             useData['token'] = null;
             useData['id']=null;
             logoutAction();
             setChecktoken(null);
-            navigation.navigate(routes.HOMESCREENS);
+            navigation.dispatch(
+              CommonActions.reset({
+                index: 1,
+                routes: [
+                  {
+                    name: routes.BOTTOMTABBAR,
+                  },
+                ],
+              }),
+            );
+
           }}>
           <View style={styles.menuItem}>
             <Icon name="logout" color="#FF6347" size={30} />
