@@ -91,7 +91,7 @@ const NotificationScreens = ({data1, getNotificationByUserAction, getBillDetailB
             />}
           />
         ) : (
-          <Text style={styles.txt}>Bạn chưa like bài đăng nào!</Text>
+          <Text style={styles.txt}>Bạn chưa thông báo nào!</Text>
         )}
       </Block>
     </Block>

@@ -37,10 +37,9 @@ function timeSince(date) {
 
 const FlatCard = ({item, getBillDetailByIdAction}) => {
   const navigation = useNavigation();
-  const [imageProduct, setImageProduct] = useState([]);
-
-  const {nameProduct} = item.id_billdetail.products[0].id_product;
-  const {image} = item.id_billdetail.products[0].id_product.id_image.nameImage[0];
+  const [imageProduct, setImageProduct] = useState('');
+  const [nameProduct, setNameProduct] = useState('')
+  
 
   // useEffect(() => {
   //   const product=item.id_billdetail.products;
@@ -51,31 +50,22 @@ const FlatCard = ({item, getBillDetailByIdAction}) => {
   // }, [item])
 
   useEffect(() => {
-    if (image !== null) {
+    if (item !== null) {
+      if(item.id_billdetail!==null){
+      const noti=item.id_billdetail.products;
+      if(Array.isArray(noti) && noti.length>0){
       setImageProduct(item.id_billdetail.products[0].id_product.id_image.nameImage[0]);
-      console.log(item.id_billdetail.products[0].id_product.id_image.nameImage[0]);
+    //  setNameProduct('');
+       console.log(item.id_billdetail);
+    }
       console.log(
         '===============>>>>>>>>>>>>>>>>>>>>> Image Product ==========>>>>>>>>>>>>>>>>',
       );
     }
-  }, [image]);
+    }
+  }, [item]);
 
-  //nham 
- //thui tui cho ong tu set zo nhe
- //user  name: item.id_user.name_user  image:item.id_user.image tí tự copy vao
- // phần product ay ông custom them cho tui cái mã id thui nó nằm trên content
- //prodct  image : item.id_billdetail.products[0].id_product.id_image.nameImage[0]
-
-  //const {id_product, content, date, id_image} = item;
-  //console.log(id_image.nameImage[0]);
-
-  //console.log('==================================== id_image.nameImage[0]');
-  //console.log(item.data.id_billdetail.products.id_product.nameProduct);
-  //console.log('==================================== nameProduct');
-  //ong cho hinh anh cai avatar la cua ca nhan nha neu chua co hinh anh thi cho vao cai incon.avt
-  //Cái hình product bó tay rồi hả? // ko lay ra r do // tai co card no ko hinh anh 
-  //nen ms underfile ong bo vao cai useState r setImage vao cho cho 
-  //dieu kien luon con tui chỉnh lại cái card cho
+  
   return (
     <Pressable onPress={() => {
       getBillDetailByIdAction(item.id_billdetail._id),

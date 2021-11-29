@@ -7,6 +7,7 @@ import {
   Image,
   StatusBar,
   TouchableOpacity,
+  ToastAndroid
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -138,7 +139,7 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate,loadding
               ):(  <Text style={style.txtLocal}>Mời nhập thông tin nhận hàng</Text>)}
             </Block>
             <Block>
-              <Text numColumns={2} style={{color:theme.colors.placeholder}}>
+              <Text numColumns={2} style={{color:theme.colors.placeholder,paddingLeft:getSize.m(6)}}>
                 {address!==''?address:'Xin mời chọn địa chỉ nhận hàng'}
               </Text>
             </Block>
@@ -213,7 +214,11 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate,loadding
             title="Thanh Toán"
             onPress={() => {
             // console.log({id_user:useData.id,id_cart:dataID,id_store:storeId,name:name,phone:phone})
-             addBillAction({id_user:useData.id,id_cart:dataID,id_store:storeId,name:name,phone:phone})
+             if(name !=='' && phone !== '' && address !==''){
+              addBillAction({id_user:useData.id,id_cart:dataID,id_store:storeId,name:name,phone:phone})
+             }else{
+               ToastAndroid.show('Vui lòng nhập đầy đủ thông tin',ToastAndroid.LONG);
+             }
             }}
           />
         </View>
@@ -237,19 +242,11 @@ const CartCard = ({
   }, [getCartByUser]);
   const {id_image, price_product, nameProduct} = item.id_product;
 
-  const img =(str)=>{
-    if(str===undefined){
-      return null;
-    }
-    else{
-      const newstr=str.replace(/localhost/i, '10.0.2.2');
-      return newstr
-    }
-  }
+  
   return (
     <View style={style.cartCard}>
       <Image
-        source={{uri: img(id_image.nameImage[0])}}
+        source={{uri: id_image.nameImage[0]}}
         style={{height: 90, width: 80}}
       />
       <View

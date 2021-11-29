@@ -203,14 +203,7 @@ const DetailScreens = ({
       UIManager.setLayoutAnimationEnabledExperimental(true);
     }
   }
-  const img = str => {
-    if (str === undefined) {
-      return null;
-    } else {
-      const newstr = str.replace(/localhost/i, '10.0.2.2');
-      return newstr;
-    }
-  };
+  
   const [isShow, setIsShow] = useState(false);
 
   const change = nativeEvent => {
@@ -283,7 +276,7 @@ const DetailScreens = ({
                     width: width,
                     height: height / 2.5,
                   }}
-                  source={{uri: img(item)}}></Image>
+                  source={{uri: item}}></Image>
               ))
             : null}
         </ScrollView>
@@ -566,7 +559,7 @@ const DetailScreens = ({
                 alignStart
                 paddingVertical={getSize.m(4)}>
                 <Thumbnail
-                  source={{uri: img(imageBG[0])}}
+                  source={{uri: imageBG[0]}}
                   imageStyle={{width: getSize.s(70), height: getSize.s(85)}}
                 />
               </Block>

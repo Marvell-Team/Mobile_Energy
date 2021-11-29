@@ -9,6 +9,7 @@ import {
   FlatList,
   TouchableOpacity,
   Alert,
+  ToastAndroid
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -164,7 +165,11 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate}) => {
               <PrimaryButton
                 title="Đặt Hàng"
                 onPress={() => {
-                  navigation.navigate(routes.PAYMENT_SCREEN);
+                  if(Array.isArray(dataCart) && dataCart.length){
+                    navigation.navigate(routes.PAYMENT_SCREEN);
+                  }else{
+                    ToastAndroid.show('Hiện không hàng để mua', ToastAndroid.SHORT)
+                  }
                 }}
               />
             </View>
@@ -220,28 +225,7 @@ const CartCard = ({
       });
     }
   };
-
-<<<<<<< HEAD
-  const img = str => {
-    if (str === undefined) {
-=======
-  const img =(str)=>{
-    if(str===undefined){
->>>>>>> d21793440c2e98dc59e45fa25cf40de728d22be5
-      return null;
-    } else {
-      const newstr = str.replace(/localhost/i, '10.0.2.2');
-      return newstr;
-    }
-<<<<<<< HEAD
-  };
-=======
-    else{
-      const newstr=str.replace(/localhost/i, '10.0.2.2');
-      return newstr
-    }
-  }
->>>>>>> d21793440c2e98dc59e45fa25cf40de728d22be5
+  
   const removeCart = (Carts, id, idcart, index) => {
     const amountI = Carts[index].amount;
     var filtered = Carts.filter(function (el) {
@@ -257,15 +241,7 @@ const CartCard = ({
       total: parseInt(dataTotal) - parseInt(price_product * amountI),
     });
   };
-<<<<<<< HEAD
-  //  const img = str => {
-  //    if (str === undefined) {
-  //    return null;
-  //    } else {
-  //    const newstr = str.replace(/localhost/i, '10.0.2.2');
-  //     return newstr;
-  //    }
-  // };
+ 
   const createThreeButtonAlert = () =>
     Alert.alert('Xóa Sản Phẩm', 'Bạn có chắc muốn bỏ sản phẩm này', [
       {
@@ -281,7 +257,7 @@ const CartCard = ({
   return (
     <View style={style.cartCard}>
       <Image
-        source={{uri: img(id_image.nameImage[0])}}
+        source={{uri: id_image.nameImage[0]}}
         style={{height: 80, width: 80}}
       />
       <View
@@ -309,28 +285,6 @@ const CartCard = ({
           onPressPlus={() => {
             addCart(dataCart, dataID, index);
           }}
-=======
-  
-  const createThreeButtonAlert = () =>
-    Alert.alert(
-      "Xóa Sản Phẩm",
-      "Bạn có chắc muốn bỏ sản phẩm này",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => removeCart(dataCart, item._id, dataID, index) }
-      ]
-    );
-  return (
-
-      <View style={style.cartCard}>
-        <Image
-          source={{uri: id_image.nameImage[0]}}
-          style={{height: 80, width: 80}}
->>>>>>> d21793440c2e98dc59e45fa25cf40de728d22be5
         />
       </View>
 
