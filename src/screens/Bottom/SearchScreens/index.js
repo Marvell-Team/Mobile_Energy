@@ -38,7 +38,6 @@ const mapStateToProps = state => {
     loadding: state.getProductReducer.loadding,
   };
 };
-
 const mapDispatchToProps = dispatch => {
   return {
     getProduct: () => {

@@ -107,6 +107,14 @@ const RootStack = () => {
          <Stack.Screen
           name={routes.PRODUCRTSRC}
           component={product.PRODUCRTSRC}
+          />
+        <Stack.Screen
+          name={routes.LIKELISTSCREEN}
+          component={bottom.LIKELISTSCREEN}
+        />
+        <Stack.Screen
+          name={routes.PRODUCTCUSTOM}
+          component={product.PRODUCTCUSTOM}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -8,6 +8,7 @@ import SearchScreens from './SearchScreens';
 import EditProfile from './ProfileScreens/EditProfile';
 import Category from './CategorySrceen';
 import FavoriteListScreen from './ProfileScreens/FavoriteList';
+import LikeListScreen from './ProfileScreens/LikeList';
 
 export const bottom = {
   HOMESCREENS: HomeScreens,
@@ -19,4 +20,5 @@ export const bottom = {
   EDITPROFILE: EditProfile,
   CATEGORYSRCEEN:Category,
   FAVORITELISTSCREEN: FavoriteListScreen,
+  LIKELISTSCREEN: LikeListScreen,
 };

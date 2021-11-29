@@ -29,7 +29,7 @@ const ProductCard = ({item, index, onPress, style, getProductbyIdAction}) => {
       <Block column shadow flex style={[styles.cardContainer, style]}>
         <Block style={styles.viewImg}>
           <Image
-            source={{uri: img(id_image.nameImage[0])}}
+            source={{uri: id_image.nameImage[0]}}
             style={styles.imgProduct}
             resizeMode="contain"
           />
@@ -48,7 +48,7 @@ const ProductCard = ({item, index, onPress, style, getProductbyIdAction}) => {
             {formatCurrency(price_product)}
           </Text>
         </Block>
-        <Button title="Add cart" style={styles.btnAddCart} />
+    
       </Block>
     </Pressable>
   );

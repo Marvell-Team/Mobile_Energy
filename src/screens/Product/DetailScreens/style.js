@@ -1,5 +1,6 @@
 import {StyleSheet, Dimensions,StatusBar} from 'react-native';
 import {theme} from '@theme';
+import { getSize } from '@utils/responsive';
 
 const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
@@ -19,11 +20,23 @@ export default StyleSheet.create({
     borderTopRightRadius:30,
     marginTop:-25
   },
+  txtComment:{
+    fontSize:getSize.m(16), fontWeight: 'bold',
+  },
   bodyname:{
     marginTop:20,
     marginBottom:13,
     width:width/1.1,
     backgroundColor: theme.colors.white,
+  },
+  btnComment:{
+    paddingVertical: getSize.m(10),
+    width:'100%',
+    borderRadius: getSize.m(20),
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: theme.colors.secondary,
+    borderWidth:1,
   },
   button:{
     width:width/4.5,

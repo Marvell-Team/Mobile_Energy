@@ -66,7 +66,10 @@ export const icons = {
   delete: require('./icons/delete.png'),
   local: require('./icons/local.png'),
   dollar: require('./icons/dollar.png'),
-  maleuser: require('./icons/maleuser.png')
+  maleuser: require('./icons/maleuser.png'),
+  star_corner:require('./icons/star_corner.png'),
+  star_filled:require('./icons/star_filled.png'),
+  camera:require('./icons/camera.png'),
 };
 
 export const fonts = {};

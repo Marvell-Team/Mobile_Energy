@@ -95,7 +95,7 @@ const BillCard = ({item, onPress, style, getBillAction,getBillDetailByIdAction, 
         //   Khi bấm icon down thì log ra chi tiết hóa đơn
         <TouchableRipple
               onPress={() => {
-                getBillDetailByIdAction(item._id),
+                getBillDetailByIdAction(item._id)
                 navigation.navigate(routes.ORDERDETAIL);
               }}>
         <Block shadow justifyCenter style={styles.cardContainer}>

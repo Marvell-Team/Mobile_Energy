@@ -238,7 +238,7 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
         <TouchableRipple
           onPress={() => {
             console.log(useData.token, useData.id);
-
+            navigation.navigate(routes.LIKELISTSCREEN);
           }}>
           <View style={styles.menuItem}>
             <Icon name="heart-outline" color="#FF6347" size={30} />

@@ -167,9 +167,7 @@ const Product = () => {
 };
 
 const Product_Card = ({item}) => {
-  useEffect(() => {
-    console.log(item.id_image.nameImage[0]);
-  }, []);
+  
   return (
     <Block
       style={{}}

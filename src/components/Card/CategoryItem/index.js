@@ -7,10 +7,10 @@ import {routes} from '@navigation/routes';
 import { useNavigation,useRoute } from '@react-navigation/native';
 import { getProductByCategoriesChild, } from '@redux/actions';
 import {connect} from 'react-redux';
+import { GET_PRODUCT_BY_CATEGORYS_CHILD } from '@redux/actions/ProductAction';
 
 
 const mapStateToProps = state => {
-  console.log(state.getProductByCategoriesChildReducer.data)
   return {
     error: state.getProductByCategoriesChildReducer ? state.getProductByCategoriesChildReducer.error : null,
    data: state.getProductByCategoriesChildReducer ? state.getProductByCategoriesChildReducer.data : null,
@@ -23,7 +23,7 @@ const mapStateToProps = state => {
 };
 }
 const mapDispatchToProps = dispatch => {
-  console.log('asdasdas->>')
+
  return {
    getProductByCategoriesChild: (id) => {
      dispatch(getProductByCategoriesChild(id));
@@ -32,11 +32,20 @@ const mapDispatchToProps = dispatch => {
 };
 const CategoryItem = ({item,getProductByCategoriesChild,dataCategories,data,_id}) => {
   const navigation = useNavigation();
+<<<<<<< HEAD
   //  const onPress = () => {getProductByCategoriesChild(item._id)
   //  console.log('ITEM >>>>>> ', item._id);
   // const onPress= () => navigation.navigate(routes.PRODUCRTSRC);
   
   useEffect(() => { 
+=======
+  const onPress = () => {
+   // getProductByCategoriesChild(item._id);  
+    console.log(item._id)
+    navigation.navigate(routes.PRODUCTCUSTOM,{id:item._id,type:GET_PRODUCT_BY_CATEGORYS_CHILD})
+  };
+ useEffect(() => { 
+>>>>>>> d21793440c2e98dc59e45fa25cf40de728d22be5
    if(dataCategories !==null){
      console.log(dataCategories.data)
      console.log('========>aaa')

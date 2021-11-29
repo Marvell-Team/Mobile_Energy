@@ -1,29 +1,28 @@
-import { GET_PRODUCT_BY_CATEGORYS_CHILD,  GET_PRODUCT_BY_CATEGORYS_CHILD_ERROR, GET_PRODUCT_BY_CATEGORYS_CHILD_SUCCESS } from '../../actions/ProductAction'
+import { GET_LIKE_BY_USER, GET_LIKE_BY_USER_ERROR, GET_LIKE_BY_USER_SUCCESS } from "@redux/actions/likeAction";
+
 const initialStale = {
   loadding: false, //ko loadding dc
   data: null, //ko có dữ liệu
   error: null, //khong lỗi
 };
-const getProductByCategoriesChildReducer = (state = initialStale, action) => {
+const getLikeByUserReducer = (state = initialStale, action) => {
     switch (action.type) {
       //đang đăng nhập
-      case GET_PRODUCT_BY_CATEGORYS_CHILD:
+      case GET_LIKE_BY_USER:
         return {
           loadding: true, //dang loadding
           data: null, //ko có dữ liệu
           error: null, //khong lỗi
         };
       //đăng nhập thành công
-      case GET_PRODUCT_BY_CATEGORYS_CHILD_SUCCESS:
-        console.log('GET_PRODUCT_BY_CATEGORYS_CHILD_SUCCESS'),
-        console.log(action.response)
+      case GET_LIKE_BY_USER_SUCCESS:
         return {
           loadding: false, //ngừng loadding dc
           data: action.response, //co du lieu
           error: null, //khong lỗi
         };
       //đăng nhập thất bại
-      case GET_PRODUCT_BY_CATEGORYS_CHILD_ERROR:
+      case GET_LIKE_BY_USER_ERROR:
         return {
           loadding: false, //ngung loadding dc
           data: null, //ko có dữ liệu
@@ -34,4 +33,4 @@ const getProductByCategoriesChildReducer = (state = initialStale, action) => {
         return state;
     }
 };
-export default getProductByCategoriesChildReducer;
+export default getLikeByUserReducer;
