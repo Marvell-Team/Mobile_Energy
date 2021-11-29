@@ -27,6 +27,7 @@ export default function* rootSaga() {
     watchgetBill(),
     watchgetBillById(),
     watchgetProductByCategoriesChildSaga(),
+
     watchEditLike(),
     watchStatusLike(),
     watchRemoveLike(),
