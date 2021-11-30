@@ -8,16 +8,17 @@ import {
   Dimensions,
   TextInput,
   ScrollView,
+  Alert,
 } from 'react-native';
 
 import styles from './style';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { getSize } from '@utils/responsive';
-import { theme } from '@theme';
+import {getSize} from '@utils/responsive';
+import {theme} from '@theme';
 
 const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
-export default function Modalpicker({item,setIdlocal}) {
+export default function Modalpicker({item, setIdlocal}) {
   const [value, setValue] = useState('');
   const [masterData, setMasterData] = useState([]);
   const [filterData, setFilterData] = useState([]);
@@ -29,13 +30,15 @@ export default function Modalpicker({item,setIdlocal}) {
   }, [item]);
   const _setItem = item => {
     setValue(item.address_store);
-    setIdlocal(item._id)
+    setIdlocal(item._id);
   };
-  
+
   const seachFilter = text => {
     if (text) {
       const newData = masterData.filter(item => {
-        const itemData = item.address_store ? item.address_store.toUpperCase() : ''.toUpperCase();
+        const itemData = item.address_store
+          ? item.address_store.toUpperCase()
+          : ''.toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
@@ -55,7 +58,7 @@ export default function Modalpicker({item,setIdlocal}) {
           setModalVisible(true);
         }}>
         <View style={{}}>
-          <Text style={{ fontSize: 16, color: theme.colors.placeholder}}>
+          <Text style={{fontSize: 16, color: theme.colors.placeholder}}>
             {value === '' ? 'Chọn nơi lấy hàng' : value}
           </Text>
         </View>
@@ -84,7 +87,7 @@ export default function Modalpicker({item,setIdlocal}) {
             <ScrollView>
               {!(Array.isArray(filterData) && filterData.length) ? (
                 <View>
-                  <Text style={{fontSize:18}}>No found Object</Text>
+                  <Text style={{fontSize: 18}}>No found Object</Text>
                   <TouchableOpacity
                     style={styles.close}
                     onPress={() => setModalVisible(false)}>
@@ -98,12 +101,10 @@ export default function Modalpicker({item,setIdlocal}) {
                       _setItem(item), setModalVisible(false);
                     }}>
                     <View style={{marginTop: 5}}>
-                      <Text style={styles.text}>
-                        {item.address_store}
-                      </Text>
+                      <Text style={styles.text}>{item.address_store}</Text>
                       <View
                         style={{
-                          borderBottomWidth:2,
+                          borderBottomWidth: 2,
                           borderColor: 'black',
                         }}
                       />

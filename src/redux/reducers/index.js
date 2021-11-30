@@ -24,33 +24,35 @@ import getCommentsReducer from './Comment/getCommentReducer';
 import addCommentsReducer from './Comment/addCommentReducer';
 import getLikeByUserReducer from './Like/getLikeByUserReducer';
 import getNotificationByUserReducer from './Notification/getNotificationByUserReducer';
-import getCategoriesReducer from './Categories/getCategoriesReducer'
-const allReducers=combineReducers({
-    loginReducers,
-    signupReducer,
-    getProductReducer,
-    getOneUserReducer,
-    updateUserReducer,
-    getProductByCategoriesReducer,
-    getProductByIDReducer,
-    getCartByUserReducer,
-    updateCartByCartReducer,
-    getStoreReducer,
-    getStoreByIdReducer,
-    addBillReducers,
-    getBillReducers,
-    getBillByIdReducers,
-    editLikeReducer,
-    getStatusLikeReducer,
-    removeLikeReducer,
-    getFavoriteReducer,
-    getFavoriteByIdReducer,
-    getBillDetailByIdReducer,
-    getCommentsReducer,
-    addCommentsReducer,
-    getLikeByUserReducer,
-    getNotificationByUserReducer,
-    getProductByCategoriesChildReducer,
-    getCategoriesReducer
+import getCategoriesReducer from './Categories/getCategoriesReducer';
+import getCountCommentsReducer from './Comment/getCountCommentReducer';
+const allReducers = combineReducers({
+  loginReducers,
+  signupReducer,
+  getProductReducer,
+  getOneUserReducer,
+  updateUserReducer,
+  getProductByCategoriesReducer,
+  getProductByIDReducer,
+  getCartByUserReducer,
+  updateCartByCartReducer,
+  getStoreReducer,
+  getStoreByIdReducer,
+  addBillReducers,
+  getBillReducers,
+  getBillByIdReducers,
+  editLikeReducer,
+  getStatusLikeReducer,
+  removeLikeReducer,
+  getFavoriteReducer,
+  getFavoriteByIdReducer,
+  getBillDetailByIdReducer,
+  getCommentsReducer,
+  addCommentsReducer,
+  getLikeByUserReducer,
+  getNotificationByUserReducer,
+  getProductByCategoriesChildReducer,
+  getCategoriesReducer,
+  getCountCommentsReducer,
 });
 export default allReducers;
