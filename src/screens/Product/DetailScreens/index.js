@@ -39,6 +39,7 @@ import {
 import Count from '@components/Count';
 import {formatCurrency} from '@utils/utils';
 import Comment from './comment';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const mapStateToProps = state => {
   return {
     dataCart: state.getCartByUserReducer
@@ -170,6 +171,7 @@ const DetailScreens = ({
   const {id} = route.params;
   const [amount, setAmount] = useState(1);
   const [dataCarts, setDataCarts] = useState([]);
+  const [totalCarts, setTotalCarts] = useState(null);
   const navigation = useNavigation();
   const [active, setActive] = useState(0);
   const [name, setName] = useState('');
@@ -231,13 +233,19 @@ const DetailScreens = ({
       checkstatusLikeAction({id_user: useData.id, id_product: id});
     }
   }, [dataLike, removedataLike]);
-  useEffect(() => {
-    if (useData.token !== null && useData.id !== null) {
-      if (dataCart !== null) {
-        setDataCarts(dataCart.data2.products);
+  useEffect(async () => {
+    if (useData.token !== null) {
+      const cart = await AsyncStorage.getItem(useData.id);
+      const aa = JSON.parse(cart);
+      if (cart !== undefined) {
+        console.log(aa);
+        console.log(aa.total);
+        console.log('aaaaaaaaaaaaaaaaaa');
+        setDataCarts(aa.products);
+        setTotalCarts(aa.total);
       }
     }
-  }, [dataCart]);
+  }, []);
 
   useEffect(() => {
     if (useData.token !== null && useData.id !== null) {
@@ -273,27 +281,49 @@ const DetailScreens = ({
       setDescription(item.description_product);
     }
   }, [data]);
-  const addCart = (Carts, id, amount, idcart, total) => {
+  const addCart = async (Carts, id, amount, idcart, total) => {
+    console.log(Carts);
     const index = Carts.findIndex(el => el.id_product === id);
+    console.log(index + 'C' + Carts + 'C' + total);
     let items = [];
 
-    if (index === -1) {
-      const item = {id_product: id, amount: amount};
+    if (index === -1 || index === undefined) {
+      console.log('CREATE');
+      const item = {
+        id_product: id,
+        id_image: imageBG[0],
+        price_product: parseInt(price),
+        nameProduct: name,
+        amount: amount,
+      };
       items.push(...Carts, item);
-      UpdateCartByUser({
-        idcart: idcart,
-        id_product: items,
+      let cart = {
         total: total + parseInt(price) * parseInt(amount),
-      });
+        products: items,
+      };
+      console.log(cart);
+      await AsyncStorage.setItem(useData.id, JSON.stringify(cart));
     } else {
+      console.log('ADD');
       Carts[index].amount = Carts[index].amount + amount;
       items.push(...Carts);
-      UpdateCartByUser({
-        idcart: idcart,
-        id_product: items,
+      let cart = {
         total: total + parseInt(price) * parseInt(amount),
-      });
+        products: items,
+      };
+      console.log(cart);
+      await AsyncStorage.setItem(useData.id, JSON.stringify(cart));
     }
+    // navigation.dispatch(
+    //   CommonActions.reset({
+    //     index: 1,
+    //     routes: [
+    //       {
+    //         name: routes.CARTSCREENS,
+    //       },
+    //     ],
+    //   }),
+    // );
     navigation.navigate(routes.CARTSCREENS);
   };
   const remove = idc => {
@@ -506,7 +536,8 @@ const DetailScreens = ({
                 Bài viết đánh giá
               </Text>
               <Text flex size={14} right style={{fontStyle: 'italic'}}>
-                {allcountComment} đánh giá - {avdComment}/5
+                {allcountComment} đánh giá - {parseFloat(avdComment).toFixed(2)}
+                /5
               </Text>
             </Block>
             <Block
@@ -574,9 +605,9 @@ const DetailScreens = ({
       <Block row width={width} height={height / 14} backgroundColor={'blue'}>
         <TouchableOpacity
           onPress={() => {
-            getCountComment(id);
+            //</Block>  getCountComment(id);
             //  console.log(countcommentdata);
-            //  setModalVisible(true), setModalType('Cart');
+            setModalVisible(true), setModalType('Cart');
           }}
           style={{
             flex: 1,
@@ -682,7 +713,7 @@ const DetailScreens = ({
                         data.data._id,
                         amount,
                         dataCart.data2._id,
-                        dataCart.data.total,
+                        totalCarts,
                       );
                     }}
                     style={{

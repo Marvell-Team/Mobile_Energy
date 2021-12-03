@@ -7,7 +7,8 @@ import {
   Image,
   StatusBar,
   TouchableOpacity,
-  ToastAndroid
+  ToastAndroid,
+  ScrollView,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -17,7 +18,13 @@ import {PrimaryButton} from './Button';
 import Count from '@components/Count';
 import {formatCurrency} from '@utils/utils';
 import {connect} from 'react-redux';
-import {addBillAction, addbillNullAction, getCartByUser, getStoreByIdAction, UpdateCartByUser} from '../../../redux/actions';
+import {
+  addBillAction,
+  addbillNullAction,
+  getCartByUser,
+  getStoreByIdAction,
+  UpdateCartByUser,
+} from '../../../redux/actions';
 import {useData} from 'config/config';
 import {useNavigation} from '@react-navigation/native';
 import {routes} from '@navigation/routes';
@@ -25,23 +32,32 @@ import {Block, Header, Thumbnail} from '@components';
 import {icons} from '@assets';
 import {theme} from '@theme';
 import {getSize} from '@utils/responsive';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const mapStateToProps = state => {
-  console.log(state.getStoreByIdReducer)
+  console.log(state.getStoreByIdReducer);
   return {
     error: state.getCartByUserReducer ? state.getCartByUserReducer.error : null,
     data: state.getCartByUserReducer ? state.getCartByUserReducer.data : null,
-    dataUpdate: state.updateCartByCartReducer? state.updateCartByCartReducer.data: null,
+    dataUpdate: state.updateCartByCartReducer
+      ? state.updateCartByCartReducer.data
+      : null,
     loadding: state.getCartByUserReducer
       ? state.getCartByUserReducer.loadding
       : null,
-    
-    loaddingStore: state.getStoreByIdReducer? state.getStoreByIdReducer.loadding: null, 
-    dataStore:state.getStoreByIdReducer? state.getStoreByIdReducer.data: null,
-    errorStore: state.getStoreByIdReducer ? state.getStoreByIdReducer.error : null,
-    
-    dataPayment:state.addBillReducers.data,
-    errorPayment:state.addBillReducers.error,
-    loaddingPayment:state.addBillReducers.loadding,
+
+    loaddingStore: state.getStoreByIdReducer
+      ? state.getStoreByIdReducer.loadding
+      : null,
+    dataStore: state.getStoreByIdReducer
+      ? state.getStoreByIdReducer.data
+      : null,
+    errorStore: state.getStoreByIdReducer
+      ? state.getStoreByIdReducer.error
+      : null,
+
+    dataPayment: state.addBillReducers.data,
+    errorPayment: state.addBillReducers.error,
+    loaddingPayment: state.addBillReducers.loadding,
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -52,19 +68,30 @@ const mapDispatchToProps = dispatch => {
     UpdateCartByUser: input => {
       dispatch(UpdateCartByUser(input));
     },
-    getStoreByIdAction: id =>{
-      dispatch(getStoreByIdAction(id))
+    getStoreByIdAction: id => {
+      dispatch(getStoreByIdAction(id));
     },
-    addBillAction : input =>{
-      dispatch(addBillAction(input))
+    addBillAction: input => {
+      dispatch(addBillAction(input));
     },
-    addbillNullAction : () =>{
-      dispatch(addbillNullAction())
-    }
-    
+    addbillNullAction: () => {
+      dispatch(addbillNullAction());
+    },
   };
 };
-const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate,loaddingStore,dataStore,errorStore,getStoreByIdAction,addBillAction,dataPayment,addbillNullAction}) => {
+const CartScreens = ({
+  data,
+  getCartByUser,
+  UpdateCartByUser,
+  dataUpdate,
+  loaddingStore,
+  dataStore,
+  errorStore,
+  getStoreByIdAction,
+  addBillAction,
+  dataPayment,
+  addbillNullAction,
+}) => {
   const navigation = useNavigation();
   const [dataCart, setDataCart] = useState([]);
   const [dataID, setDataID] = useState('');
@@ -78,29 +105,43 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate,loadding
       getCartByUser(useData.id);
     }
   }, [UpdateCartByUser, dataUpdate, getCartByUser]);
-  useEffect(() => {
-    if (data !== null) {
-     // console.log(data.data);
-      setDataCart(data.data.products);
-      setDataID(data.data._id);
-      setDataTotal(data.data.total);
+
+  const _setDataCart = aa => {
+    setDataCart(aa.products);
+    setDataTotal(aa.total);
+  };
+  useEffect(async () => {
+    //
+    //   if (data !== null) {
+    //     console.log(data.data);
+    //      setDataCart(data.data.products);
+    //      setDataID(data.data._id);
+    //      setDataTotal(data.data.total);
+    //   }
+    //
+    if (useData.token !== null) {
+      const cart = await AsyncStorage.getItem(useData.id);
+      const aa = JSON.parse(cart);
+      _setDataCart(aa);
+      //  setDataCarts(aa);
     }
-  }, [data]);
+  }, [AsyncStorage.getItem(useData.id)]);
   useEffect(() => {
-    if(dataStore !== null){
-       setName(dataStore.name);
-       setPhone(dataStore.phone+'')
-      setStoreId(dataStore.data._id)  
-      setAddress(dataStore.data.address_store+'');
+    if (dataStore !== null) {
+      setName(dataStore.name);
+      setPhone(dataStore.phone + '');
+      setStoreId(dataStore.data._id);
+      setAddress(dataStore.data.address_store + '');
     }
-  }, [dataStore])
+  }, [dataStore]);
   useEffect(() => {
-    if(dataPayment!== null){
+    if (dataPayment !== null) {
       addbillNullAction();
-      navigation.navigate(routes.ORDER_SUCCESS_SCREEN,{id:dataPayment.data._id});
-      
+      navigation.navigate(routes.ORDER_SUCCESS_SCREEN, {
+        id: dataPayment.data._id,
+      });
     }
-  }, [dataPayment])
+  }, [dataPayment]);
   return (
     <SafeAreaView style={{backgroundColor: '#F5F5F5', flex: 1}}>
       <Header
@@ -109,7 +150,10 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate,loadding
         leftPress={() => navigation.goBack()}
         color={theme.colors.primary}
       />
-      <TouchableOpacity onPress={() =>{navigation.navigate(routes.ORDERLOCATION)}}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate(routes.ORDERLOCATION);
+        }}>
         <Block
           paddingHorizontal={getSize.m(10)}
           paddingVertical={getSize.m(12)}
@@ -125,22 +169,29 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate,loadding
                 source={icons.local}
                 imageStyle={{width: getSize.s(25), height: getSize.s(25)}}
               />
-              {name !== ''?(
-                  <Block row alignCenter>
-                <Block
-                style={{
-                  borderColor: theme.colors.lightGray,
-                  borderRightWidth: 1,
-                }}>
-                <Text style={style.txtLocal}>{name}</Text>
-              </Block>
-              <Text style={style.txtLocal}>{phone}</Text>
-              </Block>
-              ):(  <Text style={style.txtLocal}>Mời nhập thông tin nhận hàng</Text>)}
+              {name !== '' ? (
+                <Block row alignCenter>
+                  <Block
+                    style={{
+                      borderColor: theme.colors.lightGray,
+                      borderRightWidth: 1,
+                    }}>
+                    <Text style={style.txtLocal}>{name}</Text>
+                  </Block>
+                  <Text style={style.txtLocal}>{phone}</Text>
+                </Block>
+              ) : (
+                <Text style={style.txtLocal}>Mời nhập thông tin nhận hàng</Text>
+              )}
             </Block>
             <Block>
-              <Text numColumns={2} style={{color:theme.colors.placeholder,paddingLeft:getSize.m(6)}}>
-                {address!==''?address:'Xin mời chọn địa chỉ nhận hàng'}
+              <Text
+                numColumns={2}
+                style={{
+                  color: theme.colors.placeholder,
+                  paddingLeft: getSize.m(6),
+                }}>
+                {address !== '' ? address : 'Xin mời chọn địa chỉ nhận hàng'}
               </Text>
             </Block>
           </Block>
@@ -152,46 +203,49 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate,loadding
           </Block>
         </Block>
       </TouchableOpacity>
-      {dataCart.map((item, index) => (
-        <CartCard
-          setDataTotal={setDataTotal}
-          dataTotal={dataTotal}
-          item={item}
-          index={index}
-          dataCart={dataCart}
-          dataID={dataID}
-          UpdateCartByUser={UpdateCartByUser}
-        />
-      ))}
-      <Block
-        backgroundColor={theme.colors.white}
-        row
-        paddingVertical={12}
-        paddingHorizontal={10}>
-        {/* <Thumbnail/> */}
-        <Block style={{flex: 2.5}} row alignCenter>
-          <Thumbnail
-            source={icons.dollar}
-            imageStyle={{width: getSize.s(30), height: getSize.s(30)}}
+      <ScrollView>
+        {dataCart.map((item, index) => (
+          <CartCard
+            setDataTotal={setDataTotal}
+            dataTotal={dataTotal}
+            item={item}
+            index={index}
+            dataCart={dataCart}
+            dataID={dataID}
+            UpdateCartByUser={UpdateCartByUser}
           />
-          <Text
-            style={[
-              style.txtText,
-              {color: theme.colors.gray, marginLeft: getSize.m(10)},
-            ]}>
-            Phương thức thanh toán
-          </Text>
+        ))}
+        <Block
+          marginBottom={140}
+          backgroundColor={theme.colors.white}
+          row
+          paddingVertical={12}
+          paddingHorizontal={10}>
+          {/* <Thumbnail/> */}
+          <Block style={{flex: 2.5}} row alignCenter>
+            <Thumbnail
+              source={icons.dollar}
+              imageStyle={{width: getSize.s(30), height: getSize.s(30)}}
+            />
+            <Text
+              style={[
+                style.txtText,
+                {color: theme.colors.gray, marginLeft: getSize.m(10)},
+              ]}>
+              Phương thức thanh toán
+            </Text>
+          </Block>
+          <Block flex row justifyCenter alignCenter>
+            <Text style={[style.txtText, {color: 'black', textAlign: 'right'}]}>
+              Thanh toán tại siêu thị
+            </Text>
+            <Thumbnail
+              source={icons.next}
+              imageStyle={{width: getSize.s(20), height: getSize.s(20)}}
+            />
+          </Block>
         </Block>
-        <Block flex row justifyCenter alignCenter>
-          <Text style={[style.txtText, {color: 'black', textAlign: 'right'}]}>
-            Thanh toán tại siêu thị
-          </Text>
-          <Thumbnail
-            source={icons.next}
-            imageStyle={{width: getSize.s(20), height: getSize.s(20)}}
-          />
-        </Block>
-      </Block>
+      </ScrollView>
       <View
         style={{
           flexDirection: 'row',
@@ -201,7 +255,7 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate,loadding
           position: 'absolute',
           bottom: 0,
           marginTop: 8,
-          //  backgroundColor:COLORS.white
+          backgroundColor: COLORS.white,
         }}>
         <View style={{width: '50%', justifyContent: 'center'}}>
           <Text style={{fontSize: 18}}>Tổng</Text>
@@ -213,12 +267,30 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate,loadding
           <PrimaryButton
             title="Thanh Toán"
             onPress={() => {
-            // console.log({id_user:useData.id,id_cart:dataID,id_store:storeId,name:name,phone:phone})
-             if(name !=='' && phone !== '' && address !==''){
-              addBillAction({id_user:useData.id,id_cart:dataID,id_store:storeId,name:name,phone:phone})
-             }else{
-               ToastAndroid.show('Vui lòng nhập đầy đủ thông tin',ToastAndroid.LONG);
-             }
+              console.log(dataCart);
+              console.log({
+                id_user: useData.id,
+                total: dataTotal,
+                id_store: storeId,
+                name: name,
+                phone: phone,
+                products: dataCart,
+              });
+              if (name !== '' && phone !== '' && address !== '') {
+                addBillAction({
+                  id_user: useData.id,
+                  id_cart: dataID,
+                  id_store: storeId,
+                  name: name,
+                  phone: phone,
+                  products: dataCart,
+                });
+              } else {
+                ToastAndroid.show(
+                  'Vui lòng nhập đầy đủ thông tin',
+                  ToastAndroid.LONG,
+                );
+              }
             }}
           />
         </View>
@@ -240,15 +312,11 @@ const CartCard = ({
   useEffect(() => {
     setAmount(item.amount);
   }, [getCartByUser]);
-  const {id_image, price_product, nameProduct} = item.id_product;
+  const {id_image, price_product, nameProduct} = item;
 
-  
   return (
     <View style={style.cartCard}>
-      <Image
-        source={{uri: id_image.nameImage[0]}}
-        style={{height: 90, width: 80}}
-      />
+      <Image source={{uri: id_image}} style={{height: 90, width: 80}} />
       <View
         style={{
           marginLeft: 10,
