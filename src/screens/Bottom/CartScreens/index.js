@@ -9,7 +9,7 @@ import {
   FlatList,
   TouchableOpacity,
   Alert,
-  ToastAndroid
+  ToastAndroid,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -29,6 +29,7 @@ import {routes} from '@navigation/routes';
 import {Header, Thumbnail} from '@components';
 import {icons} from '@assets';
 import {getSize} from '@utils/responsive';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const mapStateToProps = state => {
   return {
     error: state.getCartByUserReducer ? state.getCartByUserReducer.error : null,
@@ -64,16 +65,26 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate}) => {
       getCartByUser(useData.id);
     }
   }, [UpdateCartByUser, dataUpdate, getCartByUser]);
-  useEffect(() => {
+  const _setDataCart = aa => {
+    setDataCart(aa.products);
+    setDataTotal(aa.total);
+  };
+  useEffect(async () => {
+    //
+    //   if (data !== null) {
+    //     console.log(data.data);
+    //      setDataCart(data.data.products);
+    //      setDataID(data.data._id);
+    //      setDataTotal(data.data.total);
+    //   }
+    //
     if (useData.token !== null) {
-      if (data !== null) {
-        console.log(data.data);
-        setDataCart(data.data.products);
-        setDataID(data.data._id);
-        setDataTotal(data.data.total);
-      }
+      const cart = await AsyncStorage.getItem(useData.id);
+      const aa = JSON.parse(cart);
+      _setDataCart(aa);
+      //  setDataCarts(aa);
     }
-  }, [data]);
+  }, [AsyncStorage.getItem(useData.id)]);
   useEffect(() => {
     console.log('token' + useData.token);
     setChecktoken(useData.token);
@@ -127,7 +138,7 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate}) => {
           </View>
         </View>
       ) : (
-        <View style={{flex:1}}>
+        <View style={{flex: 1}}>
           <FlatList
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{paddingBottom: 80}}
@@ -140,6 +151,7 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate}) => {
                 index={index}
                 dataCart={dataCart}
                 dataID={dataID}
+                _setDataCart={_setDataCart}
                 UpdateCartByUser={UpdateCartByUser}
               />
             )}
@@ -147,7 +159,6 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate}) => {
           />
           <View
             style={{
-              
               flexDirection: 'row',
               justifyContent: 'space-between',
               paddingHorizontal: 12,
@@ -165,10 +176,13 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate}) => {
               <PrimaryButton
                 title="Đặt Hàng"
                 onPress={() => {
-                  if(Array.isArray(dataCart) && dataCart.length){
+                  if (Array.isArray(dataCart) && dataCart.length) {
                     navigation.navigate(routes.PAYMENT_SCREEN);
-                  }else{
-                    ToastAndroid.show('Hiện không hàng để mua', ToastAndroid.SHORT)
+                  } else {
+                    ToastAndroid.show(
+                      'Hiện không hàng để mua',
+                      ToastAndroid.SHORT,
+                    );
                   }
                 }}
               />
@@ -188,60 +202,65 @@ const CartCard = ({
   UpdateCartByUser,
   dataTotal,
   getCartByUser,
+  _setDataCart,
 }) => {
   const [amount, setAmount] = useState(0);
 
   useEffect(() => {
     setAmount(item.amount);
   }, [getCartByUser, dataCart]);
-  const {id_image, price_product, nameProduct} = item.id_product;
+  const {id_image, price_product, nameProduct} = item;
 
-  const addCart = (Carts, idcart, index) => {
+  const addCart = async (Carts, index) => {
     let items = [];
     Carts[index].amount = Carts[index].amount + parseInt(1);
     setAmount(Carts[index].amount);
-    // console.log(parseInt(dataTotal)+parseInt(price_product))
-    setDataTotal(parseInt(dataTotal) + parseInt(price_product));
     items.push(...Carts);
-    console.log(dataCart);
-    UpdateCartByUser({
-      idcart: idcart,
-      id_product: items,
+    let cart = {
       total: parseInt(dataTotal) + parseInt(price_product),
-    });
+      products: items,
+    };
+    _setDataCart(cart);
+    await AsyncStorage.setItem(useData.id, JSON.stringify(cart));
   };
-  const subtractCart = (Carts, idcart, index) => {
+  const subtractCart = async (Carts, index) => {
     if (amount > 1) {
       let items = [];
       Carts[index].amount = Carts[index].amount - parseInt(1);
-      console.log(index + 'aaa' + Carts[index].amount + 'idcart' + idcart);
       setAmount(Carts[index].amount);
       items.push(...Carts);
-      console.log(dataCart);
-      UpdateCartByUser({
-        idcart: idcart,
-        id_product: items,
+      let cart = {
         total: parseInt(dataTotal) - parseInt(price_product),
-      });
+        products: items,
+      };
+      _setDataCart(cart);
+      await AsyncStorage.setItem(useData.id, JSON.stringify(cart));
     }
   };
-  
-  const removeCart = (Carts, id, idcart, index) => {
+
+  const removeCart = async (Carts, id, index) => {
     const amountI = Carts[index].amount;
     var filtered = Carts.filter(function (el) {
-      return el._id != id;
+      return el.id_product != id;
     });
-
+    console.log(filtered);
+    let cart = {
+      total: parseInt(dataTotal) - parseInt(price_product * amountI),
+      products: filtered,
+    };
+    //JSON.stringify(cart)
+    _setDataCart(cart);
+    await AsyncStorage.setItem(useData.id, JSON.stringify(cart));
     // setAmount(Carts[index].amount)
     // items.push(...Carts);
     // console.log(dataCart)
-    UpdateCartByUser({
-      idcart: idcart,
-      id_product: filtered,
-      total: parseInt(dataTotal) - parseInt(price_product * amountI),
-    });
+
+    // UpdateCartByUser({
+    //   idcart: idcart,
+    //   id_product: filtered,
+    // });
   };
- 
+
   const createThreeButtonAlert = () =>
     Alert.alert('Xóa Sản Phẩm', 'Bạn có chắc muốn bỏ sản phẩm này', [
       {
@@ -251,15 +270,12 @@ const CartCard = ({
       },
       {
         text: 'OK',
-        onPress: () => removeCart(dataCart, item._id, dataID, index),
+        onPress: () => removeCart(dataCart, item.id_product, index),
       },
     ]);
   return (
     <View style={style.cartCard}>
-      <Image
-        source={{uri: id_image.nameImage[0]}}
-        style={{height: 80, width: 80}}
-      />
+      <Image source={{uri: id_image}} style={{height: 80, width: 80}} />
       <View
         style={{
           marginLeft: 10,
@@ -280,10 +296,10 @@ const CartCard = ({
         <Count
           amount={amount}
           onPressSubtract={() => {
-            subtractCart(dataCart, dataID, index);
+            subtractCart(dataCart, index);
           }}
           onPressPlus={() => {
-            addCart(dataCart, dataID, index);
+            addCart(dataCart, index);
           }}
         />
       </View>
