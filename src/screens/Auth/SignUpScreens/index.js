@@ -33,23 +33,59 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
-const SignUpScreens = ({signUpAction, data,loadding}) => {
+const SignUpScreens = ({signUpAction, data,loadding, error}) => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
   const [username, setUsername] = useState('');
     // tao useState Loadding
     const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (data !== null) {
-      alert(data);
+      //alert(data);
     }
   }, [data]);
 
+  useEffect(() => {
+    if(error !== null){
+      console.log(error);
+    }
+  }, [error])
+  
     //Loadding trong screen
     useEffect(() => {
       setLoading(loadding)
     }, [loadding])
+
+    const checkRegister = () => {
+
+      var validRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+      var validPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  
+      if (email === '' || password === '' || username === '' || password2 === '') {
+        ToastAndroid.show('Vui lòng nhập đầy đủ thông tin!', ToastAndroid.SHORT);
+      } 
+      else if (!validRegex.test(email)){
+        ToastAndroid.show('Email không hợp lệ!', ToastAndroid.SHORT);
+      }
+      else if (!validPassword.test(password)) {
+        ToastAndroid.show('Mật khẩu tối thiểu 8 ký tự, ít nhất một chữ cái và một số!', ToastAndroid.SHORT);
+      } 
+      else if (password != password2) {
+        ToastAndroid.show('Mật khẩu phải trùng nhau!', ToastAndroid.SHORT);
+      } 
+      else {
+        let user = {
+          email_user: email,
+          pwd_user: password,
+          name_user: username,
+        };
+        signUpAction(user);
+        ToastAndroid.show('Đăng ký ok rồi đó, zô!', ToastAndroid.SHORT);
+       }
+    };
 
     return (
       <>
@@ -89,7 +125,7 @@ const SignUpScreens = ({signUpAction, data,loadding}) => {
             keyboardType='email-address'/>
   
           <TextInput
-            iconleft={icons.pass}
+            iconleft={icons.psdlg}
             issecure
             placeholder="Nhập password..."
             placeholderTextColor={theme.colors.grayText}
@@ -97,16 +133,20 @@ const SignUpScreens = ({signUpAction, data,loadding}) => {
             style={styles.txtInput}
             iconStyle={{width: 24, height: 24, tintColor: theme.colors.grayText}} />
   
+          <TextInput
+            iconleft={icons.psdlg}
+            issecure
+            placeholder="Nhập lại password..."
+            placeholderTextColor={theme.colors.grayText}
+            onChangeText={text => setPassword2(text)}
+            style={styles.txtInput}
+            iconStyle={{width: 24, height: 24, tintColor: theme.colors.grayText}} />
+
           <Button
             shadow
             title="ĐĂNG KÝ"
-            onPressOut={() => {
-              let user = {
-                email_user: email,
-                pwd_user: password,
-                name_user: username,
-              };
-              signUpAction(user);
+            onPress={() => {
+              checkRegister();
             }}
             style={styles.viewButtonRegister}
             titleStyle={styles.txtButtonRegister} />

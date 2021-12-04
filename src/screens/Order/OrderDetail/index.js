@@ -46,6 +46,8 @@ const OrderDetail = ({data2, getBillDetailById}) => {
   const [address_store, setAddress_store] = useState('');
   const [status, setStatus] = useState('');
   const [idBill, setIdBill] = useState();
+  const [date, setDate] = useState();
+
 
   useEffect(() => {
     if (data2 !== null) {
@@ -58,6 +60,9 @@ const OrderDetail = ({data2, getBillDetailById}) => {
       setName(item.id_bill.note_bill.name);
       setPhone(item.id_bill.note_bill.phone);
       setIdBill(item.id_bill._id);
+      console.log(item.id_bill._id)
+      console.log('=========================<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<xxxxx')
+
     }
   }, [data2]);
 
@@ -70,50 +75,59 @@ const OrderDetail = ({data2, getBillDetailById}) => {
           navigation.goBack();
         }}
       />
-      <View paddingVertical={16} style={styles.v1}>
-        <Text style={styles.text}>CHI TIẾT ĐƠN HÀNG #{idBill}</Text>
-        <Block row>
-          <Text style={styles.txtStatus}>Trạng thái: </Text>
-          <Text style={styles.txtStatuss}>{status}</Text>
+      <Block paddingHorizontal={16} style={styles.viewHeader}>
+        <Block style={styles.viewOrderId}>
+          <Text style={styles.text}>Mã đơn hàng: #{idBill}</Text>
         </Block>
-      </View>
-
-      {data1.map(item => (
-        <Block row padding={8} style={styles.v2}>
+        <Block row style={styles.viewStatus}>
           <Image
-            source={{uri: item.id_product.id_image.nameImage[0]}}
-            style={styles.image}
+            source={icons.orderbill}
+            style={styles.imageOrderBill}
+            resizeMode="contain"
           />
-
-          <Block column style={styles.viewNameProduct}>
-            <Block row>
-              <Text style={styles.txtNameProduct}>
-                {item.id_product.nameProduct}
-              </Text>
-              <Text style={styles.txtPrice}>
-                {formatCurrency(item.id_product.price_product)}
-              </Text>
-            </Block>
-
-            <Block column marginTop={8}>
-              <Text style={{fontSize: 16, paddingLeft: 8}}>
-                Màu sắc: Đen huyền bí
-              </Text>
-              <Text style={{fontSize: 16, paddingLeft: 8}}>
-                Số lượng: {item.id_product.quantity_product}
-              </Text>
-            </Block>
+          <Block column paddingHorizontal={12}>
+            <Text style={styles.txtStatus}>{status}</Text>
+            <Text style={styles.txtOrderDate}>Ngày đặt hàng: {date}</Text>
           </Block>
         </Block>
-      ))}
+      </Block>
 
-      <Block paddingHorizontal={16} paddingVertical={16} row style={styles.v3}>
+      <Block paddingHorizontal={16} column style={styles.viewOderInfo}>
+        <Block style={styles.viewInOderInfo}>
+          <Text style={styles.text}>Thông tin sản phẩm</Text>
+        </Block>
+        {data1.map(item => (
+          <Block row paddingVertical={16} paddingHorizontal={8} style={styles.viewProduct}>
+            <Image
+              source={{uri: item.id_product.id_image.nameImage[0]}}
+              style={styles.imageProduct}
+              resizeMode="contain"
+            />
+
+            <Block column justifyCenter paddingHorizontal={8}>
+              <Block row>
+                <Text style={styles.txtNameProduct}>
+                  {item.id_product.nameProduct}
+                </Text>
+              </Block>
+                <Text style={styles.txtInfoProduct}>
+                  Hãng: - Màu: - Dung lượng: 
+                </Text>
+                <Text style={styles.txtPrice}>
+                {formatCurrency(item.id_product.price_product)} - x{item.id_product.quantity_product}
+                </Text>
+            </Block>
+          </Block>
+        ))}
+      </Block>
+
+      <Block paddingHorizontal={16} paddingVertical={16} row style={styles.viewTotal}>
         <Text style={styles.txtTotal}>Giá tạm tính:</Text>
         <Text style={styles.txtTotall}>{formatCurrency(total)}</Text>
       </Block>
 
-      <Block paddingHorizontal={16} paddingVertical={16} style={styles.v4}>
-        <Text style={{fontSize: 18, fontWeight: 'bold'}}>
+      <Block paddingHorizontal={16} paddingVertical={16} style={styles.viewInfo}>
+        <Text style={styles.txtAddress}>
           Địa chỉ và thông tin nơi nhận hàng:
         </Text>
         <Text style={{fontSize: 18, paddingTop: 8}}>
