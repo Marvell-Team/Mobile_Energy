@@ -281,7 +281,7 @@ const DetailScreens = ({
       setDescription(item.description_product);
     }
   }, [data]);
-  const addCart = async (Carts, id, amount, idcart, total) => {
+  const addCart = async (Carts, id, amount, total) => {
     console.log(Carts);
     const index = Carts.findIndex(el => el.id_product === id);
     console.log(index + 'C' + Carts + 'C' + total);
@@ -712,7 +712,6 @@ const DetailScreens = ({
                         dataCarts,
                         data.data._id,
                         amount,
-                        dataCart.data2._id,
                         totalCarts,
                       );
                     }}
