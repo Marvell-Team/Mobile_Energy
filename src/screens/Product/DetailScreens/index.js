@@ -11,6 +11,7 @@ import {
   Image,
   Modal,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {Block, Text, Thumbnail, Button} from '@components';
 import CommentCard from './card';
@@ -29,6 +30,7 @@ import {
   checkstatusLikeAction,
   getCartByUser,
   getCommentByProduct,
+  getCountComment,
   getProductbyCategories,
   getProductbyIdAction,
   removeLikeAction,
@@ -36,8 +38,9 @@ import {
 } from '../../../redux/actions';
 import Count from '@components/Count';
 import {formatCurrency} from '@utils/utils';
+import Comment from './comment';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const mapStateToProps = state => {
-  console.log(state.getCommentsReducer)
   return {
     dataCart: state.getCartByUserReducer
       ? state.getCartByUserReducer.data
@@ -67,20 +70,46 @@ const mapStateToProps = state => {
     loaddingStatusLike: state.getStatusLikeReducer
       ? state.getStatusLikeReducer.loadding
       : null,
-      
 
-      removeerrorLike: state.removeLikeReducer ? state.removeLikeReducer.error : null,
-      removedataLike: state.removeLikeReducer ? state.removeLikeReducer.data : null,
-      removeloaddingLike: state.removeLikeReducer ? state.removeLikeReducer.loadding : null,
+    removeerrorLike: state.removeLikeReducer
+      ? state.removeLikeReducer.error
+      : null,
+    removedataLike: state.removeLikeReducer
+      ? state.removeLikeReducer.data
+      : null,
+    removeloaddingLike: state.removeLikeReducer
+      ? state.removeLikeReducer.loadding
+      : null,
 
-      
-      commenterror: state.getCommentsReducer ? state.getCommentsReducer.error : null,
-      commentdata: state.getCommentsReducer ? state.getCommentsReducer.data : null,
-      commentloadding: state.getCommentsReducer ? state.getCommentsReducer.loadding : null,
-      
-      addcommenterror: state.addCommentsReducer ? state.addCommentsReducer.error : null,
-      addcommentdata: state.addCommentsReducer ? state.addCommentsReducer.data : null,
-      addcommentloadding: state.addCommentsReducer ? state.addCommentsReducer.loadding : null,
+    commenterror: state.getCommentsReducer
+      ? state.getCommentsReducer.error
+      : null,
+    commentdata: state.getCommentsReducer
+      ? state.getCommentsReducer.data
+      : null,
+    commentloadding: state.getCommentsReducer
+      ? state.getCommentsReducer.loadding
+      : null,
+
+    addcommenterror: state.addCommentsReducer
+      ? state.addCommentsReducer.error
+      : null,
+    addcommentdata: state.addCommentsReducer
+      ? state.addCommentsReducer.data
+      : null,
+    addcommentloadding: state.addCommentsReducer
+      ? state.addCommentsReducer.loadding
+      : null,
+
+    countcommenterror: state.getCountCommentsReducer
+      ? state.getCountCommentsReducer.error
+      : null,
+    countcommentdata: state.getCountCommentsReducer
+      ? state.getCountCommentsReducer.data
+      : null,
+    countcommentloadding: state.addCommentsReducer
+      ? state.getCountCommentsReducer.loadding
+      : null,
   };
 };
 
@@ -110,14 +139,19 @@ const mapDispatchToProps = dispatch => {
     getCommentByProduct: input => {
       dispatch(getCommentByProduct(input));
     },
-    addComment:input => {
+    addComment: input => {
       dispatch(addComment(input));
-    }
+    },
+    getCountComment: input => {
+      dispatch(getCountComment(input));
+    },
   };
 };
 
 const DetailScreens = ({
   data,
+  getCountComment,
+  countcommentdata,
   getProductbyIdAction,
   dataCart,
   getCartByUser,
@@ -131,12 +165,13 @@ const DetailScreens = ({
   commentdata,
   getCommentByProduct,
   addComment,
-  addcommentdata
+  addcommentdata,
 }) => {
   const route = useRoute();
   const {id} = route.params;
   const [amount, setAmount] = useState(1);
   const [dataCarts, setDataCarts] = useState([]);
+  const [totalCarts, setTotalCarts] = useState(null);
   const navigation = useNavigation();
   const [active, setActive] = useState(0);
   const [name, setName] = useState('');
@@ -146,50 +181,71 @@ const DetailScreens = ({
   const [check, setCheck] = useState(false);
   const [checkId, setcheckId] = useState('');
   const [dataComment, setDataComment] = useState([]);
+  const [countComment, setCountComment] = useState();
+  const [allcountComment, setAllCountComment] = useState('');
+  const [avdComment, setAvdComment] = useState('');
+
   // const [price, setPrice] = useState(null)
   // const [price, setPrice] = useState(null)
   // const [price, setPrice] = useState(null)
   // const [price, setPrice] = useState(null)
   useEffect(() => {
-    getCommentByProduct({id_product:id})
-  //  setDataComment(datas)
-  }, [addcommentdata,addComment])
+    getCommentByProduct({id_product: id});
+    getCountComment(id);
+    //  setDataComment(datas)
+  }, [addcommentdata, addComment]);
   useEffect(() => {
-    if(commentdata!== null){
-       setDataComment(commentdata.data);
+    if (commentdata !== null) {
+      setDataComment(commentdata.data);
     }
-  }, [commentdata,addComment,addcommentdata])
+  }, [commentdata, addComment, addcommentdata]);
+  useEffect(() => {
+    if (countcommentdata !== null) {
+      console.log('====================================');
+      console.log(countcommentdata.data);
+      console.log('====================================');
+      setCountComment(countcommentdata.data);
+      setAllCountComment(countcommentdata.data.comments);
+      setAvdComment(countcommentdata.data.avd);
+    }
+  }, [countcommentdata]);
   useEffect(() => {
     if (useData.token !== null && useData.id !== null) {
       if (dataStatusLike !== null) {
         if (dataStatusLike.data !== null) {
           setCheck(true);
-          setcheckId(dataStatusLike.data._id)
+          setcheckId(dataStatusLike.data._id);
         } else {
           setCheck(false);
-          setcheckId('')
+          setcheckId('');
         }
       } else {
         setCheck(false);
-        setcheckId('')
+        setcheckId('');
       }
     } else {
       setCheck(false);
-      setcheckId('')
+      setcheckId('');
     }
   }, [dataStatusLike]);
   useEffect(() => {
     if (useData.token !== null && useData.id !== null) {
       checkstatusLikeAction({id_user: useData.id, id_product: id});
     }
-  }, [dataLike,removedataLike]);
-  useEffect(() => {
-    if (useData.token !== null && useData.id !== null) {
-      if (dataCart !== null) {
-        setDataCarts(dataCart.data2.products);
+  }, [dataLike, removedataLike]);
+  useEffect(async () => {
+    if (useData.token !== null) {
+      const cart = await AsyncStorage.getItem(useData.id);
+      const aa = JSON.parse(cart);
+      if (cart !== undefined) {
+        console.log(aa);
+        console.log(aa.total);
+        console.log('aaaaaaaaaaaaaaaaaa');
+        setDataCarts(aa.products);
+        setTotalCarts(aa.total);
       }
     }
-  }, [dataCart]);
+  }, []);
 
   useEffect(() => {
     if (useData.token !== null && useData.id !== null) {
@@ -198,12 +254,13 @@ const DetailScreens = ({
   }, [getCartByUser, UpdateCartByUser]);
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalType, setModalType] = useState('');
   if (Platform.OS === 'android') {
     if (UIManager.setLayoutAnimationEnabledExperimental) {
       UIManager.setLayoutAnimationEnabledExperimental(true);
     }
   }
-  
+
   const [isShow, setIsShow] = useState(false);
 
   const change = nativeEvent => {
@@ -217,47 +274,66 @@ const DetailScreens = ({
 
   useEffect(() => {
     if (data !== null) {
-      const item = data.data; 
+      const item = data.data;
       setImageBG(item.id_image.nameImage);
       setName(item.nameProduct);
       setPrice(item.price_product);
       setDescription(item.description_product);
     }
   }, [data]);
-  const addCart = (Carts, id, amount, idcart, total) => {
+  const addCart = async (Carts, id, amount, idcart, total) => {
+    console.log(Carts);
     const index = Carts.findIndex(el => el.id_product === id);
+    console.log(index + 'C' + Carts + 'C' + total);
     let items = [];
-   
-    if (index === -1) {
-      const item = {id_product: id, amount: amount};
+
+    if (index === -1 || index === undefined) {
+      console.log('CREATE');
+      const item = {
+        id_product: id,
+        id_image: imageBG[0],
+        price_product: parseInt(price),
+        nameProduct: name,
+        amount: amount,
+      };
       items.push(...Carts, item);
-      UpdateCartByUser({
-        idcart: idcart,
-        id_product: items,
+      let cart = {
         total: total + parseInt(price) * parseInt(amount),
-      });
+        products: items,
+      };
+      console.log(cart);
+      await AsyncStorage.setItem(useData.id, JSON.stringify(cart));
     } else {
+      console.log('ADD');
       Carts[index].amount = Carts[index].amount + amount;
       items.push(...Carts);
-      UpdateCartByUser({
-        idcart: idcart,
-        id_product: items,
+      let cart = {
         total: total + parseInt(price) * parseInt(amount),
-      });
+        products: items,
+      };
+      console.log(cart);
+      await AsyncStorage.setItem(useData.id, JSON.stringify(cart));
     }
+    // navigation.dispatch(
+    //   CommonActions.reset({
+    //     index: 1,
+    //     routes: [
+    //       {
+    //         name: routes.CARTSCREENS,
+    //       },
+    //     ],
+    //   }),
+    // );
     navigation.navigate(routes.CARTSCREENS);
   };
-  const remove=(idc)=>{
-    console.log('remove'+idc)
-      if(idc!==''){
-        console.log('remove')
-        removeLikeAction(checkId)
-        setcheckId('');
-        setCheck(false)
-      }
-  }
+  const remove = idc => {
+    if (idc !== '') {
+      removeLikeAction(checkId);
+      setcheckId('');
+      setCheck(false);
+    }
+  };
 
-  
   return (
     <Block style={styles.container}>
       <ScrollView>
@@ -333,7 +409,12 @@ const DetailScreens = ({
             <Block flex justifyCenter>
               <Button
                 onPress={() => {
-                  check?remove(checkId):addLikeAction({id_user: useData.id,id_product: data.data._id,})
+                  check
+                    ? remove(checkId)
+                    : addLikeAction({
+                        id_user: useData.id,
+                        id_product: data.data._id,
+                      });
                 }}
                 shadow
                 title={check ? 'Đã thích' : 'Yêu thích'}
@@ -455,7 +536,8 @@ const DetailScreens = ({
                 Bài viết đánh giá
               </Text>
               <Text flex size={14} right style={{fontStyle: 'italic'}}>
-                100 đánh giá - 3,6/5
+                {allcountComment} đánh giá - {parseFloat(avdComment).toFixed(2)}
+                /5
               </Text>
             </Block>
             <Block
@@ -475,20 +557,46 @@ const DetailScreens = ({
                 ))
               }
               data={dataComment}
-              renderItem={({item, index}) => index<3?(<CommentCard item={item} />):null
+              renderItem={({item, index}) =>
+                index < 3 ? <CommentCard item={item} /> : null
               }
             />
-            <Block row  >
-              <Block flex alignCenter >
-                <TouchableOpacity onPress={() =>{ navigation.navigate(routes.VOTE_SCREEN)}} style={[styles.btnComment,{backgroundColor:theme.colors.secondary,marginRight:getSize.m(4)}]} >
-                  <Text style={[styles.txtComment,{color: theme.colors.white}]}>Viết đánh giá</Text>
-                </TouchableOpacity>
-              </Block>
+            <Block row>
               <Block flex alignCenter>
-              <TouchableOpacity  style={[styles.btnComment,{marginLeft:getSize.m(4)}]} >
-                  <Text style={[styles.txtComment,{color:theme.colors.secondary}]}>Xem {dataComment.length} đánh giá</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate(routes.VOTE_SCREEN);
+                  }}
+                  style={[
+                    styles.btnComment,
+                    {
+                      backgroundColor: theme.colors.secondary,
+                      marginRight: getSize.m(4),
+                    },
+                  ]}>
+                  <Text
+                    style={[styles.txtComment, {color: theme.colors.white}]}>
+                    Viết đánh giá
+                  </Text>
                 </TouchableOpacity>
               </Block>
+              {Array.isArray(dataComment) && dataComment.length ? (
+                <Block flex alignCenter>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setModalVisible(true), setModalType('Comment');
+                    }}
+                    style={[styles.btnComment, {marginLeft: getSize.m(4)}]}>
+                    <Text
+                      style={[
+                        styles.txtComment,
+                        {color: theme.colors.secondary},
+                      ]}>
+                      Xem {dataComment.length} đánh giá
+                    </Text>
+                  </TouchableOpacity>
+                </Block>
+              ) : null}
             </Block>
           </Block>
         </Block>
@@ -496,7 +604,11 @@ const DetailScreens = ({
       {/* {dataComment.map((item, index)=><CommentCard item={item} />)} */}
       <Block row width={width} height={height / 14} backgroundColor={'blue'}>
         <TouchableOpacity
-          onPress={() => setModalVisible(true)}
+          onPress={() => {
+            //</Block>  getCountComment(id);
+            //  console.log(countcommentdata);
+            setModalVisible(true), setModalType('Cart');
+          }}
           style={{
             flex: 1,
             backgroundColor: theme.colors.primary,
@@ -518,105 +630,120 @@ const DetailScreens = ({
         onRequestClose={() => {
           Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
+          setModalType('');
         }}>
-        <Block
-          backgroundColor="#00000066"
-          width={width}
-          height={height}
-          justifyEnd
-          alignEnd
-          style={{position: 'absolute', bottom: 0}}>
+        {modalType === 'Cart' ? (
           <Block
-            padding={20}
-            backgroundColor={theme.colors.white}
+            backgroundColor="#00000066"
             width={width}
-            style={{
-              borderTopLeftRadius: getSize.m(20),
-              borderTopRightRadius: getSize.m(20),
-            }}>
-            <Block row>
-              <Block flex alignCenter justifyCenter></Block>
-              <Block style={{flex: 7}} alignCenter justifyCenter>
-                <Text
-                  style={{fontWeight: 'bold'}}
-                  size={20}
-                  color={theme.colors.primary}>
-                  Thêm vào giỏ hàng
-                </Text>
-              </Block>
-              <Block flex alignCenter justifyCenter>
-                <Thumbnail
-                  onPress={() => {
-                    setModalVisible(false);
-                  }}
-                  source={icons.close}
-                  style={{width: 30, height: 30}}></Thumbnail>
-              </Block>
-            </Block>
-            <Block style={{borderBottomWidth: 0.8}} borderColor="black" row>
-              <Block
-                style={{flex: 2}}
-                alignStart
-                paddingVertical={getSize.m(4)}>
-                <Thumbnail
-                  source={{uri: imageBG[0]}}
-                  imageStyle={{width: getSize.s(70), height: getSize.s(85)}}
-                />
-              </Block>
-              <Block style={{flex: 7, marginBottom: 20}}>
-                <Text style={{fontWeight: 'bold'}} size={20}>
-                  {name}
-                </Text>
-                <Text color="#949599">
-                  Hãng:<Text>Apple</Text> - Dung lượng:
-                  <Text>256 GB</Text>{' '}
-                </Text>
-                <Text size={20}>{formatCurrency(price)}</Text>
-                <Count
-                  onPressSubtract={() => {
-                    amount > 1 ? setAmount(amount - 1) : null;
-                  }}
-                  amount={amount}
-                  onPressPlus={() => {
-                    setAmount(amount + 1);
-                  }}
-                />
-              </Block>
-            </Block>
-            <Block row paddingTop={20}>
-              <Block style={{flex: 4}}>
-                <Text size={18}>Tổng</Text>
-                <Text color="red" size={20} style={{fontWeight: 'bold'}}>
-                  {formatCurrency(price * amount)}
-                </Text>
-              </Block>
-              <Block style={{flex: 7}}>
-                <TouchableOpacity
-                  onPress={() => {
-                    addCart(
-                      dataCarts,
-                      data.data._id,
-                      amount,
-                      dataCart.data2._id,
-                      dataCart.data.total,
-                    );
-                  }}
-                  style={{
-                    width: '100%',
-                    height: getSize.v(60),
-                    backgroundColor: theme.colors.primary,
-                    borderRadius: getSize.m(10),
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <Text color="white" style={{fontWeight: 'bold'}} size={22}>
-                    Thêm Giỏ Hàng
+            height={height}
+            justifyEnd
+            alignEnd
+            style={{position: 'absolute', bottom: 0}}>
+            <Block
+              padding={20}
+              backgroundColor={theme.colors.white}
+              width={width}
+              style={{
+                borderTopLeftRadius: getSize.m(20),
+                borderTopRightRadius: getSize.m(20),
+              }}>
+              <Block row>
+                <Block flex alignCenter justifyCenter></Block>
+                <Block style={{flex: 7}} alignCenter justifyCenter>
+                  <Text
+                    style={{fontWeight: 'bold'}}
+                    size={20}
+                    color={theme.colors.primary}>
+                    Thêm vào giỏ hàng
                   </Text>
-                </TouchableOpacity>
+                </Block>
+                <Block flex alignCenter justifyCenter>
+                  <Thumbnail
+                    onPress={() => {
+                      setModalVisible(false);
+                      setModalType('');
+                    }}
+                    source={icons.close}
+                    style={{width: 30, height: 30}}></Thumbnail>
+                </Block>
+              </Block>
+              <Block style={{borderBottomWidth: 0.8}} borderColor="black" row>
+                <Block
+                  style={{flex: 2}}
+                  alignStart
+                  paddingVertical={getSize.m(4)}>
+                  <Thumbnail
+                    source={{uri: imageBG[0]}}
+                    imageStyle={{width: getSize.s(70), height: getSize.s(85)}}
+                  />
+                </Block>
+                <Block style={{flex: 7, marginBottom: 20}}>
+                  <Text style={{fontWeight: 'bold'}} size={20}>
+                    {name}
+                  </Text>
+                  <Text color="#949599">
+                    Hãng:<Text>Apple</Text> - Dung lượng:
+                    <Text>256 GB</Text>{' '}
+                  </Text>
+                  <Text size={20}>{formatCurrency(price)}</Text>
+                  <Count
+                    onPressSubtract={() => {
+                      amount > 1 ? setAmount(amount - 1) : null;
+                    }}
+                    amount={amount}
+                    onPressPlus={() => {
+                      setAmount(amount + 1);
+                    }}
+                  />
+                </Block>
+              </Block>
+              <Block row paddingTop={20}>
+                <Block style={{flex: 4}}>
+                  <Text size={18}>Tổng</Text>
+                  <Text color="red" size={20} style={{fontWeight: 'bold'}}>
+                    {formatCurrency(price * amount)}
+                  </Text>
+                </Block>
+                <Block style={{flex: 7}}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      addCart(
+                        dataCarts,
+                        data.data._id,
+                        amount,
+                        dataCart.data2._id,
+                        totalCarts,
+                      );
+                    }}
+                    style={{
+                      width: '100%',
+                      height: getSize.v(60),
+                      backgroundColor: theme.colors.primary,
+                      borderRadius: getSize.m(10),
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                    <Text color="white" style={{fontWeight: 'bold'}} size={22}>
+                      Thêm Giỏ Hàng
+                    </Text>
+                  </TouchableOpacity>
+                </Block>
               </Block>
             </Block>
           </Block>
-        </Block>
+        ) : (
+          <Comment
+            navigation={navigation}
+            countComment={countComment}
+            name={name}
+            price={price}
+            image={imageBG}
+            dataComment={dataComment}
+            setModalType={setModalType}
+            setModalVisible={setModalVisible}
+          />
+        )}
       </Modal>
     </Block>
   );

@@ -159,6 +159,7 @@ const LoginScreens = ({loginAction, data, loadding, error}) => {
               height: 24,
               tintColor: theme.colors.grayText,
             }}
+
           />
 
           <PressText

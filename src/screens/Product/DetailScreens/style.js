@@ -12,6 +12,21 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginTop:StatusBar.currentHeight,
   },
+  check: {
+    width: getSize.s(24),
+    height: getSize.s(24),
+    marginVertical: 5,
+    marginHorizontal: 2,
+  },
+  textstar:{
+    fontWeight: 'bold',
+    color: theme.colors.orange,
+    fontSize:getSize.m(40)
+  },
+  icon: {
+    flexDirection: 'row',
+   
+  },
   body:{
     width:width,
   
