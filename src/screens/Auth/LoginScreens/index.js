@@ -45,10 +45,11 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
-const LoginScreens = ({loginAction, data, loadding}) => {
+const LoginScreens = ({loginAction, data, loadding, error}) => {
   // tao useState Loadding
   const [loading, setLoading] = useState(false);
   //
+  //const {email_user, pwd_user} = data;
 
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
@@ -61,6 +62,12 @@ const LoginScreens = ({loginAction, data, loadding}) => {
     setLoading(loadding);
   }, [loadding]);
 
+  useEffect(() => {
+    if(error !== null){
+      console.log(error);
+    }
+  }, [error])
+
   useEffect(async () => {
     if (data !== null) {
       await AsyncStorage.setItem('token', data.data.accesToken);
@@ -68,6 +75,9 @@ const LoginScreens = ({loginAction, data, loadding}) => {
       var decoded = jwt_decode(tolen);
       useData.token = tolen;
       useData.id = decoded.id;
+      console.log(data);
+      console.log('HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH DATA');
+
       _login();
       // navigation.dispatch(
       //         CommonActions.reset({
@@ -92,6 +102,19 @@ const LoginScreens = ({loginAction, data, loadding}) => {
       );
     }
   }, [data]);
+
+  const checkLogin = () => {
+    if (email === '' || password === '') {
+      ToastAndroid.show('Email hoặc mật khẩu rỗng!', ToastAndroid.SHORT);
+    } 
+    // else if (email !== email_user || password !== pwd_user) {
+    //   ToastAndroid.show('Sai tài khoản hoặc mật khẩu!', ToastAndroid.SHORT);
+    // } 
+    else {
+      loginAction(email, password);
+      ToastAndroid.show('Ngon rồi, zô!', ToastAndroid.SHORT);
+     }
+  };
 
   return (
     <>
@@ -136,6 +159,7 @@ const LoginScreens = ({loginAction, data, loadding}) => {
               height: 24,
               tintColor: theme.colors.grayText,
             }}
+
           />
 
           <PressText
@@ -151,7 +175,7 @@ const LoginScreens = ({loginAction, data, loadding}) => {
             shadow
             title="ĐĂNG NHẬP"
             onPress={() => {
-              loginAction(email, password);
+              checkLogin();
             }}
             style={styles.viewButtonLogin}
             titleStyle={styles.txtButtonLogin}

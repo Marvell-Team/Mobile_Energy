@@ -195,8 +195,7 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
                             fontSize: getSize.m(18),
                           },
                           phone !== null ? null : {opacity: 0.5},
-                        ]}>
-                        {phone !== null ? phone : 'Số điện thoại'}
+                        ]}>0{phone !== null ? phone : 'Số điện thoại'}
                       </Text>
                     </View>
                   </View>

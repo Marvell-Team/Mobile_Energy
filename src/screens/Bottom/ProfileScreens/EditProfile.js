@@ -55,7 +55,7 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
-const EditProfile = ({editUserByID, data, loadding}) => {
+const EditProfile = ({editUserByID, data, loadding, error}) => {
   // tao useState Loadding
   const [loading, setLoading] = useState(false);
   //
@@ -80,6 +80,12 @@ const EditProfile = ({editUserByID, data, loadding}) => {
   useEffect(() => {
     setLoading(loadding);
   }, [loadding]);
+
+  useEffect(() => {
+    if(error !== null){
+      console.log(error);
+    }
+  }, [error])
 
   useEffect(() => {
     convertdatetostring(null);
@@ -296,6 +302,31 @@ const EditProfile = ({editUserByID, data, loadding}) => {
     //  setImage(null);
   };
 
+  const checkEditProfile = () => {
+
+    var validNumberPhone = /((09|03|07|08|05)+([0-9]{8})\b)/;
+
+    if (name === '' || phoneNumber === '' || address === '') {
+      ToastAndroid.show('Vui lòng nhập đầy đủ thông tin!', ToastAndroid.SHORT);
+    } 
+    else if (!validNumberPhone.test(phoneNumber)){
+      ToastAndroid.show('Số điện thoại không đúng định dạng!', ToastAndroid.SHORT);
+    }
+    else {
+      let input = {
+        name_user: name,
+        phone_user: phoneNumber,
+        address_user: address,
+        avt_user: imageUri,
+        gender_user: pickerValue,
+        born_day: date,
+      };
+      editUserByID(input);
+      alert(imageUri);
+      ToastAndroid.show('Ok rồi đó, zô!', ToastAndroid.SHORT);
+     }
+  };
+
   return (
     <View style={[styles.container]}>
       <Animated.View
@@ -406,16 +437,7 @@ const EditProfile = ({editUserByID, data, loadding}) => {
         <TouchableOpacity
           style={styles.btnSave}
           onPress={() => {
-            let input = {
-              name_user: name,
-              phone_user: phoneNumber,
-              address_user: address,
-              avt_user: imageUri,
-              gender_user: pickerValue,
-              born_day: date,
-            };
-            editUserByID(input);
-            alert(imageUri);
+            checkEditProfile();
           }}>
           <Text fontSize={18} marginLeft={4} style={styles.txtSave}>
             Lưu thay đổi
