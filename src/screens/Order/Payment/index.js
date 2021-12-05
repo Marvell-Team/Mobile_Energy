@@ -134,9 +134,10 @@ const CartScreens = ({
       setAddress(dataStore.data.address_store + '');
     }
   }, [dataStore]);
-  useEffect(() => {
+  useEffect(async () => {
     if (dataPayment !== null) {
       addbillNullAction();
+      await AsyncStorage.removeItem(useData.id);
       navigation.navigate(routes.ORDER_SUCCESS_SCREEN, {
         id: dataPayment.data._id,
       });
@@ -283,6 +284,7 @@ const CartScreens = ({
                   id_store: storeId,
                   name: name,
                   phone: phone,
+                  total: dataTotal,
                   products: dataCart,
                 });
               } else {
