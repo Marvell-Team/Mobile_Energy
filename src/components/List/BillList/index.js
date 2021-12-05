@@ -10,14 +10,16 @@ const BillList = ({data, style}) => {
     <FlatList
       data={data}
       keyExtractor={item => item.id}
-      renderItem={({item}) => (
-        <BillCard
-          onPress={() =>
-            ToastAndroid.show('item: ' + ' ' + item.id, ToastAndroid.SHORT)
-          }
-          item={item}
-        />
-      )}
+      renderItem={({item}) =>
+        item.id_bill !== null ? (
+          <BillCard
+            onPress={() =>
+              ToastAndroid.show('item: ' + ' ' + item.id, ToastAndroid.SHORT)
+            }
+            item={item}
+          />
+        ) : null
+      }
       style={style}
     />
   );

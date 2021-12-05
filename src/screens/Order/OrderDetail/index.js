@@ -48,7 +48,6 @@ const OrderDetail = ({data2, getBillDetailById}) => {
   const [idBill, setIdBill] = useState();
   const [date, setDate] = useState();
 
-
   useEffect(() => {
     if (data2 !== null) {
       const {data} = data2;
@@ -60,9 +59,10 @@ const OrderDetail = ({data2, getBillDetailById}) => {
       setName(item.id_bill.note_bill.name);
       setPhone(item.id_bill.note_bill.phone);
       setIdBill(item.id_bill._id);
-      console.log(item.id_bill._id)
-      console.log('=========================<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<xxxxx')
-
+      console.log(item.id_bill._id);
+      console.log(
+        '=========================<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<xxxxx',
+      );
     }
   }, [data2]);
 
@@ -97,7 +97,11 @@ const OrderDetail = ({data2, getBillDetailById}) => {
           <Text style={styles.text}>Thông tin sản phẩm</Text>
         </Block>
         {data1.map(item => (
-          <Block row paddingVertical={16} paddingHorizontal={8} style={styles.viewProduct}>
+          <Block
+            row
+            paddingVertical={16}
+            paddingHorizontal={8}
+            style={styles.viewProduct}>
             <Image
               source={{uri: item.id_product.id_image.nameImage[0]}}
               style={styles.imageProduct}
@@ -110,23 +114,31 @@ const OrderDetail = ({data2, getBillDetailById}) => {
                   {item.id_product.nameProduct}
                 </Text>
               </Block>
-                <Text style={styles.txtInfoProduct}>
-                  Hãng: - Màu: - Dung lượng: 
-                </Text>
-                <Text style={styles.txtPrice}>
-                {formatCurrency(item.id_product.price_product)} - x{item.id_product.quantity_product}
-                </Text>
+              <Text style={styles.txtInfoProduct}>
+                Hãng: - Màu: - Dung lượng:
+              </Text>
+              <Text style={styles.txtPrice}>
+                {formatCurrency(item.id_product.price_product)} - x
+                {item.id_product.quantity_product}
+              </Text>
             </Block>
           </Block>
         ))}
       </Block>
 
-      <Block paddingHorizontal={16} paddingVertical={16} row style={styles.viewTotal}>
+      <Block
+        paddingHorizontal={16}
+        paddingVertical={16}
+        row
+        style={styles.viewTotal}>
         <Text style={styles.txtTotal}>Giá tạm tính:</Text>
         <Text style={styles.txtTotall}>{formatCurrency(total)}</Text>
       </Block>
 
-      <Block paddingHorizontal={16} paddingVertical={16} style={styles.viewInfo}>
+      <Block
+        paddingHorizontal={16}
+        paddingVertical={16}
+        style={styles.viewInfo}>
         <Text style={styles.txtAddress}>
           Địa chỉ và thông tin nơi nhận hàng:
         </Text>
