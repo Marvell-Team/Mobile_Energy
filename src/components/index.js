@@ -14,6 +14,7 @@ import ProductFlatList from './List/ProductFlatList';
 import ProductGridList from './List/ProductGridList';
 import BillList from './List/BillList';
 import ProductCard from './Card/ProductCard';
+import ProductCard2 from './Card/ProductCard2';
 import CategoryItem from './Card/CategoryItem';
 import FavoriteCard from './Card/FavoriteCard';
 import Product from './Product';
@@ -36,5 +37,6 @@ export {
   CategoryItem,
   ProductCard,
   FavoriteCard,
-  Product
+  Product,
+  ProductCard2,
 };

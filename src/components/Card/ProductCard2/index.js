@@ -15,14 +15,19 @@ import {routes} from '@navigation/routes';
 import {formatCurrency} from '@utils/utils';
 import styles from './style';
 
-const Product_Card = ({item}) => {
-  
+const Product_Card = ({item, getProductbyIdAction}) => {
+  const navigation = useNavigation();
   return (
-    <Block style={styles.container} margin={8} borderRadius={8}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => {
+        getProductbyIdAction(item._id);
+        navigation.navigate(routes.DETAILSCREENS, {id: item._id});
+      }}>
       <Block style={styles.viewContent}>
         <Thumbnail
           source={{
-            uri: item.id_image.nameImage[0]
+            uri: item.id_image.nameImage[0],
           }}
           style={styles.viewContentImage}
           resizeMode={'stretch'}
@@ -37,7 +42,7 @@ const Product_Card = ({item}) => {
           </Text>
         </Block>
       </Block>
-    </Block>
+    </TouchableOpacity>
   );
 };
 

@@ -8,6 +8,7 @@ import {
   Thumbnail,
   CategoryItem,
   ProductCard,
+  ProductCard2,
 } from '@components';
 import {View, Pressable, FlatList, ScrollView} from 'react-native';
 import styles from './style';
@@ -22,11 +23,12 @@ import Loading from '@components/Loadding/Loading';
 import {
   getProductbyCategories,
   getProductbyIdAction,
-  getProduct
+  getProduct,
 } from '../../../redux/actions';
 import {useData} from 'config/config';
 import {connect} from 'react-redux';
 import {getCateGoryAction} from '@redux/actions';
+import {getSize} from '@utils/responsive';
 
 const mapStateToProps = state => {
   console.log(state.getProductByCategoriesReducer.data);
@@ -50,17 +52,12 @@ const mapStateToProps = state => {
     loaddingCate: state.getCategoriesReducer
       ? state.getCategoriesReducer.loadding
       : null,
-    
-      errorPrdt: state.getProductReducer
-      ? state.getProductReducer.error
-      : null,
-    dataPrdt: state.getProductReducer
-      ? state.getProductReducer.data
-      : null,
+
+    errorPrdt: state.getProductReducer ? state.getProductReducer.error : null,
+    dataPrdt: state.getProductReducer ? state.getProductReducer.data : null,
     loaddingPrdt: state.getProductReducer
       ? state.getProductReducer.loadding
-      : null,   
-        
+      : null,
   };
 };
 
@@ -94,14 +91,19 @@ const HomeScreens = ({
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [salesList, setSalesList] = useState([]);
-  const [dataasscess, setDataasscess] = useState([])
+  const [dataSell, setDataSell] = useState([]);
   const [dataCate, setDataCate] = useState([]);
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getProductbyCategories({name:'PHONE',price:null,sell:null});
-  }, [getProductbyCategories]);
+    getProductbyCategories({name: 'PHONE'});
+  }, []);
+  useEffect(() => {
+    if (dataPrdt !== null) {
+      setDataSell(dataPrdt.data);
+    }
+  }, [dataPrdt]);
   useEffect(() => {
     if (data !== null) {
       setSalesList(data.data);
@@ -114,6 +116,10 @@ const HomeScreens = ({
   }, [data1Cate]);
   useEffect(() => {
     getCateGoryAction('PHONE');
+    getProduct({
+      price: null,
+      sell: 1,
+    });
   }, []);
 
   useEffect(() => {
@@ -122,7 +128,7 @@ const HomeScreens = ({
 
   const handlePressCategory = index => {};
 
-  const blockListProduct = useCallback(({title,data}) => {
+  const blockListProduct = useCallback(({title, data}) => {
     // console.log('DATA >>> ', salesList);
     return (
       <Block style={styles.blockProductContainer}>
@@ -140,7 +146,7 @@ const HomeScreens = ({
           </Pressable>
         </Block>
         <FlatList
-          data={salesList}
+          data={data}
           style={{alignSelf: 'center', marginTop: 15}}
           showsHorizontalScrollIndicator={false}
           horizontal
@@ -195,8 +201,31 @@ const HomeScreens = ({
             />
           </ScrollView>
         </Block>
-        {blockListProduct({title:'SẢN PHẨM PHỔ BIẾN'})}
-        {blockListProduct({title:'PHỤ KIỆN PHỔ BIẾN'})}
+        {blockListProduct({title: 'SẢN PHẨM BÁN CHẠY', data: dataSell})}
+        {blockListProduct({title: 'PHỤ KIỆN PHỔ BIẾN', data: salesList})}
+        <Text
+          style={[
+            styles.textTitle,
+            {
+              fontSize: getSize.m(20),
+              fontWeight: 'bold',
+              marginLeft: getSize.m(10),
+            },
+          ]}>
+          GỢI Ý HÔM NAY
+        </Text>
+        <Block justifyCenter alignCenter>
+          <FlatList
+            data={salesList}
+            numColumns={2}
+            renderItem={({item}) => (
+              <ProductCard2
+                item={item}
+                getProductbyIdAction={getProductbyIdAction}
+              />
+            )}
+          />
+        </Block>
       </ScrollView>
       {/*Có cái này mới hiện loading!!!*/}
       {loading && (<Loading/>)}
