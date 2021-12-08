@@ -88,6 +88,8 @@ const HomeScreens = ({
   dataPrdt,
   getCateGoryAction,
   data1Cate,
+  errorCate,
+  errorPrdt,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [salesList, setSalesList] = useState([]);
@@ -125,6 +127,24 @@ const HomeScreens = ({
   useEffect(() => {
     setLoading(loadding)
   }, [loadding])
+
+  useEffect(() => {
+    if(error !== null){
+      console.log(error);
+    }
+  }, [error])
+
+  useEffect(() => {
+    if(errorCate !== null){
+      console.log(errorCate);
+    }
+  }, [errorCate])
+
+  useEffect(() => {
+    if(errorPrdt !== null){
+      console.log(errorPrdt);
+    }
+  }, [errorPrdt])
 
   const handlePressCategory = index => {};
 

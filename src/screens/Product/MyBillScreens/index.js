@@ -25,7 +25,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const MyBillScreens = ({data1, getBillAction, loadding}) => {
+const MyBillScreens = ({data1, getBillAction, loadding, error}) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
@@ -44,6 +44,12 @@ const MyBillScreens = ({data1, getBillAction, loadding}) => {
   useEffect(() => {
     setLoading(loadding)
   }, [loadding])
+
+  useEffect(() => {
+    if(error !== null){
+      console.log(error);
+    }
+  }, [error])
 
   return (
     <Block style={styles.container}>

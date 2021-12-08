@@ -45,7 +45,7 @@ const mapStateToProps = state => {
      },
    };
   };
-const Productsrc  = ({getProductByCategoriesChild,data}) => {
+const Productsrc  = ({getProductByCategoriesChild,data, error}) => {
     const [data1, setData1] = useState([])
     const route = useRoute();
     const {item} = route.params;
@@ -60,6 +60,13 @@ const Productsrc  = ({getProductByCategoriesChild,data}) => {
             console.log('=====================>>')
         }
     },[data])
+
+    useEffect(() => {
+      if(error !== null){
+        console.log(error);
+      }
+    }, [error])
+
     return (<Product data={data1}/>)
 };
 export default connect (mapStateToProps, mapDispatchToProps)(Productsrc);

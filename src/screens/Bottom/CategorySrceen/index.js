@@ -55,7 +55,7 @@ const CartCard = ({item}) => {
     </View>
   );
 };
-const Category = ({getCateGoryAction, data1, loadding}) => {
+const Category = ({getCateGoryAction, data1, loadding, error}) => {
   const [data, setData] = useState([]);
   const [isLoading, setisLoading] = useState(true);
   const [status, setStatus] = useState();
@@ -75,6 +75,12 @@ const Category = ({getCateGoryAction, data1, loadding}) => {
   useEffect(() => {
     setLoading(loadding);
   }, [loadding]);
+
+  useEffect(() => {
+    if(error !== null){
+      console.log(error);
+    }
+  }, [error])
 
   const jewelStyle = id => {
     if (id === status) {
