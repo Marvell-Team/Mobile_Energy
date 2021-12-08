@@ -10,6 +10,7 @@ import { routes } from '@navigation/routes';
 import ProductCard2 from '@components/Card/ProductCard2';
 import {getLikeByUserAction} from '../../../redux/actions';
 import { useData } from 'config/config';
+import Loading from '@components/Loadding/Loading';
 
 const mapStateToProps = state => {
   console.log(state.getLikeByUserReducer.data)
@@ -38,7 +39,11 @@ const categori = [
   {id: 4, name: 'Bán chạy'},
 ];
 
-const LikeList = ({data1, getLikeByUserAction}) => {
+const LikeList = ({data1, getLikeByUserAction, loadding}) => {
+  const navigation = useNavigation();
+  const [status, setStatus] = useState();
+  const [data2, setData2] = useState([]);
+  const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (useData.token !== null && useData.id !== null) {
@@ -56,11 +61,10 @@ const LikeList = ({data1, getLikeByUserAction}) => {
     }
   
   }, [data1])
-
-  const navigation = useNavigation();
-  const [status, setStatus] = useState();
-  const [data2, setData2] = useState([]);
   
+  useEffect(() => {
+    setLoading(loadding)
+  }, [loadding])
 
   const setStatusFilter = id => {
     setStatus(id);
@@ -186,6 +190,7 @@ const LikeList = ({data1, getLikeByUserAction}) => {
 
         <FlatList
           data={data2}
+          showsVerticalScrollIndicator={false}
           numColumns={2}
           renderItem={({item}) => <ProductCard2 item={item.id_product} />}
         />
@@ -196,6 +201,8 @@ const LikeList = ({data1, getLikeByUserAction}) => {
         <Text style={styles.txt}>Bạn chưa like bài đăng nào!</Text>    
             )}
       </Block>
+      {/*Có cái này mới hiện loading!!!*/}
+      {loading && (<Loading/>)}
     </Block>
   );
 };

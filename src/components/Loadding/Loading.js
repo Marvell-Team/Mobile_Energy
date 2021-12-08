@@ -21,7 +21,8 @@ const Loading = (props) => {
       }}
     >
       <View style={[styles.container, styles.horizontal]}>
-        <ActivityIndicator size="large" color="'rgba(250, 173, 20, 0.9)'" />
+        <ActivityIndicator size="large" color="'rgba(0, 0, 255, 1)'" />
+        {/* <ActivityIndicator size="large" color="'rgba(250, 173, 20, 0.9)'" /> */}
       </View>
     </View>
   )

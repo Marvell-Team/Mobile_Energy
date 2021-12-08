@@ -83,7 +83,6 @@ const SignUpScreens = ({signUpAction, data,loadding, error}) => {
           name_user: username,
         };
         signUpAction(user);
-        ToastAndroid.show('Đăng ký ok rồi đó, zô!', ToastAndroid.SHORT);
        }
     };
 

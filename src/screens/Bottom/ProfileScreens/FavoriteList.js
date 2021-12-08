@@ -10,6 +10,7 @@ import {connect} from 'react-redux';
 import { routes } from '@navigation/routes';
 import { getFavoriteAction } from '@redux/actions';
 import Product_Card from '@components/Card/ProductCard2';
+import Loading from '@components/Loadding/Loading';
 
 const mapStateToProps = state => {
   console.log(state.getFavoriteReducer.data)
@@ -41,7 +42,12 @@ const categori = [
   {id: 4, name: 'Bán chạy'},
 ];
 
-const FavoriteList = ({data1, getFavoriteAction}) => {
+const FavoriteList = ({data1, getFavoriteAction, loadding}) => {
+  const navigation = useNavigation();
+  const [status, setStatus] = useState();
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     getFavoriteAction()
     
@@ -57,9 +63,9 @@ const FavoriteList = ({data1, getFavoriteAction}) => {
   
   }, [data1])
 
-  const navigation = useNavigation();
-  const [status, setStatus] = useState();
-  const [data, setData] = useState([]);
+  useEffect(() => {
+    setLoading(loadding)
+  }, [loadding])
 
   const setStatusFilter = id => {
     setStatus(id);
@@ -195,10 +201,13 @@ const FavoriteList = ({data1, getFavoriteAction}) => {
       <Block flex alignCenter justifyCenter marginTop={10}>
         <FlatList
           data={data}
+          showsVerticalScrollIndicator={false}
           numColumns={2}
           renderItem={({item, index}) => <Product_Card item={item} />}
         />
       </Block>
+      {/*Có cái này mới hiện loading!!!*/}
+      {loading && (<Loading/>)}
     </Block>
   );
 };

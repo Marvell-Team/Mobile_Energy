@@ -18,6 +18,7 @@ import {category, listProduct} from '@utils/dummyData';
 import {useIsFocused} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
 import {routes} from '@navigation/routes';
+import Loading from '@components/Loadding/Loading';
 
 import {
   getProductbyCategories,
@@ -93,6 +94,8 @@ const HomeScreens = ({
   const [dataSell, setDataSell] = useState([]);
   const [dataCate, setDataCate] = useState([]);
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     getProductbyCategories({name: 'PHONE'});
   }, []);
@@ -118,6 +121,10 @@ const HomeScreens = ({
       sell: 1,
     });
   }, []);
+
+  useEffect(() => {
+    setLoading(loadding)
+  }, [loadding])
 
   const handlePressCategory = index => {};
 
@@ -220,6 +227,8 @@ const HomeScreens = ({
           />
         </Block>
       </ScrollView>
+      {/*Có cái này mới hiện loading!!!*/}
+      {loading && (<Loading/>)}
     </Block>
   );
 };

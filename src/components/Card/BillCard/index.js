@@ -124,7 +124,7 @@ const BillCard = ({item, onPress, style, getBillAction,getBillDetailByIdAction, 
                 <Text style={styles.price}>
                   {formatCurrency(item.id_product.price_product)} VNĐ
                 </Text>
-                <Text style={styles.quantity}>x{item.id_product.amount}</Text>
+                <Text style={styles.quantity}>x{item.amount}</Text>
               </Block>
             </Block>
           ))}

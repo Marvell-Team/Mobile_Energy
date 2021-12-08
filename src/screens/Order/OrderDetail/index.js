@@ -10,6 +10,7 @@ import {getBillAction, getBillDetailByIdAction} from '@redux/actions';
 import {formatCurrency} from '@utils/utils';
 import {Header, Block} from '@components';
 import style from '@components/Card/FlatCard/style';
+import Loading from '@components/Loadding/Loading';
 
 const mapStateToProps = state => {
   return {
@@ -37,7 +38,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const OrderDetail = ({data2, getBillDetailById}) => {
+const OrderDetail = ({data2, getBillDetailById, loadding}) => {
   const navigation = useNavigation();
   const [data1, setData1] = useState([]);
   const [name, setName] = useState('');
@@ -47,6 +48,7 @@ const OrderDetail = ({data2, getBillDetailById}) => {
   const [status, setStatus] = useState('');
   const [idBill, setIdBill] = useState();
   const [date, setDate] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (data2 !== null) {
@@ -65,6 +67,10 @@ const OrderDetail = ({data2, getBillDetailById}) => {
       );
     }
   }, [data2]);
+
+  useEffect(() => {
+    setLoading(loadding)
+  }, [loadding])
 
   return (
     <Block style={styles.container}>
@@ -119,7 +125,7 @@ const OrderDetail = ({data2, getBillDetailById}) => {
               </Text>
               <Text style={styles.txtPrice}>
                 {formatCurrency(item.id_product.price_product)} - x
-                {item.id_product.quantity_product}
+                {item.amount}
               </Text>
             </Block>
           </Block>
@@ -159,6 +165,8 @@ const OrderDetail = ({data2, getBillDetailById}) => {
           </Text>
         </TouchableOpacity>
       </View>
+      {/*Có cái này mới hiện loading!!!*/}
+      {loading && (<Loading/>)}
     </Block>
   );
 };
