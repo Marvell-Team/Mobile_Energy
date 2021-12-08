@@ -33,6 +33,8 @@ import {icons} from '@assets';
 import {theme} from '@theme';
 import {getSize} from '@utils/responsive';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Loading from '@components/Loadding/Loading';
+
 const mapStateToProps = state => {
   console.log(state.getStoreByIdReducer);
   return {
@@ -91,6 +93,7 @@ const CartScreens = ({
   addBillAction,
   dataPayment,
   addbillNullAction,
+  loadding,
 }) => {
   const navigation = useNavigation();
   const [dataCart, setDataCart] = useState([]);
@@ -100,11 +103,17 @@ const CartScreens = ({
   const [address, setAddress] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (useData.token !== null) {
       getCartByUser(useData.id);
     }
   }, [UpdateCartByUser, dataUpdate, getCartByUser]);
+
+  useEffect(() => {
+    setLoading(loadding)
+  }, [loadding])
 
   const _setDataCart = aa => {
     setDataCart(aa.products);
@@ -297,6 +306,8 @@ const CartScreens = ({
           />
         </View>
       </View>
+      {/*Có cái này mới hiện loading!!!*/}
+      {loading && (<Loading/>)}
     </SafeAreaView>
   );
 };

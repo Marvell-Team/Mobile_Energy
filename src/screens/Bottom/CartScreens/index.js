@@ -30,6 +30,8 @@ import {Header, Thumbnail} from '@components';
 import {icons} from '@assets';
 import {getSize} from '@utils/responsive';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Loading from '@components/Loadding/Loading';
+
 const mapStateToProps = state => {
   return {
     error: state.getCartByUserReducer ? state.getCartByUserReducer.error : null,
@@ -53,12 +55,13 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
-const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate}) => {
+const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate, loadding}) => {
   const navigation = useNavigation();
   const [dataCart, setDataCart] = useState([]);
   const [dataID, setDataID] = useState('');
   const [dataTotal, setDataTotal] = useState(0);
   const [checktoken, setChecktoken] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (useData.token !== null) {
@@ -89,6 +92,11 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate}) => {
     console.log('token' + useData.token);
     setChecktoken(useData.token);
   }, [useData.token]);
+
+  useEffect(() => {
+    setLoading(loadding)
+  }, [loadding])
+
   return (
     <SafeAreaView style={{backgroundColor: COLORS.white, flex: 1}}>
       <View style={style.header}>
@@ -190,6 +198,8 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate}) => {
           </View>
         </View>
       )}
+      {/*Có cái này mới hiện loading!!!*/}
+      {loading && (<Loading/>)}
     </SafeAreaView>
   );
 };

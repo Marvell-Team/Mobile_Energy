@@ -12,6 +12,8 @@ import { theme } from '@theme';
 import { icons } from '@assets';
 import { api } from 'config/config';
 import axios from 'axios';
+import Loading from '@components/Loadding/Loading';
+
 const categori = [
   { id: 2, name: 'Điện thoại',nameid:'PHONE' },
   { id: 3, name: 'Phụ kiện',nameid:'ACCESSORY' },
@@ -48,10 +50,12 @@ const CartCard = ({ item }) => {
     </View>
   );
 };
-const Category = ({ getCateGoryAction,data1}) => {
+const Category = ({ getCateGoryAction,data1, loadding}) => {
   const [data, setData] = useState([]);
   const [isLoading, setisLoading] = useState(true);
   const [status, setStatus] = useState();
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     // getListCategory();
     getCateGoryAction('PHONE');
@@ -62,6 +66,11 @@ const Category = ({ getCateGoryAction,data1}) => {
       setData(data1.data)
     }
   }, [data1])
+
+  useEffect(() => {
+    setLoading(loadding)
+  }, [loadding])
+
   const jewelStyle = id => {
     if (id === status) {
       return {
@@ -198,7 +207,8 @@ const Category = ({ getCateGoryAction,data1}) => {
         renderItem={({ item }) => <CartCard item={item}
         />}
       />
-
+      {/*Có cái này mới hiện loading!!!*/}
+      {loading && (<Loading/>)}
     </SafeAreaView>
   );
 };

@@ -107,12 +107,8 @@ const LoginScreens = ({loginAction, data, loadding, error}) => {
     if (email === '' || password === '') {
       ToastAndroid.show('Email hoặc mật khẩu rỗng!', ToastAndroid.SHORT);
     } 
-    // else if (email !== email_user || password !== pwd_user) {
-    //   ToastAndroid.show('Sai tài khoản hoặc mật khẩu!', ToastAndroid.SHORT);
-    // } 
     else {
       loginAction(email, password);
-      ToastAndroid.show('Ngon rồi, zô!', ToastAndroid.SHORT);
      }
   };
 
@@ -175,7 +171,9 @@ const LoginScreens = ({loginAction, data, loadding, error}) => {
             shadow
             title="ĐĂNG NHẬP"
             onPress={() => {
-              checkLogin();
+              
+              checkLogin();  
+                
             }}
             style={styles.viewButtonLogin}
             titleStyle={styles.txtButtonLogin}

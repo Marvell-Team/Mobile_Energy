@@ -19,6 +19,8 @@ import Modalpicker from '@components/Modal/ModalPicker';
 const {width} = Dimensions.get('window');
 const {height} = Dimensions.get('window');
 import {connect} from 'react-redux';
+import Loading from '@components/Loadding/Loading';
+
 const mapStateToProps = state => {
   return {
     error: state.getStoreReducer ? state.getStoreReducer.error : null,
@@ -44,9 +46,11 @@ const mapDispatchToProps = dispatch => {
 };
 
 // 
-const OrderLocation = ({data,getStoreAction,getStoreByIdAction}) => {
+const OrderLocation = ({data,getStoreAction,getStoreByIdAction, loadding}) => {
   const [idlocal, setIdlocal] = useState();
-  const [data1, setData1] = useState([])
+  const [data1, setData1] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     getStoreAction();
   }, [getStoreAction])
@@ -56,6 +60,11 @@ const OrderLocation = ({data,getStoreAction,getStoreByIdAction}) => {
     //  console.log(data.data)
     }
   }, [data])
+
+  useEffect(() => {
+    setLoading(loadding)
+  }, [loadding])
+
   const navigation = useNavigation();
   const [pickerValue, setPickerValue] = useState('Nam');
   const [name, setName] = useState('');
@@ -77,6 +86,8 @@ const OrderLocation = ({data,getStoreAction,getStoreByIdAction}) => {
       <View style={styles.footer}>
           <Button style={styles.button} onPress={() => {getStoreByIdAction({idlocal:idlocal,name:name,phone:phone}),navigation.goBack()}} title="Lưu địa chỉ" />
       </View>
+      {/*Có cái này mới hiện loading!!!*/}
+      {loading && (<Loading/>)}
     </View>
   );
 };

@@ -6,68 +6,8 @@ import styles from './styles';
 import {getBillAction} from '@redux/actions';
 import {connect} from 'react-redux';
 import {useData} from 'config/config';
-const bill = [
-  {
-    id: 1,
-    nameProduct: 'IPorn 12',
-    price: 29999000,
-    imgProduct:
-      'https://image.thanhnien.vn/1024/uploaded/nthanhluan/2020_10_14/1_foyn.jpg',
-    quantity: 1,
-    status: 'Đã thanh toán',
-    show: false,
-  },
-  {
-    id: 2,
-    nameProduct: 'IPorn 12',
-    price: 29999000,
-    imgProduct:
-      'https://image.thanhnien.vn/1024/uploaded/nthanhluan/2020_10_14/1_foyn.jpg',
-    quantity: 2,
-    status: 'Chưa thanh toán',
-    show: false,
-  },
-  {
-    id: 3,
-    nameProduct: 'IPorn 12',
-    price: 29999000,
-    imgProduct:
-      'https://image.thanhnien.vn/1024/uploaded/nthanhluan/2020_10_14/1_foyn.jpg',
-    quantity: 1,
-    status: 'Đã thanh toán',
-    show: false,
-  },
-  {
-    id: 4,
-    nameProduct: 'IPorn 12',
-    price: 29999000,
-    imgProduct:
-      'https://image.thanhnien.vn/1024/uploaded/nthanhluan/2020_10_14/1_foyn.jpg',
-    quantity: 1,
-    status: 'Chưa thanh toán',
-    show: false,
-  },
-  {
-    id: 5,
-    nameProduct: 'IPorn 12',
-    price: 29999000,
-    imgProduct:
-      'https://image.thanhnien.vn/1024/uploaded/nthanhluan/2020_10_14/1_foyn.jpg',
-    quantity: 1,
-    status: 'Đã thanh toán',
-    show: false,
-  },
-  {
-    id: 6,
-    nameProduct: 'IPorn 12',
-    price: 29999000,
-    imgProduct:
-      'https://image.thanhnien.vn/1024/uploaded/nthanhluan/2020_10_14/1_foyn.jpg',
-    quantity: 1,
-    status: 'Chưa thanh toán',
-    show: false,
-  },
-];
+import Loading from '@components/Loadding/Loading';
+import {useNavigation} from '@react-navigation/native';
 
 const mapStateToProps = state => {
   return {
@@ -85,21 +25,33 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const MyBillScreens = ({data1, getBillAction}) => {
+const MyBillScreens = ({data1, getBillAction, loadding}) => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const navigation = useNavigation();
+
   console.log('Length >>>>>>' + data.length);
   useEffect(() => {
     if (data1 !== null) {
       setData(data1.data);
     }
   }, [data1]);
+
   useEffect(() => {
     getBillAction(useData.id);
   }, [getBillAction]);
+
+  useEffect(() => {
+    setLoading(loadding)
+  }, [loadding])
+
   return (
     <Block style={styles.container}>
       <Header
         iconLeft={icons.back}
+        leftPress={() =>
+          navigation.goBack()
+        }
         title="Đơn hàng của bạn"
         iconRight={icons.more}
       />
@@ -114,6 +66,10 @@ const MyBillScreens = ({data1, getBillAction}) => {
       ) : (
         <BillList data={data} style={{marginVertical: 8}} />
       )}
+
+      {/*Có cái này mới hiện loading!!!*/}
+      {loading && (<Loading/>)}
+
     </Block>
   );
 };

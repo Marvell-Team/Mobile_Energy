@@ -4,15 +4,11 @@ import {icons} from '@assets';
 import {Block, FlatCard, Header, NotifiList} from '@components';
 import styles from './style';
 import {connect} from 'react-redux';
-
 import {useData} from 'config/config';
 import {getBillDetailByIdAction, getNotificationByUserAction} from '@redux/actions';
+import Loading from '@components/Loadding/Loading';
 
 const mapStateToProps = state => {
-  // console.log(state.getNotificationByUserReducer.data);
-  // console.log(
-  //   '=============>>>>>>>>>>>>> getNotificationByUserReducer ===============>>>>>>>>>>> ',
-  // );
   return {
     error: state.getNotificationByUserReducer
       ? state.getNotificationByUserReducer.error
@@ -37,8 +33,10 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const NotificationScreens = ({data1, getNotificationByUserAction, getBillDetailByIdAction}) => {
+const NotificationScreens = ({data1, getNotificationByUserAction, getBillDetailByIdAction, loadding}) => {
    const [data2, setData2] = useState([]);
+   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (useData.token !== null && useData.id !== null) {
       getNotificationByUserAction(useData.id);
@@ -71,11 +69,10 @@ const NotificationScreens = ({data1, getNotificationByUserAction, getBillDetailB
     }
   }, [data2]);
 
- 
-  // console.log(data2);
-  // console.log(
-  //   '===============>>>>>>>>>>>>>> data =============>>>>>>>>>>>',
-  // );
+  useEffect(() => {
+    setLoading(loadding)
+  }, [loadding])
+
   return (
     <Block flex style={styles.container}>
       <Header title="Thông báo" />
@@ -94,6 +91,8 @@ const NotificationScreens = ({data1, getNotificationByUserAction, getBillDetailB
           <Text style={styles.txt}>Bạn chưa thông báo nào!</Text>
         )}
       </Block>
+      {/*Có cái này mới hiện loading!!!*/}
+      {loading && (<Loading/>)}
     </Block>
   );
 };
