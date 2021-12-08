@@ -45,7 +45,7 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
-const Product = ({getProductByCategoriesChild, dataCategories}) => {
+const Product = ({getProductByCategoriesChild, dataCategories, errorCategories}) => {
   const navigation = useNavigation();
   const route = useRoute();
   const {id, type} = route.params;
@@ -74,6 +74,13 @@ const Product = ({getProductByCategoriesChild, dataCategories}) => {
       }
     }
   }, [dataCategories]);
+
+  useEffect(() => {
+    if(errorCategories !== null){
+      console.log(errorCategories);
+    }
+  }, [errorCategories])
+
   const jewelStyle = id => {
     if (id === status) {
       return {

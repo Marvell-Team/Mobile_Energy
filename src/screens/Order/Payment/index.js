@@ -94,6 +94,8 @@ const CartScreens = ({
   dataPayment,
   addbillNullAction,
   loadding,
+  error,
+  errorPayment,
 }) => {
   const navigation = useNavigation();
   const [dataCart, setDataCart] = useState([]);
@@ -114,6 +116,24 @@ const CartScreens = ({
   useEffect(() => {
     setLoading(loadding)
   }, [loadding])
+
+  useEffect(() => {
+    if(error !== null){
+      console.log(error);
+    }
+  }, [error])
+
+  useEffect(() => {
+    if(errorStore !== null){
+      console.log(errorStore);
+    }
+  }, [errorStore])
+
+  useEffect(() => {
+    if(errorPayment !== null){
+      console.log(errorPayment);
+    }
+  }, [errorPayment])
 
   const _setDataCart = aa => {
     setDataCart(aa.products);

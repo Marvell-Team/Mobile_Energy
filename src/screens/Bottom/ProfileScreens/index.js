@@ -88,6 +88,13 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
       setChecktoken(useData.token);
     }
   }, [useData.token]);
+
+  useEffect(() => {
+    if(error !== null){
+      console.log(error);
+    }
+  }, [error])
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>

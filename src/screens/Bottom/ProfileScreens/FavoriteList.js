@@ -42,7 +42,7 @@ const categori = [
   {id: 4, name: 'Bán chạy'},
 ];
 
-const FavoriteList = ({data1, getFavoriteAction, loadding}) => {
+const FavoriteList = ({data1, getFavoriteAction, loadding, error}) => {
   const navigation = useNavigation();
   const [status, setStatus] = useState();
   const [data, setData] = useState([]);
@@ -66,6 +66,12 @@ const FavoriteList = ({data1, getFavoriteAction, loadding}) => {
   useEffect(() => {
     setLoading(loadding)
   }, [loadding])
+
+  useEffect(() => {
+    if(error !== null){
+      console.log(error);
+    }
+  }, [error])
 
   const setStatusFilter = id => {
     setStatus(id);

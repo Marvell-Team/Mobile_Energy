@@ -55,7 +55,7 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
-const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate, loadding}) => {
+const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate, loadding, error}) => {
   const navigation = useNavigation();
   const [dataCart, setDataCart] = useState([]);
   const [dataID, setDataID] = useState('');
@@ -96,6 +96,12 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate, loaddin
   useEffect(() => {
     setLoading(loadding)
   }, [loadding])
+
+  useEffect(() => {
+    if(error !== null){
+      console.log(error);
+    }
+  }, [error])
 
   return (
     <SafeAreaView style={{backgroundColor: COLORS.white, flex: 1}}>

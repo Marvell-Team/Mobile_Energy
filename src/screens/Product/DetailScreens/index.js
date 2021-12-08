@@ -59,9 +59,9 @@ const mapStateToProps = state => {
     dataLike: state.editLikeReducer ? state.editLikeReducer.data : null,
     loaddingLike: state.editLikeReducer ? state.editLikeReducer.loadding : null,
 
-    errorLike: state.editLikeReducer ? state.editLikeReducer.error : null,
-    dataLike: state.editLikeReducer ? state.editLikeReducer.data : null,
-    loaddingLike: state.editLikeReducer ? state.editLikeReducer.loadding : null,
+    // errorLike: state.editLikeReducer ? state.editLikeReducer.error : null,
+    // dataLike: state.editLikeReducer ? state.editLikeReducer.data : null,
+    // loaddingLike: state.editLikeReducer ? state.editLikeReducer.loadding : null,
 
     errorStatusLike: state.getStatusLikeReducer
       ? state.getStatusLikeReducer.error
@@ -169,6 +169,13 @@ const DetailScreens = ({
   addComment,
   addcommentdata,
   loadding,
+  error,
+  errorLike,
+  errorStatusLike,
+  removeerrorLike,
+  commenterror,
+  addcommenterror,
+  countcommenterror,
 }) => {
   const route = useRoute();
   const {id} = route.params;
@@ -193,6 +200,49 @@ const DetailScreens = ({
   // const [price, setPrice] = useState(null)
   // const [price, setPrice] = useState(null)
   // const [price, setPrice] = useState(null)
+
+  useEffect(() => {
+    if(error !== null){
+      console.log(error);
+    }
+  }, [error])
+
+  useEffect(() => {
+    if(errorLike !== null){
+      console.log(errorLike);
+    }
+  }, [errorLike])
+
+  useEffect(() => {
+    if(errorStatusLike !== null){
+      console.log(errorStatusLike);
+    }
+  }, [errorStatusLike])
+
+  useEffect(() => {
+    if(removeerrorLike !== null){
+      console.log(removeerrorLike);
+    }
+  }, [removeerrorLike])
+
+  useEffect(() => {
+    if(commenterror !== null){
+      console.log(commenterror);
+    }
+  }, [commenterror])
+
+  useEffect(() => {
+    if(addcommenterror !== null){
+      console.log(addcommenterror);
+    }
+  }, [addcommenterror])
+
+  useEffect(() => {
+    if(countcommenterror !== null){
+      console.log(countcommenterror);
+    }
+  }, [countcommenterror])
+
   useEffect(() => {
     getCommentByProduct({id_product: id});
     getCountComment(id);

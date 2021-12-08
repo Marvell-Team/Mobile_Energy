@@ -46,7 +46,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 // 
-const OrderLocation = ({data,getStoreAction,getStoreByIdAction, loadding}) => {
+const OrderLocation = ({data,getStoreAction,getStoreByIdAction, loadding, error}) => {
   const [idlocal, setIdlocal] = useState();
   const [data1, setData1] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -64,6 +64,12 @@ const OrderLocation = ({data,getStoreAction,getStoreByIdAction, loadding}) => {
   useEffect(() => {
     setLoading(loadding)
   }, [loadding])
+
+  useEffect(() => {
+    if(error !== null){
+      console.log(error);
+    }
+  }, [error])
 
   const navigation = useNavigation();
   const [pickerValue, setPickerValue] = useState('Nam');
