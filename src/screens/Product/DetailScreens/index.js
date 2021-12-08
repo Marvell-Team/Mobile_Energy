@@ -40,6 +40,8 @@ import Count from '@components/Count';
 import {formatCurrency} from '@utils/utils';
 import Comment from './comment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Loading from '@components/Loadding/Loading';
+
 const mapStateToProps = state => {
   return {
     dataCart: state.getCartByUserReducer
@@ -166,6 +168,7 @@ const DetailScreens = ({
   getCommentByProduct,
   addComment,
   addcommentdata,
+  loadding,
 }) => {
   const route = useRoute();
   const {id} = route.params;
@@ -184,6 +187,7 @@ const DetailScreens = ({
   const [countComment, setCountComment] = useState();
   const [allcountComment, setAllCountComment] = useState('');
   const [avdComment, setAvdComment] = useState('');
+  const [loading, setLoading] = useState(false);
 
   // const [price, setPrice] = useState(null)
   // const [price, setPrice] = useState(null)
@@ -252,6 +256,10 @@ const DetailScreens = ({
       getCartByUser(useData.id);
     }
   }, [getCartByUser, UpdateCartByUser]);
+
+  useEffect(() => {
+    setLoading(loadding)
+  }, [loadding])
 
   const [modalVisible, setModalVisible] = useState(false);
   const [modalType, setModalType] = useState('');
@@ -744,6 +752,8 @@ const DetailScreens = ({
           />
         )}
       </Modal>
+      {/*Có cái này mới hiện loading!!!*/}
+      {loading && (<Loading/>)}
     </Block>
   );
 };
