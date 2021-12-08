@@ -43,9 +43,10 @@ export const signUpAction = user => {
     data: user,
   };
 };
-export const getProduct = () => {
+export const getProduct = input => {
   return {
     type: GET_PRODUCT,
+    data: input,
   };
 };
 export const getUserByID = id => {
