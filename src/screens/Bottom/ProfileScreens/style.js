@@ -23,14 +23,14 @@ export default StyleSheet.create({
   textInput: {
     height: 40,
     backgroundColor:theme.colors.white,
-    borderBottomWidth:0.5,
+    borderBottomWidth: 0.5,
     borderColor:"#A6A6A6",
     fontSize: 18,
   },
 
   viewAvatar: {
     backgroundColor: theme.colors.primary,
-    height: 160,
+    height: 140,
   },
 
   inViewAvatar: {
@@ -72,30 +72,36 @@ export default StyleSheet.create({
     marginVertical: 2,
     fontSize: 16,
   },
+  
   txtTitle: {
     color: theme.colors.black,
     marginLeft:4,
-    
   },
+
   txtSave: {
-    color: theme.colors.black,
-    marginLeft:4,
     alignSelf:'center',
     fontSize:18,
     fontWeight:'bold',
     color:theme.colors.white,
-
   },
+
   btnSave: {
-    width: '92%',
     height: 52,
+    width: '92%',
     flex:1,
-    backgroundColor:theme.colors.primary,
-    borderRadius:6,
+    backgroundColor: theme.colors.primary,
     justifyContent:'center',
     position: 'absolute',
     alignSelf:'center',
-    bottom:0,
+    alignItems: 'center',
+    bottom: 0,
+    borderRadius: 6,
+  },
+
+  txtErorr: {
+    fontSize: 16,
+    textAlign: 'center',
+    color: theme.colors.red,
   },
 
 });

@@ -128,13 +128,13 @@ export default StyleSheet.create({
 
   v5: {  
     height: 52,
-    width: '94%',
+    width: '92%',
     backgroundColor: theme.colors.primary,
     justifyContent:'center',
     position: 'absolute',
     alignSelf:'center',
     alignItems: 'center',
-    bottom: 8,
+    bottom: 16,
     borderRadius: 6,
   },
 
@@ -145,4 +145,11 @@ export default StyleSheet.create({
     margin: 4,
   },
 
+  button: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent:'center',
+    borderRadius: 6,
+  }
 });

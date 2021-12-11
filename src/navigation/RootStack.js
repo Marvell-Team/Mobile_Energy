@@ -116,6 +116,14 @@ const RootStack = () => {
           name={routes.PRODUCTCUSTOM}
           component={product.PRODUCTCUSTOM}
         />
+        <Stack.Screen
+          name={routes.NUMBERPHONESCREEN}
+          component={auth.NUMBERPHONESCREEN}
+        />
+        <Stack.Screen
+          name={routes.SENDOTPSCREEN}
+          component={auth.SENDOTPSCREEN}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

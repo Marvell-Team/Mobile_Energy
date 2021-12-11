@@ -28,6 +28,7 @@ import {useData} from 'config/config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {theme} from '@theme';
 import {getSize} from '@utils/responsive';
+import style from '@components/Card/FlatCard/style';
 
 const mapStateToProps = state => {
   return {
@@ -54,6 +55,7 @@ const LoginScreens = ({loginAction, data, loadding, error}) => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [textError, setTextError] = useState('');
 
   function* _login() {}
 
@@ -65,6 +67,7 @@ const LoginScreens = ({loginAction, data, loadding, error}) => {
   useEffect(() => {
     if(error !== null){
       console.log(error);
+      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
   }, [error])
 
@@ -104,11 +107,18 @@ const LoginScreens = ({loginAction, data, loadding, error}) => {
   }, [data]);
 
   const checkLogin = () => {
-    if (email === '' || password === '') {
-      ToastAndroid.show('Email hoặc mật khẩu rỗng!', ToastAndroid.SHORT);
+    if (email === '' && password === '') {
+      setTextError('Email và mật khẩu không được để trống!');
     } 
+    else if(email === ''){
+      setTextError('Email không được để trống!');
+    }
+    else if(password === ''){
+      setTextError('Mật khẩu không được để trống!');
+    }
     else {
       loginAction(email, password);
+      setTextError('');
      }
   };
 
@@ -141,6 +151,7 @@ const LoginScreens = ({loginAction, data, loadding, error}) => {
               tintColor: theme.colors.grayText,
             }}
             keyboardType="email-address"
+            autoFocus={true}
           />
 
           <TextInput
@@ -155,29 +166,30 @@ const LoginScreens = ({loginAction, data, loadding, error}) => {
               height: 24,
               tintColor: theme.colors.grayText,
             }}
-
           />
-
           <PressText
             title="Quên mật khẩu?"
             onPressOut={() => {
               console.log('Quên mật khẩu'),
-                ToastAndroid.show('Quên mật khẩu', ToastAndroid.SHORT);
-            }}
+              navigation.navigate(routes.NUMBERPHONESCREEN)}
+            }
             style={styles.viewForgotPassword}
             titleStyle={styles.txtForgotPassword}
           />
+          
           <Button
             shadow
             title="ĐĂNG NHẬP"
             onPress={() => {
               
               checkLogin();  
-                
             }}
             style={styles.viewButtonLogin}
             titleStyle={styles.txtButtonLogin}
           />
+
+          <Text style={styles.txtErorr}>{textError}</Text>
+
         </Block>
         <Block style={styles.viewLoginWith}>
           <Text style={styles.txtLoginWith}>Hoặc đăng nhập với</Text>

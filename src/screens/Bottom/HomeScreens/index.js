@@ -131,18 +131,21 @@ const HomeScreens = ({
   useEffect(() => {
     if(error !== null){
       console.log(error);
+      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
   }, [error])
 
   useEffect(() => {
     if(errorCate !== null){
       console.log(errorCate);
+      ToastAndroid.show('Lỗi: ' + errorCate, ToastAndroid.SHORT);
     }
   }, [errorCate])
 
   useEffect(() => {
     if(errorPrdt !== null){
       console.log(errorPrdt);
+      ToastAndroid.show('Lỗi: ' + errorPrdt, ToastAndroid.SHORT);
     }
   }, [errorPrdt])
 

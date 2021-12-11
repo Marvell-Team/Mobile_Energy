@@ -78,6 +78,7 @@ const Product = ({getProductByCategoriesChild, dataCategories, errorCategories})
   useEffect(() => {
     if(errorCategories !== null){
       console.log(errorCategories);
+      ToastAndroid.show('Lỗi: ' + errorCategories, ToastAndroid.SHORT);
     }
   }, [errorCategories])
 

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, SafeAreaView, StyleSheet, TouchableOpacity, ToastAndroid} from 'react-native';
 import {
   Avatar,
   Title,
@@ -92,6 +92,8 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
   useEffect(() => {
     if(error !== null){
       console.log(error);
+      console.log('333333333333333333>>>>>>>>>>>>>>>>>>>>>')
+      ToastAndroid.show('Lỗi gif daya: ' + error, ToastAndroid.SHORT);
     }
   }, [error])
 

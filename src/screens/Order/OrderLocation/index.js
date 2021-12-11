@@ -68,6 +68,7 @@ const OrderLocation = ({data,getStoreAction,getStoreByIdAction, loadding, error}
   useEffect(() => {
     if(error !== null){
       console.log(error);
+      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
   }, [error])
 

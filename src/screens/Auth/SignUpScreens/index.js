@@ -39,8 +39,9 @@ const SignUpScreens = ({signUpAction, data,loadding, error}) => {
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
   const [username, setUsername] = useState('');
-    // tao useState Loadding
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [textError, setTextError] = useState('');
+
   useEffect(() => {
     if (data !== null) {
       //alert(data);
@@ -50,6 +51,7 @@ const SignUpScreens = ({signUpAction, data,loadding, error}) => {
   useEffect(() => {
     if(error !== null){
       console.log(error);
+      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
   }, [error])
   
@@ -64,17 +66,29 @@ const SignUpScreens = ({signUpAction, data,loadding, error}) => {
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
       var validPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
   
-      if (email === '' || password === '' || username === '' || password2 === '') {
-        ToastAndroid.show('Vui lòng nhập đầy đủ thông tin!', ToastAndroid.SHORT);
+      if (email === '' && password === '' && username === '' && password2 === '') {
+        setTextError('Vui lòng nhập đầy đủ thông tin!');
       } 
+      else if(email === ''){
+        setTextError('Email không được để trống!');
+      }
+      else if(password === ''){
+        setTextError('Mật khẩu không được để trống!');
+      }
+      else if(username === ''){
+        setTextError('Họ tên không được để trống!');
+      }
+      else if(password2 === ''){
+        setTextError('Mật khẩu không được để trống!');
+      }
       else if (!validRegex.test(email)){
-        ToastAndroid.show('Email không hợp lệ!', ToastAndroid.SHORT);
+        setTextError('Email không hợp lệ!');
       }
       else if (!validPassword.test(password)) {
-        ToastAndroid.show('Mật khẩu tối thiểu 8 ký tự, ít nhất một chữ cái và một số!', ToastAndroid.SHORT);
+        setTextError('Mật khẩu tối thiểu 8 ký tự, ít nhất một chữ cái và một số!');
       } 
       else if (password != password2) {
-        ToastAndroid.show('Mật khẩu phải trùng nhau!', ToastAndroid.SHORT);
+        setTextError('Mật khẩu phải trùng nhau!');
       } 
       else {
         let user = {
@@ -84,6 +98,7 @@ const SignUpScreens = ({signUpAction, data,loadding, error}) => {
         };
         signUpAction(user);
        }
+       setTextError('');
     };
 
     return (
@@ -150,6 +165,8 @@ const SignUpScreens = ({signUpAction, data,loadding, error}) => {
             style={styles.viewButtonRegister}
             titleStyle={styles.txtButtonRegister} />
   
+          <Text style={styles.txtErorr}>{textError}</Text>
+
         </Block>
   
         <Block style={styles.viewSignIn}>

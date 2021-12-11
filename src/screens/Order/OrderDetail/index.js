@@ -75,6 +75,7 @@ const OrderDetail = ({data2, getBillDetailById, loadding, error}) => {
   useEffect(() => {
     if(error !== null){
       console.log(error);
+      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
   }, [error])
 

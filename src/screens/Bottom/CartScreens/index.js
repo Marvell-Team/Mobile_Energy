@@ -100,6 +100,7 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate, loaddin
   useEffect(() => {
     if(error !== null){
       console.log(error);
+      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
   }, [error])
 

@@ -13,10 +13,10 @@ export default StyleSheet.create({
   viewLogo: {
     width: 100,
     height: 130,
-    marginBottom: height * 0.04,
+    marginTop: height * 0.02,
+    marginBottom: height * 0.02,
     justifyContent: 'center',
     alignSelf: 'center',
-    paddingTop:15
   },
 
   viewInLogo: {
@@ -74,7 +74,7 @@ export default StyleSheet.create({
 
   viewLoginWith: {
     alignSelf: 'center',
-    marginVertical: height * 0.08,
+    marginVertical: height * 0.02,
   },
 
   thumb1: {
@@ -97,4 +97,11 @@ export default StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
   },
+
+  txtErorr: {
+    fontSize: 16,
+    textAlign: 'center',
+    color: theme.colors.red,
+  },
+
 });

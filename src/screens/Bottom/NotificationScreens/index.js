@@ -76,6 +76,7 @@ const NotificationScreens = ({data1, getNotificationByUserAction, getBillDetailB
   useEffect(() => {
     if(error !== null){
       console.log(error);
+      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
   }, [error])
   
