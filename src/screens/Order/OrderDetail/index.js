@@ -38,7 +38,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const OrderDetail = ({data2, getBillDetailById, loadding}) => {
+const OrderDetail = ({data2, getBillDetailById, loadding, error}) => {
   const navigation = useNavigation();
   const [data1, setData1] = useState([]);
   const [name, setName] = useState('');
@@ -71,6 +71,13 @@ const OrderDetail = ({data2, getBillDetailById, loadding}) => {
   useEffect(() => {
     setLoading(loadding)
   }, [loadding])
+
+  useEffect(() => {
+    if(error !== null){
+      console.log(error);
+      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
+    }
+  }, [error])
 
   return (
     <Block style={styles.container}>

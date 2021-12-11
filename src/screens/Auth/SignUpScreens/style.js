@@ -13,8 +13,8 @@ export default StyleSheet.create({
   viewLogo: {
     width: 100,
     height: 130,
-    marginTop: height * 0.12,
-    marginBottom: height * 0.04,
+    marginTop: height * 0.02,
+    marginBottom: height * 0.02,
     justifyContent: 'center',
     alignSelf: 'center',
   },
@@ -96,4 +96,11 @@ export default StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
   },
+
+  txtErorr: {
+    fontSize: 16,
+    textAlign: 'center',
+    color: theme.colors.red,
+  },
+
 });

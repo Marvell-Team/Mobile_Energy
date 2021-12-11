@@ -100,10 +100,6 @@ const RootStack = () => {
           name={routes.PAYMENT_SCREEN}
           component={orders.PAYMENT_SCREEN}
         />
-        <Stack.Screen
-          name={routes.FAVORITELIST_SCREEN}
-          component={bottom.FAVORITELISTSCREEN}
-        />
          <Stack.Screen
           name={routes.PRODUCRTSRC}
           component={product.PRODUCRTSRC}
@@ -115,6 +111,14 @@ const RootStack = () => {
         <Stack.Screen
           name={routes.PRODUCTCUSTOM}
           component={product.PRODUCTCUSTOM}
+        />
+        <Stack.Screen
+          name={routes.NUMBERPHONESCREEN}
+          component={auth.NUMBERPHONESCREEN}
+        />
+        <Stack.Screen
+          name={routes.SENDOTPSCREEN}
+          component={auth.SENDOTPSCREEN}
         />
       </Stack.Navigator>
     </NavigationContainer>

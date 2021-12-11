@@ -33,7 +33,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const NotificationScreens = ({data1, getNotificationByUserAction, getBillDetailByIdAction, loadding}) => {
+const NotificationScreens = ({data1, getNotificationByUserAction, getBillDetailByIdAction, loadding, error}) => {
    const [data2, setData2] = useState([]);
    const [loading, setLoading] = useState(false);
 
@@ -73,6 +73,13 @@ const NotificationScreens = ({data1, getNotificationByUserAction, getBillDetailB
     setLoading(loadding)
   }, [loadding])
 
+  useEffect(() => {
+    if(error !== null){
+      console.log(error);
+      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
+    }
+  }, [error])
+  
   return (
     <Block flex style={styles.container}>
       <Header title="Thông báo" />

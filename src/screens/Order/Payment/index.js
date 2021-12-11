@@ -94,6 +94,8 @@ const CartScreens = ({
   dataPayment,
   addbillNullAction,
   loadding,
+  error,
+  errorPayment,
 }) => {
   const navigation = useNavigation();
   const [dataCart, setDataCart] = useState([]);
@@ -114,6 +116,27 @@ const CartScreens = ({
   useEffect(() => {
     setLoading(loadding)
   }, [loadding])
+
+  useEffect(() => {
+    if(error !== null){
+      console.log(error);
+      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
+    }
+  }, [error])
+
+  useEffect(() => {
+    if(errorStore !== null){
+      console.log(errorStore);
+      ToastAndroid.show('Lỗi: ' + errorStore, ToastAndroid.SHORT);
+    }
+  }, [errorStore])
+
+  useEffect(() => {
+    if(errorPayment !== null){
+      console.log(errorPayment);
+      ToastAndroid.show('Lỗi: ' + errorPayment, ToastAndroid.SHORT);
+    }
+  }, [errorPayment])
 
   const _setDataCart = aa => {
     setDataCart(aa.products);

@@ -57,12 +57,14 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
+
 const Product = ({
   getProductByCategoriesChild,
   getProduct,
   dataCategories,
   dataPrdt,
 }) => {
+
   const navigation = useNavigation();
   const route = useRoute();
   const {id, type} = route.params;
@@ -94,12 +96,21 @@ const Product = ({
         setData(dataCategories.data);
       }
     }
+
     if (type === GET_PRODUCT) {
       if (dataPrdt !== null) {
         setData(dataPrdt.data);
       }
     }
   }, [dataCategories, dataPrdt]);
+
+  useEffect(() => {
+    if(errorCategories !== null){
+      console.log(errorCategories);
+      ToastAndroid.show('Lỗi: ' + errorCategories, ToastAndroid.SHORT);
+    }
+  }, [errorCategories])
+
   const jewelStyle = id => {
     if (id === status) {
       return {

@@ -39,7 +39,7 @@ const categori = [
   {id: 4, name: 'Bán chạy'},
 ];
 
-const LikeList = ({data1, getLikeByUserAction, loadding}) => {
+const LikeList = ({data1, getLikeByUserAction, loadding, error}) => {
   const navigation = useNavigation();
   const [status, setStatus] = useState();
   const [data2, setData2] = useState([]);
@@ -65,6 +65,13 @@ const LikeList = ({data1, getLikeByUserAction, loadding}) => {
   useEffect(() => {
     setLoading(loadding)
   }, [loadding])
+
+  useEffect(() => {
+    if(error !== null){
+      console.log(error);
+      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
+    }
+  }, [error])
 
   const setStatusFilter = id => {
     setStatus(id);
