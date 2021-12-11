@@ -15,9 +15,12 @@ import {getSize} from '@utils/responsive';
 import {routes} from '@navigation/routes';
 import {formatCurrency} from '@utils/utils';
 import Product_Card from '@components/Card/ProductCard2';
-import {getProductByCategoriesChild} from '@redux/actions';
+import {getProduct, getProductByCategoriesChild} from '@redux/actions';
 import {connect} from 'react-redux';
-import {GET_PRODUCT_BY_CATEGORYS_CHILD} from '@redux/actions/ProductAction';
+import {
+  GET_PRODUCT,
+  GET_PRODUCT_BY_CATEGORYS_CHILD,
+} from '@redux/actions/ProductAction';
 const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
 const categori = [
@@ -36,6 +39,12 @@ const mapStateToProps = state => {
     errorCategories: state.getProductByCategoriesChildReducer
       ? state.getProductByCategoriesChildReducer.error
       : null,
+
+    errorPrdt: state.getProductReducer ? state.getProductReducer.error : null,
+    dataPrdt: state.getProductReducer ? state.getProductReducer.data : null,
+    loaddingPrdt: state.getProductReducer
+      ? state.getProductReducer.loadding
+      : null,
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -43,15 +52,22 @@ const mapDispatchToProps = dispatch => {
     getProductByCategoriesChild: id => {
       dispatch(getProductByCategoriesChild(id));
     },
+    getProduct: input => {
+      dispatch(getProduct(input));
+    },
   };
 };
-const Product = ({getProductByCategoriesChild, dataCategories}) => {
+const Product = ({
+  getProductByCategoriesChild,
+  getProduct,
+  dataCategories,
+  dataPrdt,
+}) => {
   const navigation = useNavigation();
   const route = useRoute();
   const {id, type} = route.params;
   const [status, setStatus] = useState(1);
   const [data, setData] = useState([]);
-  const [dataMaster, setDataMaster] = useState([]);
   const [checkPrice, setCheckPrice] = useState(false);
   const setStatusFilter = id => {
     setStatus(id);
@@ -60,20 +76,30 @@ const Product = ({getProductByCategoriesChild, dataCategories}) => {
     if (type === GET_PRODUCT_BY_CATEGORYS_CHILD) {
       getProductByCategoriesChild({name: id, price: null, sell: null});
     }
+    if (type === GET_PRODUCT) {
+      getProduct({
+        price: null,
+        sell: 1,
+      });
+      setStatus(2);
+    }
   }, []);
   useEffect(() => {
     if (type === GET_PRODUCT_BY_CATEGORYS_CHILD) {
       if (dataCategories !== null) {
         setData(dataCategories.data);
-        setDataMaster(dataCategories.data);
       }
     } else {
       if (dataCategories !== null) {
         setData(dataCategories.data);
-        setDataMaster(dataCategories.data);
       }
     }
-  }, [dataCategories]);
+    if (type === GET_PRODUCT) {
+      if (dataPrdt !== null) {
+        setData(dataPrdt.data);
+      }
+    }
+  }, [dataCategories, dataPrdt]);
   const jewelStyle = id => {
     if (id === status) {
       return {
@@ -110,6 +136,12 @@ const Product = ({getProductByCategoriesChild, dataCategories}) => {
       if (type === GET_PRODUCT_BY_CATEGORYS_CHILD) {
         getProductByCategoriesChild({name: id, price: null, sell: -1});
       }
+      if (type === GET_PRODUCT) {
+        getProduct({
+          price: null,
+          sell: 1,
+        });
+      }
     }
     if (text === 'Giá') {
       if (textid === status) {
@@ -119,14 +151,32 @@ const Product = ({getProductByCategoriesChild, dataCategories}) => {
           if (type === GET_PRODUCT_BY_CATEGORYS_CHILD) {
             getProductByCategoriesChild({name: id, price: -1, sell: null});
           }
+          if (type === GET_PRODUCT) {
+            getProduct({
+              price: -1,
+              sell: null,
+            });
+          }
         } else {
           if (type === GET_PRODUCT_BY_CATEGORYS_CHILD) {
             getProductByCategoriesChild({name: id, price: 1, sell: null});
+          }
+          if (type === GET_PRODUCT) {
+            getProduct({
+              price: 1,
+              sell: null,
+            });
           }
         }
       } else {
         if (type === GET_PRODUCT_BY_CATEGORYS_CHILD) {
           getProductByCategoriesChild({name: id, price: -1, sell: null});
+        }
+        if (type === GET_PRODUCT) {
+          getProduct({
+            price: -1,
+            sell: null,
+          });
         }
       }
     }
@@ -134,6 +184,12 @@ const Product = ({getProductByCategoriesChild, dataCategories}) => {
     if (text === 'Liên quan') {
       if (type === GET_PRODUCT_BY_CATEGORYS_CHILD) {
         getProductByCategoriesChild({name: id, price: null, sell: null});
+      }
+      if (type === GET_PRODUCT) {
+        getProduct({
+          price: null,
+          sell: 1,
+        });
       }
     }
   };

@@ -29,6 +29,7 @@ import {useData} from 'config/config';
 import {connect} from 'react-redux';
 import {getCateGoryAction} from '@redux/actions';
 import {getSize} from '@utils/responsive';
+import {GET_PRODUCT} from '@redux/actions/ProductAction';
 
 const mapStateToProps = state => {
   console.log(state.getProductByCategoriesReducer.data);
@@ -97,7 +98,7 @@ const HomeScreens = ({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getProductbyCategories({name: 'PHONE'});
+    getProductbyCategories('PHONE');
   }, []);
   useEffect(() => {
     if (dataPrdt !== null) {
@@ -123,8 +124,8 @@ const HomeScreens = ({
   }, []);
 
   useEffect(() => {
-    setLoading(loadding)
-  }, [loadding])
+    setLoading(loadding);
+  }, [loadding]);
 
   const handlePressCategory = index => {};
 
@@ -135,7 +136,12 @@ const HomeScreens = ({
         <Block style={styles.blockTitle}>
           <Text style={styles.textTitle}>{title}</Text>
           <Pressable
-            onPress={() => getProductbyCategories('PHONE')}
+            onPress={() => {
+              navigation.navigate(routes.PRODUCTCUSTOM, {
+                id: null,
+                type: GET_PRODUCT,
+              });
+            }}
             style={styles.viewMore}>
             <Text style={styles.txtMore}>Xem thêm</Text>
             <Thumbnail
@@ -216,7 +222,7 @@ const HomeScreens = ({
         </Text>
         <Block justifyCenter alignCenter>
           <FlatList
-            data={salesList}
+            data={salesList.reverse()}
             numColumns={2}
             renderItem={({item}) => (
               <ProductCard2
@@ -228,7 +234,7 @@ const HomeScreens = ({
         </Block>
       </ScrollView>
       {/*Có cái này mới hiện loading!!!*/}
-      {loading && (<Loading/>)}
+      {loading && <Loading />}
     </Block>
   );
 };
