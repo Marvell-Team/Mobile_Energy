@@ -93,7 +93,7 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
     if(error !== null){
       console.log(error);
       console.log('333333333333333333>>>>>>>>>>>>>>>>>>>>>')
-      ToastAndroid.show('Lỗi gif daya: ' + error, ToastAndroid.SHORT);
+      ToastAndroid.show('Lỗis: ' + error, ToastAndroid.SHORT);
     }
   }, [error])
 
@@ -268,7 +268,9 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
             <Text style={styles.menuItemText}>Đơn Hàng Của Tôi</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => {navigation.navigate(routes.FAVORITELIST_SCREEN)}}>
+        <TouchableRipple onPress={() => {
+              ToastAndroid.show('Chưa có hỗ trợ!', ToastAndroid.SHORT);
+        }}>
           <View style={styles.menuItem}>
             <Icon name="account-check-outline" color="#FF6347" size={30} />
             <Text style={styles.menuItemText}>Hỗ Trợ</Text>

@@ -28,6 +28,7 @@ import {
 import {useData} from 'config/config';
 import {connect} from 'react-redux';
 import {getCateGoryAction} from '@redux/actions';
+import {getFavoriteAction} from '@redux/actions';
 import {getSize} from '@utils/responsive';
 
 const mapStateToProps = state => {
@@ -58,6 +59,11 @@ const mapStateToProps = state => {
     loaddingPrdt: state.getProductReducer
       ? state.getProductReducer.loadding
       : null,
+
+      errorFavorite: state.getFavoriteReducer ? state.getFavoriteReducer.error : null,
+      data1Favorite: state.getFavoriteReducer ? state.getFavoriteReducer.data : null,
+      loaddingFavorite: state.getFavoriteReducer ? state.getFavoriteReducer.loadding: null,
+
   };
 };
 
@@ -75,6 +81,9 @@ const mapDispatchToProps = dispatch => {
     getProduct: categori => {
       dispatch(getProduct(categori));
     },
+    getFavoriteAction: () => {
+      dispatch(getFavoriteAction());
+    },
   };
 };
 
@@ -90,11 +99,16 @@ const HomeScreens = ({
   data1Cate,
   errorCate,
   errorPrdt,
+  data1Favorite,
+  getFavoriteAction,
+  errorFavorite,
+  loaddingFavorite,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [salesList, setSalesList] = useState([]);
   const [dataSell, setDataSell] = useState([]);
   const [dataCate, setDataCate] = useState([]);
+  const [dataFavorite, setDataFavorite] = useState([]);
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
 
@@ -148,6 +162,23 @@ const HomeScreens = ({
       ToastAndroid.show('Lỗi: ' + errorPrdt, ToastAndroid.SHORT);
     }
   }, [errorPrdt])
+
+  useEffect(() => {
+    getFavoriteAction()
+  }, [])
+
+  useEffect(() => {
+    if(data1Favorite !== null){
+      setDataFavorite(data1Favorite.data);
+    }
+  }, [data1Favorite])
+
+  useEffect(() => {
+    if(errorFavorite !== null){
+      console.log(errorFavorite);
+      ToastAndroid.show('Lỗi: ' + errorFavorite, ToastAndroid.SHORT);
+    }
+  }, [errorFavorite])
 
   const handlePressCategory = index => {};
 
@@ -224,8 +255,11 @@ const HomeScreens = ({
             />
           </ScrollView>
         </Block>
+        
         {blockListProduct({title: 'SẢN PHẨM BÁN CHẠY', data: dataSell})}
         {blockListProduct({title: 'PHỤ KIỆN PHỔ BIẾN', data: salesList})}
+        {blockListProduct({title: 'SẢN PHẨM ĐƯỢC YÊU THÍCH NHẤT', data: dataFavorite})}
+
         <Text
           style={[
             styles.textTitle,
@@ -233,6 +267,7 @@ const HomeScreens = ({
               fontSize: getSize.m(20),
               fontWeight: 'bold',
               marginLeft: getSize.m(10),
+              paddingVertical: 8,
             },
           ]}>
           GỢI Ý HÔM NAY
