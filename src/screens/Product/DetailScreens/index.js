@@ -204,42 +204,49 @@ const DetailScreens = ({
   useEffect(() => {
     if(error !== null){
       console.log(error);
+      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
   }, [error])
 
   useEffect(() => {
     if(errorLike !== null){
       console.log(errorLike);
+      ToastAndroid.show('Lỗi: ' + errorLike, ToastAndroid.SHORT);
     }
   }, [errorLike])
 
   useEffect(() => {
     if(errorStatusLike !== null){
       console.log(errorStatusLike);
+      ToastAndroid.show('Lỗi: ' + errorStatusLike, ToastAndroid.SHORT);
     }
   }, [errorStatusLike])
 
   useEffect(() => {
     if(removeerrorLike !== null){
       console.log(removeerrorLike);
+      ToastAndroid.show('Lỗi: ' + removeerrorLike, ToastAndroid.SHORT);
     }
   }, [removeerrorLike])
 
   useEffect(() => {
     if(commenterror !== null){
       console.log(commenterror);
+      ToastAndroid.show('Lỗi: ' + commenterror, ToastAndroid.SHORT);
     }
   }, [commenterror])
 
   useEffect(() => {
     if(addcommenterror !== null){
       console.log(addcommenterror);
+      ToastAndroid.show('Lỗi: ' + addcommenterror, ToastAndroid.SHORT);
     }
   }, [addcommenterror])
 
   useEffect(() => {
     if(countcommenterror !== null){
       console.log(countcommenterror);
+      ToastAndroid.show('Lỗi: ' + countcommenterror, ToastAndroid.SHORT);
     }
   }, [countcommenterror])
 

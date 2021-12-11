@@ -48,6 +48,7 @@ const MyBillScreens = ({data1, getBillAction, loadding, error}) => {
   useEffect(() => {
     if(error !== null){
       console.log(error);
+      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
   }, [error])
 

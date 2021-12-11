@@ -120,18 +120,21 @@ const CartScreens = ({
   useEffect(() => {
     if(error !== null){
       console.log(error);
+      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
   }, [error])
 
   useEffect(() => {
     if(errorStore !== null){
       console.log(errorStore);
+      ToastAndroid.show('Lỗi: ' + errorStore, ToastAndroid.SHORT);
     }
   }, [errorStore])
 
   useEffect(() => {
     if(errorPayment !== null){
       console.log(errorPayment);
+      ToastAndroid.show('Lỗi: ' + errorPayment, ToastAndroid.SHORT);
     }
   }, [errorPayment])
 

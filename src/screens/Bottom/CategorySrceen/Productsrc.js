@@ -64,6 +64,7 @@ const Productsrc  = ({getProductByCategoriesChild,data, error}) => {
     useEffect(() => {
       if(error !== null){
         console.log(error);
+        ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
       }
     }, [error])
 

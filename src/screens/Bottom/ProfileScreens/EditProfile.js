@@ -74,6 +74,8 @@ const EditProfile = ({editUserByID, data, loadding, error}) => {
   const [imageUri, setImageUri] = useState('');
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
+  const [textError, setTextError] = useState('');
+
   const bs = React.createRef();
   const fall = new Animated.Value(1);
   //Loadding trong screen
@@ -84,6 +86,8 @@ const EditProfile = ({editUserByID, data, loadding, error}) => {
   useEffect(() => {
     if(error !== null){
       console.log(error);
+      console.log('++++++++++++++++++++++++++++>>>>>>>>>>>>>>>>>>>>>>');
+      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
   }, [error])
 
@@ -306,11 +310,20 @@ const EditProfile = ({editUserByID, data, loadding, error}) => {
 
     var validNumberPhone = /((09|03|07|08|05)+([0-9]{8})\b)/;
 
-    if (name === '' || phoneNumber === '' || address === '') {
-      ToastAndroid.show('Vui lòng nhập đầy đủ thông tin!', ToastAndroid.SHORT);
+    if (name === '' && phoneNumber === '' && address === '') {
+      setTextError('Vui lòng nhập đầy đủ thông tin!');
     } 
+    else if(name === ''){
+      setTextError('Họ tên không được để trống!');
+    }
+    else if(phoneNumber === ''){
+      setTextError('Số điện thoại không được để trống!');
+    }
+    else if(address === ''){
+      setTextError('Địa chỉ không được để trống!');
+    }
     else if (!validNumberPhone.test(phoneNumber)){
-      ToastAndroid.show('Số điện thoại không đúng định dạng!', ToastAndroid.SHORT);
+      setTextError('Số điện thoại không đúng định dạng!');
     }
     else {
       let input = {
@@ -322,16 +335,16 @@ const EditProfile = ({editUserByID, data, loadding, error}) => {
         born_day: date,
       };
       editUserByID(input);
-      alert(imageUri);
-      ToastAndroid.show('Ok rồi đó, zô!', ToastAndroid.SHORT);
-     }
+      navigation.navigate(routes.PROFILESCREENS)
+      //alert(imageUri);
+    }
   };
 
   return (
-    <View style={[styles.container]}>
+    <Block style={[styles.container]}>
       <Animated.View
         style={{opacity: Animated.add(0.3, Animated.multiply(fall, 1.0))}}>
-        <ScrollView>
+        {/* <ScrollView> */}
           <Header
             iconLeft={icons.back}
             leftPress={() =>
@@ -418,8 +431,7 @@ const EditProfile = ({editUserByID, data, loadding, error}) => {
                 placeholder="Nhập số điện thoại"
               />
             </Block>
-
-            <Block style={[styles.viewText, {marginBottom: getSize.m(100)}]}>
+            <Block style={[styles.viewText]}>
               <Text size={15} style={styles.txtTitle}>
                 Địa chỉ
               </Text>
@@ -432,17 +444,20 @@ const EditProfile = ({editUserByID, data, loadding, error}) => {
                 placeholder="Nhập Địa Chỉ"
               />
             </Block>
+            <Text style={[styles.txtErorr, {marginBottom: getSize.m(60)}]}>{textError}</Text>
+
           </Block>
-        </ScrollView>
-        <TouchableOpacity
-          style={styles.btnSave}
-          onPress={() => {
-            checkEditProfile();
-          }}>
-          <Text fontSize={18} marginLeft={4} style={styles.txtSave}>
-            Lưu thay đổi
-          </Text>
-        </TouchableOpacity>
+        {/* </ScrollView> */}
+          <Block style={styles.btnSave}>
+            <TouchableOpacity        
+              onPress={() => {
+                checkEditProfile();
+              }}>
+              <Text fontSize={18} style={styles.txtSave}>
+                Lưu thay đổi
+              </Text>
+            </TouchableOpacity>
+          </Block>
         {uploading ? <Loading /> : null}
       </Animated.View>
       <BottomSheet
@@ -457,7 +472,7 @@ const EditProfile = ({editUserByID, data, loadding, error}) => {
       />
       {/* Tao cai nay ms hien Loadding */}
       {loading && <Loading />}
-    </View>
+    </Block>
   );
 };
 export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);

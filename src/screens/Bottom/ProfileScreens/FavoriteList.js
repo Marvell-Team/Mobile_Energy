@@ -70,6 +70,7 @@ const FavoriteList = ({data1, getFavoriteAction, loadding, error}) => {
   useEffect(() => {
     if(error !== null){
       console.log(error);
+      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
   }, [error])
 
