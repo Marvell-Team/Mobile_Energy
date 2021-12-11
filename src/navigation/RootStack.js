@@ -100,10 +100,6 @@ const RootStack = () => {
           name={routes.PAYMENT_SCREEN}
           component={orders.PAYMENT_SCREEN}
         />
-        <Stack.Screen
-          name={routes.FAVORITELIST_SCREEN}
-          component={bottom.FAVORITELISTSCREEN}
-        />
          <Stack.Screen
           name={routes.PRODUCRTSRC}
           component={product.PRODUCRTSRC}
