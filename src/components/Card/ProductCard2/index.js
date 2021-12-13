@@ -21,6 +21,7 @@ const Product_Card = ({item, getProductbyIdAction}) => {
     <TouchableOpacity
       style={styles.container}
       onPress={() => {
+        console.log('aa');
         getProductbyIdAction(item._id);
         navigation.navigate(routes.DETAILSCREENS, {id: item._id});
       }}>

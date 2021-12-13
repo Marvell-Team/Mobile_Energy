@@ -29,6 +29,8 @@ const categori = [
 ];
 import {connect} from 'react-redux';
 import {getCateGoryAction} from '@redux/actions';
+import {useNavigation} from '@react-navigation/native';
+import {routes} from '@navigation/routes';
 const mapStateToProps = state => {
   return {
     error: state.getCategoriesReducer ? state.getCategoriesReducer.error : null,
@@ -57,6 +59,7 @@ const CartCard = ({item}) => {
   );
 };
 const Category = ({getCateGoryAction, data1, loadding, error}) => {
+  const navigation = useNavigation();
   const [data, setData] = useState([]);
   const [isLoading, setisLoading] = useState(true);
   const [status, setStatus] = useState();
@@ -127,16 +130,6 @@ const Category = ({getCateGoryAction, data1, loadding, error}) => {
         backgroundColor={theme.colors.primary}
         paddingHorizontal={getSize.m(10)}>
         <Block row justifyCenter alignCenter style={style.header2}>
-          <Block justifyCenter alignStart style={{flex: 2}}>
-            <Thumbnail
-              source={icons.back}
-              style={{width: getSize.s(20), height: getSize.s(20)}}
-              resizeMode="contain"
-              onPress={() => {
-                // navigation.goBack();
-              }}
-            />
-          </Block>
           {/* <TextInput
             placeholder="Tìm kiếm"
             underlineColorAndroid="transparent"
@@ -150,7 +143,7 @@ const Category = ({getCateGoryAction, data1, loadding, error}) => {
             height={getSize.s(35)}
             iconleft={icons.search}></TextInput> */}
           <TouchableOpacity
-            style={{width: '100%', flex: 18, height: getSize.s(35)}}
+            style={{width: '90%', height: getSize.s(35)}}
             onPress={() => {
               navigation.navigate(routes.SEARCHSCREEN);
             }}>
@@ -163,25 +156,18 @@ const Category = ({getCateGoryAction, data1, loadding, error}) => {
               height={'100%'}
               paddingHorizontal={getSize.m(8)}>
               <Thumbnail
+                imageStyle={{
+                  tintColor: theme.colors.white,
+                }}
                 source={icons.search}
                 style={{width: 20, height: 20, marginRight: getSize.m(5)}}
                 resizeMode="contain"
               />
-              <Text size={getSize.m(18)} color={'white'}>
+              <Text size={getSize.m(18)} style={{color: 'white'}}>
                 Tìm kiếm
               </Text>
             </Block>
           </TouchableOpacity>
-          <Block alignEnd justifyCenter style={{flex: 2}}>
-            <Thumbnail
-              source={icons.filter1}
-              style={{
-                marginHorizontal: 2,
-                width: getSize.s(22),
-                height: getSize.s(22),
-              }}
-            />
-          </Block>
         </Block>
       </Block>
       <Block
