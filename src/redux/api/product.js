@@ -3,6 +3,7 @@ import {api} from 'config/config';
 
 export async function getProduct(input) {
   const {price, sell} = input;
+  console.log(price + 's' + sell);
   return axios
     .post(api + '/product/LSR', {
       sell: sell,
