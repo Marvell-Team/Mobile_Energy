@@ -55,13 +55,21 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
-const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate, loadding, error}) => {
+const CartScreens = ({
+  data,
+  getCartByUser,
+  UpdateCartByUser,
+  dataUpdate,
+  loadding,
+  error,
+}) => {
   const navigation = useNavigation();
   const [dataCart, setDataCart] = useState([]);
   const [dataID, setDataID] = useState('');
   const [dataTotal, setDataTotal] = useState(0);
   const [checktoken, setChecktoken] = useState(null);
   const [loading, setLoading] = useState(false);
+  // const [id_user, setId_user] = useState('')
 
   useEffect(() => {
     if (useData.token !== null) {
@@ -72,37 +80,45 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate, loaddin
     setDataCart(aa.products);
     setDataTotal(aa.total);
   };
+  // useEffect(async () => {
+  //   //
+  //   //   if (data !== null) {
+  //   //     console.log(data.data);
+  //   //      setDataCart(data.data.products);
+  //   //      setDataID(data.data._id);
+  //   //      setDataTotal(data.data.total);
+  //   //   }
+  //   //
+  //   if (useData.token !== null) {
+  //     const cart = await AsyncStorage.getItem(useData.id);
+  //     const aa = JSON.parse(cart);
+  //     _setDataCart(aa);
+  //     //  setDataCarts(aa);
+  //   }
+  // }, []);
+  useEffect(() => {
+    console.log('token' + useData.token);
+    setChecktoken(useData.token);
+  }, [useData.token]);
   useEffect(async () => {
-    //
-    //   if (data !== null) {
-    //     console.log(data.data);
-    //      setDataCart(data.data.products);
-    //      setDataID(data.data._id);
-    //      setDataTotal(data.data.total);
-    //   }
-    //
     if (useData.token !== null) {
       const cart = await AsyncStorage.getItem(useData.id);
       const aa = JSON.parse(cart);
       _setDataCart(aa);
       //  setDataCarts(aa);
     }
-  }, [AsyncStorage.getItem(useData.id)]);
-  useEffect(() => {
-    console.log('token' + useData.token);
-    setChecktoken(useData.token);
-  }, [useData.token]);
+  }, [useData.token, useData.id ? AsyncStorage.getItem(useData?.id) : null]);
 
   useEffect(() => {
-    setLoading(loadding)
-  }, [loadding])
+    setLoading(loadding);
+  }, [loadding]);
 
   useEffect(() => {
-    if(error !== null){
+    if (error !== null) {
       console.log(error);
       ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
-  }, [error])
+  }, [error]);
 
   return (
     <SafeAreaView style={{backgroundColor: COLORS.white, flex: 1}}>
@@ -206,7 +222,7 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate, loaddin
         </View>
       )}
       {/*Có cái này mới hiện loading!!!*/}
-      {loading && (<Loading/>)}
+      {loading && <Loading />}
     </SafeAreaView>
   );
 };

@@ -7,6 +7,7 @@ import {
   Image,
   StatusBar,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -77,11 +78,11 @@ const Category = ({getCateGoryAction, data1, loadding, error}) => {
   }, [loadding]);
 
   useEffect(() => {
-    if(error !== null){
+    if (error !== null) {
       console.log(error);
       ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
-  }, [error])
+  }, [error]);
 
   const jewelStyle = id => {
     if (id === status) {

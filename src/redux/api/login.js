@@ -1,16 +1,16 @@
 import axios from 'axios';
-
+import {api, useData} from 'config/config';
 export async function postLogin(user, password) {
   return axios
-    .post('http://10.0.2.2:3000/users/login', {
+    .post(api + '/users/login', {
       email_user: user,
       pwd_user: password,
     })
-    .then((response) => {
-      console.log('response catch => getLoginApi => '+response.data);
+    .then(response => {
+      console.log('response catch => getLoginApi => ' + response.data);
       return response.data;
     })
-    .then((response) => {
+    .then(response => {
       return response;
     })
     .catch(function (error) {
@@ -26,19 +26,19 @@ export async function postLogin(user, password) {
 }
 
 export async function postSignUp(user) {
-  const {email_user,pwd_user,name_user}=user;
-  console.log(email_user,pwd_user,name_user+'data')
+  const {email_user, pwd_user, name_user} = user;
+  console.log(email_user, pwd_user, name_user + 'data');
   return axios
-    .post('http://10.0.2.2:3000/users', {
+    .post(api + '/users', {
       email_user: email_user,
       pwd_user: pwd_user,
-      name_user:name_user
+      name_user: name_user,
     })
-    .then((response) => {
-      console.log('response catch => getSignUpApi => '+response.data);
+    .then(response => {
+      console.log('response catch => getSignUpApi => ' + response.data);
       return response.data;
     })
-    .then((response) => {
+    .then(response => {
       return response;
     })
     .catch(function (error) {

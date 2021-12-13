@@ -12,7 +12,6 @@ const CategoryItem = ({item}) => {
   const navigation = useNavigation();
   const onPress = () => {
     // getProductByCategoriesChild(item._id);
-    console.log(item._id);
     navigation.navigate(routes.PRODUCTCUSTOM, {
       id: item._id,
       type: GET_PRODUCT_BY_CATEGORYS_CHILD,

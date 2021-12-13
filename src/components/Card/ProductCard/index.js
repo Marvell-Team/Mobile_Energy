@@ -10,7 +10,6 @@ import {formatCurrency} from '@utils/utils';
 const ProductCard = ({item, index, onPress, style, getProductbyIdAction}) => {
   const navigation = useNavigation();
   const {nameProduct, id_image, price_product} = item;
-  console.log(id_image.nameImage[0]);
 
   return (
     <Pressable

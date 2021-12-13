@@ -15,12 +15,17 @@ import {getSize} from '@utils/responsive';
 import {routes} from '@navigation/routes';
 import {formatCurrency} from '@utils/utils';
 import Product_Card from '@components/Card/ProductCard2';
-import {getProduct, getProductByCategoriesChild} from '@redux/actions';
+import {
+  getFavoriteAction,
+  getProduct,
+  getProductByCategoriesChild,
+} from '@redux/actions';
 import {connect} from 'react-redux';
 import {
   GET_PRODUCT,
   GET_PRODUCT_BY_CATEGORYS_CHILD,
 } from '@redux/actions/ProductAction';
+import {GET_FAVORITE} from '@redux/actions/FavoriteAction';
 const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
 const categori = [
@@ -45,6 +50,15 @@ const mapStateToProps = state => {
     loaddingPrdt: state.getProductReducer
       ? state.getProductReducer.loadding
       : null,
+    errorFavorite: state.getFavoriteReducer
+      ? state.getFavoriteReducer.error
+      : null,
+    data1Favorite: state.getFavoriteReducer
+      ? state.getFavoriteReducer.data
+      : null,
+    loaddingFavorite: state.getFavoriteReducer
+      ? state.getFavoriteReducer.loadding
+      : null,
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -55,6 +69,9 @@ const mapDispatchToProps = dispatch => {
     getProduct: input => {
       dispatch(getProduct(input));
     },
+    getFavoriteAction: () => {
+      dispatch(getFavoriteAction());
+    },
   };
 };
 
@@ -63,14 +80,17 @@ const Product = ({
   getProduct,
   dataCategories,
   dataPrdt,
+  errorCategories,
+  getFavoriteAction,
+  data1Favorite,
 }) => {
-
   const navigation = useNavigation();
   const route = useRoute();
   const {id, type} = route.params;
   const [status, setStatus] = useState(1);
   const [data, setData] = useState([]);
   const [checkPrice, setCheckPrice] = useState(false);
+  const [title, setTitle] = useState('');
   const setStatusFilter = id => {
     setStatus(id);
   };
@@ -85,31 +105,44 @@ const Product = ({
       });
       setStatus(2);
     }
+    if (type === GET_FAVORITE) {
+      getFavoriteAction();
+    }
   }, []);
   useEffect(() => {
     if (type === GET_PRODUCT_BY_CATEGORYS_CHILD) {
       if (dataCategories !== null) {
         setData(dataCategories.data);
+        setTitle(dataCategories?.data[0]?.id_category?.name_category);
       }
     } else {
       if (dataCategories !== null) {
         setData(dataCategories.data);
+        setTitle(dataCategories?.data[0]?.id_category?.name_category);
+      }
+    }
+
+    if (type === GET_FAVORITE) {
+      if (data1Favorite !== null) {
+        setData(data1Favorite.data);
+        setTitle('Sản Phẩm Yêu Thích');
       }
     }
 
     if (type === GET_PRODUCT) {
       if (dataPrdt !== null) {
         setData(dataPrdt.data);
+        setTitle('Sản Phẩm');
       }
     }
-  }, [dataCategories, dataPrdt]);
+  }, [dataCategories, dataPrdt, data1Favorite]);
 
   useEffect(() => {
-    if(errorCategories !== null){
+    if (errorCategories !== null) {
       console.log(errorCategories);
       ToastAndroid.show('Lỗi: ' + errorCategories, ToastAndroid.SHORT);
     }
-  }, [errorCategories])
+  }, [errorCategories]);
 
   const jewelStyle = id => {
     if (id === status) {
@@ -157,7 +190,6 @@ const Product = ({
     if (text === 'Giá') {
       if (textid === status) {
         setCheckPrice(!checkPrice);
-        console.log(checkPrice);
         if (checkPrice) {
           if (type === GET_PRODUCT_BY_CATEGORYS_CHILD) {
             getProductByCategoriesChild({name: id, price: -1, sell: null});
@@ -258,7 +290,7 @@ const Product = ({
                 resizeMode="contain"
               />
               <Text size={getSize.m(18)} color={'white'}>
-                Tìm kiếm
+                {title}
               </Text>
             </Block>
           </TouchableOpacity>
@@ -274,39 +306,41 @@ const Product = ({
           </Block>
         </Block>
       </Block>
-      <Block row justifyCenter alignCenter>
-        {categori.map((item, index) => (
-          <TouchableOpacity
-            style={[
-              jewelStyle(item.id),
-              {
-                width: '32%',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: theme.colors.white,
-              },
-            ]}
-            onPress={() => {
-              _setDateType(item.name, item.id);
-              setStatusFilter(item.id);
-            }}>
-            <Text
+      {type !== GET_FAVORITE ? (
+        <Block row justifyCenter alignCenter>
+          {categori.map((item, index) => (
+            <TouchableOpacity
               style={[
-                jewelStyle2(item.id),
-                {width: '100%', textAlign: 'center', borderColor: '#808080'},
-                index === categori.length - 1
-                  ? {borderLeftWidth: 0.7}
-                  : {borderRightWidth: 0.7},
+                jewelStyle(item.id),
+                {
+                  width: '32%',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  backgroundColor: theme.colors.white,
+                },
               ]}
-              size={getSize.m(18)}>
-              {item.name}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </Block>
-      {/* content */}
+              onPress={() => {
+                _setDateType(item.name, item.id);
+                setStatusFilter(item.id);
+              }}>
+              <Text
+                style={[
+                  jewelStyle2(item.id),
+                  {width: '100%', textAlign: 'center', borderColor: '#808080'},
+                  index === categori.length - 1
+                    ? {borderLeftWidth: 0.7}
+                    : {borderRightWidth: 0.7},
+                ]}
+                size={getSize.m(18)}>
+                {item.name}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </Block>
+      ) : null}
 
-      <Block flex alignCenter justifyCenter marginTop={10}>
+      {/* content */}
+      <Block flex alignCenter justifyCenter>
         <FlatList
           data={data}
           numColumns={2}

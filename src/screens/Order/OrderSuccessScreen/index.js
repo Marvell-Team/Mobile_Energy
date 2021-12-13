@@ -13,18 +13,18 @@ import {
   Button,
 } from 'react-native';
 import {routes} from '@navigation/routes';
-import {useNavigation,useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {icons} from '@assets';
 import {theme} from '@theme';
 import styles from './style';
 
 const OrderSuccessScreen = () => {
   const navigation = useNavigation();
-  const route=useRoute();
-  const {id} =route.params;
+  const route = useRoute();
+  const {id} = route.params;
   useEffect(() => {
-    console.log(id)
-  }, [id])
+    console.log(id);
+  }, [id]);
   return (
     <View style={styles.container}>
       <Image
@@ -39,7 +39,7 @@ const OrderSuccessScreen = () => {
       {/* </View> */}
 
       <TouchableOpacity
-        onPress={() => navigation.navigate(routes.VOTE_SCREEN)}
+        onPress={() => navigation.navigate(routes.HOMESCREENS)}
         style={styles.button}>
         <Text style={{color: 'white', fontWeight: 'bold'}}>TIẾP TỤC</Text>
       </TouchableOpacity>

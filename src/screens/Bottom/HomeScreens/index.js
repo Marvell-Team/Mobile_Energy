@@ -31,6 +31,7 @@ import {getCateGoryAction} from '@redux/actions';
 import {getFavoriteAction} from '@redux/actions';
 import {getSize} from '@utils/responsive';
 import {GET_PRODUCT} from '@redux/actions/ProductAction';
+import {GET_FAVORITE} from '@redux/actions/FavoriteAction';
 
 const mapStateToProps = state => {
   console.log(state.getProductByCategoriesReducer.data);
@@ -61,10 +62,15 @@ const mapStateToProps = state => {
       ? state.getProductReducer.loadding
       : null,
 
-      errorFavorite: state.getFavoriteReducer ? state.getFavoriteReducer.error : null,
-      data1Favorite: state.getFavoriteReducer ? state.getFavoriteReducer.data : null,
-      loaddingFavorite: state.getFavoriteReducer ? state.getFavoriteReducer.loadding: null,
-
+    errorFavorite: state.getFavoriteReducer
+      ? state.getFavoriteReducer.error
+      : null,
+    data1Favorite: state.getFavoriteReducer
+      ? state.getFavoriteReducer.data
+      : null,
+    loaddingFavorite: state.getFavoriteReducer
+      ? state.getFavoriteReducer.loadding
+      : null,
   };
 };
 
@@ -144,46 +150,46 @@ const HomeScreens = ({
   }, [loadding]);
 
   useEffect(() => {
-    if(error !== null){
+    if (error !== null) {
       console.log(error);
       ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
-  }, [error])
+  }, [error]);
 
   useEffect(() => {
-    if(errorCate !== null){
+    if (errorCate !== null) {
       console.log(errorCate);
       ToastAndroid.show('Lỗi: ' + errorCate, ToastAndroid.SHORT);
     }
-  }, [errorCate])
+  }, [errorCate]);
 
   useEffect(() => {
-    if(errorPrdt !== null){
+    if (errorPrdt !== null) {
       console.log(errorPrdt);
       ToastAndroid.show('Lỗi: ' + errorPrdt, ToastAndroid.SHORT);
     }
-  }, [errorPrdt])
+  }, [errorPrdt]);
 
   useEffect(() => {
-    getFavoriteAction()
-  }, [])
+    getFavoriteAction();
+  }, []);
 
   useEffect(() => {
-    if(data1Favorite !== null){
+    if (data1Favorite !== null) {
       setDataFavorite(data1Favorite.data);
     }
-  }, [data1Favorite])
+  }, [data1Favorite]);
 
   useEffect(() => {
-    if(errorFavorite !== null){
+    if (errorFavorite !== null) {
       console.log(errorFavorite);
       ToastAndroid.show('Lỗi: ' + errorFavorite, ToastAndroid.SHORT);
     }
-  }, [errorFavorite])
+  }, [errorFavorite]);
 
   const handlePressCategory = index => {};
 
-  const blockListProduct = useCallback(({title, data}) => {
+  const blockListProduct = useCallback(({title, data, type}) => {
     // console.log('DATA >>> ', salesList);
     return (
       <Block style={styles.blockProductContainer}>
@@ -193,7 +199,7 @@ const HomeScreens = ({
             onPress={() => {
               navigation.navigate(routes.PRODUCTCUSTOM, {
                 id: null,
-                type: GET_PRODUCT,
+                type: type,
               });
             }}
             style={styles.viewMore}>
@@ -261,10 +267,17 @@ const HomeScreens = ({
             />
           </ScrollView>
         </Block>
-        
-        {blockListProduct({title: 'SẢN PHẨM BÁN CHẠY', data: dataSell})}
-        {blockListProduct({title: 'PHỤ KIỆN PHỔ BIẾN', data: salesList})}
-        {blockListProduct({title: 'SẢN PHẨM ĐƯỢC YÊU THÍCH NHẤT', data: dataFavorite})}
+
+        {blockListProduct({
+          title: 'SẢN PHẨM BÁN CHẠY',
+          data: dataSell,
+          type: GET_PRODUCT,
+        })}
+        {blockListProduct({
+          title: 'SẢN PHẨM ĐƯỢC YÊU THÍCH NHẤT',
+          data: dataFavorite,
+          type: GET_FAVORITE,
+        })}
 
         <Text
           style={[
