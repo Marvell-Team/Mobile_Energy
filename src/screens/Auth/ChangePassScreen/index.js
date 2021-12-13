@@ -6,6 +6,7 @@ import styles from './style';
 import {useNavigation} from '@react-navigation/native';
 import {routes} from '@navigation/routes';
 
+
 const ChangePassScreen = () => {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
