@@ -6,7 +6,7 @@ const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
-    width: '47%',
+    width: width/ 2.2,
     borderRadius: 6,
     borderWidth: 2,
     borderColor: theme.colors.smoke,
@@ -18,8 +18,9 @@ export default StyleSheet.create({
       height: 1,
     },
     shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-    margin: getSize.m(5),
+    shadowRadius: 0.5,
+    marginHorizontal: getSize.m(6),
+    marginTop: getSize.m(12),
   },
 
   viewContent: {
@@ -30,8 +31,9 @@ export default StyleSheet.create({
   viewContentImage: {
     width: '100%',
     height: getSize.v(180),
-    borderRadius: 8,
     alignSelf: 'center',
+    borderTopRightRadius: 6,
+    borderTopLeftRadius: 6,
   },
 
   txtTitle: {
