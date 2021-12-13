@@ -31,8 +31,8 @@ export default StyleSheet.create({
     width:width,
   
     backgroundColor: theme.colors.white,
-    borderTopLeftRadius:30,
-    borderTopRightRadius:30,
+    borderTopLeftRadius:20,
+    borderTopRightRadius:20,
     marginTop:-25
   },
   txtComment:{

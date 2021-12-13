@@ -55,21 +55,13 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
-const CartScreens = ({
-  data,
-  getCartByUser,
-  UpdateCartByUser,
-  dataUpdate,
-  loadding,
-  error,
-}) => {
+const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate, loadding, error}) => {
   const navigation = useNavigation();
   const [dataCart, setDataCart] = useState([]);
   const [dataID, setDataID] = useState('');
   const [dataTotal, setDataTotal] = useState(0);
   const [checktoken, setChecktoken] = useState(null);
   const [loading, setLoading] = useState(false);
-  // const [id_user, setId_user] = useState('')
 
   useEffect(() => {
     if (useData.token !== null) {
@@ -80,48 +72,40 @@ const CartScreens = ({
     setDataCart(aa.products);
     setDataTotal(aa.total);
   };
-  // useEffect(async () => {
-  //   //
-  //   //   if (data !== null) {
-  //   //     console.log(data.data);
-  //   //      setDataCart(data.data.products);
-  //   //      setDataID(data.data._id);
-  //   //      setDataTotal(data.data.total);
-  //   //   }
-  //   //
-  //   if (useData.token !== null) {
-  //     const cart = await AsyncStorage.getItem(useData.id);
-  //     const aa = JSON.parse(cart);
-  //     _setDataCart(aa);
-  //     //  setDataCarts(aa);
-  //   }
-  // }, []);
-  useEffect(() => {
-    console.log('token' + useData.token);
-    setChecktoken(useData.token);
-  }, [useData.token]);
   useEffect(async () => {
+    //
+    //   if (data !== null) {
+    //     console.log(data.data);
+    //      setDataCart(data.data.products);
+    //      setDataID(data.data._id);
+    //      setDataTotal(data.data.total);
+    //   }
+    //
     if (useData.token !== null) {
       const cart = await AsyncStorage.getItem(useData.id);
       const aa = JSON.parse(cart);
       _setDataCart(aa);
       //  setDataCarts(aa);
     }
-  }, [useData.token, useData.id ? AsyncStorage.getItem(useData?.id) : null]);
+  }, [AsyncStorage.getItem(useData.id)]);
+  useEffect(() => {
+    console.log('token' + useData.token);
+    setChecktoken(useData.token);
+  }, [useData.token]);
 
   useEffect(() => {
-    setLoading(loadding);
-  }, [loadding]);
+    setLoading(loadding)
+  }, [loadding])
 
   useEffect(() => {
-    if (error !== null) {
+    if(error !== null){
       console.log(error);
       ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
-  }, [error]);
+  }, [error])
 
   return (
-    <SafeAreaView style={{backgroundColor: COLORS.white, flex: 1}}>
+    <SafeAreaView style={{backgroundColor: theme.colors.grey, flex: 1}}>
       <View style={style.header}>
         <Text style={{fontSize: 20, fontWeight: 'bold', color: COLORS.white}}>
           Giỏ Hàng
@@ -194,16 +178,18 @@ const CartScreens = ({
               justifyContent: 'space-between',
               paddingHorizontal: 12,
               position: 'absolute',
-              bottom: 8,
+              bottom: 0,
               marginTop: 8,
+              backgroundColor: theme.colors.white,
+              paddingVertical: 8,
             }}>
-            <View style={{width: '50%', justifyContent: 'center'}}>
-              <Text style={{fontSize: 18}}>Tổng</Text>
-              <Text style={{fontSize: 20, fontWeight: 'bold', color: 'red'}}>
+            <View style={{width: '40%', justifyContent: 'center'}}>
+              <Text style={{fontSize: 16}}>Tổng</Text>
+              <Text style={{fontSize: 18, fontWeight: 'bold', color: theme.colors.red}}>
                 {formatCurrency(dataTotal)}
               </Text>
             </View>
-            <View style={{width: '50%'}}>
+            <View style={{width: '60%'}}>
               <PrimaryButton
                 title="Đặt Hàng"
                 onPress={() => {
@@ -222,7 +208,7 @@ const CartScreens = ({
         </View>
       )}
       {/*Có cái này mới hiện loading!!!*/}
-      {loading && <Loading />}
+      {loading && (<Loading/>)}
     </SafeAreaView>
   );
 };
@@ -293,6 +279,7 @@ const CartCard = ({
     //   id_product: filtered,
     // });
   };
+
   const createThreeButtonAlert = () =>
     Alert.alert('Xóa Sản Phẩm', 'Bạn có chắc muốn bỏ sản phẩm này', [
       {
@@ -307,24 +294,20 @@ const CartCard = ({
     ]);
   return (
     <View style={style.cartCard}>
-      <Image source={{uri: id_image}} style={{height: 80, width: 80}} />
+      <Image source={{uri: id_image}} style={{height: 88, width: 88}} />
       <View
         style={{
           marginLeft: 10,
-          paddingVertical: 20,
           flex: 3,
         }}>
-        <Text numColumns={1} style={{fontWeight: 'bold', fontSize: 18}}>
+        <Text numColumns={1} style={{fontWeight: 'bold', fontSize: 18, marginRight: 8}}>
           {nameProduct}
         </Text>
-        <Text style={{fontSize: 14, color: COLORS.grey}}>
-          {item.ingredients}
-        </Text>
-        <Text style={{fontSize: 18, fontWeight: 'bold'}}>
+      
+        <Text style={{fontSize: 18,color:theme.colors.blackText, marginVertical: 8}}>
           {formatCurrency(price_product)}
         </Text>
-      </View>
-      <View style={{alignItems: 'center', flex: 2}}>
+        <View style={{}}>
         <Count
           amount={amount}
           onPressSubtract={() => {
@@ -335,12 +318,14 @@ const CartCard = ({
           }}
         />
       </View>
+      </View>
 
-      <View style={{height: '100%', paddingTop: 8}}>
+
+      <View style={{alignSelf:'flex-start'}}>
         <Thumbnail
           onPress={() => createThreeButtonAlert()}
           source={icons.close}
-          imageStyle={{width: getSize.s(15), height: getSize.s(15)}}
+          imageStyle={{width: getSize.s(15), height: getSize.s(15), marginTop: 4}}
         />
       </View>
     </View>
@@ -358,16 +343,11 @@ const style = StyleSheet.create({
     alignItems: 'center',
   },
   cartCard: {
-    height: 100,
-    marginVertical: 5,
-    marginHorizontal: 12,
-    paddingHorizontal: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 12,
     flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: COLORS.white,
-    borderColor: COLORS.grey,
-    borderWidth: 0.5,
-    borderRadius: 8,
+    backgroundColor: theme.colors.white,
+    marginBottom: 2,
   },
   actionBtn: {
     width: 80,

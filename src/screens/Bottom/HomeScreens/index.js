@@ -286,7 +286,7 @@ const HomeScreens = ({
               fontSize: getSize.m(20),
               fontWeight: 'bold',
               marginLeft: getSize.m(10),
-              paddingVertical: 8,
+              paddingVertical: getSize.m(8),
             },
           ]}>
           GỢI Ý HÔM NAY
