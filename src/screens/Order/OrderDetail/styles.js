@@ -8,78 +8,133 @@ const {height} = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.white,
+    backgroundColor: theme.colors.grey,
     position: 'relative',
   },
-  v1: {
+
+  viewHeader: {
     backgroundColor: theme.colors.white,
-    borderBottomWidth: 0.5,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    borderColor: theme.colors.gray,
+    marginBottom: 4,
+  },
+
+  viewOrderId: {
+    alignItems: 'flex-start',
+    width: '100%',
+    borderBottomWidth: 0.3,
+    borderColor: theme.colors.smoke,
+    paddingVertical: 8,
+  },
+
+  viewStatus: {
+    alignItems: 'flex-start',
+    width: '100%',
+    paddingVertical: 16,
+  },
+
+  imageOrderBill: {
+    width: 30,
+    height: 38,   
+  },
+
+  txtStatus: {
+    color: theme.colors.blackText,
+    fontSize: 16,
+    textAlign: 'left',
+    fontWeight: 'bold',
     alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: theme.colors.gray,
-
-  },
-  v2: {  
-    borderBottomWidth: 0.5,
-    borderColor: theme.colors.gray,
-  },
-  viewNameProduct: {
-    width: '75%',
-    position: 'relative',
   },
 
-  image: {
-    width: 100,
-    height: 100,   
+  txtOrderDate: {
+    color: theme.colors.gray,
+    fontSize: 14,
+    textAlign: 'left',
   },
+
+  viewOderInfo: {  
+    backgroundColor: theme.colors.white,
+    marginBottom: 2,
+  },
+
+  viewInOderInfo: {  
+    alignItems: 'flex-start',
+    width: '100%',
+    paddingVertical: 8,
+  },
+
+  viewProduct: {  
+    borderTopWidth: 0.3,
+    borderColor: theme.colors.gray,
+  },
+
+  imageProduct: {
+    width: 80,
+    height: 80,
+  },
+
   txtNameProduct: {  
-    fontSize: 20,
+    fontSize: 18,
     color: theme.colors.blackText,
     textAlign: 'left',
-    paddingLeft: 8,
-    width: '65%',
+    fontWeight: 'bold',
   },
 
-  txtPrice: {  
-    position: 'absolute',
-    right: 0,
+  txtInfoProduct: {
+    color: theme.colors.grayLightText,
     fontSize: 16,
-    color: theme.colors.blackText,
-    textAlign: 'right',
-    width: '35%',
+    textAlign: 'left',
+    paddingVertical: 4,
   },
+
+  txtPrice: {
+    color: theme.colors.blackText,
+    fontSize: 16,
+    textAlign: 'left',
+  },
+
   txtTotal: {
     color: theme.colors.blackText,
     fontSize: 18,
     textAlign: 'left',
-    width: '50%'
+    width: '50%',
   },
+
   txtTotall: {
     color: theme.colors.blackText,
     fontSize: 18,
     textAlign: 'right',
     width: '50%',
+  },
+
+  viewTotal: {  
+    width: '100%',
+    backgroundColor: theme.colors.white,
+    marginBottom: 2,
+  },
+
+  viewInfo: {  
+    width: '100%',
+    backgroundColor: theme.colors.white,
+  },
+
+  txtAddress: {
+    color: theme.colors.blackText,
+    fontSize: 18,
+    textAlign: 'left',
     fontWeight: 'bold',
   },
-  v3: {  
-    width: '100%',
-    borderBottomWidth: 0.5,  
-    borderColor: theme.colors.gray,  
-  },
-  v4: {  
-    width: '100%',
-    borderBottomWidth: 0.5,  
-    borderColor: theme.colors.gray,
-  },
+
   v5: {  
     height: 52,
-    width: '94%',
+    width: '92%',
     backgroundColor: theme.colors.primary,
     justifyContent:'center',
     position: 'absolute',
     alignSelf:'center',
     alignItems: 'center',
-    bottom: 8,
+    bottom: 16,
     borderRadius: 6,
   },
 
@@ -89,20 +144,12 @@ export default StyleSheet.create({
     textAlign: 'center',
     margin: 4,
   },
-  txtStatus: {
-    color: theme.colors.blackText,
-    fontSize: 16,
-    textAlign: 'center',
-  },
-  txtStatuss: {
-    color: theme.colors.blackText,
-    fontSize: 16,
-    textAlign: 'center',
-    fontWeight: '400'
-  },
-  text2: {
-    fontSize: 18,
-    margin: 5,
-  },
 
+  button: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent:'center',
+    borderRadius: 6,
+  }
 });

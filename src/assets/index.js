@@ -70,6 +70,8 @@ export const icons = {
   star_corner:require('./icons/star_corner.png'),
   star_filled:require('./icons/star_filled.png'),
   camera:require('./icons/camera.png'),
+  orderbill:require('./icons/orderbill.png'),
+
 };
 
 export const fonts = {};

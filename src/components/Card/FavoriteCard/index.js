@@ -9,18 +9,6 @@ import {theme} from '@theme';
 const FavoriteCard = ({item, onPress}) => {
 
   const {titleFL, imageFL, priceFL, boughtFL} = item;
-
-
-  const img =(str)=>{
-    if(str===undefined){
-      return null;
-    }
-    else{
-      const newstr=str.replace(/localhost/i, '10.0.2.2');
-      return newstr
-    }
-  }
-
   return (
     <Pressable onPress={onPress}>
       <Block style={styles.container} flex row margin={8} borderRadius={8}>

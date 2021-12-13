@@ -33,23 +33,73 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
-const SignUpScreens = ({signUpAction, data,loadding}) => {
+const SignUpScreens = ({signUpAction, data,loadding, error}) => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
   const [username, setUsername] = useState('');
-    // tao useState Loadding
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [textError, setTextError] = useState('');
+
   useEffect(() => {
     if (data !== null) {
-      alert(data);
+      //alert(data);
     }
   }, [data]);
 
+  useEffect(() => {
+    if(error !== null){
+      console.log(error);
+      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
+    }
+  }, [error])
+  
     //Loadding trong screen
     useEffect(() => {
       setLoading(loadding)
     }, [loadding])
+
+    const checkRegister = () => {
+
+      var validRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+      var validPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  
+      if (email === '' && password === '' && username === '' && password2 === '') {
+        setTextError('Vui lòng nhập đầy đủ thông tin!');
+      } 
+      else if(email === ''){
+        setTextError('Email không được để trống!');
+      }
+      else if(password === ''){
+        setTextError('Mật khẩu không được để trống!');
+      }
+      else if(username === ''){
+        setTextError('Họ tên không được để trống!');
+      }
+      else if(password2 === ''){
+        setTextError('Mật khẩu không được để trống!');
+      }
+      else if (!validRegex.test(email)){
+        setTextError('Email không hợp lệ!');
+      }
+      else if (!validPassword.test(password)) {
+        setTextError('Mật khẩu tối thiểu 8 ký tự, ít nhất một chữ cái và một số!');
+      } 
+      else if (password != password2) {
+        setTextError('Mật khẩu phải trùng nhau!');
+      } 
+      else {
+        let user = {
+          email_user: email,
+          pwd_user: password,
+          name_user: username,
+        };
+        signUpAction(user);
+       }
+       setTextError('');
+    };
 
     return (
       <>
@@ -89,7 +139,7 @@ const SignUpScreens = ({signUpAction, data,loadding}) => {
             keyboardType='email-address'/>
   
           <TextInput
-            iconleft={icons.pass}
+            iconleft={icons.psdlg}
             issecure
             placeholder="Nhập password..."
             placeholderTextColor={theme.colors.grayText}
@@ -97,20 +147,26 @@ const SignUpScreens = ({signUpAction, data,loadding}) => {
             style={styles.txtInput}
             iconStyle={{width: 24, height: 24, tintColor: theme.colors.grayText}} />
   
+          <TextInput
+            iconleft={icons.psdlg}
+            issecure
+            placeholder="Nhập lại password..."
+            placeholderTextColor={theme.colors.grayText}
+            onChangeText={text => setPassword2(text)}
+            style={styles.txtInput}
+            iconStyle={{width: 24, height: 24, tintColor: theme.colors.grayText}} />
+
           <Button
             shadow
             title="ĐĂNG KÝ"
-            onPressOut={() => {
-              let user = {
-                email_user: email,
-                pwd_user: password,
-                name_user: username,
-              };
-              signUpAction(user);
+            onPress={() => {
+              checkRegister();
             }}
             style={styles.viewButtonRegister}
             titleStyle={styles.txtButtonRegister} />
   
+          <Text style={styles.txtErorr}>{textError}</Text>
+
         </Block>
   
         <Block style={styles.viewSignIn}>

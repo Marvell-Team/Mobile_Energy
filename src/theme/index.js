@@ -28,6 +28,8 @@ export const theme = {
     blackText: '#2D2C3C',
     greyText: '#A6BCD0',
     greyTitle: '#88B2D9',
+    grayTitle: '#757575',
+    grayLightText: '#949599',
   },
 
   fonts: {

@@ -63,14 +63,7 @@ const BillCard = ({item, onPress, style, getBillAction,getBillDetailByIdAction, 
       UIManager.setLayoutAnimationEnabledExperimental(true);
     }
   }
-  const img = str => {
-    if (str === undefined) {
-      return null;
-    } else {
-      const newstr = str.replace(/localhost/i, '10.0.2.2');
-      return newstr;
-    }
-  };
+  
   return (
     <>
       {isShow === false ? (
@@ -120,7 +113,7 @@ const BillCard = ({item, onPress, style, getBillAction,getBillDetailByIdAction, 
             <Block row paddingVertical={8}>
               <Block style={styles.viewImg} width={'50%'}>
                 <Image
-                  source={{uri: img(item.id_product.id_image.nameImage[0])}}
+                  source={{uri: item.id_product.id_image.nameImage[0]}}
                   style={styles.imgProduct}
                 />
               </Block>
@@ -131,7 +124,7 @@ const BillCard = ({item, onPress, style, getBillAction,getBillDetailByIdAction, 
                 <Text style={styles.price}>
                   {formatCurrency(item.id_product.price_product)} VNĐ
                 </Text>
-                <Text style={styles.quantity}>x{item.id_product.amount}</Text>
+                <Text style={styles.quantity}>x{item.amount}</Text>
               </Block>
             </Block>
           ))}

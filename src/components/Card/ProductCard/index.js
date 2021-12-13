@@ -11,20 +11,12 @@ const ProductCard = ({item, index, onPress, style, getProductbyIdAction}) => {
   const navigation = useNavigation();
   const {nameProduct, id_image, price_product} = item;
   console.log(id_image.nameImage[0]);
-  const img =(str)=>{
-    if(str===undefined){
-      return null;
-    }
-    else{
-      const newstr=str.replace(/localhost/i, '10.0.2.2');
-      return newstr
-    }
-  }
+
   return (
     <Pressable
       onPress={() => {
         getProductbyIdAction(item._id),
-          navigation.navigate(routes.DETAILSCREENS,{id:item._id});
+          navigation.navigate(routes.DETAILSCREENS, {id: item._id});
       }}>
       <Block column shadow flex style={[styles.cardContainer, style]}>
         <Block style={styles.viewImg}>
@@ -48,7 +40,6 @@ const ProductCard = ({item, index, onPress, style, getProductbyIdAction}) => {
             {formatCurrency(price_product)}
           </Text>
         </Block>
-    
       </Block>
     </Pressable>
   );

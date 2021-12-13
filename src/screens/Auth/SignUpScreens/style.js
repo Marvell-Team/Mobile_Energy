@@ -96,4 +96,11 @@ export default StyleSheet.create({
     fontSize: getSize.s(14),
     fontWeight: 'bold',
   },
+
+  txtErorr: {
+    fontSize: 16,
+    textAlign: 'center',
+    color: theme.colors.red,
+  },
+
 });

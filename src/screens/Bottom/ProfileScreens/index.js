@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, SafeAreaView, StyleSheet, TouchableOpacity, ToastAndroid} from 'react-native';
 import {
   Avatar,
   Title,
@@ -88,6 +88,15 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
       setChecktoken(useData.token);
     }
   }, [useData.token]);
+
+  useEffect(() => {
+    if(error !== null){
+      console.log(error);
+      console.log('333333333333333333>>>>>>>>>>>>>>>>>>>>>')
+      ToastAndroid.show('Lỗis: ' + error, ToastAndroid.SHORT);
+    }
+  }, [error])
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -195,8 +204,7 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
                             fontSize: getSize.m(18),
                           },
                           phone !== null ? null : {opacity: 0.5},
-                        ]}>
-                        {phone !== null ? phone : 'Số điện thoại'}
+                        ]}>0{phone !== null ? phone : 'Số điện thoại'}
                       </Text>
                     </View>
                   </View>
@@ -260,7 +268,9 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
             <Text style={styles.menuItemText}>Đơn Hàng Của Tôi</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => {navigation.navigate(routes.FAVORITELIST_SCREEN)}}>
+        <TouchableRipple onPress={() => {
+              ToastAndroid.show('Chưa có hỗ trợ!', ToastAndroid.SHORT);
+        }}>
           <View style={styles.menuItem}>
             <Icon name="account-check-outline" color="#FF6347" size={30} />
             <Text style={styles.menuItemText}>Hỗ Trợ</Text>

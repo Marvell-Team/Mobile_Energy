@@ -12,57 +12,105 @@ import styles from './style';
 import {theme} from '@theme';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {getSize} from '@utils/responsive';
-import { routes } from '@navigation/routes';
-import { formatCurrency } from '@utils/utils';
+import {routes} from '@navigation/routes';
+import {formatCurrency} from '@utils/utils';
 import Product_Card from '@components/Card/ProductCard2';
-import { getProductByCategoriesChild } from '@redux/actions';
+import {getProduct, getProductByCategoriesChild} from '@redux/actions';
 import {connect} from 'react-redux';
-import { GET_PRODUCT_BY_CATEGORYS_CHILD } from '@redux/actions/ProductAction';
+import {
+  GET_PRODUCT,
+  GET_PRODUCT_BY_CATEGORYS_CHILD,
+} from '@redux/actions/ProductAction';
 const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
 const categori = [
-  {id: 2, name: 'Liên quan'},
-  {id: 3, name: 'Mới nhất'},
-  {id: 4, name: 'Bán chạy'},
+  {id: 1, name: 'Liên quan'},
+  {id: 2, name: 'Bán chạy'},
+  {id: 3, name: 'Giá'},
 ];
 const mapStateToProps = state => {
-    return {
+  return {
+    loadingCategories: state.getProductByCategoriesChildReducer
+      ? state.getProductByCategoriesChildReducer.loading
+      : null,
+    dataCategories: state.getProductByCategoriesChildReducer
+      ? state.getProductByCategoriesChildReducer.data
+      : null,
+    errorCategories: state.getProductByCategoriesChildReducer
+      ? state.getProductByCategoriesChildReducer.error
+      : null,
 
-      loadingCategories: state.getProductByCategoriesChildReducer? state.getProductByCategoriesChildReducer.loading: null,
-      dataCategories: state.getProductByCategoriesChildReducer ? state.getProductByCategoriesChildReducer.data: null,
-      errorCategories: state.getProductByCategoriesChildReducer ? state.getProductByCategoriesChildReducer.error : null,
-  
+    errorPrdt: state.getProductReducer ? state.getProductReducer.error : null,
+    dataPrdt: state.getProductReducer ? state.getProductReducer.data : null,
+    loaddingPrdt: state.getProductReducer
+      ? state.getProductReducer.loadding
+      : null,
   };
-  }
-  const mapDispatchToProps = dispatch => {
-  
-   return {
-     getProductByCategoriesChild: (id) => {
-       dispatch(getProductByCategoriesChild(id));
-     },
-   };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    getProductByCategoriesChild: id => {
+      dispatch(getProductByCategoriesChild(id));
+    },
+    getProduct: input => {
+      dispatch(getProduct(input));
+    },
   };
-const Product = ({getProductByCategoriesChild,dataCategories}) => {
+};
+
+const Product = ({
+  getProductByCategoriesChild,
+  getProduct,
+  dataCategories,
+  dataPrdt,
+}) => {
+
   const navigation = useNavigation();
   const route = useRoute();
-  const {id,type} = route.params;
-  const [status, setStatus] = useState();
-  const [data, setData] = useState([])
+  const {id, type} = route.params;
+  const [status, setStatus] = useState(1);
+  const [data, setData] = useState([]);
+  const [checkPrice, setCheckPrice] = useState(false);
   const setStatusFilter = id => {
     setStatus(id);
   };
   useEffect(() => {
-      if(type ===GET_PRODUCT_BY_CATEGORYS_CHILD){
-        getProductByCategoriesChild(id)
-      }
-  }, [])
+    if (type === GET_PRODUCT_BY_CATEGORYS_CHILD) {
+      getProductByCategoriesChild({name: id, price: null, sell: null});
+    }
+    if (type === GET_PRODUCT) {
+      getProduct({
+        price: null,
+        sell: 1,
+      });
+      setStatus(2);
+    }
+  }, []);
   useEffect(() => {
-    if(type === GET_PRODUCT_BY_CATEGORYS_CHILD){
-          if(dataCategories!==null){ 
-                setData(dataCategories.data);       
-          }
+    if (type === GET_PRODUCT_BY_CATEGORYS_CHILD) {
+      if (dataCategories !== null) {
+        setData(dataCategories.data);
       }
-  }, [dataCategories])
+    } else {
+      if (dataCategories !== null) {
+        setData(dataCategories.data);
+      }
+    }
+
+    if (type === GET_PRODUCT) {
+      if (dataPrdt !== null) {
+        setData(dataPrdt.data);
+      }
+    }
+  }, [dataCategories, dataPrdt]);
+
+  useEffect(() => {
+    if(errorCategories !== null){
+      console.log(errorCategories);
+      ToastAndroid.show('Lỗi: ' + errorCategories, ToastAndroid.SHORT);
+    }
+  }, [errorCategories])
+
   const jewelStyle = id => {
     if (id === status) {
       return {
@@ -93,7 +141,69 @@ const Product = ({getProductByCategoriesChild,dataCategories}) => {
       };
     }
   };
+  const _setDateType = (text, textid) => {
+    //  const dataAo1 = dataMaster;
+    if (text === 'Bán chạy') {
+      if (type === GET_PRODUCT_BY_CATEGORYS_CHILD) {
+        getProductByCategoriesChild({name: id, price: null, sell: -1});
+      }
+      if (type === GET_PRODUCT) {
+        getProduct({
+          price: null,
+          sell: 1,
+        });
+      }
+    }
+    if (text === 'Giá') {
+      if (textid === status) {
+        setCheckPrice(!checkPrice);
+        console.log(checkPrice);
+        if (checkPrice) {
+          if (type === GET_PRODUCT_BY_CATEGORYS_CHILD) {
+            getProductByCategoriesChild({name: id, price: -1, sell: null});
+          }
+          if (type === GET_PRODUCT) {
+            getProduct({
+              price: -1,
+              sell: null,
+            });
+          }
+        } else {
+          if (type === GET_PRODUCT_BY_CATEGORYS_CHILD) {
+            getProductByCategoriesChild({name: id, price: 1, sell: null});
+          }
+          if (type === GET_PRODUCT) {
+            getProduct({
+              price: 1,
+              sell: null,
+            });
+          }
+        }
+      } else {
+        if (type === GET_PRODUCT_BY_CATEGORYS_CHILD) {
+          getProductByCategoriesChild({name: id, price: -1, sell: null});
+        }
+        if (type === GET_PRODUCT) {
+          getProduct({
+            price: -1,
+            sell: null,
+          });
+        }
+      }
+    }
 
+    if (text === 'Liên quan') {
+      if (type === GET_PRODUCT_BY_CATEGORYS_CHILD) {
+        getProductByCategoriesChild({name: id, price: null, sell: null});
+      }
+      if (type === GET_PRODUCT) {
+        getProduct({
+          price: null,
+          sell: 1,
+        });
+      }
+    }
+  };
   return (
     <Block flex>
       {/* header */}
@@ -129,25 +239,28 @@ const Product = ({getProductByCategoriesChild,dataCategories}) => {
             width={'100%'}
             height={getSize.s(35)}
             iconleft={icons.search}></TextInput> */}
-            <TouchableOpacity style={{ width:'100%',flex: 18,height:getSize.s(35)}} onPress={() =>{navigation.navigate(routes.SEARCHSCREEN)}}>
-          <Block
-            alignCenter
-            row
-            paddingVertical={getSize.m(2)}
-            style={{ backgroundColor: '#77C8EB'}}
-            width={'100%'}
-            height={'100%'}
-            paddingHorizontal={getSize.m(8)}>
-            <Thumbnail
-              source={icons.search}
-            
-              style={{width: 20, height: 20,marginRight:getSize.m(5)}}
-              resizeMode="contain"
-            />
-            <Text size={getSize.m(18)} color={'white'}>
-              Tìm kiếm
-            </Text>
-          </Block>
+          <TouchableOpacity
+            style={{width: '100%', flex: 18, height: getSize.s(35)}}
+            onPress={() => {
+              navigation.navigate(routes.SEARCHSCREEN);
+            }}>
+            <Block
+              alignCenter
+              row
+              paddingVertical={getSize.m(2)}
+              style={{backgroundColor: '#77C8EB'}}
+              width={'100%'}
+              height={'100%'}
+              paddingHorizontal={getSize.m(8)}>
+              <Thumbnail
+                source={icons.search}
+                style={{width: 20, height: 20, marginRight: getSize.m(5)}}
+                resizeMode="contain"
+              />
+              <Text size={getSize.m(18)} color={'white'}>
+                Tìm kiếm
+              </Text>
+            </Block>
           </TouchableOpacity>
           <Block alignEnd justifyCenter style={{flex: 2}}>
             <Thumbnail
@@ -174,6 +287,7 @@ const Product = ({getProductByCategoriesChild,dataCategories}) => {
               },
             ]}
             onPress={() => {
+              _setDateType(item.name, item.id);
               setStatusFilter(item.id);
             }}>
             <Text
@@ -203,6 +317,4 @@ const Product = ({getProductByCategoriesChild,dataCategories}) => {
   );
 };
 
-export default connect (mapStateToProps, mapDispatchToProps)(Product);
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(Product);

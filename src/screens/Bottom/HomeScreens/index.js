@@ -8,6 +8,7 @@ import {
   Thumbnail,
   CategoryItem,
   ProductCard,
+  ProductCard2,
 } from '@components';
 import {View, Pressable, FlatList, ScrollView} from 'react-native';
 import styles from './style';
@@ -17,14 +18,19 @@ import {category, listProduct} from '@utils/dummyData';
 import {useIsFocused} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
 import {routes} from '@navigation/routes';
+import Loading from '@components/Loadding/Loading';
 
 import {
   getProductbyCategories,
   getProductbyIdAction,
+  getProduct,
 } from '../../../redux/actions';
 import {useData} from 'config/config';
 import {connect} from 'react-redux';
 import {getCateGoryAction} from '@redux/actions';
+import {getFavoriteAction} from '@redux/actions';
+import {getSize} from '@utils/responsive';
+import {GET_PRODUCT} from '@redux/actions/ProductAction';
 
 const mapStateToProps = state => {
   console.log(state.getProductByCategoriesReducer.data);
@@ -48,6 +54,17 @@ const mapStateToProps = state => {
     loaddingCate: state.getCategoriesReducer
       ? state.getCategoriesReducer.loadding
       : null,
+
+    errorPrdt: state.getProductReducer ? state.getProductReducer.error : null,
+    dataPrdt: state.getProductReducer ? state.getProductReducer.data : null,
+    loaddingPrdt: state.getProductReducer
+      ? state.getProductReducer.loadding
+      : null,
+
+      errorFavorite: state.getFavoriteReducer ? state.getFavoriteReducer.error : null,
+      data1Favorite: state.getFavoriteReducer ? state.getFavoriteReducer.data : null,
+      loaddingFavorite: state.getFavoriteReducer ? state.getFavoriteReducer.loadding: null,
+
   };
 };
 
@@ -62,6 +79,12 @@ const mapDispatchToProps = dispatch => {
     getCateGoryAction: categori => {
       dispatch(getCateGoryAction(categori));
     },
+    getProduct: categori => {
+      dispatch(getProduct(categori));
+    },
+    getFavoriteAction: () => {
+      dispatch(getFavoriteAction());
+    },
   };
 };
 
@@ -70,17 +93,34 @@ const HomeScreens = ({
   getProductbyCategories,
   getProductbyIdAction,
   loadding,
+  getProduct,
   error,
+  dataPrdt,
   getCateGoryAction,
   data1Cate,
+  errorCate,
+  errorPrdt,
+  data1Favorite,
+  getFavoriteAction,
+  errorFavorite,
+  loaddingFavorite,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [salesList, setSalesList] = useState([]);
+  const [dataSell, setDataSell] = useState([]);
   const [dataCate, setDataCate] = useState([]);
+  const [dataFavorite, setDataFavorite] = useState([]);
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     getProductbyCategories('PHONE');
-  }, [getProductbyCategories]);
+  }, []);
+  useEffect(() => {
+    if (dataPrdt !== null) {
+      setDataSell(dataPrdt.data);
+    }
+  }, [dataPrdt]);
   useEffect(() => {
     if (data !== null) {
       setSalesList(data.data);
@@ -93,18 +133,69 @@ const HomeScreens = ({
   }, [data1Cate]);
   useEffect(() => {
     getCateGoryAction('PHONE');
+    getProduct({
+      price: null,
+      sell: 1,
+    });
   }, []);
+
+  useEffect(() => {
+    setLoading(loadding);
+  }, [loadding]);
+
+  useEffect(() => {
+    if(error !== null){
+      console.log(error);
+      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
+    }
+  }, [error])
+
+  useEffect(() => {
+    if(errorCate !== null){
+      console.log(errorCate);
+      ToastAndroid.show('Lỗi: ' + errorCate, ToastAndroid.SHORT);
+    }
+  }, [errorCate])
+
+  useEffect(() => {
+    if(errorPrdt !== null){
+      console.log(errorPrdt);
+      ToastAndroid.show('Lỗi: ' + errorPrdt, ToastAndroid.SHORT);
+    }
+  }, [errorPrdt])
+
+  useEffect(() => {
+    getFavoriteAction()
+  }, [])
+
+  useEffect(() => {
+    if(data1Favorite !== null){
+      setDataFavorite(data1Favorite.data);
+    }
+  }, [data1Favorite])
+
+  useEffect(() => {
+    if(errorFavorite !== null){
+      console.log(errorFavorite);
+      ToastAndroid.show('Lỗi: ' + errorFavorite, ToastAndroid.SHORT);
+    }
+  }, [errorFavorite])
 
   const handlePressCategory = index => {};
 
-  const blockListProduct = useCallback(() => {
+  const blockListProduct = useCallback(({title, data}) => {
     // console.log('DATA >>> ', salesList);
     return (
       <Block style={styles.blockProductContainer}>
         <Block style={styles.blockTitle}>
-          <Text style={styles.textTitle}>TOP SẢN PHẨM ĐANG GIẢM GIÁ</Text>
+          <Text style={styles.textTitle}>{title}</Text>
           <Pressable
-            onPress={() => getProductbyCategories('PHONE')}
+            onPress={() => {
+              navigation.navigate(routes.PRODUCTCUSTOM, {
+                id: null,
+                type: GET_PRODUCT,
+              });
+            }}
             style={styles.viewMore}>
             <Text style={styles.txtMore}>Xem thêm</Text>
             <Thumbnail
@@ -115,7 +206,7 @@ const HomeScreens = ({
           </Pressable>
         </Block>
         <FlatList
-          data={salesList}
+          data={data}
           style={{alignSelf: 'center', marginTop: 15}}
           showsHorizontalScrollIndicator={false}
           horizontal
@@ -170,9 +261,38 @@ const HomeScreens = ({
             />
           </ScrollView>
         </Block>
-        {blockListProduct()}
-        {blockListProduct()}
+        
+        {blockListProduct({title: 'SẢN PHẨM BÁN CHẠY', data: dataSell})}
+        {blockListProduct({title: 'PHỤ KIỆN PHỔ BIẾN', data: salesList})}
+        {blockListProduct({title: 'SẢN PHẨM ĐƯỢC YÊU THÍCH NHẤT', data: dataFavorite})}
+
+        <Text
+          style={[
+            styles.textTitle,
+            {
+              fontSize: getSize.m(20),
+              fontWeight: 'bold',
+              marginLeft: getSize.m(10),
+              paddingVertical: 8,
+            },
+          ]}>
+          GỢI Ý HÔM NAY
+        </Text>
+        <Block justifyCenter alignCenter>
+          <FlatList
+            data={salesList.reverse()}
+            numColumns={2}
+            renderItem={({item}) => (
+              <ProductCard2
+                item={item}
+                getProductbyIdAction={getProductbyIdAction}
+              />
+            )}
+          />
+        </Block>
       </ScrollView>
+      {/*Có cái này mới hiện loading!!!*/}
+      {loading && <Loading />}
     </Block>
   );
 };

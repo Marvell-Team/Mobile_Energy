@@ -55,7 +55,7 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
-const EditProfile = ({editUserByID, data, loadding}) => {
+const EditProfile = ({editUserByID, data, loadding, error}) => {
   // tao useState Loadding
   const [loading, setLoading] = useState(false);
   //
@@ -74,12 +74,22 @@ const EditProfile = ({editUserByID, data, loadding}) => {
   const [imageUri, setImageUri] = useState('');
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
+  const [textError, setTextError] = useState('');
+
   const bs = React.createRef();
   const fall = new Animated.Value(1);
   //Loadding trong screen
   useEffect(() => {
     setLoading(loadding);
   }, [loadding]);
+
+  useEffect(() => {
+    if(error !== null){
+      console.log(error);
+      console.log('++++++++++++++++++++++++++++>>>>>>>>>>>>>>>>>>>>>>');
+      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
+    }
+  }, [error])
 
   useEffect(() => {
     convertdatetostring(null);
@@ -296,11 +306,45 @@ const EditProfile = ({editUserByID, data, loadding}) => {
     //  setImage(null);
   };
 
+  const checkEditProfile = () => {
+
+    var validNumberPhone = /((09|03|07|08|05)+([0-9]{8})\b)/;
+
+    if (name === '' && phoneNumber === '' && address === '') {
+      setTextError('Vui lòng nhập đầy đủ thông tin!');
+    } 
+    else if(name === ''){
+      setTextError('Họ tên không được để trống!');
+    }
+    else if(phoneNumber === ''){
+      setTextError('Số điện thoại không được để trống!');
+    }
+    else if(address === ''){
+      setTextError('Địa chỉ không được để trống!');
+    }
+    else if (!validNumberPhone.test(phoneNumber)){
+      setTextError('Số điện thoại không đúng định dạng!');
+    }
+    else {
+      let input = {
+        name_user: name,
+        phone_user: phoneNumber,
+        address_user: address,
+        avt_user: imageUri,
+        gender_user: pickerValue,
+        born_day: date,
+      };
+      editUserByID(input);
+      navigation.navigate(routes.PROFILESCREENS)
+      //alert(imageUri);
+    }
+  };
+
   return (
-    <View style={[styles.container]}>
+    <Block style={[styles.container]}>
       <Animated.View
         style={{opacity: Animated.add(0.3, Animated.multiply(fall, 1.0))}}>
-        <ScrollView>
+        {/* <ScrollView> */}
           <Header
             iconLeft={icons.back}
             leftPress={() =>
@@ -387,8 +431,7 @@ const EditProfile = ({editUserByID, data, loadding}) => {
                 placeholder="Nhập số điện thoại"
               />
             </Block>
-
-            <Block style={[styles.viewText, {marginBottom: getSize.m(100)}]}>
+            <Block style={[styles.viewText]}>
               <Text size={15} style={styles.txtTitle}>
                 Địa chỉ
               </Text>
@@ -401,26 +444,20 @@ const EditProfile = ({editUserByID, data, loadding}) => {
                 placeholder="Nhập Địa Chỉ"
               />
             </Block>
+            <Text style={[styles.txtErorr, {marginBottom: getSize.m(60)}]}>{textError}</Text>
+
           </Block>
-        </ScrollView>
-        <TouchableOpacity
-          style={styles.btnSave}
-          onPress={() => {
-            let input = {
-              name_user: name,
-              phone_user: phoneNumber,
-              address_user: address,
-              avt_user: imageUri,
-              gender_user: pickerValue,
-              born_day: date,
-            };
-            editUserByID(input);
-            alert(imageUri);
-          }}>
-          <Text fontSize={18} marginLeft={4} style={styles.txtSave}>
-            Lưu thay đổi
-          </Text>
-        </TouchableOpacity>
+        {/* </ScrollView> */}
+          <Block style={styles.btnSave}>
+            <TouchableOpacity        
+              onPress={() => {
+                checkEditProfile();
+              }}>
+              <Text fontSize={18} style={styles.txtSave}>
+                Lưu thay đổi
+              </Text>
+            </TouchableOpacity>
+          </Block>
         {uploading ? <Loading /> : null}
       </Animated.View>
       <BottomSheet
@@ -435,7 +472,7 @@ const EditProfile = ({editUserByID, data, loadding}) => {
       />
       {/* Tao cai nay ms hien Loadding */}
       {loading && <Loading />}
-    </View>
+    </Block>
   );
 };
 export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);
