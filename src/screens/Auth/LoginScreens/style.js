@@ -1,8 +1,7 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {theme} from '@theme';
+import {getSize, height, width} from '@utils/responsive';
 
-const {width} = Dimensions.get('screen');
-const {height} = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -11,10 +10,9 @@ export default StyleSheet.create({
   },
 
   viewLogo: {
-    width: 100,
-    height: 130,
-    marginTop: height * 0.02,
-    marginBottom: height * 0.02,
+    width:  getSize.m(100),
+    height: getSize.m(130),
+    marginBottom: height * 0.04,
     justifyContent: 'center',
     alignSelf: 'center',
   },
@@ -30,7 +28,7 @@ export default StyleSheet.create({
   },
 
   txtTitle: {
-    fontSize: 18,
+    fontSize: getSize.v(20),
     color: theme.colors.secondary,
     textAlign: 'left',
   },
@@ -50,23 +48,23 @@ export default StyleSheet.create({
   },
 
   txtForgotPassword: {
-    fontSize: 16,
+    fontSize: getSize.v(16),
     textAlign: 'right',
     color: theme.colors.secondary,
   },
 
   viewButtonLogin: {
     backgroundColor: theme.colors.primary,
-    height: 56,
+    height: getSize.m(56),
   },
 
   txtButtonLogin: {
-    fontSize: 18,
+    fontSize: getSize.v(18),
     fontWeight: 'bold',
   },
 
   txtLoginWith: {
-    fontSize: 17,
+    fontSize: getSize.v(17),
     textAlign: 'center',
     marginVertical: 16,
     color: theme.colors.greyTitle,
@@ -78,8 +76,8 @@ export default StyleSheet.create({
   },
 
   thumb1: {
-    width: 45,
-    height: 45,
+    width: getSize.m(45),
+    height: getSize.m(45),
     justifyContent: 'center',
     alignSelf: 'center',
     marginHorizontal: 16,
@@ -89,12 +87,12 @@ export default StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     alignSelf:'center',
-    height: 30,
+    height: getSize.m(30),
   },
 
   txtSignUp: {
     color: theme.colors.primary,
-    fontSize: 14,
+    fontSize: getSize.v(14),
     fontWeight: 'bold',
   },
 

@@ -233,11 +233,11 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
               borderRightWidth: 1,
             },
           ]}>
-          <Title>140.000.000 VND</Title>
-          <Caption>Ví Tiền</Caption>
+          <Title>40</Title>
+          <Caption>Đơn Hàng Đã Thanh Toán</Caption>
         </View>
         <View style={styles.infoBox}>
-          <Title>12</Title>
+          <Title>14</Title>
           <Caption>Đơn Hàng</Caption>
         </View>
       </View>

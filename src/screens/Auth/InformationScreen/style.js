@@ -1,8 +1,7 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {theme} from '@theme';
+import {getSize, height, width} from '@utils/responsive';
 
-const {width} = Dimensions.get('screen');
-const {height} = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -13,8 +12,8 @@ export default StyleSheet.create({
     backgroundColor: theme.colors.primary,
   },
   viewAvt: {
-    width: 110,
-    height: 110,
+    width: getSize.m(110),
+    height: getSize.m(110),
     borderRadius: 110 / 2,
     borderWidth: 2,
     borderColor: theme.colors.white,
@@ -29,8 +28,8 @@ export default StyleSheet.create({
   },
   viewEdit: {
     backgroundColor: theme.colors.white,
-    width: 24,
-    height: 24,
+    width: getSize.m(24),
+    height: getSize.m(24),
     borderRadius: 24 / 2,
     position: 'absolute',
     right: 2,
@@ -47,7 +46,7 @@ export default StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: width,
-    height: 20,
+    height: getSize.m(20),
     backgroundColor: theme.colors.white,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
@@ -57,11 +56,11 @@ export default StyleSheet.create({
     paddingVertical: 5,
   },
   titleInfo: {
-    fontSize: 20,
+    fontSize: getSize.m(20),
   },
   btnEditInfo: {
-    width: 28,
-    height: 28,
+    width: getSize.m(28),
+    height: getSize.m(28),
     borderRadius: 5,
     padding: 5,
     alignSelf: 'flex-end',

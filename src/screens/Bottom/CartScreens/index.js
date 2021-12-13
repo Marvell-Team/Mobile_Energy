@@ -277,7 +277,6 @@ const CartCard = ({
     //   id_product: filtered,
     // });
   };
-
   const createThreeButtonAlert = () =>
     Alert.alert('Xóa Sản Phẩm', 'Bạn có chắc muốn bỏ sản phẩm này', [
       {
