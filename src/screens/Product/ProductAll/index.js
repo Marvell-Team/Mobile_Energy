@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
-import {Block, Text, Thumbnail, Button, Header, TextInput} from '@components';
 import {icons} from '@assets';
 import styles from './style';
 import {theme} from '@theme';
@@ -14,12 +13,23 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {getSize} from '@utils/responsive';
 import {routes} from '@navigation/routes';
 import {formatCurrency} from '@utils/utils';
-import Product_Card from '@components/Card/ProductCard2';
 import {
   getFavoriteAction,
   getProduct,
   getProductByCategoriesChild,
+  getProductbyIdAction,
 } from '@redux/actions';
+import {
+  Block,
+  Button,
+  Header,
+  Text,
+  TextInput,
+  Thumbnail,
+  CategoryItem,
+  ProductCard,
+  ProductCard2,
+} from '@components';
 import {connect} from 'react-redux';
 import {
   GET_PRODUCT,
@@ -71,6 +81,9 @@ const mapDispatchToProps = dispatch => {
     },
     getFavoriteAction: () => {
       dispatch(getFavoriteAction());
+    },
+    getProductbyIdAction: () => {
+      dispatch(getProductbyIdAction());
     },
   };
 };
@@ -343,8 +356,16 @@ const Product = ({
       <Block flex alignCenter justifyCenter>
         <FlatList
           data={data}
+          style={{alignSelf: 'center', marginTop: 15}}
           numColumns={2}
-          renderItem={({item, index}) => <Product_Card item={item} />}
+          renderItem={({item, index}) =>
+            item.id_category !== null && (
+              <ProductCard2
+                getProductbyIdAction={getProductbyIdAction}
+                item={item}
+              />
+            )
+          }
         />
       </Block>
     </Block>

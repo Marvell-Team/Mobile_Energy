@@ -9,7 +9,7 @@ import {
 import {Block, Text, Thumbnail, Button, Header, TextInput} from '@components';
 import {icons} from '@assets';
 import {theme} from '@theme';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute, CommonActions} from '@react-navigation/native';
 import {getSize} from '@utils/responsive';
 import {routes} from '@navigation/routes';
 import {formatCurrency} from '@utils/utils';
@@ -21,9 +21,23 @@ const Product_Card = ({item, getProductbyIdAction}) => {
     <TouchableOpacity
       style={styles.container}
       onPress={() => {
-        console.log('aa');
-        getProductbyIdAction(item._id);
-        navigation.navigate(routes.DETAILSCREENS, {id: item._id});
+        console.log(item._id + 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+        if (item?._id !== undefined) {
+          getProductbyIdAction(item._id);
+          // navigation.dispatch(
+          //   CommonActions.reset({
+          //     index: 1,
+          //     routes: [
+          //       {
+          //         name: routes.DETAILSCREENS,
+          //         params: {id: item._id},
+          //       },
+          //     ],
+          //   }),
+          // );
+
+          navigation.navigate(routes.DETAILSCREENS, {id: item._id});
+        }
       }}>
       <Block style={styles.viewContent}>
         <Thumbnail
@@ -35,7 +49,7 @@ const Product_Card = ({item, getProductbyIdAction}) => {
         />
       </Block>
 
-      <Block justifyCenter paddingHorizontal={8}>
+      <Block justifyCenter paddingHorizontal={8} paddingVertical={12}>
         <Text style={styles.txtTitle}>{item.nameProduct}</Text>
         <Block flex row marginBottom={8} marginTop={4}>
           <Text style={styles.txtPrice}>

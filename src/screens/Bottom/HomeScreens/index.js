@@ -10,7 +10,13 @@ import {
   ProductCard,
   ProductCard2,
 } from '@components';
-import {View, Pressable, FlatList, ScrollView} from 'react-native';
+import {
+  View,
+  Pressable,
+  FlatList,
+  ScrollView,
+  ToastAndroid,
+} from 'react-native';
 import styles from './style';
 import {icons} from '@assets';
 import {theme} from '@theme';
@@ -218,7 +224,7 @@ const HomeScreens = ({
           horizontal
           renderItem={({item, index}) =>
             item.id_category !== null && (
-              <ProductCard
+              <ProductCard2
                 getProductbyIdAction={getProductbyIdAction}
                 item={item}
               />
