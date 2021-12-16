@@ -25,6 +25,7 @@ import {GETONE_USER, UPDATE_USER} from './UserAction';
 import {ADD_COMMENT, GET_COMMENT, GET_COUNT_COMMENT} from './CommentAction';
 import {GET_NOTIFICATION_BY_USER} from './NotificationAction';
 import {GET_CATEGORY} from './CategoriesAction';
+import {GET_FORGOT_PASSWORD_BY_EMAIL, RESET_PASSWORD, VERIFY_USER_BY_CODE_NUMBER } from './ForgotPasswordAction';
 
 export const loginAction = (user, password) => {
   return {
@@ -254,6 +255,33 @@ export const getCateGoryAction = input => {
   );
   return {
     type: GET_CATEGORY,
+    data: input,
+  };
+};
+
+//getForgotPasswordByPhoneNumberAction
+export const getForgotPasswordByEmailAction = input => {
+  console.log('<<<<<<<<<<<<<< getForgotPasswordByEmailAction 3333333333333');
+  return {
+    type: GET_FORGOT_PASSWORD_BY_EMAIL,
+    data: input+"",
+  };
+};
+
+//verifyUserByCodeNumberAction
+export const verifyUserByCodeNumberAction = input => {
+  console.log('verifyUserByCodeNumberAction');
+  return {
+    type: VERIFY_USER_BY_CODE_NUMBER,
+    data: input,
+  };
+};
+
+//resetPasswordAction
+export const resetPasswordAction = input => {
+  console.log('resetPasswordAction');
+  return {
+    type: RESET_PASSWORD,
     data: input,
   };
 };

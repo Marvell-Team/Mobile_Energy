@@ -45,7 +45,6 @@ export default StyleSheet.create({
     marginTop: 16 + 28 + StatusBar.currentHeight,
     width: width,
     paddingHorizontal: getSize.s(12),
-    paddingVertical: 8,
     backgroundColor: theme.colors.secondary,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,

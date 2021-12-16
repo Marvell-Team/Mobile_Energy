@@ -29,11 +29,14 @@ export default StyleSheet.create({
   },
   body:{
     width:width,
-  
     backgroundColor: theme.colors.white,
     borderTopLeftRadius:20,
     borderTopRightRadius:20,
-    marginTop:-25
+    marginTop:-25,
+    elevation: 2,
+    shadowColor: theme.colors.black,
+    shadowOpacity: 1,
+    shadowRadius: 20,
   },
   txtComment:{
     fontSize:getSize.m(16), fontWeight: 'bold',

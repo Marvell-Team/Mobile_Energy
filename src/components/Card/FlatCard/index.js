@@ -106,7 +106,7 @@ const FlatCard = ({item, getBillDetailByIdAction}) => {
               style={styles.viewContentImage}
               source={{uri: imageProduct}}/>
 
-            <Text style={styles.txtContent}> Mã đơn hàng: {item._id} </Text>
+            <Text style={styles.txtContent}> Mã đơn: {item._id} </Text>
 
           </Block>
 

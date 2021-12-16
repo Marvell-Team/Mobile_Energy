@@ -290,13 +290,13 @@ const CartScreens = ({
           marginTop: 8,
           backgroundColor: COLORS.white,
         }}>
-        <View style={{width: '50%', justifyContent: 'center'}}>
-          <Text style={{fontSize: 18}}>Tổng</Text>
-          <Text style={{fontSize: 20, fontWeight: 'bold', color: 'red'}}>
+        <View style={{width: '40%', justifyContent: 'center'}}>
+          <Text style={{fontSize: 16}}>Tổng</Text>
+          <Text style={{fontSize: 18, fontWeight: 'bold', color: theme.colors.red}}>
             {formatCurrency(dataTotal)}
           </Text>
         </View>
-        <View style={{width: '50%'}}>
+        <Block style={{width: '60%', justifyContent: 'center'}}>
           <PrimaryButton
             title="Thanh Toán"
             onPress={() => {
@@ -327,7 +327,7 @@ const CartScreens = ({
               }
             }}
           />
-        </View>
+        </Block>
       </View>
       {/*Có cái này mới hiện loading!!!*/}
       {loading && (<Loading/>)}

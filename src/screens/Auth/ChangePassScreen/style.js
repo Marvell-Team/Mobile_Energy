@@ -6,7 +6,7 @@ import {getSize, height, width} from '@utils/responsive';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.white, 
+    backgroundColor: theme.colors.white,
     position: 'relative',
   },
 
@@ -22,7 +22,7 @@ export default StyleSheet.create({
   textInput: {
     height: getSize.m(48),
     backgroundColor: theme.colors.white,
-    borderColor:"#FFF",
+    borderColor: '#FFF',
     alignSelf: 'flex-start',
     borderBottomColor: theme.colors.gray,
     borderRadius: 0,
@@ -32,37 +32,44 @@ export default StyleSheet.create({
 
   txtTitle: {
     color: theme.colors.black,
-    marginLeft:4,
-    
+    marginLeft: getSize.m(4),
   },
 
-  txtSave: {
-    color: theme.colors.black,
-    marginLeft:4,
-    alignSelf:'center',
-    fontSize:getSize.s(18),
-    fontWeight:'bold',
-    color:theme.colors.white,
-  },
-
-  backgroundBtnSave: {
-    width: '100%',
-    backgroundColor: theme.colors.white,
-    height: getSize.m(84),
-    position: 'absolute',
-    bottom:0,
-    justifyContent:'center',
-
-  },
-
-  btnSave: {
+  viewButtonGetOTP: {
+    height: getSize.v(52),
     width: '92%',
-    height: getSize.m(52),
-    backgroundColor:theme.colors.primary,
-    borderRadius:6,
-    alignSelf:'center',
+    backgroundColor: theme.colors.primary,
+    justifyContent: 'center',
+    position: 'absolute',
+    alignSelf: 'center',
+    alignItems: 'center',
+    bottom: getSize.m(16),
+    borderRadius: 6,
+  },
+
+  txtButtonGetOTP: {
+    fontSize: getSize.m(18),
+    fontWeight: 'bold',
+    backgroundColor: theme.colors.blue,
+  },
+
+  txtError: {
+    fontSize: getSize.m(16),
+    textAlign: 'center',
+    color: theme.colors.red,
+  },
+
+  viewBtn: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+
+  button: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
     justifyContent:'center',
-    paddingLeft: 16,
+    borderRadius: 6,
   },
 
 });

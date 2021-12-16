@@ -76,9 +76,6 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
       setPhone(data.data.phone_user);
       setAddress(data.data.address_user);
       setUrl(data.data.avt_user);
-      console.log(data.data.avt_user);
-      console.log('=====================>>>>>>>>>>>>>>>>>>>>>>>>>>');
-
       useData['address'] = data.data.address_user;
       useData['name'] = data.data.name_user;
       useData['birthday'] = data.data.born_day;

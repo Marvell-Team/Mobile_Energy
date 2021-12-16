@@ -12,7 +12,7 @@ export default StyleSheet.create({
   viewLogo: {
     width:  getSize.m(100),
     height: getSize.m(130),
-    marginBottom: height * 0.04,
+    marginVertical: getSize.m(height * 0.02),
     justifyContent: 'center',
     alignSelf: 'center',
   },
@@ -34,7 +34,7 @@ export default StyleSheet.create({
   },
 
   txtInput: {
-    marginVertical: height * 0.01,
+    marginVertical: getSize.m(height * 0.01),
     color: theme.colors.black,
     backgroundColor: theme.colors.smoke,
     paddingVertical: 3,
@@ -72,7 +72,7 @@ export default StyleSheet.create({
 
   viewLoginWith: {
     alignSelf: 'center',
-    marginVertical: height * 0.02,
+    marginVertical: getSize.m(height * 0.02),
   },
 
   thumb1: {
@@ -92,7 +92,7 @@ export default StyleSheet.create({
 
   txtSignUp: {
     color: theme.colors.primary,
-    fontSize: getSize.v(14),
+    fontSize: getSize.v(16),
     fontWeight: 'bold',
   },
 

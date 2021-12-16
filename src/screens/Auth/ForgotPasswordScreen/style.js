@@ -1,5 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {theme} from '@theme';
+import { getSize } from '@utils/responsive';
 
 const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
@@ -16,60 +17,87 @@ export default StyleSheet.create({
   },
 
   txtTitle: {
-    fontSize: 20,
+    fontSize: getSize.m(20),
     color: theme.colors.blackText,
     textAlign: 'left',
     fontWeight: 'normal',
   },
 
   txt: {
-    fontSize: 16,
+    fontSize: getSize.m(16),
     color: theme.colors.blackText,
     textAlign: 'left',
   },
 
   txtNumberPhone: {
-    fontSize: 16,
+    fontSize: getSize.m(16),
     color: theme.colors.blackText,
     textAlign: 'left',
   },
 
-  txtInput: {
-    marginVertical: height * 0.01,
-    color: theme.colors.black,
-    backgroundColor: theme.colors.smoke,
-    borderWidth: 1,
-    borderColor: theme.colors.grey,
-    borderRadius: 8,
+  viewRegion: {
+    width: '14%',
+    height: getSize.m(48),
+    backgroundColor: theme.colors.white,
+    paddingLeft: 0,
+    textAlign: 'left',
+    justifyContent: 'center',
+    borderBottomColor: theme.colors.gray,
+    borderRadius: 0,
+    borderBottomWidth: 0.5,
   },
 
+  txtRegion: {
+    borderColor: '#FFF',
+    borderBottomColor: theme.colors.gray,
+    borderRadius: 0,
+    paddingLeft: 0,
+    textAlign: 'left',
+    borderColor: '#FFF',
+
+  },
+
+  txtInput: {
+    width: '100%',
+    height: getSize.m(48),
+    backgroundColor: theme.colors.white,
+    borderColor: '#FFF',
+    borderBottomColor: theme.colors.gray,
+    borderRadius: 0,
+    borderWidth: 0.5,
+    paddingLeft: 0,
+    },
+
+  viewBtn:{
+    flex:1,
+    justifyContent: 'flex-end',
+  },
+  
   viewButtonGetOTP: {
-    height: 52,
+    height: getSize.v(52),
     width: '100%',
     backgroundColor: theme.colors.primary,
     justifyContent:'center',
-    position: 'absolute',
     alignSelf:'center',
     alignItems: 'center',
-    bottom: 16,
     borderRadius: 6,
   },
 
   txtButtonGetOTP: {
-    fontSize: 18,
+    fontSize: getSize.m(18),
     fontWeight: 'bold',
     backgroundColor: theme.colors.blue,
   },
 
   txtLoginWith: {
-    fontSize: 17,
+    fontSize: getSize.m(17),
     textAlign: 'center',
-    marginVertical: 16,
+    marginVertical: getSize.m(16),
     color: theme.colors.greyTitle,
   },
 
-  txtErorr: {
-    fontSize: 16,
+  txtError: {
+    fontSize: getSize.m(16),
     textAlign: 'center',
     color: theme.colors.red,
   },
@@ -88,9 +116,9 @@ export default StyleSheet.create({
   },
 
   viewInInput: {
-    paddingVertical: 16,
-    width: 46,
-    margin: 8,
+    paddingVertical: getSize.m(16),
+    width: getSize.s(46),
+    margin: getSize.m(8),
     borderBottomWidth: 2,
     borderColor: theme.colors.primary,
     alignItems: 'center',
@@ -99,11 +127,12 @@ export default StyleSheet.create({
 
   txtInInput: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: getSize.m(20),
   },
 
   viewFormResend: {
-    position: 'relative'
+    position: 'relative',
+    marginBottom: getSize.m(16)
   },
 
   viewDelete: {
@@ -115,16 +144,16 @@ export default StyleSheet.create({
   viewResendOTP: {
     alignSelf: 'flex-end',
     position: 'absolute',
-    right: 0
+    right: 0,
   },
 
   txtDelete: {
-    fontSize: 16,
+    fontSize: getSize.m(16),
     textAlign: 'left',
   },
 
   txtResendOTP: {
-    fontSize: 16,
+    fontSize: getSize.m(16),
     textAlign: 'right',
     alignSelf: 'flex-end',
   },
