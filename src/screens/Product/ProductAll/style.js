@@ -11,7 +11,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   header:{
-    paddingTop: StatusBar.currentHeight+20 ,
+    paddingTop: StatusBar.currentHeight + 16,
   },
   badge:{
     width:14,

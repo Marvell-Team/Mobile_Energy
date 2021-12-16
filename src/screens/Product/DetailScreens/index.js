@@ -389,7 +389,8 @@ const DetailScreens = ({
 
   return (
     <Block style={styles.container}>
-      <ScrollView>
+      <ScrollView 
+        showsVerticalScrollIndicator={false}>
         {/* image header  */}
         <ScrollView
           onScroll={({nativeEvent}) => change(nativeEvent)}
@@ -436,15 +437,17 @@ const DetailScreens = ({
             position: 'absolute',
             top: 0,
           }}>
-          <Block margin={10} flex alignStart>
+          <Block margin={16} flex alignStart >
             <Thumbnail
               source={icons.back}
               onPress={() => navigation.goBack()}
-              style={{width: 30, height: 30}}
+              imageStyle={{width: 24, height: 24}}
+              style={{width: 40, height: 40,backgroundColor: theme.colors.smoke, opacity:0.7, borderRadius: 50,justifyContent: 'center'}}
             />
           </Block>
-          <Block margin={10} flex alignEnd>
-            <Thumbnail source={icons.more} style={{width: 30, height: 30}} />
+          <Block margin={16} flex alignEnd>
+            <Thumbnail source={icons.more}               imageStyle={{width: 24, height: 24}}
+ style={{width: 40, height: 40,backgroundColor: theme.colors.smoke, opacity:0.7, borderRadius: 50,justifyContent: 'center'}} />
           </Block>
         </Block>
 
@@ -454,7 +457,7 @@ const DetailScreens = ({
           <Block row style={styles.bodyname}>
             <Block justifyCenter style={{flex: 3}}>
               <Text style={{fontSize: 20, fontWeight: 'bold'}}>{name}</Text>
-              <Text style={{fontSize: 17, fontWeight: 'bold', color: 'red'}}>
+              <Text style={{fontSize: 17, fontWeight: 'bold', color: theme.colors.red}}>
                 {price}
               </Text>
               <Text style={{fontSize: 12}}>16 giờ trước</Text>
@@ -578,14 +581,14 @@ const DetailScreens = ({
                   borderColor: theme.colors.dark,
                   borderWidth: 1,
                 }}
-                titleStyle={{fontSize: 18, fontWeight: 'bold', color: 'red'}}
+                titleStyle={{fontSize: 18, fontWeight: 'bold', color: theme.colors.red}}
                 title="Báo cáo tin"></Button>
             </Block>
           </Block>
           {/* Comment body */}
           <Block marginBottom={5} style={styles.commentbody}>
             <Block alignCenter row marginBottom={10}>
-              <Text flex size={18} style={{fontWeight: 'bold'}}>
+              <Text flex size={18} style={{fontWeight: '500'}}>
                 Bài viết đánh giá
               </Text>
               <Text flex size={14} right style={{fontStyle: 'italic'}}>
@@ -694,7 +697,7 @@ const DetailScreens = ({
             alignEnd
             style={{position: 'absolute', bottom: 0}}>
             <Block
-              padding={20}
+              padding={16}
               backgroundColor={theme.colors.white}
               width={width}
               style={{
@@ -706,40 +709,41 @@ const DetailScreens = ({
                 <Block style={{flex: 7}} alignCenter justifyCenter>
                   <Text
                     style={{fontWeight: 'bold'}}
-                    size={20}
+                    size={17}
                     color={theme.colors.primary}>
                     Thêm vào giỏ hàng
                   </Text>
                 </Block>
-                <Block flex alignCenter justifyCenter>
+                <Block flex alignEnd justifyCenter>
                   <Thumbnail
-                    onPress={() => {
+                    onPressOut={() => {
                       setModalVisible(false);
                       setModalType('');
                     }}
                     source={icons.close}
-                    style={{width: 30, height: 30}}></Thumbnail>
+                    imageStyle={{tintColor: theme.colors.grayTitle}}
+                    style={{width: 20, height: 20}}></Thumbnail>
                 </Block>
               </Block>
-              <Block style={{borderBottomWidth: 0.8}} borderColor="black" row>
+              <Block style={{marginTop: 16,borderBottomWidth: 0.5, padding: 16}} borderColor={theme.colors.gray} row>
                 <Block
-                  style={{flex: 2}}
                   alignStart
-                  paddingVertical={getSize.m(4)}>
+                  marginTop={4}>
                   <Thumbnail
                     source={{uri: imageBG[0]}}
-                    imageStyle={{width: getSize.s(70), height: getSize.s(85)}}
+                    resizeMode={'contain'}
+                    style={{width: getSize.s(80), height: getSize.s(80)}}
                   />
                 </Block>
-                <Block style={{flex: 7, marginBottom: 20}}>
-                  <Text style={{fontWeight: 'bold'}} size={20}>
+                <Block style={{marginHorizontal: 8, marginBottom: 8}}>
+                  <Text style={{fontWeight: 'bold', marginBottom: 6}} size={18}>
                     {name}
                   </Text>
-                  <Text color="#949599">
-                    Hãng:<Text>Apple</Text> - Dung lượng:
-                    <Text>256 GB</Text>{' '}
+                  <Text marginBottom={6} color="#949599">
+                    Hãng:<Text> Apple</Text> - Dung lượng:
+                    <Text> 256 GB</Text>{' '}
                   </Text>
-                  <Text size={20}>{formatCurrency(price)}</Text>
+                  <Text marginBottom={6} size={17}>{formatCurrency(price)}</Text>
                   <Count
                     onPressSubtract={() => {
                       amount > 1 ? setAmount(amount - 1) : null;
@@ -751,27 +755,27 @@ const DetailScreens = ({
                   />
                 </Block>
               </Block>
-              <Block row paddingTop={20}>
-                <Block style={{flex: 4}}>
-                  <Text size={18}>Tổng</Text>
-                  <Text color="red" size={20} style={{fontWeight: 'bold'}}>
+              <Block row marginTop={16}>
+                <Block style={{width: '40%',}}>
+                  <Text size={16}>Tổng</Text>
+                  <Text color={theme.colors.red} size={18} style={{fontWeight: 'bold'}}>
                     {formatCurrency(price * amount)}
                   </Text>
                 </Block>
-                <Block style={{flex: 7}}>
+                <Block style={{width: '60%',}}>
                   <TouchableOpacity
                     onPress={() => {
                       addCart(dataCarts, data.data._id, amount, totalCarts);
                     }}
                     style={{
                       width: '100%',
-                      height: getSize.v(60),
+                      height: getSize.v(52),
                       backgroundColor: theme.colors.primary,
-                      borderRadius: getSize.m(10),
+                      borderRadius: getSize.m(6),
                       alignItems: 'center',
                       justifyContent: 'center',
                     }}>
-                    <Text color="white" style={{fontWeight: 'bold'}} size={22}>
+                    <Text color="white" style={{fontWeight: 'bold'}} size={16}>
                       Thêm Giỏ Hàng
                     </Text>
                   </TouchableOpacity>

@@ -5,7 +5,10 @@ import {Block, FlatCard, Header, NotifiList} from '@components';
 import styles from './style';
 import {connect} from 'react-redux';
 import {useData} from 'config/config';
-import {getBillDetailByIdAction, getNotificationByUserAction} from '@redux/actions';
+import {
+  getBillDetailByIdAction,
+  getNotificationByUserAction,
+} from '@redux/actions';
 import Loading from '@components/Loadding/Loading';
 
 const mapStateToProps = state => {
@@ -33,13 +36,21 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const NotificationScreens = ({data1, getNotificationByUserAction, getBillDetailByIdAction, loadding, error}) => {
-   const [data2, setData2] = useState([]);
-   const [loading, setLoading] = useState(false);
+const NotificationScreens = ({
+  data1,
+  getNotificationByUserAction,
+  getBillDetailByIdAction,
+  loadding,
+  error,
+}) => {
+  const [data2, setData2] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [checkToken, setCheckToken] = useState(null);
 
   useEffect(() => {
     if (useData.token !== null && useData.id !== null) {
       getNotificationByUserAction(useData.id);
+      setCheckToken(useData.token);
       // console.log(useData.id);
       // console.log(
       //   '============>>>>>>>>>>>> getLikeByUserAction(useData.id) =============>>>>>>>>>>>',
@@ -65,41 +76,48 @@ const NotificationScreens = ({data1, getNotificationByUserAction, getBillDetailB
       console.log(data2);
       console.log(
         '===============>>>>>>>>>>>>>> DATA22222222222 =============>>>>>>>>>>>',
-      )
+      );
     }
   }, [data2]);
 
   useEffect(() => {
-    setLoading(loadding)
-  }, [loadding])
+    setLoading(loadding);
+  }, [loadding]);
 
   useEffect(() => {
-    if(error !== null){
+    if (error !== null) {
       console.log(error);
       ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
-  }, [error])
-  
+  }, [error]);
+
   return (
     <Block flex style={styles.container}>
       <Header title="Thông báo" />
-      <Block flex justifyCenter>
-        {Array.isArray(data2) && data2.length ? (
-          <FlatList
-            data={data2.reverse()}
-            showsVerticalScrollIndicator={false}
-            renderItem={({item}) =>
-             <FlatCard
-              getBillDetailByIdAction={getBillDetailByIdAction}
-              item={item} 
-            />}
-          />
-        ) : (
-          <Text style={styles.txt}>Bạn chưa thông báo nào!</Text>
-        )}
-      </Block>
+      {checkToken !== null ? (
+        <Block flex justifyCenter>
+          {Array.isArray(data2) && data2.length ? (
+            <FlatList
+              data={data2.reverse()}
+              showsVerticalScrollIndicator={false}
+              renderItem={({item}) => (
+                <FlatCard
+                  getBillDetailByIdAction={getBillDetailByIdAction}
+                  item={item}
+                />
+              )}
+            />
+          ) : (
+            <Text style={styles.txt}>Bạn chưa thông báo nào!</Text>
+          )}
+        </Block>
+      ) : (
+        <Block flex justifyCenter>
+          <Text style={styles.txt}>Đăng nhập để xem thông báo!</Text>
+        </Block>
+      )}
       {/*Có cái này mới hiện loading!!!*/}
-      {loading && (<Loading/>)}
+      {loading && <Loading />}
     </Block>
   );
 };

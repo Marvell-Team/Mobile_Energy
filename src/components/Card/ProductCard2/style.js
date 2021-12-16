@@ -8,14 +8,14 @@ export default StyleSheet.create({
   container: {
     width: width / 2.2,
     borderRadius: 6,
-    borderWidth: 2,
+    borderWidth: 1.5,
     borderColor: theme.colors.smoke,
     backgroundColor: theme.colors.white,
-    elevation: 2,
+    elevation: 0.5,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 0.5,
     },
     shadowOpacity: 0.2,
     shadowRadius: 0.5,

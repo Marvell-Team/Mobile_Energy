@@ -250,22 +250,17 @@ const Product = ({
     }
   };
   return (
-    <Block flex>
+    <Block backgroundColor={theme.colors.white} flex>
       {/* header */}
       <Block
-        height={getSize.s(90)}
         backgroundColor={theme.colors.primary}
-        paddingHorizontal={getSize.m(10)}>
-        <Block
-          row
-          height={'60%'}
-          justifyCenter
-          alignCenter
-          style={styles.header}>
+        paddingHorizontal={getSize.m(8)}
+        paddingBottom={getSize.m(16)}>
+        <Block row justifyCenter alignCenter style={styles.header}>
           <Block justifyCenter alignStart style={{flex: 2}}>
             <Thumbnail
               source={icons.back}
-              style={{width: getSize.s(20), height: getSize.s(20)}}
+              style={{width: getSize.s(24), height: getSize.s(24)}}
               resizeMode="contain"
               onPress={() => {
                 navigation.goBack();
@@ -292,17 +287,18 @@ const Product = ({
             <Block
               alignCenter
               row
-              paddingVertical={getSize.m(2)}
+              
               style={{backgroundColor: '#77C8EB'}}
-              width={'100%'}
+              width={'98%'}
               height={'100%'}
               paddingHorizontal={getSize.m(8)}>
               <Thumbnail
                 source={icons.search}
-                style={{width: 20, height: 20, marginRight: getSize.m(5)}}
+                style={{width: 22, height: 22, marginRight: getSize.m(8)}}
+                imageStyle={{tintColor: theme.colors.white}}
                 resizeMode="contain"
               />
-              <Text size={getSize.m(18)} color={'white'}>
+              <Text size={getSize.m(18)} style={{color: theme.colors.white}}>
                 {title}
               </Text>
             </Block>
@@ -312,8 +308,8 @@ const Product = ({
               source={icons.filter1}
               style={{
                 marginHorizontal: 2,
-                width: getSize.s(22),
-                height: getSize.s(22),
+                width: getSize.s(24),
+                height: getSize.s(24),
               }}
             />
           </Block>
@@ -326,7 +322,7 @@ const Product = ({
               style={[
                 jewelStyle(item.id),
                 {
-                  width: '32%',
+                  width: '33.3%',
                   justifyContent: 'center',
                   alignItems: 'center',
                   backgroundColor: theme.colors.white,

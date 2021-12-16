@@ -14,7 +14,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from './colors';
 import Phones from './Phones';
 import {Block, Header, Thumbnail, CategoryItem} from '@components';
-
+import {useNavigation} from '@react-navigation/native';
+import {routes} from '@navigation/routes';
 import {category} from '@utils/dummyData';
 import {getSize} from '@utils/responsive';
 import {theme} from '@theme';
@@ -52,7 +53,7 @@ const CartCard = ({item}) => {
   return (
     <View style={style.cartCard}>
       <CategoryItem item={item} />
-      <Text style={{fontSize: getSize.m(16), fontWeight: 'bold'}}>
+      <Text style={{fontSize: getSize.m(14), fontWeight: '500'}}>
         {item.name_category}
       </Text>
     </View>
@@ -90,13 +91,13 @@ const Category = ({getCateGoryAction, data1, loadding, error}) => {
   const jewelStyle = id => {
     if (id === status) {
       return {
-        padding: getSize.m(10),
+        padding: getSize.m(6),
         backgroundColor: theme.colors.white,
         justifyContent: 'center',
         color: theme.colors.primary,
         fontWeight: 'bold',
         borderRadius: getSize.m(35),
-        paddingHorizontal: getSize.s(10),
+        
       };
     } else {
       return {
@@ -128,8 +129,9 @@ const Category = ({getCateGoryAction, data1, loadding, error}) => {
     <SafeAreaView style={{backgroundColor: COLORS.white, flex: 1}}>
       <Block
         backgroundColor={theme.colors.primary}
-        paddingHorizontal={getSize.m(10)}>
+        paddingHorizontal={getSize.m(8)}>
         <Block row justifyCenter alignCenter style={style.header2}>
+
           {/* <TextInput
             placeholder="Tìm kiếm"
             underlineColorAndroid="transparent"
@@ -150,30 +152,45 @@ const Category = ({getCateGoryAction, data1, loadding, error}) => {
             <Block
               alignCenter
               row
-              paddingVertical={getSize.m(2)}
+              
               style={{backgroundColor: '#77C8EB'}}
-              width={'100%'}
+              width={'98%'}
               height={'100%'}
-              paddingHorizontal={getSize.m(8)}>
+              paddingHorizontal={getSize.m(8)}
+              marginLeft={getSize.m(8)}>
               <Thumbnail
                 imageStyle={{
                   tintColor: theme.colors.white,
                 }}
                 source={icons.search}
-                style={{width: 20, height: 20, marginRight: getSize.m(5)}}
+                style={{width: 22, height: 22, marginRight: getSize.m(8)}}
+                imageStyle={{tintColor: theme.colors.white}}
                 resizeMode="contain"
               />
-              <Text size={getSize.m(18)} style={{color: 'white'}}>
+
+              <Text size={getSize.m(18)} style={{color: theme.colors.white}}>
+
                 Tìm kiếm
               </Text>
             </Block>
           </TouchableOpacity>
+
+          <Block alignEnd justifyCenter style={{flex: 2}}>
+            <Thumbnail
+              source={icons.filter1}
+              style={{
+                marginHorizontal: 2,
+                width: getSize.s(24),
+                height: getSize.s(24),
+              }}
+            />
+          </Block>
         </Block>
       </Block>
       <Block
         style={{
-          borderBottomRightRadius: getSize.m(25),
-          borderBottomLeftRadius: getSize.m(25),
+          borderBottomRightRadius: getSize.m(20),
+          borderBottomLeftRadius: getSize.m(20),
         }}
         row
         justifyCenter
@@ -185,10 +202,10 @@ const Category = ({getCateGoryAction, data1, loadding, error}) => {
             style={[
               jewelStyle(item.id),
               {
-                width: '37%',
+                width: '30%',
                 justifyContent: 'center',
                 alignItems: 'center',
-                margin: 10,
+                marginHorizontal: 32,
               },
             ]}
             onPress={() => {
@@ -211,9 +228,9 @@ const Category = ({getCateGoryAction, data1, loadding, error}) => {
       <View style={style.header}>
         <Text
           style={{
-            fontSize: 20,
-            color: COLORS.dark,
-            fontWeight: 'bold',
+            fontSize: 17,
+            color: theme.colors.blackText,
+            fontWeight: '500',
             marginTop: getSize.m(10),
           }}>
           Danh Mục Sản Phẩm
@@ -253,7 +270,7 @@ const style = StyleSheet.create({
     justifyContent: 'center',
   },
   header2: {
-    paddingTop: StatusBar.currentHeight + 20,
+    paddingTop: StatusBar.currentHeight + 16,
   },
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Category);

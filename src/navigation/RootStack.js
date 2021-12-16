@@ -32,7 +32,7 @@ const RootStack = () => {
       />
       <Stack.Navigator
         presentation="modal"
-        initialRouteName={routes.FLASHSCREEN}
+        initialRouteName={routes.BOTTOMTABBAR}
         screenOptions={{headerShown: false}}>
         <Stack.Screen name={routes.FLASHSCREEN} component={auth.FLASHSCREEN} />
         <Stack.Screen
@@ -113,12 +113,16 @@ const RootStack = () => {
           component={product.PRODUCTCUSTOM}
         />
         <Stack.Screen
-          name={routes.NUMBERPHONESCREEN}
-          component={auth.NUMBERPHONESCREEN}
+          name={routes.EMAILSCREEN}
+          component={auth.EMAILSCREEN}
         />
         <Stack.Screen
           name={routes.SENDOTPSCREEN}
           component={auth.SENDOTPSCREEN}
+        />
+        <Stack.Screen
+          name={routes.FORGOTPASSWORDSCREEN}
+          component={auth.FORGOTPASSWORDSCREEN}
         />
       </Stack.Navigator>
     </NavigationContainer>
