@@ -18,8 +18,9 @@ export default StyleSheet.create({
       height: 1,
     },
     shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-    margin: getSize.m(5),
+    shadowRadius: 0.5,
+    marginHorizontal: getSize.m(6),
+    marginTop: getSize.m(12),
   },
 
   viewContent: {
@@ -32,6 +33,8 @@ export default StyleSheet.create({
     height: getSize.v(210),
     borderRadius: 8,
     alignSelf: 'center',
+    borderTopRightRadius: 6,
+    borderTopLeftRadius: 6,
   },
 
   txtTitle: {

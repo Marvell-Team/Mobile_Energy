@@ -11,7 +11,7 @@ import ProductCard2 from '@components/Card/ProductCard2';
 import {getLikeByUserAction} from '../../../redux/actions';
 import { useData } from 'config/config';
 import Loading from '@components/Loadding/Loading';
-
+import {getProductbyIdAction} from '../../../redux/actions';
 const mapStateToProps = state => {
   console.log(state.getLikeByUserReducer.data)
   console.log("----------->>>>>>>>>>>>> getLikeByUserReducer --------->>>>>>>>>>> ")
@@ -26,9 +26,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-
     getLikeByUserAction: id => {
       dispatch(getLikeByUserAction(id));
+    },
+    getProductbyIdAction: id => {
+      dispatch(getProductbyIdAction(id));
     },
   };
 };
@@ -39,7 +41,7 @@ const categori = [
   {id: 4, name: 'Bán chạy'},
 ];
 
-const LikeList = ({data1, getLikeByUserAction, loadding, error}) => {
+const LikeList = ({data1, getLikeByUserAction, loadding, error, getProductbyIdAction}) => {
   const navigation = useNavigation();
   const [status, setStatus] = useState();
   const [data2, setData2] = useState([]);
@@ -108,7 +110,7 @@ const LikeList = ({data1, getLikeByUserAction, loadding, error}) => {
   };
 
   return (
-    <Block style={styles.container} flex>
+    <Block style={styles.container}>
       {/* header */}
       <Block
         backgroundColor={theme.colors.primary}
@@ -161,7 +163,7 @@ const LikeList = ({data1, getLikeByUserAction, loadding, error}) => {
           </Block>
         </Block>
       </Block>
-      <Block row justifyCenter alignCenter>
+      {/* <Block row justifyCenter alignCenter>
         {categori.map((item, index) => (
           <TouchableOpacity
             style={[
@@ -189,25 +191,25 @@ const LikeList = ({data1, getLikeByUserAction, loadding, error}) => {
             </Text>
           </TouchableOpacity>
         ))}
-      </Block>
+      </Block> */}
       {/* content */}
 
-      <Block flex alignCenter justifyCenter marginTop={10}>
+      <Block alignCenter>
       {(Array.isArray(data2) && data2.length) ? (
 
         <FlatList
           data={data2}
           showsVerticalScrollIndicator={false}
           numColumns={2}
-          renderItem={({item}) => <ProductCard2 item={item.id_product} />}
+          renderItem={({item}) => 
+          <ProductCard2 
+            getProductbyIdAction={getProductbyIdAction}
+            item={item.id_product} />}
         />
-        //mai r comit chinh cái LikeByProduct qua cai Home di
-        //cai do ay
-        //con cai ben profile la likebyuser
         ) : (
         <Text style={styles.txt}>Bạn chưa like bài đăng nào!</Text>    
-            )}
-      </Block>
+        )}
+        </Block>
       {/*Có cái này mới hiện loading!!!*/}
       {loading && (<Loading/>)}
     </Block>
@@ -217,14 +219,14 @@ const LikeList = ({data1, getLikeByUserAction, loadding, error}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.white,
+    backgroundColor: theme.colors.white
   },
   header:{
     paddingTop: StatusBar.currentHeight,
   },
   txt:{
+    height: '100%',
     color: theme.colors.black,
-    alignSelf:'center',
     fontSize:18,
   },
 });

@@ -563,7 +563,7 @@ const DetailScreens = ({
               />
               <Block style={{flex: 3}}>
                 <Text size={16}>
-                  Sản phẩm đã đuọc kiểm duyệt .Nếu gắp vấn đề gì vui lòng báo
+                  Sản phẩm đã được kiểm duyệt. Nếu gặp vấn đề gì vui lòng báo
                   cáo tin đăng
                 </Text>
               </Block>
