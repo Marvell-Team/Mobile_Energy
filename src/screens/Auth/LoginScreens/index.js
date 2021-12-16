@@ -171,7 +171,7 @@ const LoginScreens = ({loginAction, data, loadding, error}) => {
             title="Quên mật khẩu?"
             onPressOut={() => {
               console.log('Quên mật khẩu'),
-              navigation.navigate(routes.NUMBERPHONESCREEN)}
+              navigation.navigate(routes.EMAILSCREEN)}
             }
             style={styles.viewForgotPassword}
             titleStyle={styles.txtForgotPassword}

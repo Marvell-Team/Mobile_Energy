@@ -3,8 +3,9 @@ import SignUpScreens from './SignUpScreens';
 import InformationScreen from './InformationScreen';
 import ChangePasswordScreen from './ChangePassScreen';
 import FlashScreen from './FlashScreen';
-import NumberPhoneScreen from './ForgotPasswordScreen/NumberPhone';
+import EmailScreen from './ForgotPasswordScreen/Email';
 import SendOTPScreen from './ForgotPasswordScreen/SendOTP';
+import ForgotPasswordScreen from './ForgotPasswordScreen/ForgotPassword';
 
 export const auth = {
   FLASHSCREEN: FlashScreen,
@@ -12,6 +13,7 @@ export const auth = {
   SIGNUPSCREENS: SignUpScreens,
   INFORMATIONSCREEN: InformationScreen,
   CHANGEPASSSCREEN: ChangePasswordScreen,
-  NUMBERPHONESCREEN: NumberPhoneScreen,
+  EMAILSCREEN: EmailScreen,
   SENDOTPSCREEN: SendOTPScreen,
+  FORGOTPASSWORDSCREEN: ForgotPasswordScreen,
 };

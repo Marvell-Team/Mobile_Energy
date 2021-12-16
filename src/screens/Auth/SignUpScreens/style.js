@@ -13,8 +13,7 @@ export default StyleSheet.create({
   viewLogo: {
     width: getSize.m(100),
     height: getSize.m(130),
-    marginTop: height * 0.12,
-    marginBottom: height * 0.04,
+    marginVertical: getSize.m(height * 0.02),
     justifyContent: 'center',
     alignSelf: 'center',
   },
@@ -36,7 +35,7 @@ export default StyleSheet.create({
   },
 
   txtInput: {
-    marginVertical: height * 0.01,
+    marginVertical: getSize.m(height * 0.01),
     color: theme.colors.black,
     backgroundColor: theme.colors.smoke,
     borderWidth: 1,
@@ -67,21 +66,8 @@ export default StyleSheet.create({
   txtLoginWith: {
     fontSize: getSize.s(17),
     textAlign: 'center',
-    marginVertical: 16,
+    marginVertical: getSize.m(16),
     color: theme.colors.greyTitle,
-  },
-
-  viewLoginWith: {
-    alignSelf: 'center',
-    marginVertical: height * 0.04,
-  },
-
-  thumb1: {
-    width: getSize.m(45),
-    height: getSize.m(45),
-    justifyContent: 'center',
-    alignSelf: 'center',
-    marginHorizontal: 16,
   },
 
   viewSignIn: {
@@ -93,7 +79,7 @@ export default StyleSheet.create({
 
   txtSignIn: {
     color: theme.colors.primary,
-    fontSize: getSize.s(14),
+    fontSize: getSize.s(16),
     fontWeight: 'bold',
   },
 

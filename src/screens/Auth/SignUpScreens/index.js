@@ -127,7 +127,8 @@ const SignUpScreens = ({signUpAction, data,loadding, error}) => {
             placeholderTextColor={theme.colors.grayText}
             onChangeText={text => setUsername(text)}
             style={styles.txtInput}
-            iconStyle={{width: 24, height: 24, tintColor: theme.colors.grayText}} />
+            iconStyle={{width: 24, height: 24, tintColor: theme.colors.grayText}}
+            autoFocus={true}/>
   
           <TextInput
             iconleft={icons.email}

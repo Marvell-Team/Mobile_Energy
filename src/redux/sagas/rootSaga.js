@@ -29,6 +29,7 @@ import {
 } from './commentSaga';
 import {watchGetNotificationByUser} from './notificationSaga';
 import {watchGetCategory} from './categoriesSaga';
+import { watchGetForgotPasswordByEmailSaga, watchResetPassword, watchVerifyUserByCodeNumber } from './forgotPasswordSaga';
 export default function* rootSaga() {
   yield all([
     watchLogin(),
@@ -46,7 +47,6 @@ export default function* rootSaga() {
     watchgetBill(),
     watchgetBillById(),
     watchgetProductByCategoriesChildSaga(),
-
     watchEditLike(),
     watchStatusLike(),
     watchRemoveLike(),
@@ -59,5 +59,8 @@ export default function* rootSaga() {
     watchGetNotificationByUser(),
     watchGetCategory(),
     watchgetCountComment(),
+    watchGetForgotPasswordByEmailSaga(),
+    watchVerifyUserByCodeNumber(),
+    watchResetPassword(),
   ]);
 }

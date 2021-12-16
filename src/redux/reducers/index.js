@@ -26,6 +26,10 @@ import getLikeByUserReducer from './Like/getLikeByUserReducer';
 import getNotificationByUserReducer from './Notification/getNotificationByUserReducer';
 import getCategoriesReducer from './Categories/getCategoriesReducer';
 import getCountCommentsReducer from './Comment/getCountCommentReducer';
+import getForgotPasswordByEmailReducer from './ForgotPassword/getForgotPasswordByEmailReducer';
+import verifyUserByCodeNumberReducer from './ForgotPassword/verifyUserByCodeNumber';
+import resetPasswordReducer from './ForgotPassword/resetPasswordReducer';
+
 const allReducers = combineReducers({
   loginReducers,
   signupReducer,
@@ -54,5 +58,8 @@ const allReducers = combineReducers({
   getProductByCategoriesChildReducer,
   getCategoriesReducer,
   getCountCommentsReducer,
+  getForgotPasswordByEmailReducer,
+  verifyUserByCodeNumberReducer,
+  resetPasswordReducer,
 });
 export default allReducers;
