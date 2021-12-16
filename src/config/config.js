@@ -1,4 +1,6 @@
-export var api = 'http://192.168.1.15:3000';
+
+export var api = 'http://10.0.2.2:3000';
+
 export let useData = {
   token: null,
   id: null,

@@ -6,7 +6,7 @@ const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
-    width: width/ 2.2,
+    width: width / 2.2,
     borderRadius: 6,
     borderWidth: 1.5,
     borderColor: theme.colors.smoke,
@@ -30,7 +30,8 @@ export default StyleSheet.create({
 
   viewContentImage: {
     width: '100%',
-    height: getSize.v(180),
+    height: getSize.v(210),
+    borderRadius: 8,
     alignSelf: 'center',
     borderTopRightRadius: 6,
     borderTopLeftRadius: 6,

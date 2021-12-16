@@ -179,6 +179,7 @@ const DetailScreens = ({
 }) => {
   const route = useRoute();
   const {id} = route.params;
+
   const [amount, setAmount] = useState(1);
   const [dataCarts, setDataCarts] = useState([]);
   const [totalCarts, setTotalCarts] = useState(null);
@@ -202,57 +203,51 @@ const DetailScreens = ({
   // const [price, setPrice] = useState(null)
 
   useEffect(() => {
-    if(error !== null){
-      console.log(error);
+    if (error !== null) {
       ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
-  }, [error])
+  }, [error]);
 
   useEffect(() => {
-    if(errorLike !== null){
-      console.log(errorLike);
+    if (errorLike !== null) {
       ToastAndroid.show('Lỗi: ' + errorLike, ToastAndroid.SHORT);
     }
-  }, [errorLike])
+  }, [errorLike]);
 
   useEffect(() => {
-    if(errorStatusLike !== null){
-      console.log(errorStatusLike);
+    if (errorStatusLike !== null) {
       ToastAndroid.show('Lỗi: ' + errorStatusLike, ToastAndroid.SHORT);
     }
-  }, [errorStatusLike])
+  }, [errorStatusLike]);
 
   useEffect(() => {
-    if(removeerrorLike !== null){
-      console.log(removeerrorLike);
+    if (removeerrorLike !== null) {
       ToastAndroid.show('Lỗi: ' + removeerrorLike, ToastAndroid.SHORT);
     }
-  }, [removeerrorLike])
+  }, [removeerrorLike]);
 
   useEffect(() => {
-    if(commenterror !== null){
-      console.log(commenterror);
+    if (commenterror !== null) {
       ToastAndroid.show('Lỗi: ' + commenterror, ToastAndroid.SHORT);
     }
-  }, [commenterror])
+  }, [commenterror]);
 
   useEffect(() => {
-    if(addcommenterror !== null){
-      console.log(addcommenterror);
+    if (addcommenterror !== null) {
       ToastAndroid.show('Lỗi: ' + addcommenterror, ToastAndroid.SHORT);
     }
-  }, [addcommenterror])
+  }, [addcommenterror]);
 
   useEffect(() => {
-    if(countcommenterror !== null){
-      console.log(countcommenterror);
+    if (countcommenterror !== null) {
       ToastAndroid.show('Lỗi: ' + countcommenterror, ToastAndroid.SHORT);
     }
-  }, [countcommenterror])
+  }, [countcommenterror]);
 
   useEffect(() => {
     getCommentByProduct({id_product: id});
     getCountComment(id);
+    getProductbyIdAction(id);
     //  setDataComment(datas)
   }, [addcommentdata, addComment]);
   useEffect(() => {
@@ -262,9 +257,6 @@ const DetailScreens = ({
   }, [commentdata, addComment, addcommentdata]);
   useEffect(() => {
     if (countcommentdata !== null) {
-      console.log('====================================');
-      console.log(countcommentdata.data);
-      console.log('====================================');
       setCountComment(countcommentdata.data);
       setAllCountComment(countcommentdata.data.comments);
       setAvdComment(countcommentdata.data.avd);
@@ -299,9 +291,6 @@ const DetailScreens = ({
       const cart = await AsyncStorage.getItem(useData.id);
       const aa = JSON.parse(cart);
       if (cart !== undefined) {
-        console.log(aa);
-        console.log(aa.total);
-        console.log('aaaaaaaaaaaaaaaaaa');
         setDataCarts(aa.products);
         setTotalCarts(aa.total);
       }
@@ -315,8 +304,8 @@ const DetailScreens = ({
   }, [getCartByUser, UpdateCartByUser]);
 
   useEffect(() => {
-    setLoading(loadding)
-  }, [loadding])
+    setLoading(loadding);
+  }, [loadding]);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [modalType, setModalType] = useState('');
@@ -347,9 +336,8 @@ const DetailScreens = ({
     }
   }, [data]);
   const addCart = async (Carts, id, amount, total) => {
-    console.log(Carts);
     const index = Carts.findIndex(el => el.id_product === id);
-    console.log(index + 'C' + Carts + 'C' + total);
+
     let items = [];
 
     if (index === -1 || index === undefined) {
@@ -366,7 +354,7 @@ const DetailScreens = ({
         total: total + parseInt(price) * parseInt(amount),
         products: items,
       };
-      console.log(cart);
+
       await AsyncStorage.setItem(useData.id, JSON.stringify(cart));
     } else {
       console.log('ADD');
@@ -777,12 +765,7 @@ const DetailScreens = ({
                 <Block style={{width: '60%',}}>
                   <TouchableOpacity
                     onPress={() => {
-                      addCart(
-                        dataCarts,
-                        data.data._id,
-                        amount,
-                        totalCarts,
-                      );
+                      addCart(dataCarts, data.data._id, amount, totalCarts);
                     }}
                     style={{
                       width: '100%',
@@ -814,7 +797,7 @@ const DetailScreens = ({
         )}
       </Modal>
       {/*Có cái này mới hiện loading!!!*/}
-      {loading && (<Loading/>)}
+      {loading && <Loading />}
     </Block>
   );
 };
