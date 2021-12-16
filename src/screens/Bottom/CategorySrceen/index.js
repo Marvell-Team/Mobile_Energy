@@ -30,6 +30,8 @@ const categori = [
 ];
 import {connect} from 'react-redux';
 import {getCateGoryAction} from '@redux/actions';
+import {useNavigation} from '@react-navigation/native';
+import {routes} from '@navigation/routes';
 const mapStateToProps = state => {
   return {
     error: state.getCategoriesReducer ? state.getCategoriesReducer.error : null,
@@ -129,16 +131,7 @@ const Category = ({getCateGoryAction, data1, loadding, error}) => {
         backgroundColor={theme.colors.primary}
         paddingHorizontal={getSize.m(8)}>
         <Block row justifyCenter alignCenter style={style.header2}>
-          {/* <Block justifyCenter alignStart style={{flex: 2}}>
-            <Thumbnail
-              source={icons.back}
-              style={{width: getSize.s(24), height: getSize.s(24)}}
-              resizeMode="contain"
-              onPress={() => {
-                navigation.goBack();
-              }}
-            />
-          </Block> */}
+
           {/* <TextInput
             placeholder="Tìm kiếm"
             underlineColorAndroid="transparent"
@@ -152,7 +145,7 @@ const Category = ({getCateGoryAction, data1, loadding, error}) => {
             height={getSize.s(35)}
             iconleft={icons.search}></TextInput> */}
           <TouchableOpacity
-            style={{width: '100%', flex: 18, height: getSize.s(35)}}
+            style={{width: '90%', height: getSize.s(35)}}
             onPress={() => {
               navigation.navigate(routes.SEARCHSCREEN);
             }}>
@@ -166,16 +159,22 @@ const Category = ({getCateGoryAction, data1, loadding, error}) => {
               paddingHorizontal={getSize.m(8)}
               marginLeft={getSize.m(8)}>
               <Thumbnail
+                imageStyle={{
+                  tintColor: theme.colors.white,
+                }}
                 source={icons.search}
                 style={{width: 22, height: 22, marginRight: getSize.m(8)}}
                 imageStyle={{tintColor: theme.colors.white}}
                 resizeMode="contain"
               />
+
               <Text size={getSize.m(18)} style={{color: theme.colors.white}}>
+
                 Tìm kiếm
               </Text>
             </Block>
           </TouchableOpacity>
+
           <Block alignEnd justifyCenter style={{flex: 2}}>
             <Thumbnail
               source={icons.filter1}

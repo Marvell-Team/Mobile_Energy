@@ -40,25 +40,25 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    getProduct: () => {
-      dispatch(getProduct());
+    getProduct: input => {
+      dispatch(getProduct(input));
     },
   };
 };
 const SEARCHSCREEN = ({getProduct, data1, loadding}) => {
-    // tao useState Loadding
-    const [loading, setLoading] = useState(false);
-  
+  // tao useState Loadding
+  const [loading, setLoading] = useState(false);
+
   const navigation = useNavigation();
   const [masterData, setMasterData] = useState([]);
   const [filterData, setFilterData] = useState([]);
   const [seach, setSeach] = useState('');
   const [searchShow, setSearchShow] = useState(true);
 
-    //Loadding trong screen
-    useEffect(() => {
-    setLoading(loadding)
-  }, [loadding])
+  //Loadding trong screen
+  useEffect(() => {
+    setLoading(loadding);
+  }, [loadding]);
 
   useEffect(() => {
     getDataSeach();
@@ -122,7 +122,6 @@ const SEARCHSCREEN = ({getProduct, data1, loadding}) => {
       storeData({nameProduct: text});
 
       navigation.navigate(routes.PRODUCTSEARCH, {item: newData});
-      
     }
   };
   useEffect(() => {
@@ -132,8 +131,11 @@ const SEARCHSCREEN = ({getProduct, data1, loadding}) => {
   }, [data1]);
 
   useEffect(() => {
-    getProduct();
-  }, [getProduct]);
+    getProduct({
+      price: null,
+      sell: 1,
+    });
+  }, []);
   return (
     <Block flex>
       {/* header */}
@@ -257,15 +259,9 @@ const SEARCHSCREEN = ({getProduct, data1, loadding}) => {
       </Block>
 
       {/* Tao cai nay ms hien Loadding */}
-      {loading && 
-        (<Loading/>)
-      }
-
+      {loading && <Loading />}
     </Block>
   );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SEARCHSCREEN);
-{
-  /* <Product_Card item={item} /> */
-}

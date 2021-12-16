@@ -12,17 +12,35 @@ import styles from './style';
 import {theme} from '@theme';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {getSize} from '@utils/responsive';
-import { routes } from '@navigation/routes';
-import { formatCurrency } from '@utils/utils';
+import {routes} from '@navigation/routes';
+import {formatCurrency} from '@utils/utils';
 import Product_Card from '@components/Card/ProductCard2';
 const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
+import {
+  getProductbyCategories,
+  getProductbyIdAction,
+  getProduct,
+} from '../../../redux/actions';
+
+import {connect} from 'react-redux';
 const categori = [
   {id: 2, name: 'Liên quan'},
   {id: 3, name: 'Mới nhất'},
   {id: 4, name: 'Bán chạy'},
 ];
-const Product = () => {
+const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getProductbyIdAction: id => {
+      dispatch(getProductbyIdAction(id));
+    },
+  };
+};
+const Product = ({getProductbyIdAction}) => {
   const navigation = useNavigation();
   const route = useRoute();
   const {item} = route.params;
@@ -80,42 +98,32 @@ const Product = () => {
               style={{width: getSize.s(20), height: getSize.s(20)}}
               resizeMode="contain"
               onPress={() => {
-                setData([])
                 navigation.goBack();
               }}
             />
           </Block>
-          {/* <TextInput
-            placeholder="Tìm kiếm"
-            underlineColorAndroid="transparent"
-            onChangeText={text => seachFilter(text)}
-            alignCenter
-            placeholderTextColor={'white'}
-            paddingVertical={getSize.m(2)}
-            style={{flex: 18, backgroundColor: '#77C8EB'}}
-            inputstyle={{color: 'white', fontSize: getSize.m(18)}}
-            width={'100%'}
-            height={getSize.s(35)}
-            iconleft={icons.search}></TextInput> */}
-            <TouchableOpacity style={{ width:'100%',flex: 18,height:getSize.s(35)}} onPress={() =>{navigation.navigate(routes.SEARCHSCREEN)}}>
-          <Block
-            alignCenter
-            row
-            paddingVertical={getSize.m(2)}
-            style={{ backgroundColor: '#77C8EB'}}
-            width={'100%'}
-            height={'100%'}
-            paddingHorizontal={getSize.m(8)}>
-            <Thumbnail
-              source={icons.search}
-            
-              style={{width: 20, height: 20,marginRight:getSize.m(5)}}
-              resizeMode="contain"
-            />
-            <Text size={getSize.m(18)} color={'white'}>
-              Tìm kiếm
-            </Text>
-          </Block>
+          <TouchableOpacity
+            style={{width: '100%', flex: 18, height: getSize.s(35)}}
+            onPress={() => {
+              navigation.navigate(routes.SEARCHSCREEN);
+            }}>
+            <Block
+              alignCenter
+              row
+              paddingVertical={getSize.m(2)}
+              style={{backgroundColor: '#77C8EB'}}
+              width={'100%'}
+              height={'100%'}
+              paddingHorizontal={getSize.m(8)}>
+              <Thumbnail
+                source={icons.search}
+                style={{width: 20, height: 20, marginRight: getSize.m(5)}}
+                resizeMode="contain"
+              />
+              <Text size={getSize.m(18)} color={'white'}>
+                Tìm kiếm
+              </Text>
+            </Block>
           </TouchableOpacity>
           <Block alignEnd justifyCenter style={{flex: 2}}>
             <Thumbnail
@@ -129,48 +137,22 @@ const Product = () => {
           </Block>
         </Block>
       </Block>
-      <Block row justifyCenter alignCenter>
-        {categori.map((item, index) => (
-          <TouchableOpacity
-            style={[
-              jewelStyle(item.id),
-              {
-                width: '32%',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: theme.colors.white,
-              },
-            ]}
-            onPress={() => {
-              setStatusFilter(item.id);
-            }}>
-            <Text
-              style={[
-                jewelStyle2(item.id),
-                {width: '100%', textAlign: 'center', borderColor: '#808080'},
-                index === categori.length - 1
-                  ? {borderLeftWidth: 0.7}
-                  : {borderRightWidth: 0.7},
-              ]}
-              size={getSize.m(18)}>
-              {item.name}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </Block>
+
       {/* content */}
 
       <Block flex alignCenter justifyCenter marginTop={10}>
         <FlatList
           data={item}
           numColumns={2}
-          renderItem={({item, index}) => <Product_Card item={item} />}
+          renderItem={({item, index}) => (
+            <Product_Card
+              item={item}
+              getProductbyIdAction={getProductbyIdAction}
+            />
+          )}
         />
       </Block>
     </Block>
   );
 };
-
-
-
-export default Product;
+export default connect(mapStateToProps, mapDispatchToProps)(Product);
