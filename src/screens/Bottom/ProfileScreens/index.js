@@ -297,8 +297,14 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
         </View>
         <TouchableRipple
           onPress={() => {
-            console.log(useData.token, useData.id);
-            navigation.navigate(routes.LIKELISTSCREEN);
+            if (useData.token === null) {
+              ToastAndroid.show(
+                'Bạn cần đăng nhập để sử dụng tính năng này',
+                ToastAndroid.SHORT,
+              );
+            } else {
+              navigation.navigate(routes.LIKELISTSCREEN);
+            }
           }}>
           <View style={styles.menuItem}>
             <Icon name="heart-outline" color="#46B3F6" size={30} />
@@ -307,7 +313,14 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
         </TouchableRipple>
         <TouchableRipple
           onPress={() => {
-            getUserByID(useData.id);
+            if (useData.token === null) {
+              ToastAndroid.show(
+                'Bạn cần đăng nhập để sử dụng tính năng này',
+                ToastAndroid.SHORT,
+              );
+            } else {
+              navigation.navigate(routes.PAYMENT_SCREEN);
+            }
           }}>
           <View style={styles.menuItem}>
             <Icon name="credit-card" color="#46B3F6" size={30} />
@@ -316,7 +329,14 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
         </TouchableRipple>
         <TouchableRipple
           onPress={() => {
-            navigation.navigate(routes.MYBILLSCREENS);
+            if (useData.token === null) {
+              ToastAndroid.show(
+                'Bạn cần đăng nhập để sử dụng tính năng này',
+                ToastAndroid.SHORT,
+              );
+            } else {
+              navigation.navigate(routes.MYBILLSCREENS);
+            }
           }}>
           <View style={styles.menuItem}>
             <Icon name="history" color="#46B3F6" size={30} />
@@ -325,22 +345,21 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
         </TouchableRipple>
         <TouchableRipple
           onPress={() => {
-            ToastAndroid.show('Chưa có hỗ trợ!', ToastAndroid.SHORT);
+            if (useData.token === null) {
+              ToastAndroid.show(
+                'Bạn cần đăng nhập để sử dụng tính năng này',
+                ToastAndroid.SHORT,
+              );
+            } else {
+              ToastAndroid.show('Chưa có hỗ trợ!', ToastAndroid.SHORT);
+            }
           }}>
           <View style={styles.menuItem}>
             <Icon name="account-check-outline" color="#46B3F6" size={30} />
             <Text style={styles.menuItemText}>Hỗ Trợ</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple
-          onPress={() => {
-            console.log(checktoken);
-          }}>
-          <View style={styles.menuItem}>
-            <Icon name="cog-outline" color="#46B3F6" size={30} />
-            <Text style={styles.menuItemText}>Cài Đặt</Text>
-          </View>
-        </TouchableRipple>
+
         <TouchableRipple
           onPress={() => {
             navigation.navigate(routes.CHANGEPASSSCREEN);

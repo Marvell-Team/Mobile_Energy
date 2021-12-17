@@ -389,8 +389,7 @@ const DetailScreens = ({
 
   return (
     <Block style={styles.container}>
-      <ScrollView 
-        showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {/* image header  */}
         <ScrollView
           onScroll={({nativeEvent}) => change(nativeEvent)}
@@ -437,17 +436,34 @@ const DetailScreens = ({
             position: 'absolute',
             top: 0,
           }}>
-          <Block margin={16} flex alignStart >
+          <Block margin={16} flex alignStart>
             <Thumbnail
               source={icons.back}
               onPress={() => navigation.goBack()}
               imageStyle={{width: 24, height: 24}}
-              style={{width: 40, height: 40,backgroundColor: theme.colors.smoke, opacity:0.7, borderRadius: 50,justifyContent: 'center'}}
+              style={{
+                width: 40,
+                height: 40,
+                backgroundColor: theme.colors.smoke,
+                opacity: 0.7,
+                borderRadius: 50,
+                justifyContent: 'center',
+              }}
             />
           </Block>
           <Block margin={16} flex alignEnd>
-            <Thumbnail source={icons.more}               imageStyle={{width: 24, height: 24}}
- style={{width: 40, height: 40,backgroundColor: theme.colors.smoke, opacity:0.7, borderRadius: 50,justifyContent: 'center'}} />
+            <Thumbnail
+              source={icons.more}
+              imageStyle={{width: 24, height: 24}}
+              style={{
+                width: 40,
+                height: 40,
+                backgroundColor: theme.colors.smoke,
+                opacity: 0.7,
+                borderRadius: 50,
+                justifyContent: 'center',
+              }}
+            />
           </Block>
         </Block>
 
@@ -456,6 +472,7 @@ const DetailScreens = ({
           {/* Body Name Product */}
           <Block row style={styles.bodyname}>
             <Block justifyCenter style={{flex: 3}}>
+
               <Text style={{fontSize: 18, fontWeight: '500', marginBottom: getSize.m(4)}}>{name}</Text>
               <Text style={{fontSize: 16, fontWeight: 'bold', color: theme.colors.red}}>
                 {formatCurrency(price)}
@@ -581,7 +598,11 @@ const DetailScreens = ({
                   borderColor: theme.colors.dark,
                   borderWidth: 1,
                 }}
-                titleStyle={{fontSize: 18, fontWeight: 'bold', color: theme.colors.red}}
+                titleStyle={{
+                  fontSize: 18,
+                  fontWeight: 'bold',
+                  color: theme.colors.red,
+                }}
                 title="Báo cáo tin"></Button>
             </Block>
           </Block> */}
@@ -725,10 +746,11 @@ const DetailScreens = ({
                     style={{width: 20, height: 20}}></Thumbnail>
                 </Block>
               </Block>
-              <Block style={{marginTop: 16,borderBottomWidth: 0.5, padding: 16}} borderColor={theme.colors.gray} row>
-                <Block
-                  alignStart
-                  marginTop={4}>
+              <Block
+                style={{marginTop: 16, borderBottomWidth: 0.5, padding: 16}}
+                borderColor={theme.colors.gray}
+                row>
+                <Block alignStart marginTop={4}>
                   <Thumbnail
                     source={{uri: imageBG[0]}}
                     resizeMode={'contain'}
@@ -743,7 +765,9 @@ const DetailScreens = ({
                     Hãng:<Text> Apple</Text> - Dung lượng:
                     <Text> 256 GB</Text>{' '}
                   </Text>
-                  <Text marginBottom={6} size={17}>{formatCurrency(price)}</Text>
+                  <Text marginBottom={6} size={17}>
+                    {formatCurrency(price)}
+                  </Text>
                   <Count
                     onPressSubtract={() => {
                       amount > 1 ? setAmount(amount - 1) : null;
@@ -756,13 +780,16 @@ const DetailScreens = ({
                 </Block>
               </Block>
               <Block row marginTop={16}>
-                <Block style={{width: '40%',}}>
+                <Block style={{width: '40%'}}>
                   <Text size={16}>Tổng</Text>
-                  <Text color={theme.colors.red} size={18} style={{fontWeight: 'bold'}}>
+                  <Text
+                    color={theme.colors.red}
+                    size={18}
+                    style={{fontWeight: 'bold'}}>
                     {formatCurrency(price * amount)}
                   </Text>
                 </Block>
-                <Block style={{width: '60%',}}>
+                <Block style={{width: '60%'}}>
                   <TouchableOpacity
                     onPress={() => {
                       addCart(dataCarts, data.data._id, amount, totalCarts);

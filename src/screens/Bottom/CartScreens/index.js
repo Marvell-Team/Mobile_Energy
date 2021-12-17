@@ -55,14 +55,21 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
-const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate, loadding, error}) => {
+const CartScreens = ({
+  data,
+  getCartByUser,
+  UpdateCartByUser,
+  dataUpdate,
+  loadding,
+  error,
+}) => {
   const navigation = useNavigation();
   const [dataCart, setDataCart] = useState([]);
   const [dataID, setDataID] = useState('');
   const [dataTotal, setDataTotal] = useState(0);
   const [checktoken, setChecktoken] = useState(null);
   const [loading, setLoading] = useState(false);
-
+  const [userID, setUserID] = useState('a');
   useEffect(() => {
     if (useData.token !== null) {
       getCartByUser(useData.id);
@@ -72,6 +79,7 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate, loaddin
     setDataCart(aa.products);
     setDataTotal(aa.total);
   };
+
   useEffect(async () => {
     //
     //   if (data !== null) {
@@ -87,22 +95,28 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate, loaddin
       _setDataCart(aa);
       //  setDataCarts(aa);
     }
-  }, [AsyncStorage.getItem(useData.id)]);
-  useEffect(() => {
-    console.log('token' + useData.token);
-    setChecktoken(useData.token);
-  }, [useData.token]);
+  }, [AsyncStorage.getItem(userID), userID]);
 
   useEffect(() => {
-    setLoading(loadding)
-  }, [loadding])
+    if (useData.token !== null) {
+      console.log('token' + useData.token);
+      setChecktoken(useData.token);
+    }
+    if (useData.id !== null) {
+      setUserID(useData.id);
+    }
+  }, [useData]);
 
   useEffect(() => {
-    if(error !== null){
+    setLoading(loadding);
+  }, [loadding]);
+
+  useEffect(() => {
+    if (error !== null) {
       console.log(error);
       ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
-  }, [error])
+  }, [error]);
 
   return (
     <SafeAreaView style={{backgroundColor: theme.colors.grey, flex: 1}}>
@@ -181,7 +195,12 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate, loaddin
             }}>
             <View style={{width: '40%', justifyContent: 'center'}}>
               <Text style={{fontSize: 16}}>Tổng</Text>
-              <Text style={{fontSize: 18, fontWeight: 'bold', color: theme.colors.red}}>
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontWeight: 'bold',
+                  color: theme.colors.red,
+                }}>
                 {formatCurrency(dataTotal)}
               </Text>
             </View>
@@ -193,7 +212,7 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate, loaddin
                     navigation.navigate(routes.PAYMENT_SCREEN);
                   } else {
                     ToastAndroid.show(
-                      'Hiện không hàng để mua',
+                      'Hiện không có hàng để mua',
                       ToastAndroid.SHORT,
                     );
                   }
@@ -204,7 +223,7 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate, loaddin
         </View>
       )}
       {/*Có cái này mới hiện loading!!!*/}
-      {loading && (<Loading/>)}
+      {loading && <Loading />}
     </SafeAreaView>
   );
 };
@@ -296,34 +315,43 @@ const CartCard = ({
           marginLeft: 10,
           flex: 3,
         }}>
-        <Text numColumns={1} style={{fontWeight: 'bold', fontSize: 18, marginRight: 8}}>
+        <Text
+          numColumns={1}
+          style={{fontWeight: 'bold', fontSize: 18, marginRight: 8}}>
           {nameProduct}
         </Text>
-      
-        <Text style={{fontSize: 18,color:theme.colors.blackText, marginVertical: 8}}>
+
+        <Text
+          style={{
+            fontSize: 18,
+            color: theme.colors.blackText,
+            marginVertical: 8,
+          }}>
           {formatCurrency(price_product)}
         </Text>
         <View style={{}}>
-        <Count
-          amount={amount}
-          onPressSubtract={() => {
-            subtractCart(dataCart, index);
-          }}
-          onPressPlus={() => {
-            addCart(dataCart, index);
-          }}
-        />
-      </View>
+          <Count
+            amount={amount}
+            onPressSubtract={() => {
+              subtractCart(dataCart, index);
+            }}
+            onPressPlus={() => {
+              addCart(dataCart, index);
+            }}
+          />
+        </View>
       </View>
 
-
-      <View style={{alignSelf:'flex-start'}}>
+      <View style={{alignSelf: 'flex-start'}}>
         <Thumbnail
           onPress={() => createThreeButtonAlert()}
           source={icons.close}
           imageStyle={{
-            tintColor: theme.colors.grayTitle}}
-          style={{width: getSize.s(15), height: getSize.s(15),marginTop: getSize.m(4)}}
+            width: getSize.s(15),
+            height: getSize.s(15),
+            marginTop: 4,
+          }}
+
         />
       </View>
     </View>

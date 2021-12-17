@@ -65,11 +65,11 @@ const LoginScreens = ({loginAction, data, loadding, error}) => {
   }, [loadding]);
 
   useEffect(() => {
-    if(error !== null){
+    if (error !== null) {
       console.log(error);
       ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
-  }, [error])
+  }, [error]);
 
   useEffect(async () => {
     if (data !== null) {
@@ -78,10 +78,6 @@ const LoginScreens = ({loginAction, data, loadding, error}) => {
       var decoded = jwt_decode(tolen);
       useData.token = tolen;
       useData.id = decoded.id;
-      console.log(data);
-      console.log('HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH DATA');
-
-      _login();
       // navigation.dispatch(
       //         CommonActions.reset({
       //           index: 1,
@@ -109,17 +105,14 @@ const LoginScreens = ({loginAction, data, loadding, error}) => {
   const checkLogin = () => {
     if (email === '' && password === '') {
       setTextError('Email và mật khẩu không được để trống!');
-    } 
-    else if(email === ''){
+    } else if (email === '') {
       setTextError('Email không được để trống!');
-    }
-    else if(password === ''){
+    } else if (password === '') {
       setTextError('Mật khẩu không được để trống!');
-    }
-    else {
+    } else {
       loginAction(email, password);
       setTextError('');
-     }
+    }
   };
 
   return (
@@ -171,25 +164,23 @@ const LoginScreens = ({loginAction, data, loadding, error}) => {
             title="Quên mật khẩu?"
             onPressOut={() => {
               console.log('Quên mật khẩu'),
-              navigation.navigate(routes.EMAILSCREEN)}
-            }
+                navigation.navigate(routes.EMAILSCREEN);
+            }}
             style={styles.viewForgotPassword}
             titleStyle={styles.txtForgotPassword}
           />
-          
+
           <Button
             shadow
             title="ĐĂNG NHẬP"
             onPress={() => {
-              
-              checkLogin();  
+              checkLogin();
             }}
             style={styles.viewButtonLogin}
             titleStyle={styles.txtButtonLogin}
           />
 
           <Text style={styles.txtErorr}>{textError}</Text>
-
         </Block>
         {/* <Block style={styles.viewLoginWith}>
           <Text style={styles.txtLoginWith}>Hoặc đăng nhập với</Text>

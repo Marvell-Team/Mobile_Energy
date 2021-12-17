@@ -95,7 +95,6 @@ const Category = ({getCateGoryAction, data1, loadding, error}) => {
         color: theme.colors.primary,
         fontWeight: 'bold',
         borderRadius: getSize.m(35),
-        
       };
     } else {
       return {
@@ -129,7 +128,6 @@ const Category = ({getCateGoryAction, data1, loadding, error}) => {
         backgroundColor={theme.colors.primary}
         paddingHorizontal={getSize.m(8)}>
         <Block row justifyCenter alignCenter style={style.header2}>
-
           {/* <TextInput
             placeholder="Tìm kiếm"
             underlineColorAndroid="transparent"
@@ -150,7 +148,6 @@ const Category = ({getCateGoryAction, data1, loadding, error}) => {
             <Block
               alignCenter
               row
-              
               style={{backgroundColor: '#77C8EB'}}
               width={'98%'}
               height={'100%'}
@@ -167,7 +164,6 @@ const Category = ({getCateGoryAction, data1, loadding, error}) => {
               />
 
               <Text size={getSize.m(18)} style={{color: theme.colors.white}}>
-
                 Tìm kiếm
               </Text>
             </Block>

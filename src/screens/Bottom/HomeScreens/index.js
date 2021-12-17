@@ -224,7 +224,7 @@ const HomeScreens = ({
           horizontal
           renderItem={({item, index}) =>
             item.id_category !== null && (
-              <ProductCard2
+              <ProductCard
                 getProductbyIdAction={getProductbyIdAction}
                 item={item}
               />
