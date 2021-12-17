@@ -191,7 +191,7 @@ const LoginScreens = ({loginAction, data, loadding, error}) => {
           <Text style={styles.txtErorr}>{textError}</Text>
 
         </Block>
-        <Block style={styles.viewLoginWith}>
+        {/* <Block style={styles.viewLoginWith}>
           <Text style={styles.txtLoginWith}>Hoặc đăng nhập với</Text>
           <Block row>
             <Thumbnail
@@ -210,7 +210,7 @@ const LoginScreens = ({loginAction, data, loadding, error}) => {
               style={styles.thumb1}
             />
           </Block>
-        </Block>
+        </Block> */}
 
         <Block style={styles.viewSignUp}>
           <PressText

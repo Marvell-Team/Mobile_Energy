@@ -32,7 +32,7 @@ export default StyleSheet.create({
     backgroundColor: theme.colors.white,
     borderTopLeftRadius:20,
     borderTopRightRadius:20,
-    marginTop:-25,
+    marginTop:-24,
     elevation: 2,
     shadowColor: theme.colors.black,
     shadowOpacity: 1,
@@ -42,8 +42,7 @@ export default StyleSheet.create({
     fontSize:getSize.m(16), fontWeight: 'bold',
   },
   bodyname:{
-    marginTop:20,
-    marginBottom:13,
+    marginVertical: getSize.m(8),
     width:width/1.1,
     backgroundColor: theme.colors.white,
   },

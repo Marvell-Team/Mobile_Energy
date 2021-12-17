@@ -81,7 +81,7 @@ const OrderLocation = ({data,getStoreAction,getStoreByIdAction, loadding, error}
       <Header iconLeft={icons.back} title="Địa chỉ lấy hàng"  leftPress={()=>{navigation.goBack()}}/>
       <View style={styles.body}>
         <Text style={styles.text}>Họ tên</Text>
-        <TextInput onChangeText={setName} placeholder={'Nhập họ tên'} style={styles.textin} />
+        <TextInput onChangeText={setName} placeholder={'Nhập họ tên'} style={styles.textin} autoFocus={true}/>
 
         <Text style={styles.text}>Số điện thoại</Text>
         <TextInput onChangeText={setPhone} placeholder={'01232130823'} style={styles.textin} />

@@ -106,17 +106,13 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate, loaddin
 
   return (
     <SafeAreaView style={{backgroundColor: theme.colors.grey, flex: 1}}>
-      <View style={style.header}>
-        <Text style={{fontSize: 20, fontWeight: 'bold', color: COLORS.white}}>
-          Giỏ Hàng
-        </Text>
-      </View>
+      <Header title="Giỏ hàng" />
       {checktoken === null ? (
         <View style={{backgroundColor: COLORS.light}}>
           <View
             style={{
               width: '100%',
-              height: '88%',
+              height: '94%',
               alignItems: 'center',
               justifyContent: 'center',
               paddingVertical: getSize.m(20),
@@ -181,7 +177,7 @@ const CartScreens = ({data, getCartByUser, UpdateCartByUser, dataUpdate, loaddin
               bottom: 0,
               marginTop: 8,
               backgroundColor: theme.colors.white,
-              paddingVertical: 8,
+              paddingVertical: 12,
             }}>
             <View style={{width: '40%', justifyContent: 'center'}}>
               <Text style={{fontSize: 16}}>Tổng</Text>
@@ -325,7 +321,9 @@ const CartCard = ({
         <Thumbnail
           onPress={() => createThreeButtonAlert()}
           source={icons.close}
-          imageStyle={{width: getSize.s(15), height: getSize.s(15), marginTop: 4}}
+          imageStyle={{
+            tintColor: theme.colors.grayTitle}}
+          style={{width: getSize.s(15), height: getSize.s(15),marginTop: getSize.m(4)}}
         />
       </View>
     </View>
