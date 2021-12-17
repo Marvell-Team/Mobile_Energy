@@ -30,7 +30,6 @@ const categori = [
 ];
 import {connect} from 'react-redux';
 import {getCateGoryAction} from '@redux/actions';
-
 const mapStateToProps = state => {
   return {
     error: state.getCategoriesReducer ? state.getCategoriesReducer.error : null,

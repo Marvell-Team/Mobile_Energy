@@ -120,17 +120,13 @@ const CartScreens = ({
 
   return (
     <SafeAreaView style={{backgroundColor: theme.colors.grey, flex: 1}}>
-      <View style={style.header}>
-        <Text style={{fontSize: 20, fontWeight: 'bold', color: COLORS.white}}>
-          Giỏ Hàng
-        </Text>
-      </View>
+      <Header title="Giỏ hàng" />
       {checktoken === null ? (
         <View style={{backgroundColor: COLORS.light}}>
           <View
             style={{
               width: '100%',
-              height: '88%',
+              height: '94%',
               alignItems: 'center',
               justifyContent: 'center',
               paddingVertical: getSize.m(20),
@@ -195,7 +191,7 @@ const CartScreens = ({
               bottom: 0,
               marginTop: 8,
               backgroundColor: theme.colors.white,
-              paddingVertical: 8,
+              paddingVertical: 12,
             }}>
             <View style={{width: '40%', justifyContent: 'center'}}>
               <Text style={{fontSize: 16}}>Tổng</Text>
@@ -355,6 +351,7 @@ const CartCard = ({
             height: getSize.s(15),
             marginTop: 4,
           }}
+
         />
       </View>
     </View>

@@ -472,16 +472,12 @@ const DetailScreens = ({
           {/* Body Name Product */}
           <Block row style={styles.bodyname}>
             <Block justifyCenter style={{flex: 3}}>
-              <Text style={{fontSize: 20, fontWeight: 'bold'}}>{name}</Text>
-              <Text
-                style={{
-                  fontSize: 17,
-                  fontWeight: 'bold',
-                  color: theme.colors.red,
-                }}>
-                {price}
+
+              <Text style={{fontSize: 18, fontWeight: '500', marginBottom: getSize.m(4)}}>{name}</Text>
+              <Text style={{fontSize: 16, fontWeight: 'bold', color: theme.colors.red}}>
+                {formatCurrency(price)}
               </Text>
-              <Text style={{fontSize: 12}}>16 giờ trước</Text>
+              {/* <Text style={{fontSize: 12}}>16 giờ trước</Text> */}
             </Block>
             <Block flex justifyCenter>
               <Button
@@ -577,7 +573,7 @@ const DetailScreens = ({
             style={{borderWidth: 0.3, borderColor: theme.colors.dark}}
           />
           {/* duyet+ report */}
-          <Block flex width={width / 1.1}>
+          {/* <Block flex width={width / 1.1}>
             <Block row alignCenter style={{flex: 2}}>
               <Thumbnail
                 marginRight={10}
@@ -609,7 +605,7 @@ const DetailScreens = ({
                 }}
                 title="Báo cáo tin"></Button>
             </Block>
-          </Block>
+          </Block> */}
           {/* Comment body */}
           <Block marginBottom={5} style={styles.commentbody}>
             <Block alignCenter row marginBottom={10}>

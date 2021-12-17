@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
   btnContainer: {
     backgroundColor: COLORS.primary,
     paddingHorizontal:16,
-    paddingVertical: 16,
-    borderRadius: 10,
+    paddingVertical: 12,
+    borderRadius: 6,
     justifyContent: 'center',
     alignItems: 'center',    
   },

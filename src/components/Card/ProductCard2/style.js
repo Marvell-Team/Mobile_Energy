@@ -29,9 +29,12 @@ export default StyleSheet.create({
   },
 
   viewContentImage: {
+
     width: '100%',
     height: getSize.v(180),
     borderRadius: 8,
+
+
     alignSelf: 'center',
     borderTopRightRadius: 6,
     borderTopLeftRadius: 6,
