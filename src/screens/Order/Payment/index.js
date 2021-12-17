@@ -191,9 +191,7 @@ const CartScreens = ({
           paddingHorizontal={getSize.m(10)}
           paddingVertical={getSize.m(12)}
           style={{
-            borderColor: theme.colors.lightGray,
             backgroundColor: COLORS.white,
-            borderBottomWidth: 1,
           }}
           row>
           <Block style={{flex: 10}}>
@@ -223,6 +221,7 @@ const CartScreens = ({
                 style={{
                   color: theme.colors.placeholder,
                   paddingLeft: getSize.m(6),
+                  marginTop: getSize.m(4),
                 }}>
                 {address !== '' ? address : 'Xin mời chọn địa chỉ nhận hàng'}
               </Text>
@@ -249,7 +248,7 @@ const CartScreens = ({
           />
         ))}
         <Block
-          marginBottom={140}
+          marginBottom={getSize.m(16)}
           backgroundColor={theme.colors.white}
           row
           paddingVertical={12}
@@ -352,21 +351,21 @@ const CartCard = ({
 
   return (
     <View style={style.cartCard}>
-      <Image source={{uri: id_image}} style={{height: 90, width: 80}} />
+      <Image source={{uri: id_image}} style={{height:80, width: 80}} />
       <View
         style={{
           marginLeft: 10,
           paddingVertical: 20,
           flex: 1,
         }}>
-        <Text style={{fontWeight: 'bold', fontSize: 18}}>{nameProduct}</Text>
-        <Text style={style.txtText}>Phân loại:{nameProduct}</Text>
+        <Text style={{fontWeight: '500', fontSize: 18, marginBottom: getSize.m(4)}}>{nameProduct}</Text>
+        <Text style={[style.txtText], { color: theme.colors.gray, marginBottom: getSize.m(4)}}>Phân loại: {nameProduct}</Text>
         <Block row>
-          <Text style={[style.txtText, {flex: 7}]}>
+          <Text style={[style.txtText, {flex: 7, color: theme.colors.gray}]}>
             {formatCurrency(price_product)}
           </Text>
           <Block flex alignEnd>
-            <Text style={{fontSize: 16, color: COLORS.grey}}>X{amount}</Text>
+            <Text style={{fontSize: 16, color: COLORS.grey}}>x{amount}</Text>
           </Block>
         </Block>
       </View>
@@ -404,7 +403,7 @@ const style = StyleSheet.create({
     alignContent: 'center',
   },
   txtLocal: {
-    fontWeight: 'bold',
+    fontWeight: '500',
     fontSize: getSize.m(16),
     paddingHorizontal: getSize.m(6),
   },

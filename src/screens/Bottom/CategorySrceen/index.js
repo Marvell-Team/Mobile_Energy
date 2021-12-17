@@ -30,8 +30,6 @@ const categori = [
 ];
 import {connect} from 'react-redux';
 import {getCateGoryAction} from '@redux/actions';
-import {useNavigation} from '@react-navigation/native';
-import {routes} from '@navigation/routes';
 const mapStateToProps = state => {
   return {
     error: state.getCategoriesReducer ? state.getCategoriesReducer.error : null,

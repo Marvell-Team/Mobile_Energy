@@ -45,13 +45,15 @@ const Product_Card = ({item, getProductbyIdAction}) => {
             uri: item.id_image.nameImage[0],
           }}
           style={styles.viewContentImage}
+          imageStyle={{    borderTopRightRadius: 6,
+            borderTopLeftRadius: 6,}}
           resizeMode={'stretch'}
         />
       </Block>
 
-      <Block justifyCenter paddingHorizontal={8} paddingVertical={12}>
+      <Block justifyCenter paddingHorizontal={8} paddingVertical={2}>
         <Text style={styles.txtTitle}>{item.nameProduct}</Text>
-        <Block flex row marginBottom={8} marginTop={4}>
+        <Block flex row marginBottom={8}>
           <Text style={styles.txtPrice}>
             {formatCurrency(item.price_product)}
           </Text>
