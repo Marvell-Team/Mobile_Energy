@@ -351,21 +351,21 @@ const CartCard = ({
 
   return (
     <View style={style.cartCard}>
-      <Image source={{uri: id_image}} style={{height:80, width: 80}} />
+      <Image source={{uri: id_image}} style={{height:getSize.s(80), width: getSize.s(80), marginLeft: getSize.m(4)}} />
       <View
         style={{
-          marginLeft: 10,
-          paddingVertical: 20,
+          marginLeft: getSize.m(10),
+          paddingVertical: getSize.m(20),
           flex: 1,
         }}>
-        <Text style={{fontWeight: '500', fontSize: 18, marginBottom: getSize.m(4)}}>{nameProduct}</Text>
+        <Text style={{fontWeight: '500', fontSize: getSize.m(18), marginBottom: getSize.m(4)}}>{nameProduct}</Text>
         <Text style={[style.txtText], { color: theme.colors.gray, marginBottom: getSize.m(4)}}>Phân loại: {nameProduct}</Text>
         <Block row>
           <Text style={[style.txtText, {flex: 7, color: theme.colors.gray}]}>
             {formatCurrency(price_product)}
           </Text>
           <Block flex alignEnd>
-            <Text style={{fontSize: 16, color: COLORS.grey}}>x{amount}</Text>
+            <Text style={{fontSize: getSize.m(16), color: COLORS.grey}}>x{amount}</Text>
           </Block>
         </Block>
       </View>

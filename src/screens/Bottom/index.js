@@ -9,6 +9,7 @@ import EditProfile from './ProfileScreens/EditProfile';
 import Category from './CategorySrceen';
 import LikeListScreen from './ProfileScreens/LikeList';
 import VoteScreen from '@screens/Order/VoteScreen';
+import SupportScreen from './ProfileScreens/Support';
 
 export const bottom = {
   HOMESCREENS: HomeScreens,
@@ -21,4 +22,5 @@ export const bottom = {
   CATEGORYSRCEEN: Category,
   LIKELISTSCREEN: LikeListScreen,
   VOTE_SCREEN: VoteScreen,
+  SUPPORTSCREEN: SupportScreen,
 };
