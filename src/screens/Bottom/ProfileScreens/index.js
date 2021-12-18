@@ -351,7 +351,7 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
                 ToastAndroid.SHORT,
               );
             } else {
-              ToastAndroid.show('Chưa có hỗ trợ!', ToastAndroid.SHORT);
+              navigation.navigate(routes.SUPPORTSCREEN)
             }
           }}>
           <View style={styles.menuItem}>

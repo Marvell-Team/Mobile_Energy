@@ -124,6 +124,10 @@ const RootStack = () => {
           name={routes.FORGOTPASSWORDSCREEN}
           component={auth.FORGOTPASSWORDSCREEN}
         />
+        <Stack.Screen
+          name={routes.SUPPORTSCREEN}
+          component={bottom.SUPPORTSCREEN}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
