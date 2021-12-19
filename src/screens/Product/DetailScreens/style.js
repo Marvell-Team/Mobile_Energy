@@ -28,7 +28,7 @@ export default StyleSheet.create({
    
   },
   body:{
-    width:getSize.v(width),
+    width:width,
     backgroundColor: theme.colors.white,
     borderTopLeftRadius:20,
     borderTopRightRadius:20,

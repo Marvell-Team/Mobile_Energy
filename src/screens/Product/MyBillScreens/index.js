@@ -38,6 +38,14 @@ const MyBillScreens = ({data1, getBillAction, loadding, error}) => {
   }, [data1]);
 
   useEffect(() => {
+    if (data !== null) {
+      console.log(data);
+      console.log('>>>>>>>>>>>>>>>>>>>>DATA');
+
+    }
+  }, [data]);
+
+  useEffect(() => {
     getBillAction(useData.id);
   }, [getBillAction]);
 
@@ -72,6 +80,7 @@ const MyBillScreens = ({data1, getBillAction, loadding, error}) => {
         </Block>
       ) : (
         <BillList data={data} style={{marginVertical: 8}} />
+        
       )}
 
       {/*Có cái này mới hiện loading!!!*/}

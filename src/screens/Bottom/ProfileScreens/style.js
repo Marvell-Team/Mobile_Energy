@@ -37,7 +37,7 @@ export default StyleSheet.create({
     width: 90,
     height: 90,
     borderRadius: 100 / 2,
-    backgroundColor: theme.colors.white,
+    backgroundColor: theme.colors.primary,
     justifyContent: 'center',
     alignSelf: 'center'
   },
@@ -49,20 +49,20 @@ export default StyleSheet.create({
   },
 
   inEditViewAvatar: {
-    width: 32,
-    height: 32,
+    width: 40,
+    height: 40,
     borderRadius: 100 / 2,
     backgroundColor: theme.colors.white,
     justifyContent: 'center',
     position: 'absolute',
     bottom: 0,
-    left: 20,
+    left: 16,
   },
   
   inEditAvatar: {
     width: '90%',
     height: '90%',
-    borderRadius: 100 / 2,
+    borderRadius: 20,
     alignSelf: 'center'
   },
 

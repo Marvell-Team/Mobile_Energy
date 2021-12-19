@@ -22,7 +22,7 @@ const ProductCard = ({item, index, onPress, style, getProductbyIdAction}) => {
           <Image
             source={{uri: id_image.nameImage[0]}}
             style={styles.imgProduct}
-            resizeMode="contain"
+            resizeMode="stretch"
           />
         </Block>
         <Block justifyCenter style={styles.viewInfo}>

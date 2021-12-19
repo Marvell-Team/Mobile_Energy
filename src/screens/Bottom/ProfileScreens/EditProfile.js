@@ -347,6 +347,7 @@ const EditProfile = ({editUserByID, data, loadding, error}) => {
         {/* <ScrollView> */}
           <Header
             iconLeft={icons.back}
+            title={'Thay đổi thông tin'}
             leftPress={() =>
               navigation.navigate(routes.BOTTOMTABBAR, {
                 screen: routes.PROFILESCREENS,
@@ -359,19 +360,40 @@ const EditProfile = ({editUserByID, data, loadding, error}) => {
               alignCenter
               paddingHorizontal={16}
               style={styles.viewAvatar}>
+              
+              {imageUri === '' ? (
               <Thumbnail
                 onPress={() => {
                   bs.current.snapTo(0);
                 }}
                 style={styles.inViewAvatar}
-                source={{
-                  uri: imageUri,
-                }}
-                imageStyle={styles.inAvatar}></Thumbnail>
+                source={icons.duser}
+
+                imageStyle={{    width: '96%',
+                height: '96%',
+                tintColor: theme.colors.white}
+                }/>
+                ) : (
+                  <Thumbnail
+                    source={{
+                      uri: imageUri,
+                    }}
+                    imageStyle={{
+                      width: getSize.v(72),
+                      height: getSize.v(72),
+                      tintColor: theme.colors.white
+                    }}
+                  />
+                )}
 
               <Thumbnail
                 style={styles.inEditViewAvatar}
-                source={icons.edit}></Thumbnail>
+                source={icons.edit}
+                imageStyle={{
+                  width: getSize.s(24),
+                  height: getSize.s(24),
+                  tintColor: theme.colors.primary,
+                }}/>
             </Block>
           </TouchableOpacity>
           <Block style={styles.viewEdit} padding={16}>
@@ -406,7 +428,8 @@ const EditProfile = ({editUserByID, data, loadding, error}) => {
                 onPress={() => {
                   setShow(true);
                 }}>
-                <Text style={styles.textInput}>{date1}</Text>
+                <Text style={[styles.textInput], {marginLeft: 4, marginTop: 8,    fontSize: 17,
+}}>{date1}</Text>
               </TouchableOpacity>
               {show && (
                 <DateTimePicker
