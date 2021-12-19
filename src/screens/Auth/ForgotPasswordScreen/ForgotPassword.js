@@ -61,15 +61,15 @@ const ForgotPassword = ({
   const [textError, setTextError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (data !== null) {
-      setId_user(data);
-      console.log(data);
-      console.log(
-        '----------->>>>>>>>>>>>>> DATA FORGOT PASSWORD useEffect --------->>>>>>>>>>>',
-      );
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data !== null) {
+  //     setId_user(data);
+  //     console.log(data);
+  //     console.log(
+  //       '----------->>>>>>>>>>>>>> DATA FORGOT PASSWORD useEffect --------->>>>>>>>>>>',
+  //     );
+  //   }
+  // }, [data]);
 
   useEffect(() => {
     if (dataVerify !== null) {

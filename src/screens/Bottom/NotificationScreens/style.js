@@ -1,5 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {theme} from '@theme';
+import { getSize } from '@utils/responsive';
 
 const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
@@ -12,6 +13,6 @@ export default StyleSheet.create({
   txt: {
     color: theme.colors.black,
     alignSelf: 'center',
-    fontSize: 18,
+    fontSize: getSize.m(18),
   },
 });

@@ -8,9 +8,7 @@ const styles = StyleSheet.create({
   modalView: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor:'red'
-    
+    alignItems: 'center',    
   },
   textclose:{
     fontSize: 18,
@@ -18,9 +16,8 @@ const styles = StyleSheet.create({
   },
   close:{
     backgroundColor:theme.colors.primary,
-    paddingVertical:20,
-    paddingHorizontal:20,
-    borderRadius: 5,
+    height: getSize.v(52),
+    borderRadius: 6,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -33,12 +30,11 @@ const styles = StyleSheet.create({
   },
   modalItem: {
     width: width / 1.1,
-    backgroundColor: 'white',
-    padding: 8,
-    borderRadius:5
+    backgroundColor: theme.colors.white,
+    padding: 12,
+    borderRadius:6
   },
   modaltextIp: {
-    flex: 7,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -49,15 +45,15 @@ const styles = StyleSheet.create({
   modalContainer: {
     width: width,
     height: height,
-    backgroundColor: "#00000066",
+    backgroundColor: '#00000066',
     justifyContent: 'center',
     alignItems: 'center',
+    
   },
   modalView: {  
-    alignItems: 'center',
-    borderBottomWidth: 1,
-    borderColor: theme.colors.lightGray,
-    paddingVertical: getSize.m(8),
+    borderBottomWidth: 0.3,
+    borderColor: theme.colors.gray,
+    paddingVertical: getSize.m(16),
   },
   button: {
     borderRadius: 20,

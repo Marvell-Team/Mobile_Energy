@@ -415,10 +415,10 @@ const DetailScreens = ({
           justifyCenter
           style={{
             flexDirection: 'row',
-            width: width,
-            height: height / 15,
+            width: getSize.v(width),
+            height: getSize.v(height / 15),
             position: 'absolute',
-            top: height / 3,
+            top: getSize.m(height / 3),
           }}>
           {imageBG.map((item, index) => (
             <Text
@@ -436,11 +436,11 @@ const DetailScreens = ({
             position: 'absolute',
             top: 0,
           }}>
-          <Block margin={16} flex alignStart>
+          <Block margin={getSize.m(16)} flex alignStart>
             <Thumbnail
               source={icons.back}
               onPress={() => navigation.goBack()}
-              imageStyle={{width: 24, height: 24}}
+              imageStyle={{width: getSize.s(24), height: getSize.s(24)}}
               style={{
                 width: 40,
                 height: 40,
@@ -451,13 +451,13 @@ const DetailScreens = ({
               }}
             />
           </Block>
-          <Block margin={16} flex alignEnd>
+          <Block margin={getSize.m(16)} flex alignEnd>
             <Thumbnail
               source={icons.more}
-              imageStyle={{width: 24, height: 24}}
+              imageStyle={{width: getSize.s(24), height: getSize.s(24)}}
               style={{
-                width: 40,
-                height: 40,
+                width: getSize.v(40),
+                height: getSize.v(40),
                 backgroundColor: theme.colors.smoke,
                 opacity: 0.7,
                 borderRadius: 50,
@@ -473,8 +473,8 @@ const DetailScreens = ({
           <Block row style={styles.bodyname}>
             <Block justifyCenter style={{flex: 3}}>
 
-              <Text style={{fontSize: 18, fontWeight: '500', marginBottom: getSize.m(4)}}>{name}</Text>
-              <Text style={{fontSize: 16, fontWeight: 'bold', color: theme.colors.red}}>
+              <Text style={{fontSize: getSize.m(18), fontWeight: '500', marginBottom: getSize.m(4)}}>{name}</Text>
+              <Text style={{fontSize: getSize.m(16), fontWeight: 'bold', color: theme.colors.red}}>
                 {formatCurrency(price)}
               </Text>
               {/* <Text style={{fontSize: 12}}>16 giờ trước</Text> */}
@@ -493,7 +493,7 @@ const DetailScreens = ({
                 title={check ? 'Đã thích' : 'Yêu thích'}
                 style={styles.button}
                 titleStyle={{
-                  fontSize: 16,
+                  fontSize: getSize.m(16),
                   color: theme.colors.primary,
                 }}
               />
@@ -501,13 +501,13 @@ const DetailScreens = ({
           </Block>
           <Block
             width={width / 1.1}
-            style={{borderWidth: 0.3, borderColor: theme.colors.dark}}
+            style={{borderWidth: 0.3, borderColor: theme.colors.gray}}
           />
 
           {/* Body Detail product */}
           <Block
             width={width / 1.1}
-            style={{borderWidth: 0.3, borderColor: theme.colors.dark}}
+            style={{borderWidth: 0.3, borderColor: theme.colors.gray}}
           />
           {isShow ? (
             <Block style={styles.detailbody}>
@@ -517,7 +517,7 @@ const DetailScreens = ({
                     paddingVertical={getSize.m(8)}
                     backgroundColor={'#ffffff'}
                     width={'100%'}>
-                    <Text size={18} color={'#333333'}>
+                    <Text size={getSize.m(18)} color={'#333333'}>
                       {description[key]}
                     </Text>
                   </Block>
@@ -526,8 +526,8 @@ const DetailScreens = ({
                     paddingVertical={getSize.m(6)}
                     backgroundColor={'#ffffff'}
                     width={'100%'}>
-                    <Text size={16}>
-                      <Text style={{fontWeight: 'bold'}} size={16}>
+                    <Text size={getSize.m(16)}>
+                      <Text style={{fontWeight: 'bold'}} size={getSize.m(16)}>
                         {key}
                       </Text>
                       : {description[key]}
@@ -560,17 +560,16 @@ const DetailScreens = ({
             shadow
             title={isShow ? 'Rút gọn' : 'Xem thêm'}
             style={styles.button}
-            titleStyle={{fontSize: 16, color: theme.colors.primary}}
+            titleStyle={{fontSize: getSize.m(16), color: theme.colors.primary}}
             onPress={() => {
               LayoutAnimation.easeInEaseOut();
               setIsShow(!isShow);
             }}
           />
           <Block
-            marginTop={10}
-            marginBottom={15}
+            marginBottom={getSize.m(8)}
             width={width / 1.1}
-            style={{borderWidth: 0.3, borderColor: theme.colors.dark}}
+            style={{borderWidth: 0.3, borderColor: theme.colors.gray}}
           />
           {/* duyet+ report */}
           {/* <Block flex width={width / 1.1}>
@@ -607,21 +606,27 @@ const DetailScreens = ({
             </Block>
           </Block> */}
           {/* Comment body */}
-          <Block marginBottom={5} style={styles.commentbody}>
-            <Block alignCenter row marginBottom={10}>
-              <Text flex size={18} style={{fontWeight: '500'}}>
+          <Block marginBottom={getSize.m(8)} style={styles.commentbody}>
+            <Block alignCenter row marginBottom={getSize.m(8)}>
+              <Text flex size={getSize.m(16)} style={{fontWeight: '500'}}>
                 Bài viết đánh giá
               </Text>
-              <Text flex size={14} right style={{fontStyle: 'italic'}}>
+              {allcountComment !== 0 ? (
+              <Text flex size={getSize.m(14)} right style={{fontStyle: 'italic'}}>
+                
                 {allcountComment} đánh giá - {parseFloat(avdComment).toFixed(2)}
                 /5
+                
               </Text>
+               ) : (
+                <Text style={styles.txt}>Chưa có đánh giá</Text>
+                )}
             </Block>
             <Block
               width={width / 1.1}
               style={{
                 borderWidth: 0.3,
-                borderColor: theme.colors.dark,
+                borderColor: theme.colors.gray,
               }}
             />
             <FlatList
@@ -639,7 +644,7 @@ const DetailScreens = ({
               }
             />
             <Block row>
-              <Block flex alignCenter>
+              <Block flex alignCenter marginTop={getSize.m(16)}>
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate(routes.VOTE_SCREEN);
@@ -648,7 +653,7 @@ const DetailScreens = ({
                     styles.btnComment,
                     {
                       backgroundColor: theme.colors.secondary,
-                      marginRight: getSize.m(4),
+                      marginRight: getSize.m(8),
                     },
                   ]}>
                   <Text
@@ -663,7 +668,7 @@ const DetailScreens = ({
                     onPress={() => {
                       setModalVisible(true), setModalType('Comment');
                     }}
-                    style={[styles.btnComment, {marginLeft: getSize.m(4)}]}>
+                    style={[styles.btnComment, {marginLeft: getSize.m(8), marginTop: getSize.m(16)}]}>
                     <Text
                       style={[
                         styles.txtComment,

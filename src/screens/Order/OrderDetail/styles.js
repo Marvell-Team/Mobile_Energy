@@ -17,7 +17,7 @@ export default StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
     borderColor: theme.colors.gray,
-    marginBottom: 4,
+    marginBottom: getSize.m(4),
   },
 
   viewOrderId: {
@@ -25,43 +25,43 @@ export default StyleSheet.create({
     width: '100%',
     borderBottomWidth: 0.3,
     borderColor: theme.colors.smoke,
-    paddingVertical: 8,
+    paddingVertical: getSize.m(8),
   },
 
   viewStatus: {
     alignItems: 'flex-start',
     width: '100%',
-    paddingVertical: 16,
+    paddingVertical: getSize.m(16),
   },
 
   imageOrderBill: {
-    width: 30,
-    height: 38,   
+    width: getSize.s(30),
+    height: getSize.s(38),   
   },
 
   txtStatus: {
     color: theme.colors.blackText,
-    fontSize: 16,
+    fontSize: getSize.m(16),
     textAlign: 'left',
-    fontWeight: 'bold',
+    fontWeight: '500',
     alignItems: 'center',
   },
 
   txtOrderDate: {
     color: theme.colors.gray,
-    fontSize: 14,
+    fontSize: getSize.m(14),
     textAlign: 'left',
   },
 
   viewOderInfo: {  
     backgroundColor: theme.colors.white,
-    marginBottom: 2,
+    marginBottom: getSize.m(2),
   },
 
   viewInOderInfo: {  
     alignItems: 'flex-start',
     width: '100%',
-    paddingVertical: 8,
+    paddingVertical: getSize.m(8),
   },
 
   viewProduct: {  
@@ -70,22 +70,22 @@ export default StyleSheet.create({
   },
 
   imageProduct: {
-    width: 80,
-    height: 80,
+    width: getSize.s(80),
+    height: getSize.s(80),
   },
 
   txtNameProduct: {  
-    fontSize: 18,
+    fontSize: getSize.m(18),
     color: theme.colors.blackText,
     textAlign: 'left',
-    fontWeight: 'bold',
+    fontWeight: '500',
   },
 
   txtInfoProduct: {
     color: theme.colors.grayLightText,
-    fontSize: 16,
+    fontSize: getSize.m(16),
     textAlign: 'left',
-    paddingVertical: 4,
+    paddingVertical: getSize.m(4),
   },
 
   txtPrice: {
@@ -96,14 +96,14 @@ export default StyleSheet.create({
 
   txtTotal: {
     color: theme.colors.blackText,
-    fontSize: 18,
+    fontSize: getSize.m(17),
     textAlign: 'left',
     width: '50%',
   },
 
   txtTotall: {
     color: theme.colors.blackText,
-    fontSize: 18,
+    fontSize: getSize.m(17),
     textAlign: 'right',
     width: '50%',
   },
@@ -111,7 +111,7 @@ export default StyleSheet.create({
   viewTotal: {  
     width: '100%',
     backgroundColor: theme.colors.white,
-    marginBottom: 2,
+    marginBottom: getSize.m(2),
   },
 
   viewInfo: {  
@@ -121,28 +121,28 @@ export default StyleSheet.create({
 
   txtAddress: {
     color: theme.colors.blackText,
-    fontSize: 18,
+    fontSize: getSize.m(17),
     textAlign: 'left',
-    fontWeight: 'bold',
+    fontWeight: '500',
   },
 
   v5: {  
-    height: 52,
+    height: getSize.v(52),
     width: '92%',
     backgroundColor: theme.colors.primary,
     justifyContent:'center',
     position: 'absolute',
     alignSelf:'center',
     alignItems: 'center',
-    bottom: 16,
-    borderRadius: 6,
+    bottom: getSize.m(16),
+    borderRadius: getSize.m(6),
   },
 
   text: {
     color: theme.colors.black,
-    fontSize: 16,
+    fontSize: getSize.m(16),
     textAlign: 'center',
-    margin: 4,
+    margin: getSize.m(4),
   },
 
   button: {
@@ -150,6 +150,6 @@ export default StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent:'center',
-    borderRadius: 6,
+    borderRadius: getSize.m(6),
   }
 });

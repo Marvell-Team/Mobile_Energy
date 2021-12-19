@@ -51,10 +51,9 @@ const styles = StyleSheet.create({
   cardContainer: {
     width: width / 2.5 - 12,
     backgroundColor: theme.colors.white,
-    borderRadius: 5,
+    borderRadius: 6,
     marginVertical: 8,
-    marginHorizontal: 8,
-    padding: 5,
+    marginRight: 16,
   },
   viewImg: {
     alignSelf: 'center',

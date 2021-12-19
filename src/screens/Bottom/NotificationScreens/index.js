@@ -73,10 +73,10 @@ const NotificationScreens = ({
 
   useEffect(() => {
     if (data2 !== null) {
-      console.log(data2);
-      console.log(
-        '===============>>>>>>>>>>>>>> DATA22222222222 =============>>>>>>>>>>>',
-      );
+      // console.log(data2);
+      // console.log(
+      //   '===============>>>>>>>>>>>>>> DATA22222222222 =============>>>>>>>>>>>',
+      // );
     }
   }, [data2]);
 

@@ -170,7 +170,7 @@ const VoteScreen = ({data, addComment}) => {
               justifyContent: 'center',
             }}>
             <Text>{nameProduct}</Text>
-            <Text style={{color: theme.colors.greyText}}>Loại:{category}</Text>
+            <Text style={{color: theme.colors.greyText}}>Loại: {category}</Text>
           </View>
         </View>
         <View style={styles.icon}>
@@ -204,27 +204,27 @@ const VoteScreen = ({data, addComment}) => {
               />
             </View>
           ) : (
-            <View style={{paddingVertical: 14, paddingHorizontal: 20}}>
+            <View style={{paddingVertical: getSize.m(16), paddingHorizontal: getSize.m(24)}}>
               <Thumbnail
                 source={icons.camera}
                 imageStyle={{
                   width: getSize.s(50),
                   height: getSize.s(30),
-                }}></Thumbnail>
+                }}/>
               <Text
                 style={{
                   color: theme.colors.primary,
                   fontSize: 16,
-                  marginTop: getSize.m(10),
+                  marginTop: getSize.m(8),
                 }}>
-                Thêm Hình Ảnh
+                Thêm hình ảnh
               </Text>
             </View>
           )}
         </TouchableOpacity>
-        <View style={{width: '100%', paddingHorizontal: 10}}>
+        <View style={{width: '100%', paddingHorizontal: getSize.m(16), marginVertical: getSize.m(8)}}>
           <TextInput
-            placeholder={'Hãy chia sẽ cảm nhận của bạn'}
+            placeholder={'Hãy chia sẻ cảm nhận của bạn'}
             multiline={true}
             numberOfLines={4}
             style={[
@@ -259,7 +259,7 @@ const VoteScreen = ({data, addComment}) => {
               );
           }}
           style={styles.button}>
-          <Text style={{color: 'white', fontWeight: 'bold'}}>ĐÁNH GIÁ</Text>
+          <Text style={{color: 'white', fontWeight: 'bold', fontSize: getSize.m(16)}}>Đánh giá</Text>
         </TouchableOpacity>
       </View>
       {/* Tao cai nay ms hien Loadding */}

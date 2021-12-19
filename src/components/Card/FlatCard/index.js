@@ -56,11 +56,11 @@ const FlatCard = ({item, getBillDetailByIdAction}) => {
       if(Array.isArray(noti) && noti.length>0){
       setImageProduct(item.id_billdetail.products[0].id_product.id_image.nameImage[0]);
     //  setNameProduct('');
-       console.log(item.id_billdetail);
+       //console.log(item.id_billdetail);
     }
-      console.log(
-        '===============>>>>>>>>>>>>>>>>>>>>> Image Product ==========>>>>>>>>>>>>>>>>',
-      );
+      // console.log(
+      //   '===============>>>>>>>>>>>>>>>>>>>>> Image Product ==========>>>>>>>>>>>>>>>>',
+      // );
     }
     }
   }, [item]);
@@ -69,10 +69,10 @@ const FlatCard = ({item, getBillDetailByIdAction}) => {
   return (
     <Pressable onPress={() => {
       getBillDetailByIdAction(item.id_billdetail._id),
-      console.log(item)
-      console.log(item.id_billdetail._id)
+      //console.log(item)
+      //console.log(item.id_billdetail._id)
 
-      console.log('========================>>>>>>>>>>>>>>>>>>>>> ID_BILLDETAIL')
+      //console.log('========================>>>>>>>>>>>>>>>>>>>>> ID_BILLDETAIL')
       navigation.navigate(routes.ORDERDETAIL,{id:item.id_billdetail._id});
     }}>
       <Block flex column margin={8} backgroundColor={theme.colors.white} borderRadius={8}> 
@@ -106,7 +106,7 @@ const FlatCard = ({item, getBillDetailByIdAction}) => {
               style={styles.viewContentImage}
               source={{uri: imageProduct}}/>
 
-            <Text style={styles.txtContent}> Mã đơn: {item._id} </Text>
+            <Text style={styles.txtContent}> Mã đơn: {item.id_billdetail._id} </Text>
 
           </Block>
 
