@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  ScrollView,
 } from 'react-native';
 import {icons} from '@assets';
 import styles from './style';
@@ -169,7 +170,7 @@ const Product = ({
     } else {
       return {
         justifyContent: 'center',
-        color: theme.colors.black,
+        color: '#808080',
         paddingVertical: getSize.s(10),
         borderBottomWidth: 1,
         borderColor: '#808080',
@@ -287,14 +288,13 @@ const Product = ({
             <Block
               alignCenter
               row
-              
               style={{backgroundColor: '#77C8EB'}}
               width={'98%'}
               height={'100%'}
               paddingHorizontal={getSize.m(8)}>
               <Thumbnail
                 source={icons.search}
-                style={{width: 22, height: 22, marginRight: getSize.m(8)}}
+                style={{width: getSize.v(22), height: getSize.s(22), marginRight: getSize.m(8)}}
                 imageStyle={{tintColor: theme.colors.white}}
                 resizeMode="contain"
               />
@@ -336,9 +336,9 @@ const Product = ({
                 style={[
                   jewelStyle2(item.id),
                   {width: '100%', textAlign: 'center', borderColor: '#808080'},
-                  index === categori.length - 1
-                    ? {borderLeftWidth: 0.7}
-                    : {borderRightWidth: 0.7},
+                  index === categori.length - 1,
+                  // ? {borderLeftWidth: 0.5}
+                  // : {borderRightWidth: 0.5},
                 ]}
                 size={getSize.m(18)}>
                 {item.name}
@@ -352,7 +352,7 @@ const Product = ({
       <Block flex alignCenter justifyCenter>
         <FlatList
           data={data}
-          style={{alignSelf: 'center', marginTop: 15}}
+          style={{alignSelf: 'center'}}
           numColumns={2}
           renderItem={({item, index}) =>
             item.id_category !== null && (

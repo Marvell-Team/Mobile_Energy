@@ -22,7 +22,7 @@ const ProductCard = ({item, index, onPress, style, getProductbyIdAction}) => {
           <Image
             source={{uri: id_image.nameImage[0]}}
             style={styles.imgProduct}
-            resizeMode="contain"
+            resizeMode="stretch"
           />
         </Block>
         <Block justifyCenter style={styles.viewInfo}>
@@ -51,10 +51,9 @@ const styles = StyleSheet.create({
   cardContainer: {
     width: width / 2.5 - 12,
     backgroundColor: theme.colors.white,
-    borderRadius: 5,
+    borderRadius: 6,
     marginVertical: 8,
-    marginHorizontal: 8,
-    padding: 5,
+    marginRight: 16,
   },
   viewImg: {
     alignSelf: 'center',

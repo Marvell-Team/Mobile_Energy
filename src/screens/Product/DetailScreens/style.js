@@ -32,7 +32,7 @@ export default StyleSheet.create({
     backgroundColor: theme.colors.white,
     borderTopLeftRadius:20,
     borderTopRightRadius:20,
-    marginTop:-24,
+    marginTop:getSize.m(-24),
     elevation: 2,
     shadowColor: theme.colors.black,
     shadowOpacity: 1,
@@ -56,8 +56,8 @@ export default StyleSheet.create({
     borderWidth:1,
   },
   button:{
-    width:width/4.5,
-    height:height/25,
+    width:getSize.s(width/4.5),
+    height:getSize.v(height/25),
     backgroundColor: theme.colors.white,
     borderRadius:20,
     borderColor:theme.colors.primary,
@@ -66,8 +66,8 @@ export default StyleSheet.create({
   },
   bodyuser:{
    
-    marginTop:13,
-    marginBottom:13,
+    marginTop:getSize.m(13),
+    marginBottom:getSize.m(13),
     width:width/1.1,
     backgroundColor: theme.colors.white,
   },
@@ -76,21 +76,21 @@ export default StyleSheet.create({
     width:width/1.1,
   },
   commentbody:{
-    marginTop:5,
     width:width/1.1,
+    backgroundColor: theme.colors.white
   },
   card:{
     width:width/1.1,
     marginTop:10
   },
   viewAvt: {
-    width: 60,
-    height: 60,
+    width: getSize.v(60),
+    height: getSize.s(60),
     borderRadius: 60 / 2,
     borderWidth: 2,
     borderColor: theme.colors.white,
     padding: 1,
-    marginRight: 5,
+    marginRight: getSize.m(6),
   },
   avt: {
     width: '100%',
@@ -98,11 +98,11 @@ export default StyleSheet.create({
     borderRadius: 60 / 2,
   },
   dotActive:{
-    margin:3,
+    margin:getSize.m(3),
     color:'black'
   },
   dot:{
-    margin:3,
+    margin:getSize.m(3),
     color:'#888'
   }
 });

@@ -80,22 +80,17 @@ const Product = ({getProductbyIdAction}) => {
   };
 
   return (
-    <Block flex>
+    <Block flex backgroundColor={theme.colors.white}>
       {/* header */}
       <Block
-        height={getSize.s(90)}
         backgroundColor={theme.colors.primary}
-        paddingHorizontal={getSize.m(10)}>
-        <Block
-          row
-          height={'60%'}
-          justifyCenter
-          alignCenter
-          style={styles.header}>
+        paddingHorizontal={getSize.m(8)}
+        paddingBottom={getSize.m(16)}>
+        <Block row justifyCenter alignCenter style={styles.header}>
           <Block justifyCenter alignStart style={{flex: 2}}>
             <Thumbnail
               source={icons.back}
-              style={{width: getSize.s(20), height: getSize.s(20)}}
+              style={{width: getSize.s(24), height: getSize.s(24)}}
               resizeMode="contain"
               onPress={() => {
                 navigation.goBack();
@@ -112,15 +107,16 @@ const Product = ({getProductbyIdAction}) => {
               row
               paddingVertical={getSize.m(2)}
               style={{backgroundColor: '#77C8EB'}}
-              width={'100%'}
+              width={'98%'}
               height={'100%'}
               paddingHorizontal={getSize.m(8)}>
               <Thumbnail
                 source={icons.search}
-                style={{width: 20, height: 20, marginRight: getSize.m(5)}}
+                style={{width: 20, height: 20, marginRight: getSize.m(6)}}
+                imageStyle={{tintColor: theme.colors.white}}
                 resizeMode="contain"
               />
-              <Text size={getSize.m(18)} color={'white'}>
+              <Text size={getSize.m(16)} color={'white'}>
                 Tìm kiếm
               </Text>
             </Block>
@@ -130,8 +126,8 @@ const Product = ({getProductbyIdAction}) => {
               source={icons.filter1}
               style={{
                 marginHorizontal: 2,
-                width: getSize.s(22),
-                height: getSize.s(22),
+                width: getSize.s(24),
+                height: getSize.s(24),
               }}
             />
           </Block>
@@ -140,7 +136,7 @@ const Product = ({getProductbyIdAction}) => {
 
       {/* content */}
 
-      <Block flex alignCenter justifyCenter marginTop={10}>
+      <Block flex alignCenter justifyCenter>
         <FlatList
           data={item}
           numColumns={2}

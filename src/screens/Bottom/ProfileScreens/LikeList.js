@@ -65,20 +65,20 @@ const LikeList = ({
   useEffect(() => {
     if (useData.token !== null && useData.id !== null) {
       getLikeByUserAction(useData.id);
-      console.log(useData.id);
-      console.log(
-        '---------------->>>>>>>>>>>>>>> getLikeByUserAction(useData.id):',
-      );
+      // console.log(useData.id);
+      // console.log(
+      //   '---------------->>>>>>>>>>>>>>> getLikeByUserAction(useData.id):',
+      // );
     }
   }, [getLikeByUserAction]);
 
   useEffect(() => {
     if (data1 !== null) {
       setData2(data1.data);
-      console.log(data1.data);
-      console.log(
-        '----------->>>>>>>>>>>>>> LikeList useEffect --------->>>>>>>>>>>',
-      );
+      // console.log(data1.data);
+      // console.log(
+      //   '----------->>>>>>>>>>>>>> LikeList useEffect --------->>>>>>>>>>>',
+      // );
     }
   }, [data1]);
 
@@ -92,40 +92,6 @@ const LikeList = ({
       ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
   }, [error]);
-
-  const setStatusFilter = id => {
-    setStatus(id);
-  };
-  const jewelStyle = id => {
-    if (id === status) {
-      return {
-        justifyContent: 'center',
-        color: theme.colors.primary,
-        borderBottomWidth: 1,
-        borderColor: theme.colors.primary,
-        paddingVertical: getSize.s(10),
-      };
-    } else {
-      return {
-        justifyContent: 'center',
-        color: theme.colors.black,
-        paddingVertical: getSize.s(10),
-        borderBottomWidth: 1,
-        borderColor: '#808080',
-      };
-    }
-  };
-  const jewelStyle2 = id => {
-    if (id === status) {
-      return {
-        color: theme.colors.primary,
-      };
-    } else {
-      return {
-        color: '#808080',
-      };
-    }
-  };
 
   return (
     <Block style={styles.container}>
@@ -181,36 +147,6 @@ const LikeList = ({
           </Block>
         </Block>
       </Block>
-      {/* <Block row justifyCenter alignCenter>
-        {categori.map((item, index) => (
-          <TouchableOpacity
-            style={[
-              jewelStyle(item.id),
-              {
-                width: '32%',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: theme.colors.white,
-              },
-            ]}
-            onPress={() => {
-              setStatusFilter(item.id);
-            }}>
-            <Text
-              style={[
-                jewelStyle2(item.id),
-                {width: '100%', textAlign: 'center', borderColor: '#808080'},
-                index === categori.length - 1
-                  ? {borderLeftWidth: 0.7}
-                  : {borderRightWidth: 0.7},
-              ]}
-              size={getSize.m(18)}>
-              {item.name}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </Block> */}
-      {/* content */}
 
       <Block alignCenter>
         {Array.isArray(data2) && data2.length ? (

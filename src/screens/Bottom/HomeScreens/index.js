@@ -212,14 +212,14 @@ const HomeScreens = ({
             <Text style={styles.txtMore}>Xem thêm</Text>
             <Thumbnail
               source={icons.next}
-              style={{width: 22, height: 22}}
+              style={{width:22, height: 22}}
               imageStyle={{tintColor: theme.colors.primary}}
             />
           </Pressable>
         </Block>
         <FlatList
           data={data}
-          style={{alignSelf: 'center', marginTop: 15}}
+          style={{alignSelf: 'center'}}
           showsHorizontalScrollIndicator={false}
           horizontal
           renderItem={({item, index}) =>
@@ -280,7 +280,7 @@ const HomeScreens = ({
           type: GET_PRODUCT,
         })}
         {blockListProduct({
-          title: 'SẢN PHẨM ĐƯỢC YÊU THÍCH NHẤT',
+          title: 'SẢN PHẨM ĐƯỢC YÊU THÍCH',
           data: dataFavorite,
           type: GET_FAVORITE,
         })}
@@ -297,7 +297,7 @@ const HomeScreens = ({
           ]}>
           GỢI Ý HÔM NAY
         </Text>
-        <Block justifyCenter alignCenter>
+        <Block justifyCenter marginBottom={getSize.m(12)} alignCenter>
           <FlatList
             data={salesList.reverse()}
             numColumns={2}

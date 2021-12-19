@@ -15,9 +15,9 @@ export default StyleSheet.create({
     backgroundColor: theme.colors.secondary,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    paddingTop: StatusBar.currentHeight + 12,
+    paddingHorizontal: getSize.m(16),
+    paddingVertical: getSize.m(16),
+    paddingTop: StatusBar.currentHeight + getSize.m(12),
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
     position: 'absolute',
@@ -77,12 +77,12 @@ export default StyleSheet.create({
   },
 
   blockProductContainer: {
-    marginVertical: getSize.s(6),
+    marginBottom: getSize.s(6),
     width: width,
     backgroundColor: theme.colors.thirdy,
     flexDirection: 'column',
     alignItems: 'center',
-    paddingHorizontal: getSize.s(12),
+    paddingLeft: getSize.s(12),
     paddingVertical: getSize.s(12),
   },
 
@@ -91,6 +91,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     alignItems: 'center',
+    marginBottom: getSize.m(4)
   },
 
   textTitle: {

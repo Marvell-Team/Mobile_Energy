@@ -87,7 +87,7 @@ const OrderLocation = ({data,getStoreAction,getStoreByIdAction, loadding, error}
         <TextInput onChangeText={setPhone} placeholder={'01232130823'} style={styles.textin} />
 
         <Text style={styles.text}>Địa chỉ cụ thể</Text>
-        <Modalpicker setIdlocal={setIdlocal} item={data1} />
+        <Modalpicker setIdlocal={setIdlocal} item={data1}/>
       </View>
      
       <View style={styles.footer}>
@@ -106,13 +106,12 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.white
   },
   body: {
-    paddingVertical: getSize.s(24),
+    paddingVertical: getSize.m(12),
     backgroundColor: theme.colors.white,
-    paddingHorizontal: getSize.s(12),
+    paddingHorizontal: getSize.m(12),
   },
   footer: {
     width: width,
-    paddingVertical: getSize.s(12),
     position: 'absolute',
     justifyContent: 'center',
     bottom: 0,
@@ -123,19 +122,19 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'Arial',
-    marginTop: getSize.v(8),
+    marginTop: getSize.m(8),
   },
   textin: {
-    borderBottomWidth: 1,
-    borderColor: theme.colors.lightGray,
- 
+    borderBottomWidth: 0.3,
+    borderColor: theme.colors.gray,
+    fontSize: 16,
   },
   picker: {
     borderBottomWidth: 0.5,
   },
   button: {
-    marginVertical: getSize.v(10),
+    height: getSize.v(52),
     backgroundColor: theme.colors.primary,
-    marginHorizontal:  getSize.s(12),
+    marginHorizontal:  getSize.m(16),
   },
 });

@@ -11,6 +11,7 @@ import {formatCurrency} from '@utils/utils';
 import {Header, Block} from '@components';
 import style from '@components/Card/FlatCard/style';
 import Loading from '@components/Loadding/Loading';
+import { getSize } from '@utils/responsive';
 
 const mapStateToProps = state => {
   return {
@@ -60,11 +61,11 @@ const OrderDetail = ({data2, getBillDetailById, loadding, error}) => {
       setAddress_store(item.id_store.address_store);
       setName(item.id_bill.note_bill.name);
       setPhone(item.id_bill.note_bill.phone);
-      setIdBill(item.id_bill._id);
-      console.log(item.id_bill._id);
-      console.log(
-        '=========================<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<xxxxx',
-      );
+      setIdBill(item._id);
+      // console.log(item.id_bill._id);
+      // console.log(
+      //   '=========================<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<xxxxx',
+      // );
     }
   }, [data2]);
 
@@ -88,7 +89,7 @@ const OrderDetail = ({data2, getBillDetailById, loadding, error}) => {
           navigation.goBack();
         }}
       />
-      <Block paddingHorizontal={16} style={styles.viewHeader}>
+      <Block paddingHorizontal={getSize.m(16)} style={styles.viewHeader}>
         <Block style={styles.viewOrderId}>
           <Text style={styles.text}>Mã đơn hàng: #{idBill}</Text>
         </Block>
@@ -98,22 +99,22 @@ const OrderDetail = ({data2, getBillDetailById, loadding, error}) => {
             style={styles.imageOrderBill}
             resizeMode="contain"
           />
-          <Block column paddingHorizontal={12}>
+          <Block column paddingHorizontal={getSize.m(12)}>
             <Text style={styles.txtStatus}>{status}</Text>
             <Text style={styles.txtOrderDate}>Ngày đặt hàng: {date}</Text>
           </Block>
         </Block>
       </Block>
 
-      <Block paddingHorizontal={16} column style={styles.viewOderInfo}>
+      <Block paddingHorizontal={getSize.m(16)} column style={styles.viewOderInfo}>
         <Block style={styles.viewInOderInfo}>
           <Text style={styles.text}>Thông tin sản phẩm</Text>
         </Block>
         {data1.map(item => (
           <Block
             row
-            paddingVertical={16}
-            paddingHorizontal={8}
+            paddingVertical={getSize.m(16)}
+            paddingHorizontal={getSize.m(8)}
             style={styles.viewProduct}>
             <Image
               source={{uri: item.id_product.id_image.nameImage[0]}}
@@ -121,7 +122,7 @@ const OrderDetail = ({data2, getBillDetailById, loadding, error}) => {
               resizeMode="contain"
             />
 
-            <Block column justifyCenter paddingHorizontal={8}>
+            <Block column justifyCenter paddingHorizontal={getSize.m(8)}>
               <Block row>
                 <Text style={styles.txtNameProduct}>
                   {item.id_product.nameProduct}
@@ -140,8 +141,8 @@ const OrderDetail = ({data2, getBillDetailById, loadding, error}) => {
       </Block>
 
       <Block
-        paddingHorizontal={16}
-        paddingVertical={16}
+        paddingHorizontal={getSize.m(16)}
+        paddingVertical={getSize.m(16)}
         row
         style={styles.viewTotal}>
         <Text style={styles.txtTotal}>Giá tạm tính:</Text>
@@ -149,16 +150,16 @@ const OrderDetail = ({data2, getBillDetailById, loadding, error}) => {
       </Block>
 
       <Block
-        paddingHorizontal={16}
-        paddingVertical={16}
+        paddingHorizontal={getSize.m(16)}
+        paddingVertical={getSize.m(16)}
         style={styles.viewInfo}>
         <Text style={styles.txtAddress}>
           Địa chỉ và thông tin nơi nhận hàng:
         </Text>
-        <Text style={{fontSize: 18, paddingTop: 8}}>
+        <Text style={{fontSize: getSize.m(16), paddingTop: getSize.m(8)}}>
           {name} - {phone}
         </Text>
-        <Text style={{fontSize: 18, paddingTop: 8}}>{address_store}</Text>
+        <Text style={{fontSize: getSize.m(16), paddingTop: getSize.m(8)}}>{address_store}</Text>
       </Block>
 
       <View style={styles.v5}>
@@ -167,7 +168,7 @@ const OrderDetail = ({data2, getBillDetailById, loadding, error}) => {
             navigation.goBack();
           }}
           style={styles.button}>
-          <Text style={{color: theme.colors.white, fontSize: 18}}>
+          <Text style={{color: theme.colors.white, fontSize: getSize.m(18)}}>
             Quay lại danh sách đơn hàng
           </Text>
         </TouchableOpacity>

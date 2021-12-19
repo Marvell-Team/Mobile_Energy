@@ -137,22 +137,17 @@ const SEARCHSCREEN = ({getProduct, data1, loadding}) => {
     });
   }, []);
   return (
-    <Block flex>
+    <Block flex backgroundColor={theme.colors.white}>
       {/* header */}
       <Block
-        height={getSize.s(100)}
         backgroundColor={theme.colors.primary}
-        paddingHorizontal={getSize.m(10)}>
-        <Block
-          row
-          height={'60%'}
-          justifyCenter
-          alignCenter
-          style={styles.header}>
+        paddingHorizontal={getSize.m(8)}
+        paddingBottom={getSize.m(16)}>
+        <Block row justifyCenter alignCenter style={styles.header}>
           <Block justifyCenter alignStart style={{flex: 2}}>
             <Thumbnail
               source={icons.back}
-              style={{width: getSize.s(20), height: getSize.s(20)}}
+              style={{width: getSize.s(24), height: getSize.s(24)}}
               resizeMode="contain"
               onPress={() => {
                 navigation.goBack();
@@ -167,19 +162,28 @@ const SEARCHSCREEN = ({getProduct, data1, loadding}) => {
             alignCenter
             placeholderTextColor={'white'}
             paddingVertical={getSize.m(2)}
-            style={{flex: 18, backgroundColor: '#77C8EB'}}
-            inputstyle={{color: 'white', fontSize: getSize.m(18)}}
+            style={{
+              flex: 16,
+              backgroundColor: '#77C8EB',
+              borderColor: theme.colors.primary,
+            }}
+            inputstyle={{color: 'white', fontSize: getSize.m(16)}}
             width={'100%'}
             height={getSize.s(35)}
             iconleft={icons.search}
-            iconStyle={{tintColor: theme.colors.primary}}></TextInput>
+            iconStyle={{
+              width: getSize.v(24),
+              height: getSize.s(24),
+              tintColor: theme.colors.white,
+            }}
+          />
           <Block alignEnd justifyCenter style={{flex: 2}}>
             <Thumbnail
               source={icons.filter1}
               style={{
                 marginHorizontal: 2,
-                width: getSize.s(22),
-                height: getSize.s(22),
+                width: getSize.s(24),
+                height: getSize.s(24),
               }}
             />
           </Block>
@@ -211,10 +215,9 @@ const SEARCHSCREEN = ({getProduct, data1, loadding}) => {
                   }}>
                   <Block
                     width={width}
-                    style={{borderBottomWidth: 1, borderColor: '#A6A6A6'}}
-                    paddingVertical={getSize.m(10)}
-                    paddingHorizontal={getSize.m(10)}>
-                    <Text size={20}>{item.nameProduct}</Text>
+                    paddingVertical={getSize.m(8)}
+                    paddingHorizontal={getSize.m(8)}>
+                    <Text size={18}>{item.nameProduct}</Text>
                   </Block>
                 </TouchableOpacity>
               ) : null
@@ -225,10 +228,10 @@ const SEARCHSCREEN = ({getProduct, data1, loadding}) => {
                 }}>
                 <Block
                   width={width}
-                  style={{borderBottomWidth: 1, borderColor: '#A6A6A6'}}
-                  paddingVertical={getSize.m(10)}
-                  paddingHorizontal={getSize.m(10)}>
-                  <Text size={20}>{item.nameProduct}</Text>
+                  paddingVertical={getSize.m(8)}
+                  paddingHorizontal={getSize.m(8)}
+                  backgroundColor={theme.colors.red}>
+                  <Text size={18}>{item.nameProduct}</Text>
                 </Block>
               </TouchableOpacity>
             ),
@@ -244,12 +247,12 @@ const SEARCHSCREEN = ({getProduct, data1, loadding}) => {
               }}>
               <Block
                 width={width}
-                style={{borderBottomWidth: 0.5, borderColor: '#808080'}}
-                paddingVertical={getSize.m(5)}
+                style={{borderTopWidth: 0.3, borderColor: theme.colors.gray}}
+                paddingVertical={getSize.m(8)}
                 paddingHorizontal={getSize.m(10)}
                 justifyCenter
                 alignCenter>
-                <Text size={20}>
+                <Text size={17}>
                   {searchShow ? 'Hiển thị tất cả' : 'Xóa lịch sử tìm kiếm'}
                 </Text>
               </Block>

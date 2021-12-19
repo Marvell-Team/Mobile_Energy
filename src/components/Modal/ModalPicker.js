@@ -74,7 +74,6 @@ export default function Modalpicker({item, setIdlocal}) {
         <View style={styles.modalContainer}>
           <View style={styles.modalItem}>
             <View style={styles.itemRow}>
-              <FontAwesome5 name="search" size={getSize.m(20)} />
               <TextInput
                 style={styles.modaltextIp}
                 placeholder="Tìm kiếm"
@@ -83,15 +82,15 @@ export default function Modalpicker({item, setIdlocal}) {
                 onChangeText={text => seachFilter(text)}
               />
             </View>
-            <View style={{borderBottomWidth: 2, borderColor: 'black'}} />
+            <View style={{borderBottomWidth: 0.3, borderColor: theme.colors.gray, marginBottom: getSize.m(4)}} />
             <ScrollView>
               {!(Array.isArray(filterData) && filterData.length) ? (
                 <View>
-                  <Text style={{fontSize: 18}}>No found Object</Text>
+                  <Text style={{fontSize: 16, marginBottom: getSize.m(8)}}>Không có cửa hàng</Text>
                   <TouchableOpacity
                     style={styles.close}
                     onPress={() => setModalVisible(false)}>
-                    <Text style={styles.textclose}>Close</Text>
+                    <Text style={styles.textclose}>Đóng</Text>
                   </TouchableOpacity>
                 </View>
               ) : (
@@ -100,14 +99,9 @@ export default function Modalpicker({item, setIdlocal}) {
                     onPress={() => {
                       _setItem(item), setModalVisible(false);
                     }}>
-                    <View style={{marginTop: 5}}>
+                    <View style={{paddingHorizontal: 8,
+                      paddingVertical: 4}}>
                       <Text style={styles.text}>{item.address_store}</Text>
-                      <View
-                        style={{
-                          borderBottomWidth: 2,
-                          borderColor: 'black',
-                        }}
-                      />
                     </View>
                   </TouchableOpacity>
                 ))

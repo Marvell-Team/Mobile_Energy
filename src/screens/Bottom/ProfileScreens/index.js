@@ -114,7 +114,7 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
               justifyContent: 'center',
               paddingVertical: getSize.m(20),
               flexDirection: 'row',
-              marginTop: getSize.m(24),
+              marginTop: getSize.m(32),
               backgroundColor: theme.colors.primary,
             }}>
             <TouchableOpacity
@@ -242,10 +242,10 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
                 <Image
                   source={icons.next}
                   style={{
-                    width: 24,
-                    height: 24,
+                    width: getSize.s(24),
+                    height: getSize.s(24),
                     tintColor: theme.colors.white,
-                    marginRight: 8,
+                    marginRight: getSize.m(8),
                   }}
                 />
               </Block>
@@ -286,7 +286,7 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
           <Title
             style={{
               color: theme.colors.blackText,
-              fontSize: 20,
+              fontSize: getSize.m(20),
               paddingVertical: getSize.m(12),
               borderBottomWidth: 0.3,
               borderColor: theme.colors.greyTitle,
@@ -351,7 +351,7 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
                 ToastAndroid.SHORT,
               );
             } else {
-              navigation.navigate(routes.SUPPORTSCREEN)
+              navigation.navigate(routes.SUPPORTSCREEN);
             }
           }}>
           <View style={styles.menuItem}>
@@ -362,7 +362,14 @@ const ProfileScreens = ({logoutAction, data, error, getUserByID, loadding}) => {
 
         <TouchableRipple
           onPress={() => {
-            navigation.navigate(routes.CHANGEPASSSCREEN);
+            if (useData.token === null) {
+              ToastAndroid.show(
+                'Bạn cần đăng nhập để sử dụng tính năng này',
+                ToastAndroid.SHORT,
+              );
+            } else {
+              navigation.navigate(routes.CHANGEPASSSCREEN);
+            }
           }}>
           <View style={styles.menuItem}>
             <Icon name="key-outline" color="#46B3F6" size={30} />
@@ -443,8 +450,8 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   caption: {
-    fontSize: 14,
-    lineHeight: 14,
+    fontSize: getSize.m(14),
+    lineHeight: getSize.m(14),
     fontWeight: '500',
     color: 'white',
   },
@@ -458,7 +465,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     flexDirection: 'row',
     //backgroundColor: '#FFFAFA',
-    paddingVertical: 8,
+    paddingVertical: getSize.m(8),
   },
   infoBox: {
     width: '50%',
@@ -467,8 +474,6 @@ const styles = StyleSheet.create({
     fontSize: getSize.m(20),
   },
   menuWrapper: {
-    marginTop: 0,
-    height: '100%',
     backgroundColor: theme.colors.white,
     borderTopLeftRadius: getSize.m(20),
     borderTopRightRadius: getSize.m(20),
@@ -482,7 +487,7 @@ const styles = StyleSheet.create({
   menuItemText: {
     color: theme.colors.blackText,
     marginLeft: getSize.m(20),
-    fontSize: getSize.m(18),
+    fontSize: getSize.m(17),
     lineHeight: getSize.m(26),
   },
 });
