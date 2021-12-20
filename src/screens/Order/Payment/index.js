@@ -28,7 +28,7 @@ import {
 import {useData} from 'config/config';
 import {useNavigation} from '@react-navigation/native';
 import {routes} from '@navigation/routes';
-import {Block, Header, Thumbnail} from '@components';
+import {Block, Header, Thumbnail, PressText} from '@components';
 import {icons} from '@assets';
 import {theme} from '@theme';
 import {getSize} from '@utils/responsive';
@@ -114,29 +114,29 @@ const CartScreens = ({
   }, [UpdateCartByUser, dataUpdate, getCartByUser]);
 
   useEffect(() => {
-    setLoading(loadding)
-  }, [loadding])
+    setLoading(loadding);
+  }, [loadding]);
 
   useEffect(() => {
-    if(error !== null){
+    if (error !== null) {
       console.log(error);
       ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
-  }, [error])
+  }, [error]);
 
   useEffect(() => {
-    if(errorStore !== null){
+    if (errorStore !== null) {
       console.log(errorStore);
       ToastAndroid.show('Lỗi: ' + errorStore, ToastAndroid.SHORT);
     }
-  }, [errorStore])
+  }, [errorStore]);
 
   useEffect(() => {
-    if(errorPayment !== null){
+    if (errorPayment !== null) {
       console.log(errorPayment);
       ToastAndroid.show('Lỗi: ' + errorPayment, ToastAndroid.SHORT);
     }
-  }, [errorPayment])
+  }, [errorPayment]);
 
   const _setDataCart = aa => {
     setDataCart(aa.products);
@@ -248,7 +248,7 @@ const CartScreens = ({
           />
         ))}
         <Block
-          marginBottom={getSize.m(16)}
+          marginBottom={getSize.m(4)}
           backgroundColor={theme.colors.white}
           row
           paddingVertical={12}
@@ -277,6 +277,26 @@ const CartScreens = ({
             />
           </Block>
         </Block>
+        <Block paddingHorizontal={16} style={style.viewDK}>
+          <Block row style={style.viewStatus}>
+            <Image
+              source={icons.orderbill}
+              style={style.imageOrderBill}
+              resizeMode="contain"
+            />
+            <Block column paddingHorizontal={16}>
+              <Text style={style.txtStatus}>
+                Khi thanh toán đồng nghĩa với việc bạn đồng ý với
+
+                <PressText
+            title="Điều khoản Energy Mobile"
+            onPress={() => navigation.navigate(routes.SUPPORTSCREEN)}
+            titleStyle={style.txtEn}
+          />
+              </Text>
+            </Block>
+          </Block>
+        </Block>
       </ScrollView>
       <View
         style={{
@@ -291,7 +311,8 @@ const CartScreens = ({
         }}>
         <View style={{width: '40%', justifyContent: 'center'}}>
           <Text style={{fontSize: 16}}>Tổng</Text>
-          <Text style={{fontSize: 18, fontWeight: 'bold', color: theme.colors.red}}>
+          <Text
+            style={{fontSize: 18, fontWeight: 'bold', color: theme.colors.red}}>
             {formatCurrency(dataTotal)}
           </Text>
         </View>
@@ -329,7 +350,7 @@ const CartScreens = ({
         </Block>
       </View>
       {/*Có cái này mới hiện loading!!!*/}
-      {loading && (<Loading/>)}
+      {loading && <Loading />}
     </SafeAreaView>
   );
 };
@@ -351,21 +372,43 @@ const CartCard = ({
 
   return (
     <View style={style.cartCard}>
-      <Image source={{uri: id_image}} style={{height:getSize.s(80), width: getSize.s(80), marginLeft: getSize.m(4)}} />
+      <Image
+        source={{uri: id_image}}
+        style={{
+          height: getSize.s(80),
+          width: getSize.s(80),
+          marginLeft: getSize.m(4),
+        }}
+      />
       <View
         style={{
           marginLeft: getSize.m(10),
           paddingVertical: getSize.m(20),
           flex: 1,
         }}>
-        <Text style={{fontWeight: '500', fontSize: getSize.m(18), marginBottom: getSize.m(4)}}>{nameProduct}</Text>
-        <Text style={[style.txtText], { color: theme.colors.gray, marginBottom: getSize.m(4)}}>Phân loại: {nameProduct}</Text>
+        <Text
+          style={{
+            fontWeight: '500',
+            fontSize: getSize.m(18),
+            marginBottom: getSize.m(4),
+          }}>
+          {nameProduct}
+        </Text>
+        <Text
+          style={
+            ([style.txtText],
+            {color: theme.colors.gray, marginBottom: getSize.m(4)})
+          }>
+          Phân loại: {nameProduct}
+        </Text>
         <Block row>
           <Text style={[style.txtText, {flex: 7, color: theme.colors.gray}]}>
             {formatCurrency(price_product)}
           </Text>
           <Block flex alignEnd>
-            <Text style={{fontSize: getSize.m(16), color: COLORS.grey}}>x{amount}</Text>
+            <Text style={{fontSize: getSize.m(16), color: COLORS.grey}}>
+              x{amount}
+            </Text>
           </Block>
         </Block>
       </View>
@@ -406,6 +449,30 @@ const style = StyleSheet.create({
     fontWeight: '500',
     fontSize: getSize.m(16),
     paddingHorizontal: getSize.m(6),
+  },
+  viewDK: {
+    backgroundColor: theme.colors.white,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    borderColor: theme.colors.gray,
+    marginBottom: getSize.m(4),
+    paddingVertical: getSize.m(16),
+  },
+  imageOrderBill: {
+    width: getSize.s(30),
+    height: getSize.s(38),
+  },
+  txtStatus: {
+    color: theme.colors.blackText,
+    fontSize: getSize.m(14),
+    textAlign: 'left',
+    alignItems: 'center',
+  },
+  txtEn: {
+    color: theme.colors.primary,
+    fontSize: getSize.m(14),
+    textAlign: 'left',
+    alignItems: 'center',
   },
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CartScreens);

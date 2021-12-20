@@ -230,7 +230,7 @@ const SEARCHSCREEN = ({getProduct, data1, loadding}) => {
                   width={width}
                   paddingVertical={getSize.m(8)}
                   paddingHorizontal={getSize.m(8)}
-                  backgroundColor={theme.colors.red}>
+                  backgroundColor={theme.colors.white}>
                   <Text size={18}>{item.nameProduct}</Text>
                 </Block>
               </TouchableOpacity>

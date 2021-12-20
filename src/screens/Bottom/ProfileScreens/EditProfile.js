@@ -308,7 +308,7 @@ const EditProfile = ({editUserByID, data, loadding, error}) => {
 
   const checkEditProfile = () => {
 
-    var validNumberPhone = /((09|03|07|08|05)+([0-9]{8})\b)/;
+    var validNumberPhone = /((9|3|7|8|5)+([0-9]{8})\b)/;
 
     if (name === '' && phoneNumber === '' && address === '') {
       setTextError('Vui lòng nhập đầy đủ thông tin!');
@@ -390,8 +390,8 @@ const EditProfile = ({editUserByID, data, loadding, error}) => {
                 style={styles.inEditViewAvatar}
                 source={icons.edit}
                 imageStyle={{
-                  width: getSize.s(24),
-                  height: getSize.s(24),
+                  width: getSize.s(18),
+                  height: getSize.s(18),
                   tintColor: theme.colors.primary,
                 }}/>
             </Block>
