@@ -13,15 +13,14 @@ const Support = () => {
   return (
     <Block style={styles.container}>
       <Header
+        title={'Hỗ trợ'}
         iconLeft={icons.back}
         leftPress={() => navigation.goBack()}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Block style={styles.form}>
           {/* Tiêu đề điều khoản */}
-          <Text style={styles.txtTitle}>
-            Điều khoản dịch vụ
-          </Text>
+          <Text style={styles.txtTitle}>Điều khoản dịch vụ</Text>
           {/* Nội dung điều khoản */}
           <Block>
             <Text style={styles.txtContent}>
@@ -127,7 +126,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: getSize.m(8),
   },
-  
+
   txtContent: {
     color: theme.colors.blackText,
     fontSize: getSize.m(16),

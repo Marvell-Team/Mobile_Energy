@@ -11,8 +11,9 @@ import {
   ToastAndroid,
   ImageBackground,
   Button,
+  PermissionsAndroid,
 } from 'react-native';
-import {useNavigation,CommonActions} from '@react-navigation/native';
+import {useNavigation, CommonActions} from '@react-navigation/native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {icons} from '@assets';
 import {theme} from '@theme';
@@ -25,6 +26,7 @@ import {useData} from 'config/config';
 import Loading from '@components/Loadding/Loading';
 import storage from '@react-native-firebase/storage';
 import {addComment, getProductbyIdAction} from '@redux/actions';
+import {ADD_COMMENT_NULL} from '@redux/actions/CommentAction';
 const mapStateToProps = state => {
   console.log(state.getCommentsReducer);
   return {
@@ -34,6 +36,16 @@ const mapStateToProps = state => {
     data: state.getProductByIDReducer ? state.getProductByIDReducer.data : null,
     loadding: state.getProductByIDReducer
       ? state.getProductByIDReducer.loadding
+      : null,
+
+    errorAddCmnt: state.addCommentsReducer
+      ? state.addCommentsReducer.error
+      : null,
+    dataAddCmnt: state.addCommentsReducer
+      ? state.addCommentsReducer.data
+      : null,
+    loaddingCmt: state.addCommentsReducer
+      ? state.addCommentsReducer.loadding
       : null,
   };
 };
@@ -46,9 +58,18 @@ const mapDispatchToProps = dispatch => {
     addComment: input => {
       dispatch(addComment(input));
     },
+    addCommentNull: () => {
+      dispatch({type: ADD_COMMENT_NULL});
+    },
   };
 };
-const VoteScreen = ({data, addComment}) => {
+const VoteScreen = ({
+  data,
+  addComment,
+  errorAddCmnt,
+  dataAddCmnt,
+  addCommentNull,
+}) => {
   const navigation = useNavigation();
   const [maxRating, setMaxRating] = useState([1, 2, 3, 4, 5]);
   const [defaultRating, setDefaultRating] = useState(0);
@@ -111,6 +132,29 @@ const VoteScreen = ({data, addComment}) => {
       setId_product(item._id);
     }
   }, [data]);
+  useEffect(() => {
+    if (dataAddCmnt !== null) {
+      getProductbyIdAction(id_product), navigation.goBack();
+      addCommentNull();
+      // navigation.dispatch(
+      //   CommonActions.reset({
+      //     index: 1,
+      //     routes: [
+      //       {
+      //         name: routes.DETAILSCREENS,
+      //         params: {id: id_product},
+      //       },
+      //     ],
+      //   }),
+      // );
+    }
+  }, [dataAddCmnt]);
+  useEffect(() => {
+    if (errorAddCmnt !== null) {
+      ToastAndroid.show(errorAddCmnt, ToastAndroid.SHORT);
+      addCommentNull();
+    }
+  }, [errorAddCmnt]);
   const uploadImageFirebase = async images => {
     const uploadUri = images;
     let fileName = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
@@ -204,13 +248,18 @@ const VoteScreen = ({data, addComment}) => {
               />
             </View>
           ) : (
-            <View style={{paddingVertical: getSize.m(16), paddingHorizontal: getSize.m(24)}}>
+            <View
+              style={{
+                paddingVertical: getSize.m(16),
+                paddingHorizontal: getSize.m(24),
+              }}>
               <Thumbnail
                 source={icons.camera}
                 imageStyle={{
                   width: getSize.s(50),
                   height: getSize.s(30),
-                }}/>
+                }}
+              />
               <Text
                 style={{
                   color: theme.colors.primary,
@@ -222,7 +271,12 @@ const VoteScreen = ({data, addComment}) => {
             </View>
           )}
         </TouchableOpacity>
-        <View style={{width: '100%', paddingHorizontal: getSize.m(16), marginVertical: getSize.m(8)}}>
+        <View
+          style={{
+            width: '100%',
+            paddingHorizontal: getSize.m(16),
+            marginVertical: getSize.m(8),
+          }}>
           <TextInput
             placeholder={'Hãy chia sẻ cảm nhận của bạn'}
             multiline={true}
@@ -237,29 +291,30 @@ const VoteScreen = ({data, addComment}) => {
 
         <TouchableOpacity
           onPress={() => {
-            addComment({
-              content: textCm,
-              image: imageComment,
-              id_product: id_product,
-              id_user: useData.id,
-              rate: defaultRating,
-            }),
-              getProductbyIdAction(id_product),
-              navigation.dispatch(
-                CommonActions.reset({
-                  index: 1,
-                  routes: [
-                    {
-                      name: routes.DETAILSCREENS,
-                      params:{id:id_product}
-                    },
-                  ],
-                  
-                } ),
+            if (defaultRating > 0 && textCm !== '') {
+              addComment({
+                content: textCm,
+                image: imageComment,
+                id_product: id_product,
+                id_user: useData.id,
+                rate: defaultRating,
+              });
+            } else {
+              ToastAndroid.show(
+                'Vui lòng nhập đầy đủ thông tin',
+                ToastAndroid.SHORT,
               );
+            }
           }}
           style={styles.button}>
-          <Text style={{color: 'white', fontWeight: 'bold', fontSize: getSize.m(16)}}>Đánh giá</Text>
+          <Text
+            style={{
+              color: 'white',
+              fontWeight: 'bold',
+              fontSize: getSize.m(16),
+            }}>
+            Đánh giá
+          </Text>
         </TouchableOpacity>
       </View>
       {/* Tao cai nay ms hien Loadding */}

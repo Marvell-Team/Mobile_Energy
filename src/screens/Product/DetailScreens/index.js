@@ -188,7 +188,7 @@ const DetailScreens = ({
   const [name, setName] = useState('');
   const [imageBG, setImageBG] = useState([]);
   const [price, setPrice] = useState(null);
-  const [description, setDescription] = useState(null);
+  const [description, setDescription] = useState({});
   const [check, setCheck] = useState(false);
   const [checkId, setcheckId] = useState('');
   const [dataComment, setDataComment] = useState([]);
@@ -315,7 +315,7 @@ const DetailScreens = ({
     }
   }
 
-  const [isShow, setIsShow] = useState(false);
+  const [isShow, setIsShow] = useState(true);
 
   const change = nativeEvent => {
     const slide = Math.ceil(
@@ -399,11 +399,11 @@ const DetailScreens = ({
             ? imageBG.map((item, index) => (
                 <Image
                   key={item}
-                  resizeMode="stretch"
+                  resizeMode="contain"
                   style={{
                     flexDirection: 'row',
                     width: width,
-                    height: height / 2.5,
+                    height: height / 2.3,
                   }}
                   source={{uri: item}}></Image>
               ))
@@ -472,9 +472,20 @@ const DetailScreens = ({
           {/* Body Name Product */}
           <Block row style={styles.bodyname}>
             <Block justifyCenter style={{flex: 3}}>
-
-              <Text style={{fontSize: getSize.m(18), fontWeight: '500', marginBottom: getSize.m(4)}}>{name}</Text>
-              <Text style={{fontSize: getSize.m(16), fontWeight: 'bold', color: theme.colors.red}}>
+              <Text
+                style={{
+                  fontSize: getSize.m(18),
+                  fontWeight: '500',
+                  marginBottom: getSize.m(4),
+                }}>
+                {name}
+              </Text>
+              <Text
+                style={{
+                  fontSize: getSize.m(16),
+                  fontWeight: 'bold',
+                  color: theme.colors.red,
+                }}>
                 {formatCurrency(price)}
               </Text>
               {/* <Text style={{fontSize: 12}}>16 giờ trước</Text> */}
@@ -612,15 +623,18 @@ const DetailScreens = ({
                 Bài viết đánh giá
               </Text>
               {allcountComment !== 0 ? (
-              <Text flex size={getSize.m(14)} right style={{fontStyle: 'italic'}}>
-                
-                {allcountComment} đánh giá - {parseFloat(avdComment).toFixed(2)}
-                /5
-                
-              </Text>
-               ) : (
+                <Text
+                  flex
+                  size={getSize.m(14)}
+                  right
+                  style={{fontStyle: 'italic'}}>
+                  {allcountComment} đánh giá -{' '}
+                  {parseFloat(avdComment).toFixed(2)}
+                  /5
+                </Text>
+              ) : (
                 <Text style={styles.txt}>Chưa có đánh giá</Text>
-                )}
+              )}
             </Block>
             <Block
               width={width / 1.1}
@@ -668,7 +682,10 @@ const DetailScreens = ({
                     onPress={() => {
                       setModalVisible(true), setModalType('Comment');
                     }}
-                    style={[styles.btnComment, {marginLeft: getSize.m(8), marginTop: getSize.m(16)}]}>
+                    style={[
+                      styles.btnComment,
+                      {marginLeft: getSize.m(8), marginTop: getSize.m(16)},
+                    ]}>
                     <Text
                       style={[
                         styles.txtComment,

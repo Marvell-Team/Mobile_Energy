@@ -13,7 +13,8 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    justifyContent: 'center',
+    width: getSize.s(50),
+    height: getSize.s(50),
   },
   text: {
     color: theme.colors.primary,

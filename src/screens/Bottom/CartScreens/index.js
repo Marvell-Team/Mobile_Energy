@@ -242,7 +242,7 @@ const CartCard = ({
 
   useEffect(() => {
     setAmount(item.amount);
-  }, [getCartByUser, dataCart]);
+  }, [getCartByUser]);
   const {id_image, price_product, nameProduct} = item;
 
   const addCart = async (Carts, index) => {
@@ -351,7 +351,6 @@ const CartCard = ({
             height: getSize.s(15),
             marginTop: 4,
           }}
-
         />
       </View>
     </View>

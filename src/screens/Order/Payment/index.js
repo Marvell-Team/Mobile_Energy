@@ -114,29 +114,29 @@ const CartScreens = ({
   }, [UpdateCartByUser, dataUpdate, getCartByUser]);
 
   useEffect(() => {
-    setLoading(loadding)
-  }, [loadding])
+    setLoading(loadding);
+  }, [loadding]);
 
   useEffect(() => {
-    if(error !== null){
+    if (error !== null) {
       console.log(error);
-      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
+      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.LONG);
     }
-  }, [error])
+  }, [error]);
 
   useEffect(() => {
-    if(errorStore !== null){
+    if (errorStore !== null) {
       console.log(errorStore);
-      ToastAndroid.show('Lỗi: ' + errorStore, ToastAndroid.SHORT);
+      ToastAndroid.show('Lỗi: ' + errorStore, ToastAndroid.LONG);
     }
-  }, [errorStore])
+  }, [errorStore]);
 
   useEffect(() => {
-    if(errorPayment !== null){
+    if (errorPayment !== null) {
       console.log(errorPayment);
-      ToastAndroid.show('Lỗi: ' + errorPayment, ToastAndroid.SHORT);
+      ToastAndroid.show('Lỗi: ' + errorPayment, ToastAndroid.LONG);
     }
-  }, [errorPayment])
+  }, [errorPayment]);
 
   const _setDataCart = aa => {
     setDataCart(aa.products);
@@ -191,7 +191,7 @@ const CartScreens = ({
           paddingHorizontal={getSize.m(10)}
           paddingVertical={getSize.m(12)}
           style={{
-            backgroundColor: COLORS.white,
+            backgroundColor: 'white',
           }}
           row>
           <Block style={{flex: 10}}>
@@ -291,7 +291,8 @@ const CartScreens = ({
         }}>
         <View style={{width: '40%', justifyContent: 'center'}}>
           <Text style={{fontSize: 16}}>Tổng</Text>
-          <Text style={{fontSize: 18, fontWeight: 'bold', color: theme.colors.red}}>
+          <Text
+            style={{fontSize: 18, fontWeight: 'bold', color: theme.colors.red}}>
             {formatCurrency(dataTotal)}
           </Text>
         </View>
@@ -329,7 +330,7 @@ const CartScreens = ({
         </Block>
       </View>
       {/*Có cái này mới hiện loading!!!*/}
-      {loading && (<Loading/>)}
+      {loading && <Loading />}
     </SafeAreaView>
   );
 };
@@ -351,21 +352,43 @@ const CartCard = ({
 
   return (
     <View style={style.cartCard}>
-      <Image source={{uri: id_image}} style={{height:getSize.s(80), width: getSize.s(80), marginLeft: getSize.m(4)}} />
+      <Image
+        source={{uri: id_image}}
+        style={{
+          height: getSize.s(80),
+          width: getSize.s(80),
+          marginLeft: getSize.m(4),
+        }}
+      />
       <View
         style={{
           marginLeft: getSize.m(10),
           paddingVertical: getSize.m(20),
           flex: 1,
         }}>
-        <Text style={{fontWeight: '500', fontSize: getSize.m(18), marginBottom: getSize.m(4)}}>{nameProduct}</Text>
-        <Text style={[style.txtText], { color: theme.colors.gray, marginBottom: getSize.m(4)}}>Phân loại: {nameProduct}</Text>
+        <Text
+          style={{
+            fontWeight: '500',
+            fontSize: getSize.m(18),
+            marginBottom: getSize.m(4),
+          }}>
+          {nameProduct}
+        </Text>
+        <Text
+          style={
+            ([style.txtText],
+            {color: theme.colors.gray, marginBottom: getSize.m(4)})
+          }>
+          Phân loại: {nameProduct}
+        </Text>
         <Block row>
           <Text style={[style.txtText, {flex: 7, color: theme.colors.gray}]}>
             {formatCurrency(price_product)}
           </Text>
           <Block flex alignEnd>
-            <Text style={{fontSize: getSize.m(16), color: COLORS.grey}}>x{amount}</Text>
+            <Text style={{fontSize: getSize.m(16), color: COLORS.grey}}>
+              x{amount}
+            </Text>
           </Block>
         </Block>
       </View>

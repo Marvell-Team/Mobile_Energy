@@ -41,7 +41,7 @@ const OrderSuccessScreen = () => {
       <TouchableOpacity
         onPress={() => navigation.navigate(routes.HOMESCREENS)}
         style={styles.button}>
-        <Text style={{color: 'white', fontWeight: 'bold'}}>TIẾP TỤC</Text>
+        <Text style={{color: 'white', fontWeight: 'bold'}}>TRANG CHỦ</Text>
       </TouchableOpacity>
     </View>
   );

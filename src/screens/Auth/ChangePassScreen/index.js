@@ -11,6 +11,7 @@ import {connect} from 'react-redux';
 import {resetPasswordAction} from '@redux/actions';
 import Loading from '@components/Loadding/Loading';
 import {useData} from 'config/config';
+import {RESET_PASSWORD_NULL} from '@redux/actions/ForgotPasswordAction';
 
 const mapStateToProps = state => {
   return {
@@ -27,6 +28,9 @@ const mapDispatchToProps = dispatch => {
     resetPasswordAction: input => {
       dispatch(resetPasswordAction(input));
     },
+    resetNull: () => {
+      dispatch({type: RESET_PASSWORD_NULL});
+    },
   };
 };
 
@@ -35,33 +39,21 @@ const ForgotPassword = ({
   resetPasswordAction,
   loadding,
   error,
+  resetNull,
 }) => {
   const navigation = useNavigation();
   const [newPassword, setNewPassword] = useState('');
+  const [oldPassword, setOldPassword] = useState('');
   const [newPassword2, setNewPassword2] = useState('');
-  const [id_user, setId_user] = useState('');
+  const [id_user, setId_user] = useState(useData.id);
   const [textError, setTextError] = useState('');
   const [loading, setLoading] = useState(false);
-
   useEffect(() => {
     if (data !== null) {
-      setId_user(data);
-      // console.log(data);
-      // console.log(
-      //   '----------->>>>>>>>>>>>>> DATA FORGOT PASSWORD useEffect --------->>>>>>>>>>>',
-      // );
+      resetNull();
+      navigation.goBack();
     }
   }, [data]);
-
-  useEffect(() => {
-    if (useData.token !== null && useData.id !== null) {
-      setId_user(useData.id);
-      // console.log(useData.id);
-      // console.log(
-      //   '---------------->>>>>>>>>>>>>>> getLikeByUserAction(useData.id):',
-      // );
-    }
-  }, []);
 
   useEffect(() => {
     setLoading(loadding);
@@ -69,15 +61,16 @@ const ForgotPassword = ({
 
   useEffect(() => {
     if (error !== null) {
+      resetNull();
       console.log(error);
-      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
+      ToastAndroid.show('Lỗi: ' + error, ToastAndroid.LONG);
     }
   }, [error]);
 
   const checkForgotPassword = () => {
     var validPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
-    if (newPassword === '' && newPassword2 === '') {
+    if (newPassword === '' && newPassword2 === '' && oldPassword === '') {
       setTextError('Vui lòng nhập đầy đủ thông tin!');
     } else if (newPassword === '') {
       setTextError('Mật khẩu không được để trống!');
@@ -92,10 +85,10 @@ const ForgotPassword = ({
     } else {
       let input = {
         id_user: id_user,
+        oldPass: newPassword,
         newPassWord: newPassword,
       };
       resetPasswordAction(input);
-      navigation.navigate(routes.LOGINSCREENS);
       setTextError('');
     }
   };
@@ -103,12 +96,26 @@ const ForgotPassword = ({
   return (
     <Block flex styles={styles.container}>
       <Header
+        title={'Đổi mật khẩu'}
         iconLeft={icons.back}
         iconStyle={{width: getSize.s(24), height: getSize.v(24)}}
         leftPress={() => navigation.goBack()}
       />
 
       <Block style={styles.viewEdit} padding={getSize.m(16)}>
+        <Block style={styles.viewText}>
+          <Text size={getSize.m(15)} style={styles.txtTitle}>
+            Mật khẩu cũ
+          </Text>
+          <TextInput
+            issecure
+            fontSize={getSize.m(18)}
+            style={styles.textInput}
+            onChangeText={setOldPassword}
+            placeholder="Nhập mật khẩu cũ"
+            autoFocus={true}
+          />
+        </Block>
         <Block style={styles.viewText}>
           <Text size={getSize.m(15)} style={styles.txtTitle}>
             Mật khẩu mới
@@ -230,8 +237,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     alignItems: 'center',
-    justifyContent:'center',
+    justifyContent: 'center',
     borderRadius: 6,
   },
-
 });

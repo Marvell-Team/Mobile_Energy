@@ -11,7 +11,7 @@ import {formatCurrency} from '@utils/utils';
 import {Header, Block} from '@components';
 import style from '@components/Card/FlatCard/style';
 import Loading from '@components/Loadding/Loading';
-import { getSize } from '@utils/responsive';
+import {getSize} from '@utils/responsive';
 
 const mapStateToProps = state => {
   return {
@@ -46,11 +46,24 @@ const OrderDetail = ({data2, getBillDetailById, loadding, error}) => {
   const [total, setTotal] = useState();
   const [phone, setPhone] = useState();
   const [address_store, setAddress_store] = useState('');
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState(null);
   const [idBill, setIdBill] = useState();
   const [date, setDate] = useState();
   const [loading, setLoading] = useState(false);
-
+  const dateconvertString = date1 => {
+    const date = new Date(date1);
+    setDate(
+      date.getDate() +
+        '/' +
+        (date.getMonth() + 1) +
+        '/' +
+        date.getFullYear() +
+        '-' +
+        date.getHours() +
+        ':' +
+        date.getMinutes(),
+    );
+  };
   useEffect(() => {
     if (data2 !== null) {
       const {data} = data2;
@@ -62,6 +75,8 @@ const OrderDetail = ({data2, getBillDetailById, loadding, error}) => {
       setName(item.id_bill.note_bill.name);
       setPhone(item.id_bill.note_bill.phone);
       setIdBill(item._id);
+      dateconvertString(item.id_bill.date_bill);
+
       // console.log(item.id_bill._id);
       // console.log(
       //   '=========================<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<xxxxx',
@@ -70,15 +85,15 @@ const OrderDetail = ({data2, getBillDetailById, loadding, error}) => {
   }, [data2]);
 
   useEffect(() => {
-    setLoading(loadding)
-  }, [loadding])
+    setLoading(loadding);
+  }, [loadding]);
 
   useEffect(() => {
-    if(error !== null){
+    if (error !== null) {
       console.log(error);
       ToastAndroid.show('Lỗi: ' + error, ToastAndroid.SHORT);
     }
-  }, [error])
+  }, [error]);
 
   return (
     <Block style={styles.container}>
@@ -100,13 +115,18 @@ const OrderDetail = ({data2, getBillDetailById, loadding, error}) => {
             resizeMode="contain"
           />
           <Block column paddingHorizontal={getSize.m(12)}>
-            <Text style={styles.txtStatus}>{status}</Text>
+            <Text style={styles.txtStatus}>
+              {status ? 'Đã Thanh Toán' : 'Chưa Thanh Toán'}
+            </Text>
             <Text style={styles.txtOrderDate}>Ngày đặt hàng: {date}</Text>
           </Block>
         </Block>
       </Block>
 
-      <Block paddingHorizontal={getSize.m(16)} column style={styles.viewOderInfo}>
+      <Block
+        paddingHorizontal={getSize.m(16)}
+        column
+        style={styles.viewOderInfo}>
         <Block style={styles.viewInOderInfo}>
           <Text style={styles.text}>Thông tin sản phẩm</Text>
         </Block>
@@ -132,8 +152,7 @@ const OrderDetail = ({data2, getBillDetailById, loadding, error}) => {
                 Hãng: - Màu: - Dung lượng:
               </Text>
               <Text style={styles.txtPrice}>
-                {formatCurrency(item.id_product.price_product)} - x
-                {item.amount}
+                {formatCurrency(item.id_product.price_product)} - x{item.amount}
               </Text>
             </Block>
           </Block>
@@ -157,9 +176,11 @@ const OrderDetail = ({data2, getBillDetailById, loadding, error}) => {
           Địa chỉ và thông tin nơi nhận hàng:
         </Text>
         <Text style={{fontSize: getSize.m(16), paddingTop: getSize.m(8)}}>
-          {name} - {phone}
+          Thông tin : {name} - {phone}
         </Text>
-        <Text style={{fontSize: getSize.m(16), paddingTop: getSize.m(8)}}>{address_store}</Text>
+        <Text style={{fontSize: getSize.m(16), paddingTop: getSize.m(8)}}>
+          Địa chỉ : {address_store}
+        </Text>
       </Block>
 
       <View style={styles.v5}>
@@ -174,7 +195,7 @@ const OrderDetail = ({data2, getBillDetailById, loadding, error}) => {
         </TouchableOpacity>
       </View>
       {/*Có cái này mới hiện loading!!!*/}
-      {loading && (<Loading/>)}
+      {loading && <Loading />}
     </Block>
   );
 };
