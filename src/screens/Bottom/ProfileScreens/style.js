@@ -49,8 +49,8 @@ export default StyleSheet.create({
   },
 
   inEditViewAvatar: {
-    width: 40,
-    height: 40,
+    width: 32,
+    height: 32,
     borderRadius: 100 / 2,
     backgroundColor: theme.colors.white,
     justifyContent: 'center',

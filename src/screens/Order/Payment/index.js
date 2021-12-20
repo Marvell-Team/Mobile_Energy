@@ -28,7 +28,7 @@ import {
 import {useData} from 'config/config';
 import {useNavigation} from '@react-navigation/native';
 import {routes} from '@navigation/routes';
-import {Block, Header, Thumbnail} from '@components';
+import {Block, Header, Thumbnail, PressText} from '@components';
 import {icons} from '@assets';
 import {theme} from '@theme';
 import {getSize} from '@utils/responsive';
@@ -248,7 +248,7 @@ const CartScreens = ({
           />
         ))}
         <Block
-          marginBottom={getSize.m(16)}
+          marginBottom={getSize.m(4)}
           backgroundColor={theme.colors.white}
           row
           paddingVertical={12}
@@ -275,6 +275,26 @@ const CartScreens = ({
               source={icons.next}
               imageStyle={{width: getSize.s(20), height: getSize.s(20)}}
             />
+          </Block>
+        </Block>
+        <Block paddingHorizontal={16} style={style.viewDK}>
+          <Block row style={style.viewStatus}>
+            <Image
+              source={icons.orderbill}
+              style={style.imageOrderBill}
+              resizeMode="contain"
+            />
+            <Block column paddingHorizontal={16}>
+              <Text style={style.txtStatus}>
+                Khi thanh toán đồng nghĩa với việc bạn đồng ý với
+
+                <PressText
+            title="Điều khoản Energy Mobile"
+            onPress={() => navigation.navigate(routes.SUPPORTSCREEN)}
+            titleStyle={style.txtEn}
+          />
+              </Text>
+            </Block>
           </Block>
         </Block>
       </ScrollView>
@@ -429,6 +449,30 @@ const style = StyleSheet.create({
     fontWeight: '500',
     fontSize: getSize.m(16),
     paddingHorizontal: getSize.m(6),
+  },
+  viewDK: {
+    backgroundColor: theme.colors.white,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    borderColor: theme.colors.gray,
+    marginBottom: getSize.m(4),
+    paddingVertical: getSize.m(16),
+  },
+  imageOrderBill: {
+    width: getSize.s(30),
+    height: getSize.s(38),
+  },
+  txtStatus: {
+    color: theme.colors.blackText,
+    fontSize: getSize.m(14),
+    textAlign: 'left',
+    alignItems: 'center',
+  },
+  txtEn: {
+    color: theme.colors.primary,
+    fontSize: getSize.m(14),
+    textAlign: 'left',
+    alignItems: 'center',
   },
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CartScreens);
