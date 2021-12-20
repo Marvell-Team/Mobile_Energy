@@ -532,31 +532,37 @@ const DetailScreens = ({
                       {description[key]}
                     </Text>
                   </Block>
-                ) : index % 2 === 0 ? (
-                  <Block
-                    paddingVertical={getSize.m(6)}
-                    backgroundColor={'#ffffff'}
-                    width={'100%'}>
-                    <Text size={getSize.m(16)}>
-                      <Text style={{fontWeight: 'bold'}} size={getSize.m(16)}>
-                        {key}
+                ) : description.chip !== '' ||
+                  description.ram !== '' ||
+                  description.camera_late !== '' ||
+                  description.rom !== '' ||
+                  description.pin !== '' ? (
+                  index % 2 === 0 ? (
+                    <Block
+                      paddingVertical={getSize.m(6)}
+                      backgroundColor={'#ffffff'}
+                      width={'100%'}>
+                      <Text size={getSize.m(16)}>
+                        <Text style={{fontWeight: 'bold'}} size={getSize.m(16)}>
+                          {key}
+                        </Text>
+                        : {description[key]}
                       </Text>
-                      : {description[key]}
-                    </Text>
-                  </Block>
-                ) : (
-                  <Block
-                    paddingVertical={getSize.m(6)}
-                    backgroundColor={'#f5f5f5'}
-                    width={'100%'}>
-                    <Text size={16}>
-                      <Text style={{fontWeight: 'bold'}} size={16}>
-                        {key}
+                    </Block>
+                  ) : (
+                    <Block
+                      paddingVertical={getSize.m(6)}
+                      backgroundColor={'#f5f5f5'}
+                      width={'100%'}>
+                      <Text size={16}>
+                        <Text style={{fontWeight: 'bold'}} size={16}>
+                          {key}
+                        </Text>
+                        : {description[key]}
                       </Text>
-                      : {description[key]}
-                    </Text>
-                  </Block>
-                ),
+                    </Block>
+                  )
+                ) : null,
               )}
               {/* {
                 Object.keys(description_product).map(function(key, index) {

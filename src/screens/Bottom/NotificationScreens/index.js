@@ -6,6 +6,7 @@ import styles from './style';
 import {connect} from 'react-redux';
 import {useData} from 'config/config';
 import {
+  addBillAction,
   getBillDetailByIdAction,
   getNotificationByUserAction,
 } from '@redux/actions';
@@ -33,6 +34,9 @@ const mapDispatchToProps = dispatch => {
     getBillDetailByIdAction: id => {
       dispatch(getBillDetailByIdAction(id));
     },
+    addBillAction: input => {
+      dispatch(addBillAction(input));
+    },
   };
 };
 
@@ -59,7 +63,7 @@ const NotificationScreens = ({
       // console.log(useData.token);
       // console.log('======================>>>>>>>>>>>>>>>>>>>>>> TOKEN: ');
     }
-  }, [getNotificationByUserAction]);
+  }, [getNotificationByUserAction, addBillAction]);
 
   useEffect(() => {
     if (data1 !== null) {
@@ -122,4 +126,7 @@ const NotificationScreens = ({
   );
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(NotificationScreens);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NotificationScreens);

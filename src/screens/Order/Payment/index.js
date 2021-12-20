@@ -88,6 +88,7 @@ const CartScreens = ({
   dataUpdate,
   loaddingStore,
   dataStore,
+  loaddingPayment,
   errorStore,
   getStoreByIdAction,
   addBillAction,
@@ -114,8 +115,8 @@ const CartScreens = ({
   }, [UpdateCartByUser, dataUpdate, getCartByUser]);
 
   useEffect(() => {
-    setLoading(loadding);
-  }, [loadding]);
+    setLoading(loaddingPayment);
+  }, [loaddingPayment]);
 
   useEffect(() => {
     if (error !== null) {
@@ -287,12 +288,11 @@ const CartScreens = ({
             <Block column paddingHorizontal={16}>
               <Text style={style.txtStatus}>
                 Khi thanh toán đồng nghĩa với việc bạn đồng ý với
-
                 <PressText
-            title="Điều khoản Energy Mobile"
-            onPress={() => navigation.navigate(routes.SUPPORTSCREEN)}
-            titleStyle={style.txtEn}
-          />
+                  title="Điều khoản Energy Mobile"
+                  onPress={() => navigation.navigate(routes.SUPPORTSCREEN)}
+                  titleStyle={style.txtEn}
+                />
               </Text>
             </Block>
           </Block>
